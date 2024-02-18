@@ -19,6 +19,7 @@
 
 # dependencies
 **/node_modules
+**/.next
 
 # IDEs and editors
 /.idea
