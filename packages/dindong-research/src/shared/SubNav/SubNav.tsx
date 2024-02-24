@@ -18,7 +18,12 @@ import { drawerWidth } from "../Nav/Nav";
 //
 //
 
+export const subNavHeight = 64;
 const pages = ["설문", "실험"];
+
+//
+//
+//
 
 const SubNav: NextPage = () => {
   return (
@@ -28,6 +33,7 @@ const SubNav: NextPage = () => {
         width: `calc(100% - ${drawerWidth}px)`,
         ml: `${drawerWidth}px`,
         backgroundColor: (theme) => theme.palette.background.paper,
+        borderBottom: (theme) => `1px solid ${theme.palette.divider}`,
       }}
       elevation={0}
     >

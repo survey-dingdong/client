@@ -16,6 +16,9 @@ import { NextPage } from "next";
 import Link from "next/link";
 import React from "react";
 
+import logoimage from "@/assets/logo.png";
+import Image from "next/image";
+
 //
 //
 //
@@ -85,12 +88,16 @@ const Nav: NextPage = () => {
       PaperProps={{ sx: { p: 3 } }}
       component="nav"
     >
-      <Box sx={{ mb: 3 }}>
-        <Link href="/" style={{ textDecoration: "none" }}>
-          <Typography variant="h4" fontWeight={800} component="h1">
-            LOGO
-          </Typography>
-          {/* <Box component="img" src="" title="딩동 홈페이지로 이동" /> */}
+      {/* logo */}
+      <Box sx={{ mb: 3, height: 40, position: "relative" }}>
+        <Link href="/">
+          <Image
+            alt="딩동 로고"
+            layout="fill"
+            objectFit="contain"
+            src={logoimage.src}
+            title="딩동 홈페이지로 이동"
+          />
         </Link>
       </Box>
 
@@ -100,6 +107,8 @@ const Nav: NextPage = () => {
         </ListSubheader>
         {renderList(navList)}
       </List>
+
+      {/* add workspace button */}
       <Button color="secondary" startIcon={<Add />}>
         워크스페이스 추가
       </Button>
