@@ -23,6 +23,10 @@
       "react-app/jest"
     ]
   },
+  "workspaces": [
+    "packages/*/*",
+    "packages/packages/*"
+  ],
   "browserslist": {
     "production": [
       ">0.2%",
