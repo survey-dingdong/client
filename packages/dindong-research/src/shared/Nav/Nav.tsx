@@ -13,11 +13,10 @@ import {
   Typography,
   styled,
 } from "@mui/material";
-import { NextPage } from "next";
 import Link from "next/link";
 import React from "react";
 
-import logoimage from "@/assets/logo.png";
+import logoimage from "src/assets/logo.png";
 import Image from "next/image";
 
 //
@@ -76,8 +75,8 @@ const Nav = () => {
    */
   const renderInterviews = (interviews: any[]) => {
     return interviews.map((interview) => (
-      <>
-        <ListItem key={interview.id}>
+      <React.Fragment key={interview.id}>
+        <ListItem>
           <ListItemText>{interview.name}</ListItemText>
         </ListItem>
         <List disablePadding>
@@ -88,7 +87,7 @@ const Nav = () => {
             <ListItemText primary={"실험 프로젝트 관리"} />
           </StyledListButton>
         </List>
-      </>
+      </React.Fragment>
     ));
   };
 
@@ -136,9 +135,12 @@ const Nav = () => {
         <Box sx={{ mb: 3, height: 40, position: "relative" }}>
           <Image
             alt="딩동 로고"
-            objectFit="contain"
             src={logoimage.src}
             title="딩동 홈페이지로 이동"
+            style={{
+              objectFit: "contain",
+            }}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             fill
           />
         </Box>

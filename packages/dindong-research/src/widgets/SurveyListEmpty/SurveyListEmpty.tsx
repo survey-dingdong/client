@@ -1,6 +1,6 @@
-import Empty from "@/shared/Empty/Empty";
 import React from "react";
 import CreateProjectAction from "../CreateProjectAction/CreateProjectAction";
+import Empty from "src/shared/Empty/Empty";
 
 const SurveyListEmpty = () => {
   return (

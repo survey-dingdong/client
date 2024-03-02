@@ -1,6 +1,6 @@
-import SurveyListEmpty from "@/widgets/SurveyListEmpty/SurveyListEmpty";
-import SurveyListPageHeader from "@/widgets/WorkspacePageHeader/WorkspacePageHeader";
 import { Stack } from "@mui/material";
+import SurveyListEmpty from "src/widgets/SurveyListEmpty/SurveyListEmpty";
+import SurveyListPageHeader from "src/widgets/WorkspacePageHeader/WorkspacePageHeader";
 
 export default function Page({ params }: { params: { slug: string } }) {
   return (
