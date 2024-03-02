@@ -9,29 +9,32 @@ import {
   Toolbar,
   Tooltip,
   Typography,
+  useTheme,
 } from "@mui/material";
 import { NextPage } from "next";
 import React from "react";
-import { drawerWidth } from "../Nav/Nav";
 
 //
 //
 //
 
-export const subNavHeight = 64;
-const pages = ["설문", "실험"];
+export const headerHeight = 64;
 
 //
 //
 //
 
-const SubNav: NextPage = () => {
+const Header: NextPage = () => {
+  const theme = useTheme();
+
+  //
+  //
+  //
+
   return (
     <AppBar
       position="fixed"
       sx={{
-        width: `calc(100% - ${drawerWidth}px)`,
-        ml: `${drawerWidth}px`,
         backgroundColor: (theme) => theme.palette.background.paper,
         borderBottom: (theme) => `1px solid ${theme.palette.divider}`,
       }}
@@ -39,11 +42,14 @@ const SubNav: NextPage = () => {
     >
       <Toolbar>
         <Box sx={{ flexGrow: 1, display: "flex", gap: 1 }}>
-          {pages.map((page) => (
-            <Button key={page} variant="text" sx={{ my: 2, display: "block" }}>
-              {page}
-            </Button>
-          ))}
+          {/* TODO: changed logo image */}
+          <Typography
+            variant="h5"
+            color={theme.palette.primary.main}
+            fontWeight={800}
+          >
+            LOGO
+          </Typography>
         </Box>
 
         <Tooltip title="Open settings">
@@ -56,4 +62,4 @@ const SubNav: NextPage = () => {
   );
 };
 
-export default SubNav;
+export default Header;

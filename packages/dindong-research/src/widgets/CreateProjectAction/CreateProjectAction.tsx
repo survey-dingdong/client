@@ -15,7 +15,12 @@ const CreateProjectAction = () => {
 
   return (
     <div>
-      <Button startIcon={<AddIcon />} onClick={() => setOpen(true)}>
+      <Button
+        startIcon={<AddIcon />}
+        // color="inherit"
+        disabled
+        onClick={() => setOpen(true)}
+      >
         설문 프로젝트 만들기
       </Button>
 

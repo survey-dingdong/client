@@ -1,8 +1,8 @@
 "use client";
-import { Box } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import React from "react";
 import Nav, { drawerWidth } from "../Nav/Nav";
-import SubNav, { subNavHeight } from "../SubNav/SubNav";
+import Header, { headerHeight } from "../Header/Header";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -11,19 +11,19 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <Box display="flex">
-      <Nav />
+      <Header />
       <Box flexGrow={1}>
-        <SubNav />
         <main
           style={{
             display: "flex",
-            height: `calc(100vh - ${subNavHeight}px)`,
-            marginTop: subNavHeight,
+            height: `calc(100vh - ${headerHeight}px)`,
+            marginTop: headerHeight,
           }}
         >
-          <Box padding={7} width="100%">
+          {/* <Nav /> */}
+          <Container maxWidth="lg" sx={{ py: 7 }}>
             {children}
-          </Box>
+          </Container>
         </main>
       </Box>
     </Box>
