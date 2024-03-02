@@ -13,11 +13,10 @@ import {
   Typography,
   styled,
 } from "@mui/material";
-import { NextPage } from "next";
 import Link from "next/link";
 import React from "react";
 
-import logoimage from "@/assets/logo.png";
+import logoimage from "src/assets/logo.png";
 import Image from "next/image";
 
 //

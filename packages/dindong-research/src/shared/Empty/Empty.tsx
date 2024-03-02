@@ -1,6 +1,6 @@
 import { Stack, Typography } from "@mui/material";
 import React from "react";
-import emptyImage from "@/assets/empty.png";
+import emptyImage from "src/assets/empty.png";
 import Image from "next/image";
 
 //

@@ -1,4 +1,4 @@
-import Layout from "@/shared/Layout/Layout";
+import Layout from "src/shared/Layout/Layout";
 
 export default function WorkspaceLayout({
   children,
