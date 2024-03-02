@@ -1,7 +1,8 @@
 import { Stack, Typography } from "@mui/material";
 import React from "react";
-import emptyImage from "src/assets/empty.png";
 import Image from "next/image";
+
+import emptyImage from "src/assets/empty.png";
 
 //
 //
@@ -42,11 +43,13 @@ const Empty: React.FC<EmptyProps> = ({
 
       {/* title and description */}
       <Stack gap={0.5}>
-        <Typography variant="h5" fontWeight={800} color="text.secondary">
+        <Typography variant="h5" fontWeight={800}>
           {title}
         </Typography>
         {description ? (
-          <Typography color="text.tertiary">{description}</Typography>
+          <Typography color="text.secondary" variant="body1">
+            {description}
+          </Typography>
         ) : null}
       </Stack>
 

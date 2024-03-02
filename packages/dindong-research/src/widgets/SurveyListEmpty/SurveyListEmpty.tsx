@@ -5,7 +5,7 @@ import Empty from "src/shared/Empty/Empty";
 const SurveyListEmpty = () => {
   return (
     <Empty
-      title="생성된 설문 프로젝트가 없습니다"
+      title="생성된 실험 프로젝트가 없습니다"
       description="아래 버튼을 클릭하여 프로젝트를 만들어 보세요."
       action={<CreateProjectAction />}
     />

@@ -6,9 +6,9 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  TextField,
 } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import TextField from "src/shared/TextField/TextField";
 
 const CreateProjectAction = () => {
   const [open, setOpen] = React.useState(false);
@@ -16,12 +16,10 @@ const CreateProjectAction = () => {
   return (
     <div>
       <Button
-        startIcon={<AddIcon />}
-        // color="inherit"
-        disabled
+        startIcon={<AddCircleOutlineIcon />}
         onClick={() => setOpen(true)}
       >
-        설문 프로젝트 만들기
+        프로젝트 만들기
       </Button>
 
       <CreateProjectDialog open={open} onClose={() => setOpen(false)} />
@@ -44,18 +42,17 @@ const CreateProjectDialog: React.FC<CreateProjectDialogProps> = ({
 }) => {
   return (
     <Dialog open={open} maxWidth="xs" fullWidth onClose={onClose}>
-      <DialogTitle>설문 프로젝트 만들기</DialogTitle>
+      <DialogTitle>실험 프로젝트 만들기</DialogTitle>
       <DialogContent>
         <TextField
-          label="프로젝트 이름"
-          fullWidth
           required
+          fullWidth
+          label="프로젝트 명"
           placeholder="프로젝트 명을 입력해주세요"
-          sx={{ marginTop: 1 }}
         />
       </DialogContent>
       <DialogActions>
-        <Button color="secondary" onClick={onClose}>
+        <Button color="inherit" onClick={onClose}>
           취소
         </Button>
         <Button>만들기</Button>
