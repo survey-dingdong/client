@@ -1,4 +1,5 @@
 "use client";
+import { linearProgressClasses } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
@@ -134,10 +135,30 @@ const theme = createTheme({
         root: {
           borderRadius: "8px",
           borderColor: "#E0E4EA",
-          backgroundColor: "#F5F7FA",
+          backgroundColor: "#fff",
         },
         input: {
-          padding: "12px 16px",
+          padding: "6px 12px",
+          height: "28px",
+        },
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          fontWeight: 700,
+        },
+      },
+    },
+    MuiLinearProgress: {
+      styleOverrides: {
+        root: {
+          height: "8px",
+          borderRadius: 8,
+          backgroundColor: "#F5F7FA",
+          [`& .${linearProgressClasses.bar}`]: {
+            borderRadius: 5,
+          },
         },
       },
     },

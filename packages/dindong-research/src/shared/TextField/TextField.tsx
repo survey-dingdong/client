@@ -16,16 +16,18 @@ interface TextFieldProps extends InputBaseProps {
 
 const TextField: React.FC<TextFieldProps> = ({ required, label, ...props }) => {
   return (
-    <FormControl sx={{ width: "100%" }}>
-      <FormLabel sx={{ mb: 1 }}>
-        {label}
-        {required ? (
-          <Typography color="#DB5654" component="span" sx={{ ml: 0.5 }}>
-            *
-          </Typography>
-        ) : null}
-      </FormLabel>
-      <OutlinedInput {...props} fullWidth />
+    <FormControl sx={{ width: props.fullWidth ? "100%" : "auto" }}>
+      {label ? (
+        <FormLabel sx={{ mb: 1 }}>
+          {label}
+          {required ? (
+            <Typography color="#DB5654" component="span" sx={{ ml: 0.5 }}>
+              *
+            </Typography>
+          ) : null}
+        </FormLabel>
+      ) : null}
+      <OutlinedInput {...props} />
     </FormControl>
   );
 };
