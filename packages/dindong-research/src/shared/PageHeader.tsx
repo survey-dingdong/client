@@ -2,7 +2,7 @@ import { Stack, Typography } from "@mui/material";
 import React from "react";
 
 interface PageHeaderProps {
-  title: string;
+  title: React.ReactNode;
   description?: string;
 }
 

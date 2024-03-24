@@ -9,7 +9,7 @@ import {
   DialogTitle,
 } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import TextField from "src/shared/TextField/TextField";
+import TextField from "src/shared/TextField";
 import { createProject } from "src/hooks/createProject";
 
 //
