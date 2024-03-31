@@ -149,6 +149,43 @@ const theme = createTheme({
           fontWeight: 700,
         },
       },
+      variants: [
+        {
+          props: { color: "primary" },
+          style: {
+            backgroundColor: "3F57FD1F",
+            color: "#3F57FD",
+          },
+        },
+        {
+          props: { color: "secondary" },
+          style: {
+            backgroundColor: "#191F281F",
+            color: "#191F28",
+          },
+        },
+        {
+          props: { color: "success" },
+          style: {
+            backgroundColor: "#18817A1F",
+            color: "#18817A",
+          },
+        },
+        {
+          props: { color: "warning" },
+          style: {
+            backgroundColor: "#AC5F001F",
+            color: "#AC5F00",
+          },
+        },
+        {
+          props: { color: "error" },
+          style: {
+            backgroundColor: "#DB56541F",
+            color: "#DB56541F",
+          },
+        },
+      ],
     },
     MuiLinearProgress: {
       styleOverrides: {
@@ -158,6 +195,15 @@ const theme = createTheme({
           backgroundColor: "#F5F7FA",
           [`& .${linearProgressClasses.bar}`]: {
             borderRadius: 5,
+          },
+        },
+      },
+    },
+    MuiTableHead: {
+      styleOverrides: {
+        root: {
+          "& .MuiTableCell-root": {
+            backgroundColor: "#6E79870A",
           },
         },
       },

@@ -19,6 +19,8 @@ import {
 import React from "react";
 
 import { headerHeight } from "./Header";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 
 //
 //
@@ -31,6 +33,8 @@ export const drawerWidth = 256;
 //
 
 const Nav = () => {
+  const { projectId } = useParams();
+  console.log(projectId);
   //
   //
   //
@@ -77,7 +81,10 @@ const Nav = () => {
         sx={{ flexGrow: 1 }}
       >
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton
+            LinkComponent={Link}
+            href={`/project/${projectId}/information`}
+          >
             <ListItemIcon>
               <ViewQuiltOutlined />
             </ListItemIcon>
@@ -86,7 +93,10 @@ const Nav = () => {
         </ListItem>
 
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton
+            LinkComponent={Link}
+            href={`/project/${projectId}/participants`}
+          >
             <ListItemIcon>
               <PeopleAltOutlined />
             </ListItemIcon>
@@ -105,7 +115,7 @@ const Nav = () => {
       </List>
 
       {/* add workspace button */}
-      <Button color="inherit">프로젝트 추가</Button>
+      <Button color="inherit">프로젝트 삭제</Button>
     </Drawer>
   );
 };
