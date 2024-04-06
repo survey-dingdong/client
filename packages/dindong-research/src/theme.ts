@@ -1,5 +1,5 @@
 "use client";
-import { linearProgressClasses } from "@mui/material";
+import { formLabelClasses, linearProgressClasses } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
@@ -122,11 +122,15 @@ const theme = createTheme({
     },
     MuiFormLabel: {
       styleOverrides: {
+        asterisk: {
+          color: "#DB5654",
+        },
+        focused: {
+          color: "#36445F",
+        },
         root: {
+          fontSize: "14px",
           fontWeight: 700,
-          "&.Mui-focused": {
-            color: "#36445F",
-          },
         },
       },
     },
@@ -135,14 +139,16 @@ const theme = createTheme({
         root: {
           borderRadius: "8px",
           borderColor: "#E0E4EA",
-          backgroundColor: "#fff",
+          backgroundColor: "#F5F7FA",
         },
         input: {
+          fontSize: "14px",
           padding: "6px 12px",
           height: "28px",
         },
       },
     },
+
     MuiChip: {
       styleOverrides: {
         root: {

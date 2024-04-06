@@ -5,7 +5,6 @@ import {
   Button,
   Card,
   CardContent,
-  Container,
   IconButton,
   Stack,
   Typography,
@@ -15,7 +14,7 @@ import { ParticipantsTable } from "src/widgets/ParticipantsTable";
 
 export default function Page() {
   return (
-    <Container maxWidth="lg" sx={{ py: 7 }}>
+    <>
       <Stack gap={4}>
         <PageHeader
           title="참여자 목록"
@@ -43,6 +42,6 @@ export default function Page() {
           </CardContent>
         </Card>
       </Stack>
-    </Container>
+    </>
   );
 }
