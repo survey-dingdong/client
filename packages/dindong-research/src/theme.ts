@@ -27,6 +27,7 @@ const theme = createTheme({
       primary: "#36445F",
       secondary: "#545D75",
     },
+    divider: "#E0E4EA",
   },
   // components
   components: {
@@ -35,6 +36,7 @@ const theme = createTheme({
         color: "text.primary",
       },
       variants: [
+        { props: { variant: "h4" }, style: { fontWeight: 800 } },
         { props: { color: "text.tertiary" }, style: { color: "#8E97A8" } },
       ],
     },
@@ -211,6 +213,20 @@ const theme = createTheme({
           "& .MuiTableCell-root": {
             backgroundColor: "#6E79870A",
           },
+        },
+      },
+    },
+    MuiListItem: {
+      styleOverrides: {
+        root: {
+          borderRadius: 16,
+        },
+      },
+    },
+    MuiListItemButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 16,
         },
       },
     },

@@ -20,7 +20,7 @@ import React from "react";
 
 import { headerHeight } from "./Header";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 
 //
 //
@@ -34,7 +34,9 @@ export const drawerWidth = 256;
 
 const Nav = () => {
   const { projectId } = useParams();
-  console.log(projectId);
+
+  const pathname = usePathname();
+
   //
   //
   //
@@ -84,6 +86,7 @@ const Nav = () => {
           <ListItemButton
             LinkComponent={Link}
             href={`/project/${projectId}/information`}
+            selected={pathname.includes("/information")}
           >
             <ListItemIcon>
               <ViewQuiltOutlined />
@@ -96,6 +99,7 @@ const Nav = () => {
           <ListItemButton
             LinkComponent={Link}
             href={`/project/${projectId}/participants`}
+            selected={pathname.includes("/participants")}
           >
             <ListItemIcon>
               <PeopleAltOutlined />
@@ -105,7 +109,11 @@ const Nav = () => {
         </ListItem>
 
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton
+            LinkComponent={Link}
+            href={`/project/${projectId}/chat`}
+            selected={pathname.includes("/chat")}
+          >
             <ListItemIcon>
               <ForumOutlined />
             </ListItemIcon>
