@@ -125,12 +125,12 @@ const theme = createTheme({
         asterisk: {
           color: "#DB5654",
         },
-        focused: {
-          color: "#36445F",
-        },
         root: {
           fontSize: "14px",
           fontWeight: 700,
+          "&.Mui-focused": {
+            color: "#36445F",
+          },
         },
       },
     },
