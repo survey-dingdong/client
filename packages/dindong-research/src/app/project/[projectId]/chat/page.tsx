@@ -1,5 +1,6 @@
 import { Box, Button, Divider, List, Stack, Typography } from "@mui/material";
 import { ChatListItem } from "src/widgets";
+import { ChatBubble } from "src/widgets/ChatBubble";
 
 const mockChat = [
   {
@@ -21,6 +22,25 @@ const mockChat = [
     time: "10:00",
     profileUrl: "https://avatars.githubusercontent.com/u/77464058?v=4",
     newChatCount: 1,
+  },
+];
+
+const mockChatDetail = [
+  {
+    date: "2024. 04. 01.",
+    chats: [
+      {
+        type: "opponent",
+        useName: "김은성",
+        message: "안녕하세요!",
+        time: "10:00",
+      },
+      {
+        type: "me",
+        message: "안녕하세요! 참여해주셔서 감사합니다.",
+        time: "10:05",
+      },
+    ],
   },
 ];
 
@@ -53,6 +73,44 @@ export default function Page() {
     );
   };
 
+  const renderChatRoom = () => {
+    return (
+      <Stack divider={<Divider />}>
+        {/* header */}
+        <Box p="30px 24px" bgcolor="background.default">
+          <Box display="flex" gap={3}>
+            <Typography variant="h6" flexGrow={1}>
+              김은성 참여자와의 대화
+            </Typography>
+            <Button color="inherit">공지사항 확인</Button>
+          </Box>
+        </Box>
+
+        {/* bubbles */}
+        <Stack gap={3} p={3}>
+          {/* chat detail */}
+          {mockChatDetail.map((chat) => (
+            <Stack gap={3} key={chat.date}>
+              {/* data */}
+              <Typography variant="caption" textAlign="center">
+                {chat.date}
+              </Typography>
+
+              {/* bubbles */}
+              <Stack gap={1}>
+                {chat.chats.map((chat, index) => (
+                  <ChatBubble key={index} {...chat} />
+                ))}
+              </Stack>
+            </Stack>
+          ))}
+        </Stack>
+
+        {/* input */}
+      </Stack>
+    );
+  };
+
   return (
     <Stack
       display="grid"
@@ -61,6 +119,9 @@ export default function Page() {
     >
       {/* chat list */}
       {renderChatList()}
+
+      {/* chat room */}
+      {renderChatRoom()}
     </Stack>
   );
 }
