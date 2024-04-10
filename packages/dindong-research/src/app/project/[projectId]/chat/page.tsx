@@ -1,6 +1,7 @@
 import { Box, Button, Divider, List, Stack, Typography } from "@mui/material";
-import { ChatListItem } from "src/widgets";
-import { ChatBubble } from "src/widgets/ChatBubble";
+import { ChatListItem, SendNoticeAction, WriteNoticeAction } from "src/widgets";
+import { ChatBubble } from "src/widgets/chat/ChatBubble";
+import ChatInput from "src/widgets/chat/ChatInput/ChatInput";
 
 const mockChat = [
   {
@@ -58,8 +59,8 @@ export default function Page() {
         <Box display="flex" justifyContent="space-between">
           <Typography variant="h4">채팅 목록</Typography>
           <Box display="flex" gap={1.5}>
-            <Button color="inherit">공지 전송</Button>
-            <Button>공지 작성/관리</Button>
+            <SendNoticeAction />
+            <WriteNoticeAction />
           </Box>
         </Box>
 
@@ -87,10 +88,10 @@ export default function Page() {
         </Box>
 
         {/* bubbles */}
-        <Stack gap={3} p={3}>
+        <Stack gap={3} p={3} flexGrow={1}>
           {/* chat detail */}
           {mockChatDetail.map((chat) => (
-            <Stack gap={3} key={chat.date}>
+            <Stack gap={3} key={chat.date} flexGrow={1}>
               {/* data */}
               <Typography variant="caption" textAlign="center">
                 {chat.date}
@@ -104,9 +105,10 @@ export default function Page() {
               </Stack>
             </Stack>
           ))}
-        </Stack>
 
-        {/* input */}
+          {/* input */}
+          <ChatInput />
+        </Stack>
       </Stack>
     );
   };
