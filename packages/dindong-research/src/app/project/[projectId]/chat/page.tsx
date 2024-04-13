@@ -1,5 +1,15 @@
 "use client";
-import { Box, Button, Divider, List, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Collapse,
+  Divider,
+  List,
+  OutlinedInput,
+  Stack,
+  Typography,
+} from "@mui/material";
+import React from "react";
 import { headerHeight } from "src/shared/Header";
 import { ChatListItem, SendNoticeAction, WriteNoticeAction } from "src/widgets";
 import { ChatBubble } from "src/widgets/chat/ChatBubble";
@@ -48,6 +58,8 @@ const mockChatDetail = [
 ];
 
 export default function Page() {
+  const [expandNotice, setExpandNotice] = React.useState<boolean>(false);
+
   const renderChatList = () => {
     return (
       <Stack
@@ -78,16 +90,44 @@ export default function Page() {
 
   const renderChatRoom = () => {
     return (
-      <Stack divider={<Divider />}>
+      <Stack>
         {/* header */}
         <Box p="30px 24px" bgcolor="background.paper">
           <Box display="flex" gap={3}>
             <Typography variant="h6" flexGrow={1}>
               김은성 참여자와의 대화
             </Typography>
-            <Button color="inherit">공지사항 확인</Button>
+
+            <span>
+              <Button
+                color="inherit"
+                endIcon={
+                  <i
+                    style={{ fontSize: "inherit" }}
+                    className="fa-solid fa-chevron-down"
+                  />
+                }
+                onClick={() => setExpandNotice((prev) => !prev)}
+              >
+                공지사항 확인
+              </Button>
+            </span>
           </Box>
         </Box>
+        <Divider flexItem />
+
+        <Collapse in={expandNotice}>
+          <Box p={3} bgcolor="background.paper">
+            <OutlinedInput
+              fullWidth
+              readOnly
+              multiline
+              rows={3}
+              value="공고문에 적힌 주소 304호가 공사중입니다. 303호로 와주세요!"
+            />
+          </Box>
+          <Divider flexItem />
+        </Collapse>
 
         {/* bubbles */}
         <Stack gap={3} p={3} flexGrow={1}>
@@ -118,7 +158,7 @@ export default function Page() {
   return (
     <Stack
       display="grid"
-      gridTemplateColumns="minmax(500px, 1fr) 1px 2fr"
+      gridTemplateColumns="minmax(450px, 1fr) 1px 2fr"
       height={`calc(100vh - ${headerHeight}px)`}
       divider={<Divider orientation="vertical" />}
     >
