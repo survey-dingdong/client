@@ -72,7 +72,7 @@ const ParticipantsTable = () => {
                   </Tooltip>
 
                   {/* delete */}
-                  <Tooltip title="참여가 완료된 참여자는 삭제할 수 없습니다.">
+                  <Tooltip title="참여자 삭제">
                     <IconButton size="small">
                       <i className="fa-regular fa-circle-xmark"></i>
                     </IconButton>

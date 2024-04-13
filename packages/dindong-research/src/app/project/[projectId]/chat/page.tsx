@@ -1,4 +1,6 @@
+"use client";
 import { Box, Button, Divider, List, Stack, Typography } from "@mui/material";
+import { headerHeight } from "src/shared/Header";
 import { ChatListItem, SendNoticeAction, WriteNoticeAction } from "src/widgets";
 import { ChatBubble } from "src/widgets/chat/ChatBubble";
 import ChatInput from "src/widgets/chat/ChatInput/ChatInput";
@@ -52,12 +54,12 @@ export default function Page() {
         p={3}
         gap={3}
         sx={{
-          bgcolor: "background.default",
+          bgcolor: "background.paper",
         }}
       >
         {/* header */}
         <Box display="flex" justifyContent="space-between">
-          <Typography variant="h4">채팅 목록</Typography>
+          <Typography variant="h6">채팅 목록</Typography>
           <Box display="flex" gap={1.5}>
             <SendNoticeAction />
             <WriteNoticeAction />
@@ -78,7 +80,7 @@ export default function Page() {
     return (
       <Stack divider={<Divider />}>
         {/* header */}
-        <Box p="30px 24px" bgcolor="background.default">
+        <Box p="30px 24px" bgcolor="background.paper">
           <Box display="flex" gap={3}>
             <Typography variant="h6" flexGrow={1}>
               김은성 참여자와의 대화
@@ -117,6 +119,7 @@ export default function Page() {
     <Stack
       display="grid"
       gridTemplateColumns="minmax(500px, 1fr) 1px 2fr"
+      height={`calc(100vh - ${headerHeight}px)`}
       divider={<Divider orientation="vertical" />}
     >
       {/* chat list */}

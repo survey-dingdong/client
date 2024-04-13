@@ -20,7 +20,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
         <TextField
           placeholder="프로젝트 명으로 검색"
           size="small"
-          sx={{ backgroundColor: (theme) => theme.palette.background.default }}
+          sx={{ backgroundColor: (theme) => theme.palette.background.paper }}
           endAdornment={
             <InputAdornment position="end">
               <SearchIcon />

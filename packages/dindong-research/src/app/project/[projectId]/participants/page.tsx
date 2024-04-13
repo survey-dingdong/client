@@ -11,6 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import PageHeader from "src/shared/PageHeader";
+import { CopyIconButton } from "src/widgets";
 import { ParticipantsTable } from "src/widgets/ParticipantsTable";
 
 export default function Page() {
@@ -24,9 +25,7 @@ export default function Page() {
               {/* participate code */}
               <Box display="flex" gap={1} alignItems="center">
                 <Typography variant="body2">참여 코드: ZWEX</Typography>
-                <IconButton size="small">
-                  <LinkRoundedIcon />
-                </IconButton>
+                <CopyIconButton content="ZXWE" />
               </Box>
               {/* download report */}
               <Button color="secondary" startIcon={<DownloadRoundedIcon />}>

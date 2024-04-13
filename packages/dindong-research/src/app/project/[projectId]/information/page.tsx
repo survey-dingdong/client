@@ -1,25 +1,38 @@
+"use client";
 import {
   Box,
   Button,
   Checkbox,
   Chip,
   Container,
+  FormControl,
   FormControlLabel,
+  FormHelperText,
+  FormLabel,
+  IconButton,
   InputAdornment,
+  OutlinedInput,
   Stack,
+  ToggleButton,
+  ToggleButtonGroup,
+  Typography,
 } from "@mui/material";
+import React from "react";
 import CardWithTitle from "src/shared/CardWithTitle";
 import FormLabelWithDescription from "src/shared/FormLabelWithDescription";
 import PageHeader from "src/shared/PageHeader";
 import TextField from "src/shared/TextField";
+import { CopyIconButton } from "src/widgets";
 import InterviewSessionList from "src/widgets/InterviewSessionList/InterviewSessionList";
 import { ProjectBottomNav } from "src/widgets/ProjectBottomNav";
 import { bottomNavHeight } from "src/widgets/ProjectBottomNav/ProjectBottomNav";
 
 export default function Page() {
+  const [type, setType] = React.useState("online");
+
   return (
     <Stack width="100%" sx={{ position: "relative", pb: bottomNavHeight }}>
-      <Container maxWidth="lg" sx={{ pt: 7, pb: 15 }}>
+      <Container maxWidth="lg" sx={{ py: 7 }}>
         <Stack gap={4}>
           <PageHeader
             title={
@@ -103,6 +116,40 @@ export default function Page() {
                   }
                 />
               </span>
+            </Stack>
+          </CardWithTitle>
+
+          {/* 실험 유형 */}
+          <CardWithTitle title="실험 유형">
+            <ToggleButtonGroup value={type}>
+              <ToggleButton value="online">대면</ToggleButton>
+              <ToggleButton value="offline">비대면</ToggleButton>
+            </ToggleButtonGroup>
+
+            <Stack>
+              <FormLabel required>실험 장소</FormLabel>
+              <Box display="flex" gap={2} mt={0.5}>
+                <OutlinedInput fullWidth placeholder="기본 주소(필수)" />
+                <OutlinedInput fullWidth placeholder="상세 주소(선택)" />
+              </Box>
+              <FormHelperText>
+                실험 진행을 위한 주소를 입력할 수 있습니다. 주소는 참여자에게
+                공개됩니다.
+              </FormHelperText>
+            </Stack>
+
+            <Stack gap={0.5}>
+              <Typography variant="body1" fontWeight={700}>
+                참여 코드
+              </Typography>
+              <Box display="flex" gap={1.5} alignItems="center">
+                <OutlinedInput readOnly value="ZXWE" />
+
+                <CopyIconButton content="ZXWE" />
+              </Box>
+              <FormHelperText sx={{ whiteSpace: "pre-wrap" }}>
+                {`참여자의 실험 참여 여부를 체크하기 위한 참여코드가 발급됩니다.\n참여자는 실험 참여 10분 전 또는 참여 이후 모바일 앱을 통해 해당코드를 입력하여 참여 완료 여부를 입력할 수 있습니다.`}
+              </FormHelperText>
             </Stack>
           </CardWithTitle>
         </Stack>

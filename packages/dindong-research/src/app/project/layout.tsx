@@ -12,7 +12,7 @@ export default function ProjectLayout({
     <Stack sx={{ pt: 8 }}>
       <Header />
 
-      <Box display="flex" height={`calc(100vh - ${headerHeight}px)`}>
+      <Box display="flex" height="100%">
         <Nav />
         {children}
       </Box>

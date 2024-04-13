@@ -28,6 +28,9 @@ const theme = createTheme({
       secondary: "#545D75",
     },
     divider: "#E0E4EA",
+    background: {
+      default: "#F5F7FA",
+    },
   },
   // components
   components: {
@@ -127,6 +130,10 @@ const theme = createTheme({
         },
       },
     },
+
+    //
+    // Form
+    //
     MuiFormLabel: {
       styleOverrides: {
         asterisk: {
@@ -145,16 +152,33 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: "8px",
-          borderColor: "#E0E4EA",
           backgroundColor: "#F5F7FA",
+          padding: "8px 12px",
+          "& fieldset": {
+            borderColor: "#E0E4EA",
+          },
         },
         input: {
           fontSize: "14px",
           padding: 0,
           height: "28px",
+          "::placeholder": {
+            color: "#A6ADBD",
+          },
         },
       },
     },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          fontFamily: "Pretendard Variable",
+          fontWeight: 500,
+          marginLeft: 0,
+          lineHeight: "16px",
+        },
+      },
+    },
+
     MuiChip: {
       styleOverrides: {
         root: {
@@ -211,6 +235,7 @@ const theme = createTheme({
         },
       },
     },
+
     //
     // Table
     //
@@ -271,9 +296,6 @@ const theme = createTheme({
     },
     MuiInputBase: {
       styleOverrides: {
-        input: {
-          padding: "8px 12px",
-        },
         root: {
           padding: "8px 12px",
         },

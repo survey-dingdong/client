@@ -5,9 +5,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import theme from "../theme";
 import MSWComponent from "src/mocks/MSWComponent";
 import Script from "next/script";
-// import { config } from '@fortawesome/fontawesome-svg-core'
-// import '@fortawesome/fontawesome-svg-core/styles.css'
-// config.autoAddCss = false
+import SnackbarClient from "src/shared/SnackbarClient";
 
 //
 //
@@ -33,7 +31,9 @@ export default async function RootLayout(props: any) {
         >
           <AppRouterCacheProvider options={{ enableCssLayer: true }}>
             <ThemeProvider theme={theme}>
-              <MSWComponent>{children}</MSWComponent>
+              <SnackbarClient>
+                <MSWComponent>{children}</MSWComponent>
+              </SnackbarClient>
             </ThemeProvider>
           </AppRouterCacheProvider>
         </body>

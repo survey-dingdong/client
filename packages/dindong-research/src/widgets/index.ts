@@ -1,3 +1,4 @@
+export { CopyIconButton } from "./CopyIconButton";
 export { CreateProjectAction } from "./CreateProjectAction";
 export { ParticipantsTable } from "./ParticipantsTable";
 export { ProjectList } from "./ProjectList";
