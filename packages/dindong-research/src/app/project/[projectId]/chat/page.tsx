@@ -130,7 +130,7 @@ export default function Page() {
         </Collapse>
 
         {/* bubbles */}
-        <Stack gap={3} p={3} flexGrow={1}>
+        <Stack gap={3} p={3} flexGrow={1} bgcolor="#F8F8FB">
           {/* chat detail */}
           {mockChatDetail.map((chat) => (
             <Stack gap={3} key={chat.date} flexGrow={1}>

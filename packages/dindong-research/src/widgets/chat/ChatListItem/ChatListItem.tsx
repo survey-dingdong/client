@@ -39,11 +39,12 @@ const ChatListItem: React.FC<ChatListItemProps> = ({
           <ListItemText
             sx={{ m: 0 }}
             primary={userName}
+            primaryTypographyProps={{ fontWeight: 700, mb: 0.5 }}
             secondary={message}
             secondaryTypographyProps={{ noWrap: true }}
           />
-          <Stack gap={0.5}>
-            <Typography variant="body2" color="text.tertiary">
+          <Stack gap={0.5} justifyContent="space-between">
+            <Typography fontSize={12} color="text.tertiary">
               {time}
             </Typography>
 
@@ -56,7 +57,7 @@ const ChatListItem: React.FC<ChatListItemProps> = ({
                     style: { position: "static" },
                   },
                   badge: {
-                    style: { position: "relative", top: 10, right: -5 },
+                    style: { position: "relative", top: 10 },
                   },
                 }}
               />
