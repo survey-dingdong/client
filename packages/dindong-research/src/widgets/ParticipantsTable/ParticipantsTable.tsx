@@ -1,6 +1,3 @@
-import ChatBubbleRoundedIcon from "@mui/icons-material/ChatBubbleRounded";
-import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
-import InfoRoundedIcon from "@mui/icons-material/InfoRounded";
 import {
   TableContainer,
   Paper,
@@ -28,7 +25,12 @@ const mockData = [
 
 const ParticipantsTable = () => {
   return (
-    <TableContainer component={Paper} elevation={0}>
+    <TableContainer
+      component={Paper}
+      variant="outlined"
+      elevation={0}
+      sx={{ borderRadius: 4 }}
+    >
       <Table>
         {/* head */}
         <TableHead>
@@ -58,21 +60,21 @@ const ParticipantsTable = () => {
                   {/* chat */}
                   <Tooltip title="채팅으로 이동">
                     <IconButton size="small">
-                      <ChatBubbleRoundedIcon color="action" fontSize="small" />
+                      <i className="fa-regular fa-comment-dots"></i>
                     </IconButton>
                   </Tooltip>
 
                   {/* information */}
-                  <Tooltip title="">
+                  <Tooltip title="참여자 정보">
                     <IconButton size="small">
-                      <InfoRoundedIcon color="action" fontSize="small" />
+                      <i className="fa-regular fa-user"></i>
                     </IconButton>
                   </Tooltip>
 
                   {/* delete */}
                   <Tooltip title="참여가 완료된 참여자는 삭제할 수 없습니다.">
                     <IconButton size="small">
-                      <DeleteRoundedIcon color="action" fontSize="small" />
+                      <i className="fa-regular fa-circle-xmark"></i>
                     </IconButton>
                   </Tooltip>
                 </Box>

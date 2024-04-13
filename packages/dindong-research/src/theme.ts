@@ -211,13 +211,31 @@ const theme = createTheme({
         },
       },
     },
-    MuiTableHead: {
+    //
+    // Table
+    //
+    MuiTableRow: {
       styleOverrides: {
         root: {
-          "& .MuiTableCell-root": {
-            backgroundColor: "#6E79870A",
-          },
+          ["&:last-child td, &:last-child th"]: { border: 0 },
         },
+      },
+    },
+    MuiTableHead: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          "& .MuiTableCell-root": {
+            backgroundColor: "#F5F7FA",
+            borderBottom: `1px solid ${theme.palette.divider} !important`,
+          },
+        }),
+      },
+    },
+    MuiTableCell: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          borderColor: theme.palette.divider,
+        }),
       },
     },
     MuiListItem: {

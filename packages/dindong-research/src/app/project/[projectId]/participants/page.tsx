@@ -37,11 +37,7 @@ export default function Page() {
         />
 
         {/*  */}
-        <Card elevation={0}>
-          <CardContent>
-            <ParticipantsTable />
-          </CardContent>
-        </Card>
+        <ParticipantsTable />
       </Stack>
     </Container>
   );
