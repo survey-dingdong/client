@@ -61,6 +61,8 @@ const Nav = () => {
       component="nav"
     >
       <Button
+        component={Link}
+        href="/workspaces"
         variant="text"
         startIcon={<i className="fa-solid fa-arrow-left"></i>}
         sx={{ justifyContent: "flex-start" }}
