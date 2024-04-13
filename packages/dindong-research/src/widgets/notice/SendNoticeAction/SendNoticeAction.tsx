@@ -51,11 +51,12 @@ const mockData = [
 ];
 
 const SendNoticeDialog = () => {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const [expanded, setExpanded] = React.useState(false);
 
   return (
     <Box>
+      {/* Dialog */}
       <Dialog
         fullWidth
         open={open}

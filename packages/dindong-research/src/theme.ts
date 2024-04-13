@@ -1,5 +1,5 @@
 "use client";
-import { formLabelClasses, linearProgressClasses } from "@mui/material";
+import { linearProgressClasses, listItemTextClasses } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
@@ -51,16 +51,19 @@ const theme = createTheme({
         },
       },
       styleOverrides: {
-        text: {
+        text: ({ theme }) => ({
           fontWeight: "bold",
-        },
-        root: ({ ownerState }) => ({
+          ":hover": {
+            backgroundColor: theme.palette.grey[100],
+          },
+        }),
+        root: ({ theme, ownerState }) => ({
           ...(ownerState.color === "primary" && {
             ":hover": {
               backgroundColor: "#2D44E7",
             },
             ":disabled": {
-              backgroundColor: "#3F57FD",
+              backgroundColor: theme.palette.primary.main,
               opacity: 0.4,
               color: "#fff",
             },
@@ -151,7 +154,6 @@ const theme = createTheme({
         },
       },
     },
-
     MuiChip: {
       styleOverrides: {
         root: {
@@ -161,10 +163,10 @@ const theme = createTheme({
       variants: [
         {
           props: { color: "primary" },
-          style: {
+          style: ({ theme }) => ({
             backgroundColor: "3F57FD1F",
-            color: "#3F57FD",
-          },
+            color: theme.palette.primary.main,
+          }),
         },
         {
           props: { color: "secondary" },
@@ -226,8 +228,51 @@ const theme = createTheme({
     },
     MuiListItemButton: {
       styleOverrides: {
+        root: ({ theme }) => ({
+          borderRadius: 8,
+          "&:hover": {
+            color: theme.palette.primary.main,
+          },
+        }),
+        selected: ({ theme }) => ({
+          [`${listItemTextClasses.primary}`]: {
+            backgroundColor: "#F0F7FF",
+            color: theme.palette.primary.main,
+          },
+        }),
+      },
+    },
+    MuiListItemIcon: {
+      styleOverrides: {
         root: {
-          borderRadius: 16,
+          minWidth: 16,
+          paddingRight: 8,
+        },
+      },
+    },
+    MuiInputBase: {
+      styleOverrides: {
+        input: {
+          padding: "8px 12px",
+        },
+        root: {
+          padding: "8px 12px",
+        },
+      },
+    },
+
+    MuiTooltip: {
+      defaultProps: {
+        placement: "top",
+        arrow: true,
+      },
+      styleOverrides: {
+        tooltip: {
+          backgroundColor: "#212121",
+          borderRadius: 6,
+        },
+        arrow: {
+          color: "#212121",
         },
       },
     },

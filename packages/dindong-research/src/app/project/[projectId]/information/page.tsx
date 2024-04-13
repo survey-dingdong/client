@@ -19,7 +19,7 @@ import { bottomNavHeight } from "src/widgets/ProjectBottomNav/ProjectBottomNav";
 export default function Page() {
   return (
     <Stack width="100%" sx={{ position: "relative", pb: bottomNavHeight }}>
-      <Container maxWidth="lg" sx={{ py: 7 }}>
+      <Container maxWidth="lg" sx={{ pt: 7, pb: 15 }}>
         <Stack gap={4}>
           <PageHeader
             title={

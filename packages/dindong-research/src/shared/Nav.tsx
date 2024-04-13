@@ -1,10 +1,4 @@
 "use client";
-import {
-  ArrowLeft,
-  ForumOutlined,
-  PeopleAltOutlined,
-  ViewQuiltOutlined,
-} from "@mui/icons-material";
 
 import {
   Button,
@@ -68,7 +62,7 @@ const Nav = () => {
     >
       <Button
         variant="text"
-        startIcon={<ArrowLeft />}
+        startIcon={<i className="fa-solid fa-arrow-left"></i>}
         sx={{ justifyContent: "flex-start" }}
         fullWidth
       >
@@ -76,7 +70,11 @@ const Nav = () => {
       </Button>
       <List
         subheader={
-          <ListSubheader component="div" sx={{ position: "static" }}>
+          <ListSubheader
+            component="div"
+            sx={{ position: "static" }}
+            style={{ fontWeight: 700 }}
+          >
             프로젝트 메뉴
           </ListSubheader>
         }
@@ -89,9 +87,13 @@ const Nav = () => {
             selected={pathname.includes("/information")}
           >
             <ListItemIcon>
-              <ViewQuiltOutlined />
+              <i className="fa-regular fa-clone"></i>
             </ListItemIcon>
-            <ListItemText>프로젝트 정보</ListItemText>
+            <ListItemText
+              primaryTypographyProps={{ variant: "body2", fontWeight: 500 }}
+            >
+              프로젝트 정보
+            </ListItemText>
           </ListItemButton>
         </ListItem>
 
@@ -102,9 +104,13 @@ const Nav = () => {
             selected={pathname.includes("/participants")}
           >
             <ListItemIcon>
-              <PeopleAltOutlined />
+              <i className="fa-regular fa-user"></i>
             </ListItemIcon>
-            <ListItemText>참여자</ListItemText>
+            <ListItemText
+              primaryTypographyProps={{ variant: "body2", fontWeight: 500 }}
+            >
+              참여자
+            </ListItemText>
           </ListItemButton>
         </ListItem>
 
@@ -115,9 +121,13 @@ const Nav = () => {
             selected={pathname.includes("/chat")}
           >
             <ListItemIcon>
-              <ForumOutlined />
+              <i className="fa-regular fa-comments"></i>
             </ListItemIcon>
-            <ListItemText>채팅</ListItemText>
+            <ListItemText
+              primaryTypographyProps={{ variant: "body2", fontWeight: 500 }}
+            >
+              채팅
+            </ListItemText>
           </ListItemButton>
         </ListItem>
       </List>
