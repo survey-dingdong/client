@@ -5,11 +5,9 @@ import {
   Checkbox,
   Chip,
   Container,
-  FormControl,
   FormControlLabel,
   FormHelperText,
   FormLabel,
-  IconButton,
   InputAdornment,
   OutlinedInput,
   Stack,
@@ -22,7 +20,7 @@ import CardWithTitle from "src/shared/CardWithTitle";
 import FormLabelWithDescription from "src/shared/FormLabelWithDescription";
 import PageHeader from "src/shared/PageHeader";
 import TextField from "src/shared/TextField";
-import { CopyIconButton } from "src/widgets";
+import { AddressForm, CopyIconButton } from "src/widgets";
 import InterviewSessionList from "src/widgets/InterviewSessionList/InterviewSessionList";
 import { ProjectBottomNav } from "src/widgets/ProjectBottomNav";
 import { bottomNavHeight } from "src/widgets/ProjectBottomNav/ProjectBottomNav";
@@ -128,10 +126,7 @@ export default function Page() {
 
             <Stack>
               <FormLabel required>실험 장소</FormLabel>
-              <Box display="flex" gap={2} mt={0.5}>
-                <OutlinedInput fullWidth placeholder="기본 주소(필수)" />
-                <OutlinedInput fullWidth placeholder="상세 주소(선택)" />
-              </Box>
+              <AddressForm />
               <FormHelperText>
                 실험 진행을 위한 주소를 입력할 수 있습니다. 주소는 참여자에게
                 공개됩니다.
