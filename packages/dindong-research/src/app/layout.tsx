@@ -19,7 +19,18 @@ export default async function RootLayout(props: any) {
   return (
     <>
       <html lang="en">
-        <body style={{ margin: 0, backgroundColor: "#F8FAFB" }}>
+        <link
+          rel="stylesheet"
+          as="style"
+          crossOrigin="anonymous"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
+        />
+        <body
+          style={{
+            margin: 0,
+            backgroundColor: "#F8FAFB",
+          }}
+        >
           <AppRouterCacheProvider options={{ enableCssLayer: true }}>
             <ThemeProvider theme={theme}>
               <MSWComponent>{children}</MSWComponent>

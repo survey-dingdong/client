@@ -34,6 +34,7 @@ const theme = createTheme({
     MuiTypography: {
       defaultProps: {
         color: "text.primary",
+        fontFamily: "Pretendard Variable",
       },
       variants: [
         { props: { variant: "h4" }, style: { fontWeight: 800 } },
@@ -149,7 +150,7 @@ const theme = createTheme({
         },
         input: {
           fontSize: "14px",
-          padding: "6px 12px",
+          padding: 0,
           height: "28px",
         },
       },
