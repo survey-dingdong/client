@@ -25,15 +25,14 @@ const CopyIconButton: React.FC<CopyIconButtonProps> = ({ content }) => {
           onClick={() => {
             navigator.clipboard.writeText(content).then(
               () => {
+                enqueueSnackbar("에러가 발생했습니다. 다시 시도해 주세요.", {
+                  variant: "error",
+                });
                 enqueueSnackbar("복사를 완료했습니다.", {
                   variant: "success",
                 });
               },
-              () => {
-                enqueueSnackbar("에러가 발생했습니다. 다시 시도해 주세요.", {
-                  variant: "error",
-                });
-              }
+              () => {}
             );
           }}
         >

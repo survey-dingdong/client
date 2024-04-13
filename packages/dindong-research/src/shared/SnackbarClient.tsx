@@ -1,5 +1,5 @@
 "use client";
-import styled from "@emotion/styled";
+import { styled } from "@mui/material";
 import { MaterialDesignContent, SnackbarProvider } from "notistack";
 import React from "react";
 
@@ -7,22 +7,43 @@ interface SnackbarClientProps {
   children: React.ReactNode;
 }
 
-const StyledMaterialDesignContent = styled(MaterialDesignContent)(() => ({
-  // TODO: custom style
-  "&.notistack-MuiContent-success": {
-    backgroundColor: "#970C0C",
-  },
-  "&.notistack-MuiContent-error": {
-    backgroundColor: "#970C0C",
-  },
-}));
+const StyledMaterialDesignContent = styled(MaterialDesignContent)(
+  ({ theme }) => ({
+    "&.notistack-MuiContent": {
+      minWidth: 0,
+      i: {
+        fontSize: "large",
+        marginRight: "14px",
+      },
+    },
+    "&.notistack-MuiContent-error": {
+      i: {
+        color: theme.palette.error.main,
+      },
+    },
+    "&.notistack-MuiContent-success": {
+      i: {
+        color: theme.palette.success.main,
+      },
+    },
+  })
+);
 
 const SnackbarClient: React.FC<SnackbarClientProps> = ({ children }) => {
   return (
     <SnackbarProvider
+      style={{
+        backgroundColor: "#191F28",
+        borderRadius: "12px",
+      }}
       Components={{
         default: StyledMaterialDesignContent,
         success: StyledMaterialDesignContent,
+        error: StyledMaterialDesignContent,
+      }}
+      iconVariant={{
+        success: <i className="fa-solid fa-circle-check" />,
+        error: <i className="fa-solid fa-circle-exclamation" />,
       }}
       autoHideDuration={3000}
     >
