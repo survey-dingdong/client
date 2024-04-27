@@ -1,10 +1,6 @@
 import useSWR from "swr";
 import { getFetcher } from "./fetcher";
-
-export type Project = {
-  id: number;
-  name: string;
-};
+import { Project } from "src/types/project";
 
 type UseProjectReturn = {
   projects: Project[] | undefined;

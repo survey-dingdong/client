@@ -1,4 +1,3 @@
-"use client";
 import { Box, InputAdornment, Stack, Typography } from "@mui/material";
 import { TimePicker } from "@mui/x-date-pickers";
 import React from "react";
@@ -17,40 +16,36 @@ const mockData = [
 const InterviewSessionList = () => {
   return (
     <Stack gap={2}>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        {mockData.map((session, index) => (
-          <Box display="flex" key={index} gap={2} alignItems="center">
-            <Typography variant="caption">세션 {index + 1}</Typography>
-            {/* Date time picker range */}
-            <Stack
-              flexDirection="row"
-              divider={<span>~</span>}
-              alignItems="center"
-              gap={2}
-              flexGrow={1}
-            >
-              <TimePicker
-                value={dayjs(session.start)}
-                slotProps={{ textField: { fullWidth: true } }}
-              />
-              <TimePicker
-                value={dayjs(session.end)}
-                slotProps={{ textField: { fullWidth: true } }}
-              />
-            </Stack>
-
-            <TextField
-              value={session.particpants}
-              sx={{ width: 220 }}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">명</InputAdornment>
-                ),
-              }}
+      {mockData.map((session, index) => (
+        <Box display="flex" key={index} gap={2} alignItems="center">
+          <Typography variant="caption">세션 {index + 1}</Typography>
+          {/* Date time picker range */}
+          <Stack
+            flexDirection="row"
+            divider={<span>~</span>}
+            alignItems="center"
+            gap={2}
+            flexGrow={1}
+          >
+            <TimePicker
+              value={dayjs(session.start)}
+              slotProps={{ textField: { fullWidth: true } }}
             />
-          </Box>
-        ))}
-      </LocalizationProvider>
+            <TimePicker
+              value={dayjs(session.end)}
+              slotProps={{ textField: { fullWidth: true } }}
+            />
+          </Stack>
+
+          <TextField
+            value={session.particpants}
+            sx={{ width: 220 }}
+            InputProps={{
+              endAdornment: <InputAdornment position="end">명</InputAdornment>,
+            }}
+          />
+        </Box>
+      ))}
     </Stack>
   );
 };
