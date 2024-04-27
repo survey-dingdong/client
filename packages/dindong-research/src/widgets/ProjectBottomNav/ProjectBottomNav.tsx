@@ -38,7 +38,7 @@ const ProjectBottomNav = () => {
               }}
               control={<Switch />}
             />
-            <Button>저장</Button>
+            <Button type="submit">저장</Button>
           </Box>
         </Container>
       </Toolbar>

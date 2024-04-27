@@ -27,22 +27,53 @@ import { bottomNavHeight } from "src/widgets/ProjectBottomNav/ProjectBottomNav";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { Project } from "src/types/project";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { useProject } from "src/hooks/useProject";
+import { useParams } from "next/navigation";
+import dayjs from "dayjs";
 
 export default function Page() {
   const formMethods = useForm<Project>();
+  const { projectId } = useParams();
+
+  const { project } = useProject({ id: Number(projectId) });
 
   const [type, setType] = React.useState("online");
 
+  //
+  //
+  //
+  React.useEffect(() => {
+    if (project) {
+      formMethods.reset(project);
+    }
+  }, [project]);
+
+  /**
+   *
+   */
+  const handleSubmit = formMethods.handleSubmit((data) => {
+    console.log(data);
+  });
+
+  //
+  //
+  //
+
   return (
     <FormProvider {...formMethods}>
-      <Stack width="100%" sx={{ position: "relative", pb: bottomNavHeight }}>
+      <Stack
+        width="100%"
+        sx={{ position: "relative", pb: bottomNavHeight }}
+        component="form"
+        onSubmit={handleSubmit}
+      >
         <Container maxWidth="lg" sx={{ py: 7 }}>
           <Stack gap={4}>
             <PageHeader
               title={
                 <>
                   <Chip label="비공개" sx={{ mr: 1.5 }} />
-                  엘리스 앱 사용성 평가 실험
+                  {project?.title}
                 </>
               }
             />
@@ -57,7 +88,6 @@ export default function Page() {
                     required
                     fullWidth
                     {...field}
-                    defaultValue="엘리스 앱 사용성 평가 실험"
                   />
                 )}
               />
@@ -96,11 +126,27 @@ export default function Page() {
                     divider={<span>~</span>}
                     gap={2}
                   >
-                    <DatePicker
-                      slotProps={{ textField: { fullWidth: true } }}
+                    <Controller
+                      name="start_date"
+                      control={formMethods.control}
+                      render={({ field }) => (
+                        <DatePicker
+                          slotProps={{ textField: { fullWidth: true } }}
+                          {...field}
+                          value={dayjs(field.value)}
+                        />
+                      )}
                     />
-                    <DatePicker
-                      slotProps={{ textField: { fullWidth: true } }}
+                    <Controller
+                      name="end_date"
+                      control={formMethods.control}
+                      render={({ field }) => (
+                        <DatePicker
+                          slotProps={{ textField: { fullWidth: true } }}
+                          {...field}
+                          value={dayjs(field.value)}
+                        />
+                      )}
                     />
                   </Stack>
 
@@ -135,14 +181,19 @@ export default function Page() {
                   labelProps={{ required: true }}
                 />
                 <span>
-                  <TextField
-                    required
-                    type="number"
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">명</InputAdornment>
-                      ),
-                    }}
+                  <Controller
+                    name="max_participants"
+                    control={formMethods.control}
+                    render={({ field }) => (
+                      <TextField
+                        required
+                        type="number"
+                        endAdornment={
+                          <InputAdornment position="end">명</InputAdornment>
+                        }
+                        {...field}
+                      />
+                    )}
                   />
                 </span>
               </Stack>
@@ -202,8 +253,7 @@ export default function Page() {
                     name="participant_code"
                     control={formMethods.control}
                     render={({ field }) => (
-                      // TODO: add making code function
-                      <OutlinedInput readOnly value={"ZXCV"} />
+                      <OutlinedInput readOnly value={field.value} />
                     )}
                   />
                   <CopyIconButton content="ZXWE" />

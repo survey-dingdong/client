@@ -2,9 +2,9 @@ import { Box, InputAdornment, Stack } from "@mui/material";
 import React from "react";
 import CreateProjectAction from "../CreateProjectAction/CreateProjectAction";
 import TextField from "src/shared/TextField";
-import { Project } from "src/hooks/useProjects";
 import ProjectCard from "src/shared/ProjectCard";
 import SearchIcon from "@mui/icons-material/Search";
+import { Project } from "src/types/project";
 
 interface ProjectListProps {
   projects?: Project[];

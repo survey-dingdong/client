@@ -2,16 +2,21 @@ import {
   FormControl,
   FormHelperText,
   FormLabel,
+  InputProps,
   OutlinedInput,
-  TextFieldProps,
   Typography,
 } from "@mui/material";
 import React from "react";
 
+interface TextFieldProps extends InputProps {
+  required?: boolean;
+  label?: string;
+  helperText?: string;
+}
+
 const TextField: React.FC<TextFieldProps> = ({
   required,
   label,
-  InputProps,
   helperText,
   ...props
 }) => {
@@ -27,7 +32,7 @@ const TextField: React.FC<TextFieldProps> = ({
           ) : null}
         </FormLabel>
       ) : null}
-      <OutlinedInput {...InputProps} />
+      <OutlinedInput {...props} />
       {helperText ? <FormHelperText>{helperText}</FormHelperText> : null}
     </FormControl>
   );

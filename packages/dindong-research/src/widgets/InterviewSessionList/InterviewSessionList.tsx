@@ -40,9 +40,7 @@ const InterviewSessionList = () => {
           <TextField
             value={session.particpants}
             sx={{ width: 220 }}
-            InputProps={{
-              endAdornment: <InputAdornment position="end">명</InputAdornment>,
-            }}
+            endAdornment={<InputAdornment position="end">명</InputAdornment>}
           />
         </Box>
       ))}
