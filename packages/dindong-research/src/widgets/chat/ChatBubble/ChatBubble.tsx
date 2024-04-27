@@ -34,7 +34,7 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
         <Box
           p={2}
           borderRadius={4}
-          bgcolor={isOpponent ? "background.default" : "primary.main"}
+          bgcolor={isOpponent ? "background.paper" : "primary.main"}
           color={isOpponent ? "text.primary" : "common.white"}
         >
           {message}
