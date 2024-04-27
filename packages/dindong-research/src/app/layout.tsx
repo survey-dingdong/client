@@ -6,6 +6,8 @@ import theme from "../theme";
 import MSWComponent from "src/mocks/MSWComponent";
 import Script from "next/script";
 import SnackbarClient from "src/shared/SnackbarClient";
+import { SWRConfig } from "swr";
+import { SWRProvider } from "./swr-provider";
 
 //
 //
@@ -32,7 +34,9 @@ export default async function RootLayout(props: any) {
           <AppRouterCacheProvider options={{ enableCssLayer: true }}>
             <ThemeProvider theme={theme}>
               <SnackbarClient>
-                <MSWComponent>{children}</MSWComponent>
+                <SWRProvider>
+                  <MSWComponent>{children}</MSWComponent>
+                </SWRProvider>
               </SnackbarClient>
             </ThemeProvider>
           </AppRouterCacheProvider>
