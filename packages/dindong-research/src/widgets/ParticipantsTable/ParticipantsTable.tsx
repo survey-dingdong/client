@@ -74,13 +74,13 @@ const ParticipantsTable = () => {
         <DialogContent>
           <List sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
             <ParticipantInfoListItem
+              content="daeun.yang@elicer.com"
               icon={<i className="fa-solid fa-envelope" />}
-            >
-              <Typography>daeun.yang@elicer.com</Typography>
-            </ParticipantInfoListItem>
-            <ParticipantInfoListItem icon={<i className="fa-solid fa-phone" />}>
-              <Typography>010-3242-0141</Typography>
-            </ParticipantInfoListItem>
+            />
+            <ParticipantInfoListItem
+              content="010-3242-0000"
+              icon={<i className="fa-solid fa-phone" />}
+            />
           </List>
         </DialogContent>
         <DialogActions>
@@ -134,7 +134,7 @@ const ParticipantsTable = () => {
                         href={`/project/1/chat`}
                         // href={`/project/${projectId}/chat`}
                       >
-                        <i className="fa-regular fa-comment-dots"></i>
+                        <i className="fa-regular fa-comment-dots" />
                       </IconButton>
                     </Tooltip>
 
@@ -172,10 +172,10 @@ const ParticipantsTable = () => {
 };
 
 const ParticipantInfoListItem = ({
-  children,
+  content,
   icon,
 }: {
-  children: React.ReactNode;
+  content: string;
   icon: React.ReactNode;
 }) => {
   return (
@@ -191,7 +191,10 @@ const ParticipantInfoListItem = ({
       }}
     >
       <ListItemIcon>{icon}</ListItemIcon>
-      <ListItemText>{children}</ListItemText>
+      <ListItemText
+        primaryTypographyProps={{ fontSize: "14px" }}
+        primary={content}
+      />
     </ListItem>
   );
 };

@@ -123,7 +123,7 @@ const Nav = () => {
             selected={pathname.includes("/chat")}
           >
             <ListItemIcon>
-              <i className="fa-regular fa-comments"></i>
+              <i className="fa-regular fa-comment-dots" />
             </ListItemIcon>
             <ListItemText
               primaryTypographyProps={{ variant: "body2", fontWeight: 500 }}
