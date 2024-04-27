@@ -1,6 +1,6 @@
 "use client";
 import { Box, InputAdornment, Stack, Typography } from "@mui/material";
-import { DateTimePicker } from "@mui/x-date-pickers";
+import { TimePicker } from "@mui/x-date-pickers";
 import React from "react";
 
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -10,8 +10,8 @@ import dayjs from "dayjs";
 
 const mockData = [
   { start: "2024.04.05 10:00", end: "2024.04.05 11:00", particpants: 3 },
-  { start: "2024.04.05 10:00", end: "2024.04.05 11:00", particpants: 3 },
-  { start: "2024.04.05 10:00", end: "2024.04.05 11:00", particpants: 3 },
+  { start: "2024.04.05 15:00", end: "2024.04.05 16:00", particpants: 3 },
+  { start: "2024.04.05 18:00", end: "2024.04.05 19:00", particpants: 3 },
 ];
 
 const InterviewSessionList = () => {
@@ -29,11 +29,11 @@ const InterviewSessionList = () => {
               gap={2}
               flexGrow={1}
             >
-              <DateTimePicker
+              <TimePicker
                 value={dayjs(session.start)}
                 slotProps={{ textField: { fullWidth: true } }}
               />
-              <DateTimePicker
+              <TimePicker
                 value={dayjs(session.end)}
                 slotProps={{ textField: { fullWidth: true } }}
               />
@@ -42,7 +42,11 @@ const InterviewSessionList = () => {
             <TextField
               value={session.particpants}
               sx={{ width: 220 }}
-              endAdornment={<InputAdornment position="end">명</InputAdornment>}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">명</InputAdornment>
+                ),
+              }}
             />
           </Box>
         ))}

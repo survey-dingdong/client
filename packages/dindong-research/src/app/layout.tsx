@@ -34,9 +34,9 @@ export default async function RootLayout(props: any) {
           <AppRouterCacheProvider options={{ enableCssLayer: true }}>
             <ThemeProvider theme={theme}>
               <SnackbarClient>
-                <SWRProvider>
-                  <MSWComponent>{children}</MSWComponent>
-                </SWRProvider>
+                {/* <SWRProvider> */}
+                <MSWComponent>{children}</MSWComponent>
+                {/* </SWRProvider> */}
               </SnackbarClient>
             </ThemeProvider>
           </AppRouterCacheProvider>

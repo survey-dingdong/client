@@ -109,9 +109,11 @@ export default function Page() {
                 <TextField
                   required
                   type="number"
-                  endAdornment={
-                    <InputAdornment position="end">명</InputAdornment>
-                  }
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">명</InputAdornment>
+                    ),
+                  }}
                 />
               </span>
             </Stack>
@@ -119,18 +121,35 @@ export default function Page() {
 
           {/* 실험 유형 */}
           <CardWithTitle title="실험 유형">
-            <ToggleButtonGroup value={type}>
-              <ToggleButton value="online">대면</ToggleButton>
-              <ToggleButton value="offline">비대면</ToggleButton>
+            <ToggleButtonGroup
+              value={type}
+              exclusive
+              onChange={(_, newType) => setType(newType)}
+            >
+              <ToggleButton value="offline">대면</ToggleButton>
+              <ToggleButton value="online">비대면</ToggleButton>
             </ToggleButtonGroup>
 
             <Stack>
-              <FormLabel required>실험 장소</FormLabel>
-              <AddressForm />
-              <FormHelperText>
-                실험 진행을 위한 주소를 입력할 수 있습니다. 주소는 참여자에게
-                공개됩니다.
-              </FormHelperText>
+              {type === "online" ? (
+                <>
+                  <TextField
+                    label="참여 URL"
+                    helperText="비대면 실험 참여를 위한 URL이 있는 경우 입력해 주세요.
+                    입력된 URL은 예약이 완료된 참여자에 한하여 모바일 앱 채팅
+                    알림으로 전송됩니다."
+                  />
+                </>
+              ) : (
+                <>
+                  <FormLabel required>실험 장소</FormLabel>
+                  <AddressForm />
+                  <FormHelperText>
+                    실험 진행을 위한 주소를 입력할 수 있습니다. 주소는
+                    참여자에게 공개됩니다.
+                  </FormHelperText>
+                </>
+              )}
             </Stack>
 
             <Stack gap={0.5}>
