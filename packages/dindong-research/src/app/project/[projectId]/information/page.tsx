@@ -2,8 +2,11 @@
 import {
   Box,
   Button,
+  Card,
+  CardContent,
   Checkbox,
   Chip,
+  Collapse,
   Container,
   FormControlLabel,
   FormHelperText,
@@ -24,12 +27,19 @@ import { AddressForm, CopyIconButton } from "src/widgets";
 import InterviewSessionList from "src/widgets/InterviewSessionList/InterviewSessionList";
 import { ProjectBottomNav } from "src/widgets/ProjectBottomNav";
 import { bottomNavHeight } from "src/widgets/ProjectBottomNav/ProjectBottomNav";
-import { Controller, FormProvider, useForm } from "react-hook-form";
+import { Controller, FormProvider, useForm, useWatch } from "react-hook-form";
 import { Project } from "src/types/project";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { DatePicker, PickersLayout } from "@mui/x-date-pickers";
 import { useProject } from "src/hooks/useProject";
 import { useParams } from "next/navigation";
 import dayjs from "dayjs";
+import styled from "@emotion/styled";
+
+//
+//
+//
+
+const excludedDateFormat = "YYYY. MM. DD.";
 
 export default function Page() {
   const formMethods = useForm<Project>();
@@ -38,6 +48,17 @@ export default function Page() {
   const { project } = useProject({ id: Number(projectId) });
 
   const [type, setType] = React.useState("online");
+  const [usingExcludeDates, setUsingExcludeDates] = React.useState(false);
+
+  // watched form values
+  const watchedStartDate = useWatch({
+    name: "start_date",
+    control: formMethods.control,
+  });
+  const watchedEndDate = useWatch({
+    name: "end_date",
+    control: formMethods.control,
+  });
 
   //
   //
@@ -45,6 +66,13 @@ export default function Page() {
   React.useEffect(() => {
     if (project) {
       formMethods.reset(project);
+      formMethods.setValue(
+        "excluded_dates",
+        project.excluded_dates.map((date) =>
+          dayjs(date).format(excludedDateFormat)
+        )
+      );
+      setUsingExcludeDates(!!project.excluded_dates?.length);
     }
   }, [project]);
 
@@ -150,9 +178,78 @@ export default function Page() {
                     />
                   </Stack>
 
-                  <FormControlLabel
-                    label="제외할 날짜 설정"
-                    control={<Checkbox />}
+                  <Controller
+                    name="excluded_dates"
+                    control={formMethods.control}
+                    render={({ field }) => (
+                      <Stack>
+                        <FormControlLabel
+                          label="제외할 날짜 설정"
+                          componentsProps={{ typography: { variant: "body2" } }}
+                          sx={{ width: "fit-content" }}
+                          control={
+                            <Checkbox
+                              checked={usingExcludeDates}
+                              onChange={(e) => {
+                                setUsingExcludeDates(e.target.checked);
+                              }}
+                            />
+                          }
+                        />
+
+                        <Collapse in={usingExcludeDates}>
+                          <Card
+                            elevation={0}
+                            sx={{ bgcolor: "#F8FAFB", borderRadius: 4 }}
+                          >
+                            <CardContent component={Stack} sx={{ gap: 2 }}>
+                              <DatePicker
+                                disablePast
+                                value={null}
+                                minDate={dayjs(watchedStartDate)}
+                                maxDate={dayjs(watchedEndDate)}
+                                shouldDisableDate={(date) => {
+                                  return field.value?.includes(
+                                    date.format(excludedDateFormat)
+                                  );
+                                }}
+                                onChange={(date) => {
+                                  if (date) {
+                                    field.onChange([
+                                      ...field.value,
+                                      date.format(excludedDateFormat),
+                                    ]);
+                                  }
+                                }}
+                              />
+
+                              {field.value?.length > 0 ? (
+                                <Stack gap={1}>
+                                  <Typography variant="body2" fontWeight={700}>
+                                    제외 할 날짜 목록
+                                  </Typography>
+                                  <Box display="flex" gap={1}>
+                                    {field.value?.map((date) => (
+                                      <Chip
+                                        key={date}
+                                        label={date}
+                                        onDelete={() => {
+                                          field.onChange(
+                                            field.value.filter(
+                                              (d) => d !== date
+                                            )
+                                          );
+                                        }}
+                                      />
+                                    ))}
+                                  </Box>
+                                </Stack>
+                              ) : null}
+                            </CardContent>
+                          </Card>
+                        </Collapse>
+                      </Stack>
+                    )}
                   />
                 </Stack>
               </Stack>
@@ -191,6 +288,8 @@ export default function Page() {
                         endAdornment={
                           <InputAdornment position="end">명</InputAdornment>
                         }
+                        // TODO: add max participant validation
+                        helperText="참여 가능한 최대 참가자 수는 4명입니다."
                         {...field}
                       />
                     )}

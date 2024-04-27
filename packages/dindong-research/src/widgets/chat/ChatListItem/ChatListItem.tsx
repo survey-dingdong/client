@@ -26,7 +26,7 @@ const ChatListItem: React.FC<ChatListItemProps> = ({
 }) => {
   return (
     <ListItem disablePadding>
-      <ListItemButton sx={{ p: 3 }}>
+      <ListItemButton sx={{ p: "24px 20px" }}>
         <ListItemAvatar>
           <Avatar />
         </ListItemAvatar>

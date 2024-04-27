@@ -6,9 +6,9 @@ const allProjects: any[] = [
     title: "project1",
     description: "description",
     is_public: false,
-    start_date: "2024-03-04",
-    end_date: "2024-03-10",
-    excluded_dates: ["2024-03-05", "2024-03-06"],
+    start_date: "2024-05-01",
+    end_date: "2024-05-31",
+    excluded_dates: ["2024-05-08", "2024-05-15"],
     time_slots: [
       {
         id: 1,
