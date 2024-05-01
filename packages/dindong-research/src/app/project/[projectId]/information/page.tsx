@@ -34,6 +34,7 @@ import { useProject } from "src/hooks/useProject";
 import { useParams } from "next/navigation";
 import dayjs from "dayjs";
 import styled from "@emotion/styled";
+import { DateChip } from "src/widgets/DateChip";
 
 //
 //
@@ -230,7 +231,7 @@ export default function Page() {
                                   </Typography>
                                   <Box display="flex" gap={1}>
                                     {field.value?.map((date) => (
-                                      <Chip
+                                      <DateChip
                                         key={date}
                                         label={date}
                                         onDelete={() => {
