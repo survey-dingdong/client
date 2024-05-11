@@ -100,6 +100,14 @@ const theme = createTheme({
             },
           },
         },
+        {
+          props: { variant: "outlined", color: "primary" },
+          style: {
+            ":hover": {
+              backgroundColor: "#F5F7FA",
+            },
+          },
+        },
       ],
     },
     MuiDialog: {

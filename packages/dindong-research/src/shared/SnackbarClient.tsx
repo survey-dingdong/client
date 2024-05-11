@@ -35,6 +35,8 @@ const SnackbarClient: React.FC<SnackbarClientProps> = ({ children }) => {
       style={{
         backgroundColor: "#191F28",
         borderRadius: "12px",
+        minWidth: 0,
+        width: "fit-content",
       }}
       Components={{
         default: StyledMaterialDesignContent,

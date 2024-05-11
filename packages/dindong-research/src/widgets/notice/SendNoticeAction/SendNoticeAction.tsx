@@ -1,12 +1,16 @@
 "use client";
 import { CheckBoxOutlineBlank, ExpandMoreRounded } from "@mui/icons-material";
 import {
+  Alert,
+  alertClasses,
+  AlertTitle,
   Avatar,
   Box,
   Button,
   Card,
   CardContent,
   CardHeader,
+  Checkbox,
   Collapse,
   Dialog,
   DialogActions,
@@ -27,25 +31,29 @@ import React from "react";
 const userListHeight = 60 * 4;
 
 const mockData = [
+  { id: 1, name: "김은성" },
   {
-    name: "김은성",
-  },
-  {
+    id: 2,
     name: "윤종필",
   },
   {
+    id: 3,
     name: "양다은",
   },
   {
+    id: 4,
     name: "김은성",
   },
   {
+    id: 5,
     name: "윤종필",
   },
   {
+    id: 6,
     name: "양다은",
   },
   {
+    id: 7,
     name: "김은성",
   },
 ];
@@ -53,6 +61,20 @@ const mockData = [
 const SendNoticeDialog = () => {
   const [open, setOpen] = React.useState(false);
   const [expanded, setExpanded] = React.useState(false);
+
+  const [selectedUsers, setSelectedUsers] = React.useState<number[]>([]);
+
+  const isAllSelected = selectedUsers.length === mockData.length;
+
+  const handleSelectUser = (id: number) => {
+    setSelectedUsers((prev) => {
+      if (prev.includes(id)) {
+        return prev.filter((prevId) => prevId !== id);
+      } else {
+        return [...prev, id];
+      }
+    });
+  };
 
   return (
     <Box>
@@ -101,6 +123,39 @@ const SendNoticeDialog = () => {
                 </Typography>
               </Stack>
 
+              {/* selected user alert */}
+              <Alert
+                severity="info"
+                sx={{
+                  alignItems: "center",
+                  [`& .${alertClasses.message}`]: {
+                    fontWeight: 700,
+                    color: (theme) => theme.palette.info.main,
+                  },
+                  borderRadius: 2,
+                  border: `1px solid #4577D880`,
+                  height: 48,
+                }}
+                action={
+                  <Button
+                    color="info"
+                    size="small"
+                    variant="text"
+                    sx={{ fontWeight: 600, p: "5px 12px" }}
+                    onClick={() =>
+                      isAllSelected
+                        ? setSelectedUsers([])
+                        : setSelectedUsers(mockData.map(({ id }) => id))
+                    }
+                  >
+                    {isAllSelected ? "모두 해제" : "모두 선택"}
+                  </Button>
+                }
+              >
+                전체 {mockData.length}명 중 {selectedUsers.length}명 선택
+              </Alert>
+
+              {/* user list */}
               <Card variant="outlined">
                 <CardContent>
                   <Typography variant="body2" fontWeight={700} sx={{ mb: 1 }}>
@@ -113,18 +168,22 @@ const SendNoticeDialog = () => {
                       overflowY: "scroll",
                     }}
                   >
-                    {mockData.map((user, index) => (
-                      <ListItem disablePadding key={index}>
-                        <ListItemButton sx={{ borderRadius: 1 }}>
-                          <CheckBoxOutlineBlank
-                            fontSize="small"
-                            sx={{ pr: 1 }}
+                    {mockData.map(({ name, id }) => (
+                      <ListItem disablePadding key={id}>
+                        <ListItemButton
+                          sx={{ borderRadius: 1 }}
+                          selected={selectedUsers.includes(id)}
+                          onClick={() => handleSelectUser(id)}
+                        >
+                          <Checkbox
+                            checked={selectedUsers.includes(id)}
+                            size="small"
                           />
                           <ListItemAvatar>
                             <Avatar />
                           </ListItemAvatar>
                           <ListItemText
-                            primary={user.name}
+                            primary={name}
                             primaryTypographyProps={{ fontWeight: 700 }}
                           />
                         </ListItemButton>
