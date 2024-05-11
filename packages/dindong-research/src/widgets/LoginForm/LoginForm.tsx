@@ -9,6 +9,7 @@ import {
   Divider,
   Button,
   Link as MuiLink,
+  Alert,
 } from "@mui/material";
 import Link from "next/link";
 import React from "react";
@@ -17,20 +18,37 @@ import googleImage from "public/google.png";
 import { useState } from "react";
 import Image from "next/image";
 import { useSnackbar } from "notistack";
+import { useRouter } from "next/navigation";
+
+const ID = "test@gmail.com";
+const PW = "1234";
 
 const LoginForm = () => {
+  const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
+
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [error, setError] = useState(false);
+
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
 
   return (
     <Stack>
       <Stack gap={2}>
+        {error ? (
+          <Alert
+            severity="error"
+            sx={{ border: (theme) => `1px solid ${theme.palette.error.main}` }}
+          >
+            계정 또는 비밀번호를 확인해 주세요
+          </Alert>
+        ) : null}
         <TextField
           placeholder="계정을 입력해주세요."
           value={id}
           onChange={(e) => setId(e.target.value)}
+          error={error}
         />
         <Stack gap="6px">
           <TextField
@@ -52,6 +70,7 @@ const LoginForm = () => {
                 </IconButton>
               </InputAdornment>
             }
+            error={error}
           />
 
           <Box
@@ -82,11 +101,15 @@ const LoginForm = () => {
         divider={<Divider sx={{ color: "#A6ADBD" }}>OR</Divider>}
       >
         <Button
-          LinkComponent={Link}
-          href="/workspaces"
-          onClick={() =>
-            enqueueSnackbar("로그인 되었습니다.", { variant: "success" })
-          }
+          onClick={() => {
+            setError(false);
+            if (id === ID && password === PW) {
+              router.push("/workspaces");
+              enqueueSnackbar("로그인 되었습니다.", { variant: "success" });
+            } else {
+              setError(true);
+            }
+          }}
         >
           로그인
         </Button>

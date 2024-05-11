@@ -325,6 +325,14 @@ const theme = createTheme({
         },
       },
     },
+
+    MuiAlert: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+        },
+      },
+    },
   },
 });
 
