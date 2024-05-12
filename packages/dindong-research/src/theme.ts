@@ -1,5 +1,9 @@
 "use client";
-import { linearProgressClasses, listItemTextClasses } from "@mui/material";
+import {
+  buttonClasses,
+  linearProgressClasses,
+  listItemTextClasses,
+} from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
@@ -8,6 +12,7 @@ const theme = createTheme({
     primary: {
       main: "#3F57FD",
     },
+
     secondary: {
       main: "#191F28",
     },
@@ -66,7 +71,7 @@ const theme = createTheme({
             ":hover": {
               backgroundColor: "#2D44E7",
             },
-            ":disabled": {
+            [`&.${buttonClasses.disabled}`]: {
               backgroundColor: theme.palette.primary.main,
               opacity: 0.4,
               color: "#fff",
@@ -76,7 +81,7 @@ const theme = createTheme({
             ":hover": {
               backgroundColor: "#38414E",
             },
-            ":disabled": {
+            [`&.${buttonClasses.disabled}`]: {
               backgroundColor: "#191F28",
               opacity: 0.4,
               color: "#fff",
@@ -170,9 +175,6 @@ const theme = createTheme({
           fontSize: "14px",
           padding: 0,
           height: "28px",
-          "::placeholder": {
-            color: "#A6ADBD",
-          },
         },
       },
     },
@@ -330,6 +332,14 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 8,
+        },
+      },
+    },
+
+    MuiFormControlLabel: {
+      styleOverrides: {
+        root: {
+          width: "fit-content",
         },
       },
     },

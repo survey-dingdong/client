@@ -1,8 +1,6 @@
 "use client";
 import {
   Stack,
-  InputAdornment,
-  IconButton,
   Box,
   FormControlLabel,
   Checkbox,
@@ -19,6 +17,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { useSnackbar } from "notistack";
 import { useRouter } from "next/navigation";
+import PasswordTextField from "src/shared/PasswordTextField";
 
 const ID = "test@gmail.com";
 const PW = "1234";
@@ -27,7 +26,6 @@ const LoginForm = () => {
   const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
 
-  const [passwordVisible, setPasswordVisible] = useState(false);
   const [error, setError] = useState(false);
 
   const [id, setId] = useState("");
@@ -51,25 +49,10 @@ const LoginForm = () => {
           error={error}
         />
         <Stack gap="6px">
-          <TextField
+          <PasswordTextField
             value={password}
-            type={passwordVisible ? "text" : "password"}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="비밀번호를 입력해주세요."
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  size="small"
-                  onClick={() => setPasswordVisible((prev) => !prev)}
-                >
-                  {passwordVisible ? (
-                    <i className="fa-regular fa-eye" />
-                  ) : (
-                    <i className="fa-regular fa-eye-slash" />
-                  )}
-                </IconButton>
-              </InputAdornment>
-            }
             error={error}
           />
 

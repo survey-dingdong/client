@@ -1,5 +1,6 @@
-import { Box, OutlinedInput } from "@mui/material";
+"use client";
 import React from "react";
+import { Box, OutlinedInput } from "@mui/material";
 import { Controller, useFormContext } from "react-hook-form";
 
 const AddressForm = () => {
