@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import React from "react";
-import { Project } from "src/hooks/useProjects";
+import { Project } from "src/types/project";
 
 //
 //
@@ -37,16 +37,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             title={
               <>
                 <Chip label="비공개" sx={{ mr: 1 }} />
-                {project.name}
+                {project.title}
               </>
             }
             titleTypographyProps={{ fontWeight: 800 }}
           />
           <CardContent>
             <Stack gap={2}>
-              <Typography sx={{ height: 40 }}>
-                프로젝트 설명을 입력해주세요.
-              </Typography>
+              <Typography sx={{ height: 40 }}>{project.description}</Typography>
 
               <Stack>
                 <Typography variant="body2" fontWeight={700}>
