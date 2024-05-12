@@ -75,7 +75,7 @@ export default function Page() {
       );
       setUsingExcludeDates(!!project.excluded_dates?.length);
     }
-  }, [project]);
+  }, [formMethods, project]);
 
   /**
    *

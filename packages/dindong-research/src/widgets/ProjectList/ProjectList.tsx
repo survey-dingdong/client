@@ -44,7 +44,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
         gap={2}
       >
         {projects?.map((project) => (
-          <ProjectCard project={project} />
+          <ProjectCard key={project.id} project={project} />
         ))}
       </Box>
     );
