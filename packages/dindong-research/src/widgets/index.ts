@@ -8,3 +8,4 @@ export { WorkspacePageHeader } from "./WorkspacePageHeader";
 export { ChatListItem } from "./chat/ChatListItem";
 export { LoginForm } from "./LoginForm";
 export * from "./notice";
+export { ProjectNav } from "./ProjectNav";

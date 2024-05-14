@@ -1,8 +1,8 @@
 "use client";
 import { Box, Container } from "@mui/material";
 import React from "react";
-import Nav, { drawerWidth } from "./Nav";
 import Header, { headerHeight } from "./Header";
+import WorkspaceNav from "src/widgets/WorkspaceNav";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -20,6 +20,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             marginTop: headerHeight,
           }}
         >
+          <WorkspaceNav />
+
           <Container maxWidth="lg" sx={{ py: 7 }}>
             {children}
           </Container>

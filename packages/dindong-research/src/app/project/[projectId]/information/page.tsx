@@ -1,7 +1,6 @@
 "use client";
 import {
   Box,
-  Button,
   Card,
   CardContent,
   Checkbox,
@@ -29,16 +28,29 @@ import { ProjectBottomNav } from "src/widgets/ProjectBottomNav";
 import { bottomNavHeight } from "src/widgets/ProjectBottomNav/ProjectBottomNav";
 import { Controller, FormProvider, useForm, useWatch } from "react-hook-form";
 import { Project } from "src/types/project";
-import { DatePicker, PickersLayout } from "@mui/x-date-pickers";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useProject } from "src/hooks/useProject";
 import { useParams } from "next/navigation";
 import dayjs from "dayjs";
 import styled from "@emotion/styled";
 import { DateChip } from "src/widgets/DateChip";
+import Image from "next/image";
+import noteTextIcon from "public/note-text.png";
 
 //
 //
 //
+
+function MuiIcon() {
+  return (
+    <Image
+      src={noteTextIcon.src}
+      alt="Date picker opening icon"
+      width={16}
+      height={16}
+    />
+  );
+}
 
 const excludedDateFormat = "YYYY. MM. DD.";
 
@@ -160,7 +172,10 @@ export default function Page() {
                       control={formMethods.control}
                       render={({ field }) => (
                         <DatePicker
-                          slotProps={{ textField: { fullWidth: true } }}
+                          slotProps={{
+                            textField: { fullWidth: true },
+                            openPickerIcon: MuiIcon,
+                          }}
                           {...field}
                           value={dayjs(field.value)}
                         />
@@ -171,7 +186,10 @@ export default function Page() {
                       control={formMethods.control}
                       render={({ field }) => (
                         <DatePicker
-                          slotProps={{ textField: { fullWidth: true } }}
+                          slotProps={{
+                            textField: { fullWidth: true },
+                            openPickerIcon: MuiIcon,
+                          }}
                           {...field}
                           value={dayjs(field.value)}
                         />
@@ -206,7 +224,7 @@ export default function Page() {
                             <CardContent component={Stack} sx={{ gap: 2 }}>
                               <DatePicker
                                 disablePast
-                                value={null}
+                                value={undefined}
                                 minDate={dayjs(watchedStartDate)}
                                 maxDate={dayjs(watchedEndDate)}
                                 shouldDisableDate={(date) => {
@@ -257,16 +275,11 @@ export default function Page() {
 
               {/* 실험 시작/종료 시간 */}
               <Stack gap={1}>
-                <Box display="flex" justifyContent="space-between">
-                  <FormLabelWithDescription
-                    label="실험 시작/종료 시간"
-                    description={`예약 가능한 실험 시작 및 종료 시간을 설정합니다. 입력된 시간은 여러 개의 실험 세션으로 지정되며, 일 단위로 관리됩니다.\n참여자는 예약 가능 날짜 범위 내에서 참여 가능한 시간대를 선택하여 예약 가능합니다.`}
-                    labelProps={{ required: true }}
-                  />
-                  <span>
-                    <Button color="inherit">세션 추가</Button>
-                  </span>
-                </Box>
+                <FormLabelWithDescription
+                  label="실험 시작/종료 시간"
+                  description={`예약 가능한 실험 시작 및 종료 시간을 설정합니다. 입력된 시간은 여러 개의 실험 세션으로 지정되며, 일 단위로 관리됩니다.\n참여자는 예약 가능 날짜 범위 내에서 참여 가능한 시간대를 선택하여 예약 가능합니다.`}
+                  labelProps={{ required: true }}
+                />
 
                 <InterviewSessionList />
               </Stack>
@@ -308,7 +321,13 @@ export default function Page() {
                   <ToggleButtonGroup
                     value={type}
                     exclusive
-                    onChange={(_, newType) => setType(newType)}
+                    onChange={(e, newType) => {
+                      if (newType === null) {
+                        return;
+                      }
+                      setType(newType);
+                    }}
+                    sx={{ width: "420px" }}
                   >
                     <ToggleButton value="offline">대면</ToggleButton>
                     <ToggleButton value="online">비대면</ToggleButton>

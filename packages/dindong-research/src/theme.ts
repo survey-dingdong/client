@@ -3,6 +3,7 @@ import {
   buttonClasses,
   linearProgressClasses,
   listItemTextClasses,
+  toggleButtonGroupClasses,
 } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 
@@ -152,13 +153,14 @@ const theme = createTheme({
         asterisk: {
           color: "#DB5654",
         },
-        root: {
+        root: ({ theme }) => ({
           fontSize: "14px",
           fontWeight: 700,
+          color: theme.palette.text.primary,
           "&.Mui-focused": {
-            color: "#36445F",
+            color: theme.palette.text.primary,
           },
-        },
+        }),
       },
     },
     MuiOutlinedInput: {
@@ -276,7 +278,16 @@ const theme = createTheme({
     MuiListItem: {
       styleOverrides: {
         root: {
+          fontFamily: "Pretendard Variable",
           borderRadius: 16,
+          fontSize: 14,
+        },
+      },
+    },
+    MuiListItemText: {
+      styleOverrides: {
+        primary: {
+          fontSize: 14,
         },
       },
     },
@@ -341,6 +352,36 @@ const theme = createTheme({
         root: {
           width: "fit-content",
         },
+      },
+    },
+
+    MuiToggleButtonGroup: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          backgroundColor: "#EAEDF3",
+          borderRadius: "8px",
+          [`& .${toggleButtonGroupClasses.grouped}`]: {
+            margin: theme.spacing(0.5),
+            border: 0,
+            borderRadius: theme.shape.borderRadius,
+          },
+        }),
+      },
+    },
+    MuiToggleButton: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          borderRadius: "6px",
+          height: "32px",
+          width: "100%",
+          "&.Mui-selected": {
+            fontWeight: 700,
+            backgroundColor: theme.palette.background.paper,
+            "&:hover": {
+              backgroundColor: theme.palette.background.paper,
+            },
+          },
+        }),
       },
     },
   },
