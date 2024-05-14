@@ -19,14 +19,27 @@ import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import editIcon from "public/edit.png";
 import deleteIcon from "public/trash.png";
 import Image from "next/image";
+import WorkspaceDeleteDialog from "./WorkspaceDeleteDialog";
+import { set } from "react-hook-form";
 
 const mock = [
-  { id: 1, name: "워크스페이스 1" },
-  { id: 2, name: "워크스페이스 2" },
+  { id: 1, title: "워크스페이스 1" },
+  { id: 2, title: "워크스페이스 2" },
 ];
+
+type DialogType = null | {
+  type: "delete" | "rename";
+  selected: { id: number; title: string };
+};
 
 const WorkspaceNav = () => {
   const [editMode, setEditMode] = React.useState(false);
+
+  const [dialog, setDialog] = React.useState<DialogType>(null);
+
+  const handleDialogClose = () => {
+    setDialog(null);
+  };
 
   return (
     <Nav>
@@ -88,7 +101,16 @@ const WorkspaceNav = () => {
                       </IconButton>
                     </Tooltip>
                     <Tooltip title="삭제">
-                      <IconButton size="small" color="error">
+                      <IconButton
+                        size="small"
+                        color="error"
+                        onClick={() =>
+                          setDialog({
+                            type: "delete",
+                            selected: workspace,
+                          })
+                        }
+                      >
                         <Image
                           src={deleteIcon.src}
                           width={16}
@@ -106,7 +128,7 @@ const WorkspaceNav = () => {
                   <ListItemIcon>
                     <MenuRoundedIcon fontSize="small" />
                   </ListItemIcon>
-                  <ListItemText>{workspace.name}</ListItemText>
+                  <ListItemText>{workspace.title}</ListItemText>
                 </>
               ) : (
                 <ListItemButton
@@ -114,7 +136,7 @@ const WorkspaceNav = () => {
                   href="/"
                   sx={{ height: "100%" }}
                 >
-                  {workspace.name}
+                  {workspace.title}
                 </ListItemButton>
               )}
             </ListItem>
@@ -127,6 +149,13 @@ const WorkspaceNav = () => {
           </Button>
         )}
       </Stack>
+
+      {/* Dialogs */}
+      <WorkspaceDeleteDialog
+        open={dialog?.type === "delete"}
+        onClose={handleDialogClose}
+        title={dialog?.selected.title}
+      />
     </Nav>
   );
 };
