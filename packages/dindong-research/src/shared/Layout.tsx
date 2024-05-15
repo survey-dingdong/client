@@ -6,9 +6,10 @@ import WorkspaceNav from "src/widgets/WorkspaceNav";
 
 interface LayoutProps {
   children: React.ReactNode;
+  NavComponent?: React.ReactNode;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const Layout: React.FC<LayoutProps> = ({ children, NavComponent }) => {
   return (
     <Box display="flex">
       <Header />
@@ -20,7 +21,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             marginTop: headerHeight,
           }}
         >
-          <WorkspaceNav />
+          {NavComponent ? NavComponent : null}
 
           <Container maxWidth="lg" sx={{ py: 7 }}>
             {children}

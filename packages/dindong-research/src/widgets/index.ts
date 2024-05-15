@@ -9,3 +9,6 @@ export { ChatListItem } from "./chat/ChatListItem";
 export { LoginForm } from "./LoginForm";
 export * from "./notice";
 export { ProjectNav } from "./ProjectNav";
+export { default as WorkspaceNav } from "./WorkspaceNav";
+export { default as MyNav } from "./MyNav";
+export { default as ProfileCard } from "./ProfileCard";

@@ -92,7 +92,7 @@ const theme = createTheme({
       },
       variants: [
         {
-          props: { color: "inherit" },
+          props: { color: "inherit", variant: "contained" },
           style: {
             color: "#36445F",
             backgroundColor: "#EAEDF3",
@@ -297,6 +297,10 @@ const theme = createTheme({
           borderRadius: 8,
           "&:hover": {
             color: theme.palette.primary.main,
+            i: {
+              color: theme.palette.primary.main,
+            },
+            backgroundColor: "inherit",
           },
         }),
         selected: ({ theme }) => ({

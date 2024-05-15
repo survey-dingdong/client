@@ -34,6 +34,7 @@ const WorkspaceDeleteDialog: React.FC<WorkspaceDeleteDialogProps> = ({
           <Button color="inherit" onClick={onClose}>
             취소
           </Button>
+
           {/* TODO: add delete function */}
           <Button color="error" onClick={onClose}>
             삭제

@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Box,
   Button,
@@ -16,11 +18,10 @@ import React from "react";
 import Nav from "src/shared/Nav";
 import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
-import editIcon from "public/edit.png";
-import deleteIcon from "public/trash.png";
+import editIcon from "public/icons/edit.png";
+import deleteIcon from "public/icons/trash.png";
 import Image from "next/image";
 import WorkspaceDeleteDialog from "./WorkspaceDeleteDialog";
-import { set } from "react-hook-form";
 
 const mock = [
   { id: 1, title: "워크스페이스 1" },

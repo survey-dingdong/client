@@ -1,5 +1,5 @@
 "use client";
-import { CheckCircle } from "@mui/icons-material";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import {
   Box,
   Button,
@@ -34,8 +34,8 @@ export default function Page() {
           control={
             <Checkbox
               checked={allChecked}
-              icon={<CheckCircle color="primary" sx={{ opacity: 0.3 }} />}
-              checkedIcon={<CheckCircle color="primary" />}
+              icon={<CheckCircleIcon color="primary" sx={{ opacity: 0.3 }} />}
+              checkedIcon={<CheckCircleIcon color="primary" />}
               onChange={(e, value) =>
                 setChecked({
                   age: e.target.checked,

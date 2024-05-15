@@ -12,7 +12,7 @@ import {
 import Link from "next/link";
 import React from "react";
 import TextField from "src/shared/TextField";
-import googleImage from "public/google.png";
+import googleImage from "public/icons/google.png";
 import { useState } from "react";
 import Image from "next/image";
 import { useSnackbar } from "notistack";

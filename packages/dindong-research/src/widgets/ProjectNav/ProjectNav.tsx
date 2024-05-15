@@ -15,7 +15,7 @@ import React from "react";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import Nav from "src/shared/Nav";
-
+import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 //
 //
 //
@@ -41,7 +41,8 @@ const ProjectNav = () => {
         component={Link}
         href="/workspaces"
         variant="text"
-        startIcon={<i className="fa-solid fa-arrow-left"></i>}
+        color="inherit"
+        startIcon={<ArrowBackRoundedIcon fontSize="small" />}
         sx={{ justifyContent: "flex-start" }}
         fullWidth
       >

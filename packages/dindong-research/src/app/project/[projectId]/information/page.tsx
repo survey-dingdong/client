@@ -35,7 +35,7 @@ import dayjs from "dayjs";
 import styled from "@emotion/styled";
 import { DateChip } from "src/widgets/DateChip";
 import Image from "next/image";
-import noteTextIcon from "public/note-text.png";
+import noteTextIcon from "public/icons/note-text.png";
 
 //
 //
