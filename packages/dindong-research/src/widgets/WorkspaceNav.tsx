@@ -22,25 +22,49 @@ import editIcon from "public/icons/edit.png";
 import deleteIcon from "public/icons/trash.png";
 import Image from "next/image";
 import WorkspaceDeleteDialog from "./WorkspaceDeleteDialog";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
+import { useWorkspaceCreate } from "src/hooks/useWorkspaceCreate";
 
-const mock = [
-  { id: 1, title: "워크스페이스 1" },
-  { id: 2, title: "워크스페이스 2" },
-];
+//
+//
+//
 
 type DialogType = null | {
   type: "delete" | "rename";
   selected: { id: number; title: string };
 };
 
-const WorkspaceNav = () => {
-  const [editMode, setEditMode] = React.useState(false);
+type WorkspaceType = {
+  id: number;
+  title: string;
+};
 
+//
+//
+//
+
+const WorkspaceNav = () => {
+  // [STATE]
+  const [editMode, setEditMode] = React.useState(false);
   const [dialog, setDialog] = React.useState<DialogType>(null);
 
+  // [QUERY]
+  const { data } = useQuery<WorkspaceType[]>({
+    queryKey: ["workspaces"],
+    queryFn: () => axios.get("/workspaces").then((res) => res.data),
+  });
+
+  const { mutate: createWorkspace } = useWorkspaceCreate();
+
+  // [HANDLER]
   const handleDialogClose = () => {
     setDialog(null);
   };
+
+  //
+  //
+  //
 
   return (
     <Nav>
@@ -83,7 +107,7 @@ const WorkspaceNav = () => {
             </ListSubheader>
           }
         >
-          {mock.map((workspace) => (
+          {data?.map((workspace) => (
             <ListItem
               key={workspace.id}
               disablePadding
@@ -145,7 +169,11 @@ const WorkspaceNav = () => {
         </List>
 
         {editMode ? null : (
-          <Button startIcon={<AddCircleOutlineRoundedIcon />} color="inherit">
+          <Button
+            startIcon={<AddCircleOutlineRoundedIcon />}
+            color="inherit"
+            onClick={() => createWorkspace({ title: "내 워크스페이스" })}
+          >
             워크스페이스 추가
           </Button>
         )}

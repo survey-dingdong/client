@@ -8,6 +8,7 @@ import {
   Button,
   Link as MuiLink,
   Alert,
+  CircularProgress,
 } from "@mui/material";
 import Link from "next/link";
 import React from "react";
@@ -18,9 +19,9 @@ import Image from "next/image";
 import { useSnackbar } from "notistack";
 import { useRouter } from "next/navigation";
 import PasswordTextField from "src/shared/PasswordTextField";
-
-const ID = "test@gmail.com";
-const PW = "1234";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import { useWorkspaceCreate } from "src/hooks/useWorkspaceCreate";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -28,8 +29,35 @@ const LoginForm = () => {
 
   const [error, setError] = useState(false);
 
-  const [id, setId] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  // [HANDLER]
+  const { mutateAsync: createWorkspace } = useWorkspaceCreate();
+
+  const { mutate: login, isPending: isLoginLoading } = useMutation({
+    mutationFn: () => axios.post("/users/login", { email, password }),
+    onSuccess: async ({ data }) => {
+      setError(false);
+
+      // await createWorkspace({ title: "새로운 워크스페이스" });
+
+      sessionStorage.setItem("token", data.token);
+      sessionStorage.setItem("refreshToken", data.refresh_token);
+
+      axios.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
+
+      router.push("/workspaces");
+      enqueueSnackbar("로그인 되었습니다.", { variant: "success" });
+    },
+    onError: () => {
+      setError(true);
+    },
+  });
+
+  //
+  //
+  //
 
   return (
     <Stack>
@@ -44,8 +72,8 @@ const LoginForm = () => {
         ) : null}
         <TextField
           placeholder="계정을 입력해주세요."
-          value={id}
-          onChange={(e) => setId(e.target.value)}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           error={error}
         />
         <Stack gap="6px">
@@ -83,18 +111,12 @@ const LoginForm = () => {
         gap={1.5}
         divider={<Divider sx={{ color: "#A6ADBD" }}>OR</Divider>}
       >
-        <Button
-          onClick={() => {
-            setError(false);
-            if (id === ID && password === PW) {
-              router.push("/workspaces");
-              enqueueSnackbar("로그인 되었습니다.", { variant: "success" });
-            } else {
-              setError(true);
-            }
-          }}
-        >
-          로그인
+        <Button onClick={() => login()}>
+          {isLoginLoading ? (
+            <CircularProgress size={24} color="inherit" />
+          ) : (
+            "로그인"
+          )}
         </Button>
         <Button variant="outlined" sx={{ textTransform: "none" }}>
           <Image

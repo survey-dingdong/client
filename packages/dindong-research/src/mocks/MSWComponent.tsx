@@ -21,7 +21,7 @@ interface MSWComponentProps {
 }
 
 const MSWComponent = ({ children }: MSWComponentProps) => {
-  initMSW();
+  // initMSW();
   return children;
 };
 

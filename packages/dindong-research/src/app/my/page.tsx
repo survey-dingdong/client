@@ -17,7 +17,10 @@ import TextField from "src/shared/TextField";
 import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlineRounded";
 import React from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
-import PasswordTextField from "src/shared/PasswordTextField";
+import PasswordTextField, {
+  passwordMessage,
+  passwordRegex,
+} from "src/shared/PasswordTextField";
 
 type DialogType = "nickname" | "account";
 
@@ -120,9 +123,8 @@ export default function Page() {
             rules={{
               required: true,
               pattern: {
-                value: /(?=.*\d)(?=.*[a-zA-Z])(?=.*\W)/,
-                message:
-                  "비밀번호는 영문, 숫자 및 특수문자의 조합으로 8자 이상 입력해 주세요.",
+                value: passwordRegex,
+                message: passwordMessage,
               },
             }}
             render={({ field, fieldState }) => (
@@ -130,7 +132,6 @@ export default function Page() {
                 {...field}
                 fullWidth
                 label="비밀번호"
-                placeholder="영문, 숫자 및 특수문자의 조합으로 8자 이상 입력해 주세요."
                 error={Boolean(fieldState.error)}
                 helperText={fieldState.error?.message}
               />
