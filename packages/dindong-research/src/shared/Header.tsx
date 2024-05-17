@@ -15,6 +15,7 @@ import {
 import { NextPage } from "next";
 import Link from "next/link";
 import React from "react";
+import { useWorkspaces } from "src/hooks/useWorkspaces";
 import { ProfileCard } from "src/widgets";
 
 //
@@ -32,6 +33,8 @@ const Header: NextPage = () => {
   const [menuAnchorEl, setMenuAnchorEl] = React.useState<null | HTMLElement>(
     null
   );
+
+  const { workspaces } = useWorkspaces();
 
   const handleMenuClose = () => {
     setMenuAnchorEl(null);
@@ -114,7 +117,7 @@ const Header: NextPage = () => {
             color={theme.palette.primary.main}
             fontWeight={800}
             component={Link}
-            href="/workspaces"
+            href={workspaces ? `/workspaces/${workspaces[0].id}` : "/"}
           >
             LOGO
           </Typography>

@@ -1,16 +1,17 @@
 import { Box, InputAdornment, Stack } from "@mui/material";
 import React from "react";
-import CreateProjectAction from "../CreateProjectAction/CreateProjectAction";
 import TextField from "src/shared/TextField";
 import ProjectCard from "src/shared/ProjectCard";
 import SearchIcon from "@mui/icons-material/Search";
 import { Project } from "src/types/project";
+import { CreateProjectAction } from "../CreateProjectAction";
 
 interface ProjectListProps {
   projects?: Project[];
+  workspaceId: number;
 }
 
-const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
+const ProjectList: React.FC<ProjectListProps> = ({ projects, workspaceId }) => {
   /**
    *
    */
@@ -27,7 +28,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
             </InputAdornment>
           }
         />
-        <CreateProjectAction />
+        <CreateProjectAction workspaceId={workspaceId} />
       </Box>
     );
   };

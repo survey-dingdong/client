@@ -11,6 +11,10 @@ import {
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import TextField from "src/shared/TextField";
 import { createProject } from "src/hooks/createProject";
+import axios from "axios";
+import { useQueryClient } from "@tanstack/react-query";
+import { getProjectsQueryKey } from "src/hooks/useProjects";
+import { ProjectTypeEnum } from "generated-client";
 
 //
 //
@@ -18,13 +22,16 @@ import { createProject } from "src/hooks/createProject";
 
 interface CreateProjectDialogProps {
   open: boolean;
+  workspaceId: number;
   onClose: () => void;
 }
 
 const CreateProjectDialog: React.FC<CreateProjectDialogProps> = ({
   open,
+  workspaceId,
   onClose,
 }) => {
+  const queryClient = useQueryClient();
   const [value, setValue] = React.useState("");
 
   return (
@@ -47,9 +54,21 @@ const CreateProjectDialog: React.FC<CreateProjectDialogProps> = ({
         </Button>
         <Button
           onClick={() =>
-            createProject({ name: value })
-              .then(() => mutate("/projects"))
-              .then(onClose)
+            axios
+              .post(
+                `/workspaces/${workspaceId}/projects`,
+                {
+                  title: value,
+                },
+                {
+                  params: {
+                    project_type: ProjectTypeEnum.Experiment,
+                  },
+                }
+              )
+              .then(() =>
+                queryClient.invalidateQueries({ queryKey: getProjectsQueryKey })
+              )
           }
         >
           만들기
@@ -59,7 +78,17 @@ const CreateProjectDialog: React.FC<CreateProjectDialogProps> = ({
   );
 };
 
-const CreateProjectAction = () => {
+//
+//
+//
+
+interface CreateProjectActionProps {
+  workspaceId: number;
+}
+
+const CreateProjectAction: React.FC<CreateProjectActionProps> = ({
+  workspaceId,
+}) => {
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -71,7 +100,11 @@ const CreateProjectAction = () => {
         프로젝트 만들기
       </Button>
 
-      <CreateProjectDialog open={open} onClose={() => setOpen(false)} />
+      <CreateProjectDialog
+        open={open}
+        onClose={() => setOpen(false)}
+        workspaceId={workspaceId}
+      />
     </div>
   );
 };

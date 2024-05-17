@@ -1,6 +1,7 @@
-import useSWR from "swr";
-import { getFetcher } from "./fetcher";
 import { Project } from "src/types/project";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { ProjectTypeEnum } from "generated-client";
 
 //
 // types
@@ -13,17 +14,26 @@ type UseProjectReturn = {
 };
 
 interface useProjectPrams {
-  id: number;
+  projectId: number;
+  workspaceId: number;
 }
 
 //
 //
 //
 
-export function useProject({ id }: useProjectPrams): UseProjectReturn {
-  // TODO: add id
-  const { data, isLoading, error } = useSWR(`/project`, getFetcher, {
-    errorRetryCount: 10,
+export function useProject({
+  workspaceId,
+  projectId,
+}: useProjectPrams): UseProjectReturn {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["/project", workspaceId, projectId],
+    queryFn: () =>
+      axios
+        .get(`/workspaces/${workspaceId}/projects/${projectId}`, {
+          params: { project_type: ProjectTypeEnum.Experiment },
+        })
+        .then((res) => res.data),
   });
 
   return {

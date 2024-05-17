@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import React from "react";
+import { usePath } from "src/hooks/usePath";
 import { Project } from "src/types/project";
 
 //
@@ -25,12 +26,18 @@ interface ProjectCardProps {
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
+  const informationPath = usePath({
+    type: "project",
+    slug: "/information",
+    projectId: project.id,
+  });
+
+  //
+  //
+  //
+
   return (
-    <MuiLink
-      component={Link}
-      href={`/project/${project.id}/information`}
-      underline="none"
-    >
+    <MuiLink component={Link} href={informationPath} underline="none">
       <Card variant="outlined" key={project.id} sx={{ borderRadius: 4 }}>
         <CardActionArea sx={{ p: 1 }}>
           <CardHeader

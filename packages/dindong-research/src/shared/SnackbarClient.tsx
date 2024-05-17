@@ -9,6 +9,7 @@ interface SnackbarClientProps {
 
 const StyledMaterialDesignContent = styled(MaterialDesignContent)(
   ({ theme }) => ({
+    fontFamily: theme.typography.fontFamily,
     "&.notistack-MuiContent": {
       minWidth: 0,
       i: {

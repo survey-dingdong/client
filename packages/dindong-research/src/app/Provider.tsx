@@ -10,11 +10,11 @@ interface ProviderProps {
 }
 const queryClient = new QueryClient();
 
-const baseURL = "http://3.35.52.64:8000";
+const baseURL = "http://13.209.133.71:8000";
 axios.defaults.baseURL = baseURL;
 axios.defaults.headers.common[
   "Authorization"
-] = `Bearer ${sessionStorage.getItem("token")}`;
+] = `Bearer ${sessionStorage?.getItem("token")}`;
 
 //
 //

@@ -11,8 +11,6 @@ import {
   IconButton,
   Tooltip,
   Button,
-  Card,
-  CardContent,
   Dialog,
   DialogActions,
   DialogContent,
@@ -26,13 +24,16 @@ import {
 import React from "react";
 import ParticipantStatusChip from "./ParticipantStatusChip";
 import Link from "next/link";
+import { usePath } from "src/hooks/usePath";
 
 const heads = ["이름", "예약 일시", "참여 여부", ""];
 
-const ParticipantsTable = () => {
+const ParticipantsTable: React.FC = ({}) => {
   const [dialogType, setDialogType] = React.useState<"delete" | "info" | null>(
     null
   );
+
+  const chatPath = usePath({ type: "project", slug: "/chat" });
 
   const renderDeleteDialog = () => {
     return (
@@ -131,8 +132,7 @@ const ParticipantsTable = () => {
                       <IconButton
                         size="small"
                         LinkComponent={Link}
-                        href={`/project/1/chat`}
-                        // href={`/project/${projectId}/chat`}
+                        href={chatPath}
                       >
                         <i className="fa-regular fa-comment-dots" />
                       </IconButton>

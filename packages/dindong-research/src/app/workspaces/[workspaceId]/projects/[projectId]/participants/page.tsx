@@ -11,7 +11,7 @@ export default function Page() {
   //
 
   return (
-    <Container maxWidth="lg" sx={{ py: 7 }}>
+    <Container maxWidth="lg">
       <Stack gap={4}>
         <PageHeader
           title="참여자 목록"

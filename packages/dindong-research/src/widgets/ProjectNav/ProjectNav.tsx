@@ -16,6 +16,8 @@ import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import Nav from "src/shared/Nav";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
+import { usePath } from "src/hooks/usePath";
+import { useWorkspaces } from "src/hooks/useWorkspaces";
 //
 //
 //
@@ -27,7 +29,11 @@ export const drawerWidth = 256;
 //
 
 const ProjectNav = () => {
-  const { projectId } = useParams();
+  const { workspaces } = useWorkspaces();
+
+  const informationPath = usePath({ type: "project", slug: "/information" });
+  const participantsPath = usePath({ type: "project", slug: "/participants" });
+  const chatPath = usePath({ type: "project", slug: "/chat" });
 
   const pathname = usePathname();
 
@@ -39,7 +45,7 @@ const ProjectNav = () => {
     <Nav>
       <Button
         component={Link}
-        href="/workspaces"
+        href={workspaces ? `/workspaces/${workspaces[0].id}` : "/"}
         variant="text"
         color="inherit"
         startIcon={<ArrowBackRoundedIcon fontSize="small" />}
@@ -63,7 +69,7 @@ const ProjectNav = () => {
         <ListItem disablePadding>
           <ListItemButton
             LinkComponent={Link}
-            href={`/project/${projectId}/information`}
+            href={informationPath}
             selected={pathname.includes("/information")}
           >
             <ListItemIcon>
@@ -80,7 +86,7 @@ const ProjectNav = () => {
         <ListItem disablePadding>
           <ListItemButton
             LinkComponent={Link}
-            href={`/project/${projectId}/participants`}
+            href={participantsPath}
             selected={pathname.includes("/participants")}
           >
             <ListItemIcon>
@@ -97,7 +103,7 @@ const ProjectNav = () => {
         <ListItem disablePadding>
           <ListItemButton
             LinkComponent={Link}
-            href={`/project/${projectId}/chat`}
+            href={chatPath}
             selected={pathname.includes("/chat")}
           >
             <ListItemIcon>

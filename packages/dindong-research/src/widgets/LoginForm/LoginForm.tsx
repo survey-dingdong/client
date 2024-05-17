@@ -47,7 +47,10 @@ const LoginForm = () => {
 
       axios.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
 
-      router.push("/workspaces");
+      axios.get("/workspaces").then((res) => {
+        router.push(`/workspaces/${res.data[0].id}`);
+      });
+
       enqueueSnackbar("로그인 되었습니다.", { variant: "success" });
     },
     onError: () => {

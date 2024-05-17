@@ -55,10 +55,13 @@ function MuiIcon() {
 const excludedDateFormat = "YYYY. MM. DD.";
 
 export default function Page() {
-  const formMethods = useForm<Project>();
-  const { projectId } = useParams();
+  const { workspaceId, projectId } = useParams();
+  const { project } = useProject({
+    workspaceId: Number(workspaceId),
+    projectId: Number(projectId),
+  });
 
-  const { project } = useProject({ id: Number(projectId) });
+  const formMethods = useForm<Project>({ defaultValues: project });
 
   const [type, setType] = React.useState("online");
   const [usingExcludeDates, setUsingExcludeDates] = React.useState(false);
@@ -108,7 +111,7 @@ export default function Page() {
         component="form"
         onSubmit={handleSubmit}
       >
-        <Container maxWidth="lg" sx={{ py: 7 }}>
+        <Container maxWidth="lg">
           <Stack gap={4}>
             <PageHeader
               title={
@@ -319,14 +322,8 @@ export default function Page() {
                 control={formMethods.control}
                 render={({ field }) => (
                   <ToggleButtonGroup
-                    value={type}
+                    {...field}
                     exclusive
-                    onChange={(e, newType) => {
-                      if (newType === null) {
-                        return;
-                      }
-                      setType(newType);
-                    }}
                     sx={{ width: "420px" }}
                   >
                     <ToggleButton value="offline">대면</ToggleButton>
@@ -367,16 +364,16 @@ export default function Page() {
                 <Typography variant="body1" fontWeight={700}>
                   참여 코드
                 </Typography>
-                <Box display="flex" gap={1.5} alignItems="center">
-                  <Controller
-                    name="participant_code"
-                    control={formMethods.control}
-                    render={({ field }) => (
+                <Controller
+                  name="participant_code"
+                  control={formMethods.control}
+                  render={({ field }) => (
+                    <Box display="flex" gap={1.5} alignItems="center">
                       <OutlinedInput readOnly value={field.value} />
-                    )}
-                  />
-                  <CopyIconButton content="ZXWE" />
-                </Box>
+                      <CopyIconButton content={field.value} />
+                    </Box>
+                  )}
+                />
                 <FormHelperText sx={{ whiteSpace: "pre-wrap" }}>
                   {`참여자의 실험 참여 여부를 체크하기 위한 참여코드가 발급됩니다.\n참여자는 실험 참여 10분 전 또는 참여 이후 모바일 앱을 통해 해당코드를 입력하여 참여 완료 여부를 입력할 수 있습니다.`}
                 </FormHelperText>

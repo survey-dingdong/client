@@ -32,6 +32,7 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
       <Stack>
         <Typography variant="body2">{useName}</Typography>
         <Box
+          component={Typography}
           p={2}
           borderRadius={4}
           bgcolor={isOpponent ? "background.paper" : "primary.main"}

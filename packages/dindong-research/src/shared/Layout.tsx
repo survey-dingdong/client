@@ -2,14 +2,19 @@
 import { Box, Container } from "@mui/material";
 import React from "react";
 import Header, { headerHeight } from "./Header";
-import WorkspaceNav from "src/widgets/WorkspaceNav";
+import { usePathname } from "next/navigation";
 
 interface LayoutProps {
   children: React.ReactNode;
   NavComponent?: React.ReactNode;
 }
 
+const noPaddingPath = ["/chat"];
+
 const Layout: React.FC<LayoutProps> = ({ children, NavComponent }) => {
+  const pathname = usePathname();
+  const isNoPadding = noPaddingPath.some((path) => pathname.includes(path));
+
   return (
     <Box display="flex">
       <Header />
@@ -22,10 +27,13 @@ const Layout: React.FC<LayoutProps> = ({ children, NavComponent }) => {
           }}
         >
           {NavComponent ? NavComponent : null}
-
-          <Container maxWidth="lg" sx={{ py: 7 }}>
-            {children}
-          </Container>
+          {isNoPadding ? (
+            children
+          ) : (
+            <Container maxWidth="lg" sx={{ py: 7 }}>
+              {children}
+            </Container>
+          )}
         </main>
       </Box>
     </Box>
