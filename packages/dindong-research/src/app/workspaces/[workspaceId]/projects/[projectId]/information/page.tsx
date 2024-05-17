@@ -36,6 +36,9 @@ import styled from "@emotion/styled";
 import { DateChip } from "src/widgets/DateChip";
 import Image from "next/image";
 import noteTextIcon from "public/icons/note-text.png";
+import axios from "axios";
+import { useSnackbar } from "notistack";
+import { ProjectTypeEnum } from "generated-client";
 
 //
 //
@@ -52,19 +55,39 @@ function MuiIcon() {
   );
 }
 
+//
+//
+//
+
 const excludedDateFormat = "YYYY. MM. DD.";
+const serverDateFormat = "YYYY-MM-DD";
+
+const today = dayjs();
+
+//
+//
+//
 
 export default function Page() {
+  const { enqueueSnackbar } = useSnackbar();
   const { workspaceId, projectId } = useParams();
   const { project } = useProject({
     workspaceId: Number(workspaceId),
     projectId: Number(projectId),
   });
 
-  const formMethods = useForm<Project>({ defaultValues: project });
+  const formMethods = useForm<Project>({
+    defaultValues: {
+      ...project,
+      start_date: project?.start_date ? dayjs(project.start_date) : today,
+      end_date: project?.end_date
+        ? dayjs(project.end_date)
+        : today.add(1, "month"),
+    },
+  });
 
-  const [type, setType] = React.useState("online");
   const [usingExcludeDates, setUsingExcludeDates] = React.useState(false);
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   // watched form values
   const watchedStartDate = useWatch({
@@ -73,6 +96,10 @@ export default function Page() {
   });
   const watchedEndDate = useWatch({
     name: "end_date",
+    control: formMethods.control,
+  });
+  const watchedExperimentType = useWatch({
+    name: "experiment_type",
     control: formMethods.control,
   });
 
@@ -88,6 +115,13 @@ export default function Page() {
           dayjs(date).format(excludedDateFormat)
         )
       );
+      if (!project?.end_date) {
+        formMethods.setValue("end_date", today.add(1, "month"));
+      }
+
+      if (!project?.start_date) {
+        formMethods.setValue("start_date", today);
+      }
       setUsingExcludeDates(!!project.excluded_dates?.length);
     }
   }, [formMethods, project]);
@@ -95,8 +129,26 @@ export default function Page() {
   /**
    *
    */
-  const handleSubmit = formMethods.handleSubmit((data) => {
-    console.log(data);
+  const handleSubmit = formMethods.handleSubmit(async (data) => {
+    try {
+      await axios.put(
+        `/workspaces/${workspaceId}/projects/${projectId}`,
+        {
+          ...data,
+          start_date: data.start_date.format(serverDateFormat),
+          end_date: data.end_date.format(serverDateFormat),
+        },
+        { params: { project_type: ProjectTypeEnum.Experiment } }
+      );
+
+      enqueueSnackbar("프로젝트 정보가 성공적으로 저장되었습니다.", {
+        variant: "success",
+      });
+    } catch (error) {
+      enqueueSnackbar("프로젝트 정보를 저장하는 중 오류가 발생했습니다.", {
+        variant: "error",
+      });
+    }
   });
 
   //
@@ -337,7 +389,7 @@ export default function Page() {
                   name="location"
                   control={formMethods.control}
                   render={({ field }) =>
-                    type === "online" ? (
+                    watchedExperimentType === "online" ? (
                       <TextField
                         label="참여 URL"
                         helperText="비대면 실험 참여를 위한 URL이 있는 경우 입력해 주세요.

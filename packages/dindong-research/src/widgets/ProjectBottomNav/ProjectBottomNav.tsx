@@ -43,7 +43,6 @@ const ProjectBottomNav = () => {
         </Container>
       </Toolbar>
     </Paper>
-    // </AppBar>
   );
 };
 

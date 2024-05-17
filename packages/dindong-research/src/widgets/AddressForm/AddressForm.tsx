@@ -53,7 +53,7 @@ const AddressForm = () => {
             readOnly
             placeholder="기본 주소(필수)"
             onClick={execDaumPostcode}
-            value={address}
+            value={address || field.value}
           />
           <OutlinedInput
             fullWidth

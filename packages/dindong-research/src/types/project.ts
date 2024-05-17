@@ -1,3 +1,5 @@
+import { Dayjs } from "dayjs";
+
 export interface TimeSlot {
   id: number;
   start_time: string;
@@ -10,8 +12,8 @@ export interface Project {
   title: string;
   description: string;
   is_public: boolean;
-  start_date: string;
-  end_date: string;
+  start_date: Dayjs;
+  end_date: Dayjs;
   excluded_dates: string[];
   time_slots: TimeSlot[];
   max_participants: number;
