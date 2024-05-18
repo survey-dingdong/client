@@ -2,10 +2,8 @@ import {
   Card,
   CardHeader,
   CardContent,
-  Chip,
   Typography,
   Stack,
-  Slider,
   Link as MuiLink,
   LinearProgress,
   Box,
@@ -16,6 +14,7 @@ import Link from "next/link";
 import React from "react";
 import { usePath } from "src/hooks/usePath";
 import { Project } from "src/types/project";
+import Tag from "src/widgets/Tag";
 
 //
 //
@@ -43,11 +42,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           <CardHeader
             title={
               <>
-                <Chip label="비공개" sx={{ mr: 1 }} />
+                <Tag label="비공개" sx={{ mr: 1 }} />
                 {project.title}
               </>
             }
-            titleTypographyProps={{ fontWeight: 800 }}
+            titleTypographyProps={{ fontWeight: 800, noWrap: true }}
           />
           <CardContent>
             <Stack gap={2}>

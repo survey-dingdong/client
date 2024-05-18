@@ -1,7 +1,6 @@
 "use client";
 import {
   Box,
-  Chip,
   Paper,
   Stack,
   Typography,
@@ -21,6 +20,7 @@ import PasswordTextField, {
   passwordMessage,
   passwordRegex,
 } from "src/shared/PasswordTextField";
+import Tag from "src/widgets/Tag";
 
 type DialogType = "nickname" | "account";
 
@@ -235,10 +235,10 @@ const CardSection: React.FC<CardSectionProps> = ({
   return (
     <Stack gap={1.5}>
       <Box display="flex" alignItems="center" justifyContent="space-between">
-        <Typography variant="h6">
+        <Typography variant="h6" display="inline-flex" alignItems="center">
           {title}
           {verified ? (
-            <Chip
+            <Tag
               icon={
                 <CheckCircleOutlineRoundedIcon sx={{ width: 14, height: 14 }} />
               }

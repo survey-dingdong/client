@@ -44,7 +44,7 @@ const mockChatDetail = [
     chats: [
       {
         type: "opponent",
-        useName: "김은성",
+        userName: "김은성",
         message: "안녕하세요!",
         time: "10:00",
       },
@@ -93,7 +93,7 @@ export default function Page() {
       <Stack>
         {/* header */}
         <Box p="30px 24px" bgcolor="background.paper">
-          <Box display="flex" gap={3}>
+          <Box display="flex" gap={3} alignItems="center">
             <Typography variant="h6" flexGrow={1}>
               김은성 참여자와의 대화
             </Typography>

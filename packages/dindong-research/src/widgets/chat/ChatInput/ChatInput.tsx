@@ -1,5 +1,5 @@
 "use client";
-import { Send } from "@mui/icons-material";
+import Send from "@mui/icons-material/Send";
 import {
   Box,
   Divider,
@@ -36,12 +36,12 @@ const ChatInput = () => {
       borderRadius={4}
       divider={<Divider orientation="horizontal" />}
       bgcolor="background.paper"
-      border={(theme) => `2px solid ${theme.palette.primary.main}`}
-      // sx={{
-      //   outline: isFocused
-      //     ? (theme) => `2px solid ${theme.palette.primary.main}`
-      //     : "none",
-      // }}
+      sx={{
+        outline: (theme) =>
+          isFocused
+            ? `2px solid ${theme.palette.primary.main}`
+            : `2px solid ${theme.palette.divider}`,
+      }}
     >
       <InputBase
         ref={inputRef}
@@ -69,9 +69,12 @@ const ChatInput = () => {
         <Typography variant="caption">
           {value.length}/{max}
         </Typography>
-        {/* <IconButton size="small"> */}
-        <Send fontSize="small" color="primary" />
-        {/* </IconButton> */}
+        <IconButton size="small" disabled={!value.length}>
+          <Send
+            fontSize="small"
+            color={!value.length ? "disabled" : "primary"}
+          />
+        </IconButton>
       </Stack>
     </Stack>
   );

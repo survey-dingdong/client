@@ -32,13 +32,13 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useProject } from "src/hooks/useProject";
 import { useParams } from "next/navigation";
 import dayjs from "dayjs";
-import styled from "@emotion/styled";
 import { DateChip } from "src/widgets/DateChip";
 import Image from "next/image";
 import noteTextIcon from "public/icons/note-text.png";
 import axios from "axios";
 import { useSnackbar } from "notistack";
 import { ProjectTypeEnum } from "generated-client";
+import Tag from "src/widgets/Tag";
 
 //
 //
@@ -168,7 +168,7 @@ export default function Page() {
             <PageHeader
               title={
                 <>
-                  <Chip label="비공개" sx={{ mr: 1.5 }} />
+                  <Tag label="비공개" sx={{ mr: 1.5 }} />
                   {project?.title}
                 </>
               }
