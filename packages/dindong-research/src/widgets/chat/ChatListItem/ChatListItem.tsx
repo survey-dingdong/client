@@ -5,6 +5,7 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemButton,
+  listItemButtonClasses,
   ListItemText,
   Stack,
   Typography,
@@ -24,9 +25,24 @@ const ChatListItem: React.FC<ChatListItemProps> = ({
   time,
   newChatCount,
 }) => {
+  const [selected, setSelected] = React.useState(true);
+
   return (
     <ListItem disablePadding>
-      <ListItemButton sx={{ p: "24px 20px" }}>
+      <ListItemButton
+        selected={selected}
+        sx={{
+          p: "24px 20px",
+          borderRadius: 4,
+          [`&.${listItemButtonClasses.selected}`]: {
+            outline: (theme) => `2px solid ${theme.palette.primary.main}`,
+            bgcolor: "inherit",
+          },
+          ":hover": {
+            bgcolor: "#EAEDF380",
+          },
+        }}
+      >
         <ListItemAvatar>
           <Avatar />
         </ListItemAvatar>
@@ -39,7 +55,11 @@ const ChatListItem: React.FC<ChatListItemProps> = ({
           <ListItemText
             sx={{ m: 0 }}
             primary={userName}
-            primaryTypographyProps={{ fontWeight: 700, mb: 0.5 }}
+            primaryTypographyProps={{
+              variant: "body1",
+              fontWeight: 700,
+              mb: 0.5,
+            }}
             secondary={message}
             secondaryTypographyProps={{ noWrap: true }}
           />

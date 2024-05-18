@@ -158,7 +158,7 @@ const WorkspaceNav = () => {
               ) : (
                 <ListItemButton
                   LinkComponent={Link}
-                  href="/"
+                  href={`/workspaces/${workspace.id}`}
                   sx={{ height: "100%" }}
                 >
                   {workspace.title}
@@ -183,6 +183,7 @@ const WorkspaceNav = () => {
       <WorkspaceDeleteDialog
         open={dialog?.type === "delete"}
         onClose={handleDialogClose}
+        id={dialog?.selected.id}
         title={dialog?.selected.title}
       />
     </Nav>

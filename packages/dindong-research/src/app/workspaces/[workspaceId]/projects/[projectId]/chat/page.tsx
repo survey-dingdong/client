@@ -79,7 +79,7 @@ export default function Page() {
         </Box>
 
         {/* chat list */}
-        <List disablePadding>
+        <List component={Stack} disablePadding sx={{ gap: 1.5 }}>
           {mockChat.map((chat) => (
             <ChatListItem key={chat.userName} {...chat} />
           ))}

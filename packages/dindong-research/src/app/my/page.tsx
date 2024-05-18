@@ -21,15 +21,10 @@ import PasswordTextField, {
   passwordRegex,
 } from "src/shared/PasswordTextField";
 import Tag from "src/widgets/Tag";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 type DialogType = "nickname" | "account";
-
-const mockUser = {
-  id: "911cbe44-ed3a-40f3-8f00-63c4b1fbe9c6",
-  username: "Eunseoung Kim",
-  email: "dingdong@gmail.com",
-  password: "1234",
-};
 
 //
 //
@@ -38,7 +33,12 @@ const mockUser = {
 export default function Page() {
   const theme = useTheme();
 
-  const formMethods = useForm({ defaultValues: mockUser });
+  const { data: userData = {} } = useQuery({
+    queryKey: ["/users/me"],
+    queryFn: () => axios.get("/users/me").then((res) => res.data),
+  });
+
+  const formMethods = useForm({ defaultValues: userData });
 
   // [STATE]
   const [editType, setEditType] = React.useState<null | DialogType>(null);
@@ -168,7 +168,11 @@ export default function Page() {
           title="기본 정보"
           headerAction={<EditButton onClick={() => setEditType("nickname")} />}
         >
-          <TextField readOnly label="이름 또는 닉네임" value="Eunseoung Kim" />
+          <TextField
+            readOnly
+            label="이름 또는 닉네임"
+            value={userData.username}
+          />
         </CardSection>
 
         {/*  */}
@@ -192,13 +196,18 @@ export default function Page() {
           headerAction={<EditButton onClick={() => setEditType("account")} />}
         >
           <Box display="flex" gap={2}>
-            <TextField fullWidth readOnly label="계정" value={mockUser.email} />
+            <TextField
+              fullWidth
+              readOnly
+              label="계정"
+              value={userData?.email}
+            />
             <TextField
               fullWidth
               readOnly
               label="비밀번호"
               type="password"
-              value={mockUser.password}
+              value={userData?.password}
             />
           </Box>
         </CardSection>
