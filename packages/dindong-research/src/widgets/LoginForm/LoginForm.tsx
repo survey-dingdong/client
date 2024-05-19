@@ -22,6 +22,7 @@ import PasswordTextField from "src/shared/PasswordTextField";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useWorkspaceCreate } from "src/hooks/useWorkspaceCreate";
+import { REFRESH_TOKEN_KEY, TOKEN_KEY } from "src/constants/token";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -40,16 +41,12 @@ const LoginForm = () => {
     onSuccess: async ({ data }) => {
       setError(false);
 
-      // await createWorkspace({ title: "새로운 워크스페이스" });
-
-      sessionStorage.setItem("token", data.token);
-      sessionStorage.setItem("refreshToken", data.refresh_token);
+      sessionStorage.setItem(TOKEN_KEY, data.token);
+      sessionStorage.setItem(REFRESH_TOKEN_KEY, data.refresh_token);
 
       axios.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
 
-      axios.get("/workspaces").then((res) => {
-        router.push(`/workspaces/${res.data[0].id}`);
-      });
+      router.push(`/workspaces`);
 
       enqueueSnackbar("로그인 되었습니다.", { variant: "success" });
     },

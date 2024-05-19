@@ -50,10 +50,11 @@ const WorkspaceNav = () => {
   const [dialog, setDialog] = React.useState<DialogType>(null);
 
   // [QUERY]
-  const { data } = useQuery<WorkspaceType[]>({
+  const { data: workspaceData } = useQuery<WorkspaceType[]>({
     queryKey: ["workspaces"],
     queryFn: () => axios.get("/workspaces").then((res) => res.data),
   });
+  const onlyOneWorkspace = workspaceData?.length === 1;
 
   const { mutate: createWorkspace } = useWorkspaceCreate();
 
@@ -107,7 +108,7 @@ const WorkspaceNav = () => {
             </ListSubheader>
           }
         >
-          {data?.map((workspace) => (
+          {workspaceData?.map((workspace) => (
             <ListItem
               key={workspace.id}
               disablePadding
@@ -125,25 +126,27 @@ const WorkspaceNav = () => {
                         />
                       </IconButton>
                     </Tooltip>
-                    <Tooltip title="삭제">
-                      <IconButton
-                        size="small"
-                        color="error"
-                        onClick={() =>
-                          setDialog({
-                            type: "delete",
-                            selected: workspace,
-                          })
-                        }
-                      >
-                        <Image
-                          src={deleteIcon.src}
-                          width={16}
-                          height={16}
-                          alt="delete"
-                        />
-                      </IconButton>
-                    </Tooltip>
+                    {onlyOneWorkspace ? null : (
+                      <Tooltip title="삭제">
+                        <IconButton
+                          size="small"
+                          disabled={onlyOneWorkspace}
+                          onClick={() =>
+                            setDialog({
+                              type: "delete",
+                              selected: workspace,
+                            })
+                          }
+                        >
+                          <Image
+                            src={deleteIcon.src}
+                            width={16}
+                            height={16}
+                            alt="delete"
+                          />
+                        </IconButton>
+                      </Tooltip>
+                    )}
                   </>
                 ) : null
               }

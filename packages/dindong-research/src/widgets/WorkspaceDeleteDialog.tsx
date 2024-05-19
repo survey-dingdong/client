@@ -11,7 +11,6 @@ import axios from "axios";
 import { useParams, useRouter } from "next/navigation";
 import { useSnackbar } from "notistack";
 import React from "react";
-import { useWorkspaces } from "src/hooks/useWorkspaces";
 
 interface WorkspaceDeleteDialogProps {
   open: boolean;
@@ -30,7 +29,6 @@ const WorkspaceDeleteDialog: React.FC<WorkspaceDeleteDialogProps> = ({
   const { workspaceId } = useParams();
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { workspaces } = useWorkspaces();
 
   const isDeleteThisWorkspace = Number(workspaceId) === id;
 
@@ -46,7 +44,7 @@ const WorkspaceDeleteDialog: React.FC<WorkspaceDeleteDialogProps> = ({
       queryClient.invalidateQueries({ queryKey: ["workspaces"] });
 
       if (isDeleteThisWorkspace) {
-        router.push(`/workspaces/${workspaces?.[0].id}`);
+        router.push(`/workspaces`);
       }
       onClose();
     } catch (error) {

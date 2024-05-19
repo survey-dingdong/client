@@ -40,6 +40,10 @@ export default function Page() {
 
   const formMethods = useForm({ defaultValues: userData });
 
+  React.useEffect(() => {
+    formMethods.reset(userData);
+  }, [formMethods, userData]);
+
   // [STATE]
   const [editType, setEditType] = React.useState<null | DialogType>(null);
 
@@ -215,8 +219,10 @@ export default function Page() {
 
       {/* Dialogs */}
       <FormProvider {...formMethods}>
-        {renderEditUsernameDialog()}
-        {renderEditAccountDialog()}
+        <form>
+          {renderEditUsernameDialog()}
+          {renderEditAccountDialog()}
+        </form>
       </FormProvider>
     </Stack>
   );
