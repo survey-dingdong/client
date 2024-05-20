@@ -10,13 +10,17 @@ export default function Page() {
   const params = useSearchParams();
   const tokenParam = params.get(TOKEN_KEY);
 
-  const { workspaces } = useWorkspaces();
+  const { workspaces, isLoading } = useWorkspaces();
   const mutation = useWorkspaceCreate();
 
   useEffect(() => {
     if (tokenParam) {
       sessionStorage.setItem(TOKEN_KEY, tokenParam);
       router.replace("/workspaces");
+      return;
+    }
+
+    if (isLoading) {
       return;
     }
 
@@ -31,7 +35,7 @@ export default function Page() {
     }
 
     router.replace(`/workspaces/${workspaceId}`);
-  }, [mutation, router, tokenParam, workspaces]);
+  }, [isLoading, mutation, router, tokenParam, workspaces]);
 
   return <></>;
 }

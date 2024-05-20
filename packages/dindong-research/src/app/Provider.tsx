@@ -2,11 +2,9 @@
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import axios, { AxiosResponse } from "axios";
-import { RefreshTokenResponse } from "generated-client";
+import axios from "axios";
 import { REFRESH_TOKEN_KEY, TOKEN_KEY } from "src/constants/token";
-import { getObject, snakeToCamel } from "src/utils/snakeToCamel";
-import { SWRConfig } from "swr";
+import { camelToSnake, getObject } from "src/utils/snakeToCamel";
 
 interface ProviderProps {
   children: React.ReactNode;
@@ -20,17 +18,23 @@ axios.defaults.headers.common[
   "Authorization"
 ] = `Bearer ${sessionStorage.getItem("token")}`;
 
+axios.interceptors.request.use((request) => {
+  request.data = camelToSnake(request.data);
+  return request;
+});
+
 axios.interceptors.response.use(
   (response) => {
-    response.data = getObject(response);
+    response.data = getObject(response, "response");
+
     return response;
   },
-  (error) => {
+  (error: any) => {
     if (error.response?.status === 401) {
       axios
         .post("/auth/refresh", {
-          token: sessionStorage.getItem(REFRESH_TOKEN_KEY),
-          refreshToken: sessionStorage.getItem(TOKEN_KEY),
+          token: sessionStorage.getItem(TOKEN_KEY),
+          refreshToken: sessionStorage.getItem(REFRESH_TOKEN_KEY),
         })
         .then((res) => {
           sessionStorage.setItem(TOKEN_KEY, res.data.token);

@@ -53,11 +53,13 @@ const WorkspaceNav = () => {
   const [dialog, setDialog] = React.useState<DialogType>(null);
 
   // [QUERY]
-  const { data: workspaceData } = useQuery<WorkspaceType[]>({
+  const { data: workspaceData = [] } = useQuery<WorkspaceType[]>({
     queryKey: ["workspaces"],
     queryFn: () => axios.get("/workspaces").then((res) => res.data),
   });
+
   const onlyOneWorkspace = workspaceData?.length === 1;
+  const fullWorkspaces = workspaceData?.length >= 10;
 
   const { mutate: createWorkspace } = useWorkspaceCreate();
 
@@ -175,7 +177,7 @@ const WorkspaceNav = () => {
           ))}
         </List>
 
-        {editMode ? null : (
+        {editMode || fullWorkspaces ? null : (
           <Button
             startIcon={<AddCircleOutlineRoundedIcon />}
             color="inherit"

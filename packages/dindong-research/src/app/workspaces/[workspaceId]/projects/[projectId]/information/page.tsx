@@ -23,7 +23,9 @@ import FormLabelWithDescription from "src/shared/FormLabelWithDescription";
 import PageHeader from "src/shared/PageHeader";
 import TextField from "src/shared/TextField";
 import { AddressForm, CopyIconButton } from "src/widgets";
-import InterviewSessionList from "src/widgets/InterviewSessionList/InterviewSessionList";
+import InterviewSessionList, {
+  DEFAULT_TIMESLOT,
+} from "src/widgets/InterviewSessionList/InterviewSessionList";
 import { ProjectBottomNav } from "src/widgets/ProjectBottomNav";
 import { bottomNavHeight } from "src/widgets/ProjectBottomNav/ProjectBottomNav";
 import { Controller, FormProvider, useForm, useWatch } from "react-hook-form";
@@ -37,7 +39,7 @@ import noteTextIcon from "public/icons/note-text.png";
 import axios from "axios";
 import { useSnackbar } from "notistack";
 import {
-  GetProjectListResponse,
+  ExperimentTimeslotRequest,
   ProjectTypeEnum,
   PutProjectRequest,
 } from "generated-client";
@@ -47,12 +49,11 @@ import Tag from "src/widgets/Tag";
 //
 //
 
-type ProjectFormType =
-  | PutProjectRequest
-  | {
-      startDate: Dayjs;
-      endDate: Dayjs;
-    };
+interface ProjectFormType
+  extends Omit<PutProjectRequest, "starDate" | "endDate"> {
+  startDate: Dayjs;
+  endDate: Dayjs;
+}
 
 //
 //
@@ -73,10 +74,11 @@ function MuiIcon() {
 //
 //
 
-const excludedDateFormat = "YYYY. MM. DD.";
-const serverDateFormat = "YYYY-MM-DD";
+const EXCLUDED_DATE_FORMAT = "YYYY. MM. DD.";
+const SERVER_DATE_FORMAT = "YYYY-MM-DD";
+const SERVER_TIME_FORMAT = "HH:mm:ss.SSS";
 
-const today = dayjs();
+const TODAY = dayjs();
 
 //
 //
@@ -92,18 +94,10 @@ export default function Page() {
   });
 
   const formMethods = useForm<ProjectFormType>({
-    defaultValues: {
-      ...project,
-      startDate: project?.startDate ? dayjs(project.startDate) : today,
-      endDate: project?.endDate
-        ? dayjs(project.endDate)
-        : today.add(1, "month"),
-    },
+    defaultValues: project,
   });
 
-  console.log(formMethods.formState);
   const [usingExcludeDates, setUsingExcludeDates] = React.useState(false);
-  const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   // watched form values
   const watchedStartDate = useWatch({
@@ -125,18 +119,17 @@ export default function Page() {
   React.useEffect(() => {
     if (project) {
       formMethods.reset(project);
-      // formMethods.setValue(
-      //   "excludedDates",
-      //   project.excludedDates.map((date) =>
-      //     dayjs(date).format(excludedDateFormat)
-      //   )
-      // );
+
       if (!project?.endDate) {
-        formMethods.setValue("endDate", today.add(1, "month"));
+        formMethods.setValue("endDate", TODAY.add(1, "month"));
       }
 
       if (!project?.startDate) {
-        formMethods.setValue("startDate", today);
+        formMethods.setValue("startDate", TODAY);
+      }
+
+      if (!project?.experimentTimeslots?.length) {
+        formMethods.setValue("experimentTimeslots", [DEFAULT_TIMESLOT]);
       }
 
       setUsingExcludeDates(!!project.excludedDates?.length);
@@ -148,13 +141,19 @@ export default function Page() {
    */
   const handleSubmit = formMethods.handleSubmit(async (data) => {
     try {
-      console.log(data);
       await axios.put(
         `/workspaces/${workspaceId}/projects/${projectId}`,
         {
           ...data,
-          startDate: dayjs(data.startDate).format(serverDateFormat),
-          endDate: dayjs(data.endDate).format(serverDateFormat),
+          startDate: dayjs(data.startDate).format(SERVER_DATE_FORMAT),
+          endDate: dayjs(data.endDate).format(SERVER_DATE_FORMAT),
+          experimentTimeslots: data.experimentTimeslots.map(
+            (timeslot: ExperimentTimeslotRequest) => ({
+              ...timeslot,
+              startTime: dayjs(timeslot.startTime).format(SERVER_TIME_FORMAT),
+              endTime: dayjs(timeslot.endTime).format(SERVER_TIME_FORMAT),
+            })
+          ),
         },
         { params: { project_type: ProjectTypeEnum.Experiment } }
       );
@@ -163,7 +162,6 @@ export default function Page() {
         variant: "success",
       });
     } catch (error) {
-      console.log(error);
       enqueueSnackbar("프로젝트 정보를 저장하는 중 오류가 발생했습니다.", {
         variant: "error",
       });
@@ -303,14 +301,16 @@ export default function Page() {
                                 maxDate={dayjs(watchedEndDate)}
                                 shouldDisableDate={(date) => {
                                   return field.value?.includes(
-                                    date.format(excludedDateFormat)
+                                    date.format(
+                                      EXCLUDED_DATE_FORMAT
+                                    ) as unknown as Date
                                   );
                                 }}
                                 onChange={(date) => {
                                   if (date) {
                                     field.onChange([
                                       ...field.value,
-                                      date.format(excludedDateFormat),
+                                      date.format(EXCLUDED_DATE_FORMAT),
                                     ]);
                                   }
                                 }}
@@ -322,7 +322,7 @@ export default function Page() {
                                     제외 할 날짜 목록
                                   </Typography>
                                   <Box display="flex" gap={1}>
-                                    {field.value?.map((date) => (
+                                    {field.value?.map((date: any) => (
                                       <DateChip
                                         key={date}
                                         label={date}

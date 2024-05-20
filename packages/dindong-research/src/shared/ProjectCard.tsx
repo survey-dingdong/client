@@ -91,7 +91,6 @@ function LinearProgressWithLabel({
   project,
   ...props
 }: LinearProgressProps & { project: GetProjectListResponse }) {
-  console.log(project.joinedParticipants);
   return (
     <Box sx={{ display: "flex", alignItems: "center" }}>
       <Box sx={{ width: "100%", mr: 1 }}>
