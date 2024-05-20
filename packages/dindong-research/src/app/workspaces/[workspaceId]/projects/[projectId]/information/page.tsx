@@ -27,18 +27,32 @@ import InterviewSessionList from "src/widgets/InterviewSessionList/InterviewSess
 import { ProjectBottomNav } from "src/widgets/ProjectBottomNav";
 import { bottomNavHeight } from "src/widgets/ProjectBottomNav/ProjectBottomNav";
 import { Controller, FormProvider, useForm, useWatch } from "react-hook-form";
-import { Project } from "src/types/project";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useProject } from "src/hooks/useProject";
 import { useParams } from "next/navigation";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { DateChip } from "src/widgets/DateChip";
 import Image from "next/image";
 import noteTextIcon from "public/icons/note-text.png";
 import axios from "axios";
 import { useSnackbar } from "notistack";
-import { ProjectTypeEnum } from "generated-client";
+import {
+  GetProjectListResponse,
+  ProjectTypeEnum,
+  PutProjectRequest,
+} from "generated-client";
 import Tag from "src/widgets/Tag";
+
+//
+//
+//
+
+type ProjectFormType =
+  | PutProjectRequest
+  | {
+      startDate: Dayjs;
+      endDate: Dayjs;
+    };
 
 //
 //
@@ -71,35 +85,37 @@ const today = dayjs();
 export default function Page() {
   const { enqueueSnackbar } = useSnackbar();
   const { workspaceId, projectId } = useParams();
+
   const { project } = useProject({
     workspaceId: Number(workspaceId),
     projectId: Number(projectId),
   });
 
-  const formMethods = useForm<Project>({
+  const formMethods = useForm<ProjectFormType>({
     defaultValues: {
       ...project,
-      start_date: project?.start_date ? dayjs(project.start_date) : today,
-      end_date: project?.end_date
-        ? dayjs(project.end_date)
+      startDate: project?.startDate ? dayjs(project.startDate) : today,
+      endDate: project?.endDate
+        ? dayjs(project.endDate)
         : today.add(1, "month"),
     },
   });
 
+  console.log(formMethods.formState);
   const [usingExcludeDates, setUsingExcludeDates] = React.useState(false);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   // watched form values
   const watchedStartDate = useWatch({
-    name: "start_date",
+    name: "startDate",
     control: formMethods.control,
   });
   const watchedEndDate = useWatch({
-    name: "end_date",
+    name: "endDate",
     control: formMethods.control,
   });
   const watchedExperimentType = useWatch({
-    name: "experiment_type",
+    name: "experimentType",
     control: formMethods.control,
   });
 
@@ -109,20 +125,21 @@ export default function Page() {
   React.useEffect(() => {
     if (project) {
       formMethods.reset(project);
-      formMethods.setValue(
-        "excluded_dates",
-        project.excluded_dates.map((date) =>
-          dayjs(date).format(excludedDateFormat)
-        )
-      );
-      if (!project?.end_date) {
-        formMethods.setValue("end_date", today.add(1, "month"));
+      // formMethods.setValue(
+      //   "excludedDates",
+      //   project.excludedDates.map((date) =>
+      //     dayjs(date).format(excludedDateFormat)
+      //   )
+      // );
+      if (!project?.endDate) {
+        formMethods.setValue("endDate", today.add(1, "month"));
       }
 
-      if (!project?.start_date) {
-        formMethods.setValue("start_date", today);
+      if (!project?.startDate) {
+        formMethods.setValue("startDate", today);
       }
-      setUsingExcludeDates(!!project.excluded_dates?.length);
+
+      setUsingExcludeDates(!!project.excludedDates?.length);
     }
   }, [formMethods, project]);
 
@@ -131,12 +148,13 @@ export default function Page() {
    */
   const handleSubmit = formMethods.handleSubmit(async (data) => {
     try {
+      console.log(data);
       await axios.put(
         `/workspaces/${workspaceId}/projects/${projectId}`,
         {
           ...data,
-          start_date: data.start_date.format(serverDateFormat),
-          end_date: data.end_date.format(serverDateFormat),
+          startDate: dayjs(data.startDate).format(serverDateFormat),
+          endDate: dayjs(data.endDate).format(serverDateFormat),
         },
         { params: { project_type: ProjectTypeEnum.Experiment } }
       );
@@ -145,6 +163,7 @@ export default function Page() {
         variant: "success",
       });
     } catch (error) {
+      console.log(error);
       enqueueSnackbar("프로젝트 정보를 저장하는 중 오류가 발생했습니다.", {
         variant: "error",
       });
@@ -223,7 +242,7 @@ export default function Page() {
                     gap={2}
                   >
                     <Controller
-                      name="start_date"
+                      name="startDate"
                       control={formMethods.control}
                       render={({ field }) => (
                         <DatePicker
@@ -237,7 +256,7 @@ export default function Page() {
                       )}
                     />
                     <Controller
-                      name="end_date"
+                      name="endDate"
                       control={formMethods.control}
                       render={({ field }) => (
                         <DatePicker
@@ -253,7 +272,7 @@ export default function Page() {
                   </Stack>
 
                   <Controller
-                    name="excluded_dates"
+                    name="excludedDates"
                     control={formMethods.control}
                     render={({ field }) => (
                       <Stack>
@@ -348,7 +367,8 @@ export default function Page() {
                 />
                 <span>
                   <Controller
-                    name="max_participants"
+                    name="title"
+                    // name="maxParticipants"
                     control={formMethods.control}
                     render={({ field }) => (
                       <TextField
@@ -370,7 +390,7 @@ export default function Page() {
             {/* 실험 유형 */}
             <CardWithTitle title="실험 유형">
               <Controller
-                name="experiment_type"
+                name="experimentType"
                 control={formMethods.control}
                 render={({ field }) => (
                   <ToggleButtonGroup
@@ -416,16 +436,11 @@ export default function Page() {
                 <Typography variant="body1" fontWeight={700}>
                   참여 코드
                 </Typography>
-                <Controller
-                  name="participant_code"
-                  control={formMethods.control}
-                  render={({ field }) => (
-                    <Box display="flex" gap={1.5} alignItems="center">
-                      <OutlinedInput readOnly value={field.value} />
-                      <CopyIconButton content={field.value} />
-                    </Box>
-                  )}
-                />
+
+                <Box display="flex" gap={1.5} alignItems="center">
+                  <OutlinedInput readOnly value={project?.participantCode} />
+                  <CopyIconButton content={project?.participantCode ?? ""} />
+                </Box>
                 <FormHelperText sx={{ whiteSpace: "pre-wrap" }}>
                   {`참여자의 실험 참여 여부를 체크하기 위한 참여코드가 발급됩니다.\n참여자는 실험 참여 10분 전 또는 참여 이후 모바일 앱을 통해 해당코드를 입력하여 참여 완료 여부를 입력할 수 있습니다.`}
                 </FormHelperText>

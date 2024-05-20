@@ -25,6 +25,7 @@ import WorkspaceDeleteDialog from "./WorkspaceDeleteDialog";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useWorkspaceCreate } from "src/hooks/useWorkspaceCreate";
+import { useParams } from "next/navigation";
 
 //
 //
@@ -45,6 +46,8 @@ type WorkspaceType = {
 //
 
 const WorkspaceNav = () => {
+  const { workspaceId } = useParams();
+
   // [STATE]
   const [editMode, setEditMode] = React.useState(false);
   const [dialog, setDialog] = React.useState<DialogType>(null);
@@ -162,6 +165,7 @@ const WorkspaceNav = () => {
                 <ListItemButton
                   LinkComponent={Link}
                   href={`/workspaces/${workspace.id}`}
+                  selected={workspace.id === Number(workspaceId)}
                   sx={{ height: "100%" }}
                 >
                   {workspace.title}

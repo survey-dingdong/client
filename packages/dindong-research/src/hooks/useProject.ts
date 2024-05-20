@@ -1,14 +1,16 @@
-import { Project } from "src/types/project";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { ProjectTypeEnum } from "generated-client";
+import {
+  GetExperimentProjectResponse,
+  ProjectTypeEnum,
+} from "generated-client";
 
 //
 // types
 //
 
 type UseProjectReturn = {
-  project: Project | undefined;
+  project: GetExperimentProjectResponse | undefined;
   isLoading: boolean;
   isError: any;
 };

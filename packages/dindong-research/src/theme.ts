@@ -293,24 +293,29 @@ const theme = createTheme({
     },
     MuiListItemButton: {
       styleOverrides: {
-        root: ({ theme }) => ({
-          borderRadius: 8,
-          "&:hover": {
+        root: ({ theme, ownerState }) => ({
+          ...(ownerState.selected && {
             color: theme.palette.primary.main,
-            i: {
+          }),
+          borderRadius: 8,
+          ...(!ownerState.selected && {
+            "&:hover": {
               color: theme.palette.primary.main,
+              i: {
+                color: theme.palette.primary.main,
+              },
+              backgroundColor: "inherit",
             },
-            backgroundColor: "inherit",
-          },
+          }),
         }),
         selected: ({ theme }) => ({
-          [`${listItemTextClasses.primary}`]: {
-            backgroundColor: "#F0F7FF",
+          [`& .${listItemTextClasses.primary}`]: {
             color: theme.palette.primary.main,
           },
         }),
       },
     },
+
     MuiListItemIcon: {
       styleOverrides: {
         root: {

@@ -9,6 +9,7 @@ import {
   Link as MuiLink,
   Alert,
   CircularProgress,
+  Typography,
 } from "@mui/material";
 import Link from "next/link";
 import React from "react";
@@ -109,7 +110,11 @@ const LoginForm = () => {
       {/* Actions */}
       <Stack
         gap={1.5}
-        divider={<Divider sx={{ color: "#A6ADBD" }}>OR</Divider>}
+        divider={
+          <Divider sx={{ color: "#A6ADBD" }}>
+            <Typography color="#A6ADBD">OR</Typography>
+          </Divider>
+        }
       >
         <Button onClick={() => login()}>
           {isLoginLoading ? (

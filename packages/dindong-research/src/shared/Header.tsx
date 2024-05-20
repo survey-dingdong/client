@@ -128,7 +128,7 @@ const Header: NextPage = () => {
             sx={{ p: 0 }}
             onClick={(e) => setMenuAnchorEl(e.currentTarget)}
           >
-            <Avatar alt="Eunseong Kim" />
+            <Avatar alt="" />
           </IconButton>
         </Tooltip>
       </Toolbar>

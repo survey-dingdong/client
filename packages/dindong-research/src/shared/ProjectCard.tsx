@@ -4,16 +4,16 @@ import {
   CardContent,
   Typography,
   Stack,
-  Link as MuiLink,
   LinearProgress,
   Box,
   LinearProgressProps,
   CardActionArea,
+  cardHeaderClasses,
 } from "@mui/material";
+import { GetProjectListResponse } from "generated-client";
 import Link from "next/link";
 import React from "react";
 import { usePath } from "src/hooks/usePath";
-import { Project } from "src/types/project";
 import Tag from "src/widgets/Tag";
 
 //
@@ -21,7 +21,7 @@ import Tag from "src/widgets/Tag";
 //
 
 interface ProjectCardProps {
-  project: Project;
+  project: GetProjectListResponse;
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
@@ -36,39 +36,62 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   //
 
   return (
-    <MuiLink component={Link} href={informationPath} underline="none">
-      <Card variant="outlined" key={project.id} sx={{ borderRadius: 4 }}>
-        <CardActionArea sx={{ p: 1 }}>
-          <CardHeader
-            title={
-              <>
-                <Tag label="비공개" sx={{ mr: 1 }} />
-                {project.title}
-              </>
-            }
-            titleTypographyProps={{ fontWeight: 800, noWrap: true }}
-          />
-          <CardContent>
-            <Stack gap={2}>
-              <Typography sx={{ height: 40 }}>{project.description}</Typography>
+    <Card
+      variant="outlined"
+      component={Link}
+      href={informationPath}
+      key={project.id}
+      sx={{ borderRadius: 4, textDecoration: "none" }}
+    >
+      <CardActionArea sx={{ p: 1 }}>
+        <CardHeader
+          title={
+            <>
+              <Tag label="비공개" sx={{ mr: 1 }} />
+              {project.title}
+            </>
+          }
+          titleTypographyProps={{ fontWeight: 800, noWrap: true }}
+          sx={{ [`& .${cardHeaderClasses.content}`]: { width: "100%" }, pb: 0 }}
+        />
+        <CardContent>
+          <Stack gap={2}>
+            <Typography
+              sx={{
+                height: 46,
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                display: "-webkit-box",
+                WebkitLineClamp: "2",
+                WebkitBoxOrient: "vertical",
+              }}
+            >
+              {project.description}
+            </Typography>
 
-              <Stack>
-                <Typography variant="body2" fontWeight={700}>
-                  참여 현황
-                </Typography>
-                <LinearProgressWithLabel value={0} />
-              </Stack>
+            <Stack>
+              <Typography variant="body2" fontWeight={700}>
+                참여 현황
+              </Typography>
+              <LinearProgressWithLabel
+                project={project}
+                value={
+                  (project.joinedParticipants / project.maxParticipants) * 100
+                }
+              />
             </Stack>
-          </CardContent>
-        </CardActionArea>
-      </Card>
-    </MuiLink>
+          </Stack>
+        </CardContent>
+      </CardActionArea>
+    </Card>
   );
 };
 
-function LinearProgressWithLabel(
-  props: LinearProgressProps & { value: number }
-) {
+function LinearProgressWithLabel({
+  project,
+  ...props
+}: LinearProgressProps & { project: GetProjectListResponse }) {
+  console.log(project.joinedParticipants);
   return (
     <Box sx={{ display: "flex", alignItems: "center" }}>
       <Box sx={{ width: "100%", mr: 1 }}>
@@ -76,7 +99,7 @@ function LinearProgressWithLabel(
       </Box>
       <Box sx={{ minWidth: 35 }}>
         <Typography variant="caption" fontWeight={600}>
-          0/30
+          {project.joinedParticipants}/{project.maxParticipants}
         </Typography>
       </Box>
     </Box>
