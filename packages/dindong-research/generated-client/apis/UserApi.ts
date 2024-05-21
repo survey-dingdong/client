@@ -15,6 +15,7 @@
 
 import * as runtime from '../runtime';
 import type {
+  ChangePasswordRequest,
   CreateUserRequest,
   CreateUserResponse,
   GetUserListResponse,
@@ -23,6 +24,8 @@ import type {
   LoginResponse,
 } from '../models/index';
 import {
+    ChangePasswordRequestFromJSON,
+    ChangePasswordRequestToJSON,
     CreateUserRequestFromJSON,
     CreateUserRequestToJSON,
     CreateUserResponseFromJSON,
@@ -36,6 +39,10 @@ import {
     LoginResponseFromJSON,
     LoginResponseToJSON,
 } from '../models/index';
+
+export interface ChangePasswordUsersPasswordPatchRequest {
+    changePasswordRequest: ChangePasswordRequest;
+}
 
 export interface CreateUserUsersPostRequest {
     createUserRequest: CreateUserRequest;
@@ -54,6 +61,50 @@ export interface LoginUsersLoginPostRequest {
  * 
  */
 export class UserApi extends runtime.BaseAPI {
+
+    /**
+     * Change Password
+     */
+    async changePasswordUsersPasswordPatchRaw(requestParameters: ChangePasswordUsersPasswordPatchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>> {
+        if (requestParameters['changePasswordRequest'] == null) {
+            throw new runtime.RequiredError(
+                'changePasswordRequest',
+                'Required parameter "changePasswordRequest" was null or undefined when calling changePasswordUsersPasswordPatch().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Authorization"] = await this.configuration.apiKey("Authorization"); // PermissionDependency authentication
+        }
+
+        const response = await this.request({
+            path: `/users/password`,
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: ChangePasswordRequestToJSON(requestParameters['changePasswordRequest']),
+        }, initOverrides);
+
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<any>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
+    }
+
+    /**
+     * Change Password
+     */
+    async changePasswordUsersPasswordPatch(requestParameters: ChangePasswordUsersPasswordPatchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any> {
+        const response = await this.changePasswordUsersPasswordPatchRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
 
     /**
      * Create User

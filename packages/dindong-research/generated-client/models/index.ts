@@ -1,5 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
+export * from './ChangePasswordRequest';
 export * from './CreateProjectRequest';
 export * from './CreateProjectResponse';
 export * from './CreateUserRequest';

@@ -26,17 +26,11 @@ export interface CreateUserRequest {
      */
     email: string;
     /**
-     * Password1
+     * Password
      * @type {string}
      * @memberof CreateUserRequest
      */
-    password1: string;
-    /**
-     * Password2
-     * @type {string}
-     * @memberof CreateUserRequest
-     */
-    password2: string;
+    password: string;
     /**
      * username
      * @type {string}
@@ -50,8 +44,7 @@ export interface CreateUserRequest {
  */
 export function instanceOfCreateUserRequest(value: object): boolean {
     if (!('email' in value)) return false;
-    if (!('password1' in value)) return false;
-    if (!('password2' in value)) return false;
+    if (!('password' in value)) return false;
     if (!('username' in value)) return false;
     return true;
 }
@@ -67,8 +60,7 @@ export function CreateUserRequestFromJSONTyped(json: any, ignoreDiscriminator: b
     return {
         
         'email': json['email'],
-        'password1': json['password1'],
-        'password2': json['password2'],
+        'password': json['password'],
         'username': json['username'],
     };
 }
@@ -80,8 +72,7 @@ export function CreateUserRequestToJSON(value?: CreateUserRequest | null): any {
     return {
         
         'email': value['email'],
-        'password1': value['password1'],
-        'password2': value['password2'],
+        'password': value['password'],
         'username': value['username'],
     };
 }

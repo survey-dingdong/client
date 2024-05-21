@@ -20,25 +20,18 @@ import { mapValues } from '../runtime';
  */
 export interface CreateUserResponse {
     /**
-     * Email
+     * Token
      * @type {string}
      * @memberof CreateUserResponse
      */
-    email: string;
-    /**
-     * username
-     * @type {string}
-     * @memberof CreateUserResponse
-     */
-    username: string;
+    token: string;
 }
 
 /**
  * Check if a given object implements the CreateUserResponse interface.
  */
 export function instanceOfCreateUserResponse(value: object): boolean {
-    if (!('email' in value)) return false;
-    if (!('username' in value)) return false;
+    if (!('token' in value)) return false;
     return true;
 }
 
@@ -52,8 +45,7 @@ export function CreateUserResponseFromJSONTyped(json: any, ignoreDiscriminator: 
     }
     return {
         
-        'email': json['email'],
-        'username': json['username'],
+        'token': json['token'],
     };
 }
 
@@ -63,8 +55,7 @@ export function CreateUserResponseToJSON(value?: CreateUserResponse | null): any
     }
     return {
         
-        'email': value['email'],
-        'username': value['username'],
+        'token': value['token'],
     };
 }
 

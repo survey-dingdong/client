@@ -50,7 +50,7 @@ import Tag from "src/widgets/Tag";
 //
 
 interface ProjectFormType
-  extends Omit<PutProjectRequest, "starDate" | "endDate"> {
+  extends Omit<PutProjectRequest, "startDate" | "endDate"> {
   startDate: Dayjs;
   endDate: Dayjs;
 }
@@ -94,7 +94,7 @@ export default function Page() {
   });
 
   const formMethods = useForm<ProjectFormType>({
-    defaultValues: project,
+    defaultValues: project as PutProjectRequest,
   });
 
   const [usingExcludeDates, setUsingExcludeDates] = React.useState(false);
@@ -118,7 +118,7 @@ export default function Page() {
   //
   React.useEffect(() => {
     if (project) {
-      formMethods.reset(project);
+      formMethods.reset(project as PutProjectRequest);
 
       if (!project?.endDate) {
         formMethods.setValue("endDate", TODAY.add(1, "month"));

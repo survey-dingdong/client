@@ -57,17 +57,17 @@ export interface GetExperimentProjectResponse {
      */
     isPublic: boolean;
     /**
-     * Experiment start date
+     * 
      * @type {Date}
      * @memberof GetExperimentProjectResponse
      */
-    startDate: Date;
+    startDate: Date | null;
     /**
-     * Experiment end date
+     * 
      * @type {Date}
      * @memberof GetExperimentProjectResponse
      */
-    endDate: Date;
+    endDate: Date | null;
     /**
      * Experimental exclusion days
      * @type {Array<Date>}
@@ -87,11 +87,11 @@ export interface GetExperimentProjectResponse {
      */
     experimentType: ExperimentTypeEnum;
     /**
-     * Experiment location
+     * 
      * @type {string}
      * @memberof GetExperimentProjectResponse
      */
-    location: string;
+    location: string | null;
     /**
      * Experiment participant code
      * @type {string}
@@ -145,8 +145,8 @@ export function GetExperimentProjectResponseFromJSONTyped(json: any, ignoreDiscr
         'title': json['title'],
         'description': json['description'] == null ? undefined : json['description'],
         'isPublic': json['is_public'],
-        'startDate': (new Date(json['start_date'])),
-        'endDate': (new Date(json['end_date'])),
+        'startDate': (json['start_date'] == null ? null : new Date(json['start_date'])),
+        'endDate': (json['end_date'] == null ? null : new Date(json['end_date'])),
         'excludedDates': json['excluded_dates'],
         'experimentTimeslots': ((json['experiment_timeslots'] as Array<any>).map(ExperimentTimeslotReadFromJSON)),
         'experimentType': ExperimentTypeEnumFromJSON(json['experiment_type']),
@@ -167,8 +167,8 @@ export function GetExperimentProjectResponseToJSON(value?: GetExperimentProjectR
         'title': value['title'],
         'description': value['description'],
         'is_public': value['isPublic'],
-        'start_date': ((value['startDate']).toISOString().substring(0,10)),
-        'end_date': ((value['endDate']).toISOString().substring(0,10)),
+        'start_date': (value['startDate'] == null ? null : (value['startDate'] as any).toISOString().substring(0,10)),
+        'end_date': (value['endDate'] == null ? null : (value['endDate'] as any).toISOString().substring(0,10)),
         'excluded_dates': value['excludedDates'],
         'experiment_timeslots': ((value['experimentTimeslots'] as Array<any>).map(ExperimentTimeslotReadToJSON)),
         'experiment_type': ExperimentTypeEnumToJSON(value['experimentType']),

@@ -4,6 +4,7 @@ apis/UserApi.ts
 apis/WorkspaceApi.ts
 apis/index.ts
 index.ts
+models/ChangePasswordRequest.ts
 models/CreateProjectRequest.ts
 models/CreateProjectResponse.ts
 models/CreateUserRequest.ts
