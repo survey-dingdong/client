@@ -1,6 +1,5 @@
 import useSWR from "swr";
 import { getFetcher } from "./fetcher";
-import { Project } from "src/types/project";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
@@ -15,9 +14,11 @@ type UseProjectReturn = {
   isError: any;
 };
 
+export const WORKSPACES_QUERY_KEY = "/workspaces";
+
 export function useWorkspaces(): UseProjectReturn {
   const { data, isError, isLoading } = useQuery<WorkspaceType[]>({
-    queryKey: ["workspaces"],
+    queryKey: [WORKSPACES_QUERY_KEY],
     queryFn: () => axios.get("/workspaces").then((res) => res.data),
   });
 

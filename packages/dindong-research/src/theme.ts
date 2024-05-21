@@ -295,12 +295,19 @@ const theme = createTheme({
       styleOverrides: {
         root: ({ theme, ownerState }) => ({
           ...(ownerState.selected && {
-            color: theme.palette.primary.main,
+            [`& .${listItemTextClasses.primary}`]: {
+              color: theme.palette.primary.main,
+            },
+            i: {
+              color: theme.palette.primary.main,
+            },
           }),
           borderRadius: 8,
           ...(!ownerState.selected && {
             "&:hover": {
-              color: theme.palette.primary.main,
+              [`& .${listItemTextClasses.primary}`]: {
+                color: theme.palette.primary.main,
+              },
               i: {
                 color: theme.palette.primary.main,
               },

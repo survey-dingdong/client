@@ -22,10 +22,10 @@ import editIcon from "public/icons/edit.png";
 import deleteIcon from "public/icons/trash.png";
 import Image from "next/image";
 import WorkspaceDeleteDialog from "./WorkspaceDeleteDialog";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
 import { useWorkspaceCreate } from "src/hooks/useWorkspaceCreate";
 import { useParams } from "next/navigation";
+import WorkspaceRenameInput from "./WorkspaceRenameInput";
+import { useWorkspaces } from "src/hooks/useWorkspaces";
 
 //
 //
@@ -51,15 +51,14 @@ const WorkspaceNav = () => {
   // [STATE]
   const [editMode, setEditMode] = React.useState(false);
   const [dialog, setDialog] = React.useState<DialogType>(null);
+  const [editingWorkspace, setEditingWorkspace] =
+    React.useState<WorkspaceType | null>(null);
 
   // [QUERY]
-  const { data: workspaceData = [] } = useQuery<WorkspaceType[]>({
-    queryKey: ["workspaces"],
-    queryFn: () => axios.get("/workspaces").then((res) => res.data),
-  });
+  const { workspaces = [] } = useWorkspaces();
 
-  const onlyOneWorkspace = workspaceData?.length === 1;
-  const fullWorkspaces = workspaceData?.length >= 10;
+  const onlyOneWorkspace = workspaces?.length === 1;
+  const fullWorkspaces = workspaces?.length >= 10;
 
   const { mutate: createWorkspace } = useWorkspaceCreate();
 
@@ -113,68 +112,89 @@ const WorkspaceNav = () => {
             </ListSubheader>
           }
         >
-          {workspaceData?.map((workspace) => (
-            <ListItem
-              key={workspace.id}
-              disablePadding
-              sx={{ height: 40 }}
-              secondaryAction={
-                editMode ? (
-                  <>
-                    <Tooltip title="이름 변경">
-                      <IconButton size="small">
-                        <Image
-                          src={editIcon.src}
-                          width={16}
-                          height={16}
-                          alt="edit"
-                        />
-                      </IconButton>
-                    </Tooltip>
-                    {onlyOneWorkspace ? null : (
-                      <Tooltip title="삭제">
+          {workspaces?.map((workspace) => {
+            const isEditing = editingWorkspace?.id === workspace.id;
+
+            return (
+              <ListItem
+                key={workspace.id}
+                disablePadding
+                sx={{ height: 40 }}
+                secondaryAction={
+                  editMode && !isEditing ? (
+                    <>
+                      <Tooltip title="이름 변경">
                         <IconButton
                           size="small"
-                          disabled={onlyOneWorkspace}
-                          onClick={() =>
-                            setDialog({
-                              type: "delete",
-                              selected: workspace,
-                            })
-                          }
+                          onClick={() => setEditingWorkspace(workspace)}
                         >
                           <Image
-                            src={deleteIcon.src}
+                            src={editIcon.src}
                             width={16}
                             height={16}
-                            alt="delete"
+                            alt="edit"
                           />
                         </IconButton>
                       </Tooltip>
+                      {onlyOneWorkspace ? null : (
+                        <Tooltip title="삭제">
+                          <IconButton
+                            size="small"
+                            disabled={onlyOneWorkspace}
+                            onClick={() =>
+                              setDialog({
+                                type: "delete",
+                                selected: workspace,
+                              })
+                            }
+                          >
+                            <Image
+                              src={deleteIcon.src}
+                              width={16}
+                              height={16}
+                              alt="delete"
+                            />
+                          </IconButton>
+                        </Tooltip>
+                      )}
+                    </>
+                  ) : null
+                }
+              >
+                {editMode ? (
+                  <>
+                    <ListItemIcon>
+                      <MenuRoundedIcon fontSize="small" />
+                    </ListItemIcon>
+                    {isEditing ? (
+                      <WorkspaceRenameInput
+                        value={workspace.title}
+                        workspaceId={workspace.id}
+                        onStopEditing={() => setEditingWorkspace(null)}
+                      />
+                    ) : (
+                      <ListItemText
+                        primaryTypographyProps={{ noWrap: true, pr: 8 }}
+                      >
+                        {workspace.title}
+                      </ListItemText>
                     )}
                   </>
-                ) : null
-              }
-            >
-              {editMode ? (
-                <>
-                  <ListItemIcon>
-                    <MenuRoundedIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText>{workspace.title}</ListItemText>
-                </>
-              ) : (
-                <ListItemButton
-                  LinkComponent={Link}
-                  href={`/workspaces/${workspace.id}`}
-                  selected={workspace.id === Number(workspaceId)}
-                  sx={{ height: "100%" }}
-                >
-                  {workspace.title}
-                </ListItemButton>
-              )}
-            </ListItem>
-          ))}
+                ) : (
+                  <ListItemButton
+                    LinkComponent={Link}
+                    href={`/workspaces/${workspace.id}`}
+                    selected={workspace.id === Number(workspaceId)}
+                    sx={{ height: "100%" }}
+                  >
+                    <ListItemText primaryTypographyProps={{ noWrap: true }}>
+                      {workspace.title}
+                    </ListItemText>
+                  </ListItemButton>
+                )}
+              </ListItem>
+            );
+          })}
         </List>
 
         {editMode || fullWorkspaces ? null : (
