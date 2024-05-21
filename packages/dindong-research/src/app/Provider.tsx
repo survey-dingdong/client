@@ -19,6 +19,7 @@ axios.defaults.headers.common[
 ] = `Bearer ${sessionStorage.getItem("token")}`;
 
 axios.interceptors.request.use((request) => {
+  request.params = camelToSnake(request.params);
   request.data = camelToSnake(request.data);
   return request;
 });

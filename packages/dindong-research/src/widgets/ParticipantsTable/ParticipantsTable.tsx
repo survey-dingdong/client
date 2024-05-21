@@ -25,10 +25,17 @@ import React from "react";
 import ParticipantStatusChip from "./ParticipantStatusChip";
 import Link from "next/link";
 import { usePath } from "src/hooks/usePath";
+import { GetExperimentParticipantResponse } from "generated-client";
 
 const heads = ["이름", "예약 일시", "참여 여부", ""];
 
-const ParticipantsTable: React.FC = ({}) => {
+interface ParticipantsTableProps {
+  participants: GetExperimentParticipantResponse[];
+}
+
+const ParticipantsTable: React.FC<ParticipantsTableProps> = ({
+  participants,
+}) => {
   const [dialogType, setDialogType] = React.useState<"delete" | "info" | null>(
     null
   );
@@ -114,15 +121,13 @@ const ParticipantsTable: React.FC = ({}) => {
           {/* body */}
           <TableBody>
             {/* mock */}
-            {Array.from({ length: 10 }).map((_, index) => (
-              <TableRow key={index}>
-                <TableCell>김철수</TableCell>
-                <TableCell>2021-10-10 10:00</TableCell>
+            {participants.map((participant) => (
+              <TableRow key={participant.id}>
+                <TableCell>{participant.username}</TableCell>
+                <TableCell>{participant.reservedDate}</TableCell>
                 <TableCell>
                   <ParticipantStatusChip
-                    status={
-                      index === 1 ? "done" : index === 0 ? "absent" : "planned"
-                    }
+                    status={participant.attendanceStatus}
                   />
                 </TableCell>
                 <TableCell>
