@@ -49,10 +49,20 @@ import Tag from "src/widgets/Tag";
 //
 //
 
+export interface TimeSlotType
+  extends Omit<ExperimentTimeslotRequest, "startTime" | "endTime"> {
+  startTime: null | Dayjs;
+  endTime: null | Dayjs;
+}
+
 interface ProjectFormType
-  extends Omit<PutProjectRequest, "startDate" | "endDate"> {
+  extends Omit<
+    PutProjectRequest,
+    "startDate" | "endDate" | "experimentTimeslots"
+  > {
   startDate: Dayjs;
   endDate: Dayjs;
+  experimentTimeslots: TimeSlotType[];
 }
 
 //
@@ -94,7 +104,7 @@ export default function Page() {
   });
 
   const formMethods = useForm<ProjectFormType>({
-    defaultValues: project as PutProjectRequest,
+    defaultValues: project as unknown as ProjectFormType,
   });
 
   const [usingExcludeDates, setUsingExcludeDates] = React.useState(false);
@@ -118,7 +128,7 @@ export default function Page() {
   //
   React.useEffect(() => {
     if (project) {
-      formMethods.reset(project as PutProjectRequest);
+      formMethods.reset(project as unknown as ProjectFormType);
 
       if (!project?.endDate) {
         formMethods.setValue("endDate", TODAY.add(1, "month"));
@@ -148,10 +158,10 @@ export default function Page() {
           startDate: dayjs(data.startDate).format(SERVER_DATE_FORMAT),
           endDate: dayjs(data.endDate).format(SERVER_DATE_FORMAT),
           experimentTimeslots: data.experimentTimeslots.map(
-            (timeslot: ExperimentTimeslotRequest) => ({
+            (timeslot: TimeSlotType) => ({
               ...timeslot,
-              startTime: dayjs(timeslot.startTime).format(SERVER_TIME_FORMAT),
-              endTime: dayjs(timeslot.endTime).format(SERVER_TIME_FORMAT),
+              startTime: timeslot.startTime?.format(SERVER_TIME_FORMAT),
+              endTime: timeslot.endTime?.format(SERVER_TIME_FORMAT),
             })
           ),
         },
@@ -195,9 +205,14 @@ export default function Page() {
               <Controller
                 name="title"
                 control={formMethods.control}
-                render={({ field }) => (
+                rules={{
+                  required: { value: true, message: "필수 입력 항목입니다." },
+                }}
+                render={({ field, fieldState }) => (
                   <TextField
                     label="프로젝트 명"
+                    error={fieldState.invalid}
+                    helperText={fieldState.error?.message}
                     required
                     fullWidth
                     {...field}
@@ -207,11 +222,16 @@ export default function Page() {
               <Controller
                 name="description"
                 control={formMethods.control}
-                render={({ field }) => (
+                rules={{
+                  required: { value: true, message: "필수 입력 항목입니다." },
+                }}
+                render={({ field, fieldState }) => (
                   <TextField
                     label="프로젝트 설명"
                     placeholder="프로젝트 설명을 입력해주세요."
                     rows={3}
+                    error={fieldState.invalid}
+                    helperText={fieldState.error?.message}
                     multiline
                     required
                     fullWidth
@@ -242,10 +262,20 @@ export default function Page() {
                     <Controller
                       name="startDate"
                       control={formMethods.control}
-                      render={({ field }) => (
+                      rules={{
+                        required: {
+                          value: true,
+                          message: "필수 입력 항목입니다.",
+                        },
+                      }}
+                      render={({ field, fieldState }) => (
                         <DatePicker
                           slotProps={{
-                            textField: { fullWidth: true },
+                            textField: {
+                              fullWidth: true,
+                              error: fieldState.invalid,
+                              helperText: fieldState.error?.message,
+                            },
                             openPickerIcon: MuiIcon,
                           }}
                           {...field}
@@ -256,10 +286,20 @@ export default function Page() {
                     <Controller
                       name="endDate"
                       control={formMethods.control}
-                      render={({ field }) => (
+                      rules={{
+                        required: {
+                          value: true,
+                          message: "필수 입력 항목입니다.",
+                        },
+                      }}
+                      render={({ field, fieldState }) => (
                         <DatePicker
                           slotProps={{
-                            textField: { fullWidth: true },
+                            textField: {
+                              fullWidth: true,
+                              error: fieldState.invalid,
+                              helperText: fieldState.error?.message,
+                            },
                             openPickerIcon: MuiIcon,
                           }}
                           {...field}
@@ -370,15 +410,19 @@ export default function Page() {
                     name="title"
                     // name="maxParticipants"
                     control={formMethods.control}
-                    render={({ field }) => (
+                    render={({ field, fieldState }) => (
                       <TextField
                         required
                         type="number"
                         endAdornment={
                           <InputAdornment position="end">명</InputAdornment>
                         }
+                        error={fieldState.invalid}
                         // TODO: add max participant validation
-                        helperText="참여 가능한 최대 참가자 수는 4명입니다."
+                        helperText={
+                          fieldState.error?.message ||
+                          "참여 가능한 최대 참가자 수는 4명입니다."
+                        }
                         {...field}
                       />
                     )}

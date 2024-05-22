@@ -1,12 +1,9 @@
-import useSWR from "swr";
-import { getFetcher } from "./fetcher";
-import { Project } from "src/types/project";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { ProjectTypeEnum } from "generated-client";
+import { GetProjectListResponse, ProjectTypeEnum } from "generated-client";
 
 type UseProjectReturn = {
-  projects: Project[] | undefined;
+  projects: GetProjectListResponse[] | undefined;
   isLoading: boolean;
   isError: any;
 };
@@ -26,6 +23,7 @@ export function useProjects({
           params: { project_type: ProjectTypeEnum.Experiment },
         })
         .then((res) => res.data),
+    placeholderData: keepPreviousData,
   });
 
   return {

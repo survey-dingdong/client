@@ -9,12 +9,15 @@ import {
 } from "generated-client";
 import { useParams } from "next/navigation";
 import React from "react";
+import { useProject } from "src/hooks/useProject";
 import PageHeader from "src/shared/PageHeader";
 import { CopyIconButton } from "src/widgets";
 import { ParticipantsTable } from "src/widgets/ParticipantsTable";
 
 export default function Page() {
   const { workspaceId, projectId } = useParams();
+  const _workspaceId = parseInt(workspaceId as string);
+  const _projectId = parseInt(projectId as string);
 
   const { data: participantsData = [] } = useQuery({
     queryKey: ["participants"],
@@ -31,6 +34,11 @@ export default function Page() {
         .then((res) => res.data),
   });
 
+  const { project } = useProject({
+    workspaceId: _workspaceId,
+    projectId: _projectId,
+  });
+
   //
   //
   //
@@ -44,7 +52,9 @@ export default function Page() {
             <Box display="flex" alignItems="center" gap={3}>
               {/* participate code */}
               <Box display="flex" gap={1} alignItems="center">
-                <Typography variant="body2">참여 코드: ZWEX</Typography>
+                <Typography variant="body2">
+                  참여 코드: {project?.participantCode}
+                </Typography>
                 <CopyIconButton content="ZXWE" />
               </Box>
               {/* download report */}

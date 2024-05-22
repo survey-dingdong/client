@@ -4,17 +4,18 @@ import {
   FormLabel,
   InputProps,
   OutlinedInput,
+  TextFieldProps,
   Typography,
 } from "@mui/material";
 import React from "react";
 
-export interface TextFieldProps extends InputProps {
+export interface _TextFieldProps extends InputProps {
   required?: boolean;
   label?: string;
   helperText?: string;
 }
 
-const TextField: React.FC<TextFieldProps> = ({
+const TextField: React.FC<_TextFieldProps> = ({
   required,
   label,
   helperText,

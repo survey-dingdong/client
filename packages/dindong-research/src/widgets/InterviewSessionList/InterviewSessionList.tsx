@@ -14,12 +14,13 @@ import { Controller, useFormContext, useWatch } from "react-hook-form";
 import { ExperimentTimeslotRequest } from "generated-client";
 
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
-import dayjs from "dayjs";
+import dayjs, { isDayjs } from "dayjs";
 import { Check } from "@mui/icons-material";
+import { TimeSlotType } from "src/app/workspaces/[workspaceId]/projects/[projectId]/information/page";
 
-export const DEFAULT_TIMESLOT: ExperimentTimeslotRequest = {
-  startTime: "",
-  endTime: "",
+export const DEFAULT_TIMESLOT: TimeSlotType = {
+  startTime: null,
+  endTime: null,
   maxParticipants: 0,
 };
 
@@ -32,7 +33,11 @@ const convertTimeToDayjs = (time: string) => {
     return null;
   }
 
-  const [h, m, s] = time.split(":");
+  if (isDayjs(time)) {
+    return time;
+  }
+
+  const [h, m, s] = time?.split(":");
 
   return dayjs()
     .set("hour", parseInt(h))

@@ -3,11 +3,12 @@ import React from "react";
 import TextField from "src/shared/TextField";
 import ProjectCard from "src/shared/ProjectCard";
 import SearchIcon from "@mui/icons-material/Search";
-import { Project } from "src/types/project";
+
 import { CreateProjectAction } from "../CreateProjectAction";
+import { GetProjectListResponse } from "generated-client";
 
 interface ProjectListProps {
-  projects?: Project[];
+  projects?: GetProjectListResponse[];
   workspaceId: number;
 }
 
