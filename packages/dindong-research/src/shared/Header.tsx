@@ -117,7 +117,7 @@ const Header: NextPage = () => {
             color={theme.palette.primary.main}
             fontWeight={800}
             component={Link}
-            href={workspaces ? `/workspaces/${workspaces[0].id}` : "/"}
+            href={workspaces ? `/workspaces/${workspaces[0]?.id}` : "/"}
           >
             LOGO
           </Typography>

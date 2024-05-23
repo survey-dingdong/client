@@ -15,7 +15,11 @@ export function useProjects({
 }: {
   workspaceId: number;
 }): UseProjectReturn {
-  const { data, isLoading, error } = useQuery({
+  const {
+    data = [],
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: [...getProjectsQueryKey, workspaceId],
     queryFn: () =>
       axios

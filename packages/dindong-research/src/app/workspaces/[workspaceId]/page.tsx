@@ -23,6 +23,7 @@ export default function Page() {
   return (
     <Stack height="100%">
       <SurveyListPageHeader />
+
       <ProjectList projects={projects} workspaceId={_workspaceId} />
       {hasNoProjects ? <SurveyListEmpty workspaceId={_workspaceId} /> : null}
     </Stack>

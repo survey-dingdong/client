@@ -10,7 +10,7 @@ export default function Page() {
   const params = useSearchParams();
   const tokenParam = params.get(TOKEN_KEY);
 
-  const { workspaces, isLoading } = useWorkspaces();
+  const { workspaces = [], isLoading } = useWorkspaces();
   const mutation = useWorkspaceCreate();
 
   useEffect(() => {
@@ -26,8 +26,8 @@ export default function Page() {
 
     let workspaceId;
 
-    if (workspaces) {
-      workspaceId = workspaces[0].id;
+    if (workspaces.length > 0) {
+      workspaceId = workspaces[0]?.id;
     } else {
       mutation
         .mutateAsync({ title: "내 워크스페이스" })
@@ -35,7 +35,8 @@ export default function Page() {
     }
 
     router.replace(`/workspaces/${workspaceId}`);
-  }, [isLoading, mutation, router, tokenParam, workspaces]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading, mutation, router, tokenParam]);
 
   return <></>;
 }

@@ -12,20 +12,21 @@ import PasswordTextField, {
 } from "src/shared/PasswordTextField";
 import TextField from "src/shared/TextField";
 import { useMutation } from "@tanstack/react-query";
+import { CreateUserRequest } from "generated-client";
 
 //
 //
 //
 
 export default function Page() {
-  const formMethods = useForm({
+  const formMethods = useForm<CreateUserRequest>({
     mode: "onChange",
     // TODO: change to password after server is ready
-    defaultValues: { username: "", email: "", password1: "" },
+    defaultValues: { username: "", email: "", password: "" },
   });
   const [reEnterPw, setReEnterPw] = React.useState("");
 
-  const pw = useWatch({ control: formMethods.control, name: "password1" });
+  const pw = useWatch({ control: formMethods.control, name: "password" });
   const pwNotMatch = pw !== reEnterPw;
 
   const { enqueueSnackbar } = useSnackbar();
@@ -44,7 +45,7 @@ export default function Page() {
   });
 
   const postUser = formMethods.handleSubmit((data) => {
-    mutation.mutate({ ...data, password2: data.password1 });
+    mutation.mutate(data);
   });
 
   return (
@@ -91,7 +92,7 @@ export default function Page() {
               />
 
               <Controller
-                name="password1"
+                name="password"
                 control={formMethods.control}
                 rules={{
                   required: true,
@@ -119,7 +120,7 @@ export default function Page() {
                 placeholder="비밀번호를 재입력 해주세요."
                 error={pwNotMatch}
                 helperText={pwNotMatch ? "비밀번호가 일치하지 않습니다." : ""}
-                onChange={(e) => setReEnterPw(e.target.value)}
+                onChange={(e: any) => setReEnterPw(e.target.value)}
               />
             </Stack>
 
