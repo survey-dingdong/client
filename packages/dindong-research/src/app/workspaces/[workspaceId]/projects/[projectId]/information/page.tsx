@@ -4,7 +4,6 @@ import {
   Card,
   CardContent,
   Checkbox,
-  Chip,
   Collapse,
   Container,
   FormControlLabel,
@@ -35,7 +34,6 @@ import { useParams } from "next/navigation";
 import dayjs, { Dayjs } from "dayjs";
 import { DateChip } from "src/widgets/DateChip";
 import Image from "next/image";
-import noteTextIcon from "public/icons/note-text.png";
 import axios from "axios";
 import { useSnackbar } from "notistack";
 import {
@@ -44,6 +42,7 @@ import {
   PutProjectRequest,
 } from "generated-client";
 import Tag from "src/widgets/Tag";
+import { DatePickerOpenIcon } from "src/shared/DatePickerIcon";
 
 //
 //
@@ -68,17 +67,6 @@ interface ProjectFormType
 //
 //
 //
-
-function MuiIcon() {
-  return (
-    <Image
-      src={noteTextIcon.src}
-      alt="Date picker opening icon"
-      width={16}
-      height={16}
-    />
-  );
-}
 
 //
 //
@@ -122,6 +110,20 @@ export default function Page() {
     name: "experimentType",
     control: formMethods.control,
   });
+
+  const watchedTimeslots: TimeSlotType[] = useWatch({
+    name: "experimentTimeslots",
+    control: formMethods.control,
+  });
+
+  const sumOfSessionParticipants = watchedTimeslots.reduce(
+    (acc, session) => acc + Number(session.maxParticipants),
+    0
+  );
+
+  const possibleParticipantsCount =
+    (dayjs(watchedEndDate).diff(watchedStartDate, "day") + 2) *
+    sumOfSessionParticipants;
 
   //
   //
@@ -270,15 +272,18 @@ export default function Page() {
                       }}
                       render={({ field, fieldState }) => (
                         <DatePicker
+                          slots={{
+                            openPickerIcon: DatePickerOpenIcon,
+                          }}
                           slotProps={{
                             textField: {
                               fullWidth: true,
                               error: fieldState.invalid,
                               helperText: fieldState.error?.message,
                             },
-                            openPickerIcon: MuiIcon,
                           }}
                           {...field}
+                          format="YYYY. MM. DD."
                           value={dayjs(field.value)}
                         />
                       )}
@@ -294,15 +299,18 @@ export default function Page() {
                       }}
                       render={({ field, fieldState }) => (
                         <DatePicker
+                          slots={{
+                            openPickerIcon: DatePickerOpenIcon,
+                          }}
                           slotProps={{
                             textField: {
                               fullWidth: true,
                               error: fieldState.invalid,
                               helperText: fieldState.error?.message,
                             },
-                            openPickerIcon: MuiIcon,
                           }}
                           {...field}
+                          format="YYYY. MM. DD."
                           value={dayjs(field.value)}
                         />
                       )}
@@ -336,6 +344,14 @@ export default function Page() {
                             <CardContent component={Stack} sx={{ gap: 2 }}>
                               <DatePicker
                                 disablePast
+                                slots={{
+                                  openPickerIcon: DatePickerOpenIcon,
+                                }}
+                                slotProps={{
+                                  actionBar: {
+                                    actions: ["clear", "accept"],
+                                  },
+                                }}
                                 value={undefined}
                                 minDate={dayjs(watchedStartDate)}
                                 maxDate={dayjs(watchedEndDate)}
@@ -345,6 +361,10 @@ export default function Page() {
                                       EXCLUDED_DATE_FORMAT
                                     ) as unknown as Date
                                   );
+                                }}
+                                localeText={{
+                                  clearButtonLabel: "초기화",
+                                  okButtonLabel: "적용",
                                 }}
                                 onChange={(date) => {
                                   if (date) {
@@ -418,10 +438,9 @@ export default function Page() {
                           <InputAdornment position="end">명</InputAdornment>
                         }
                         error={fieldState.invalid}
-                        // TODO: add max participant validation
                         helperText={
                           fieldState.error?.message ||
-                          "참여 가능한 최대 참가자 수는 4명입니다."
+                          `참여 가능한 최대 참가자 수는 ${possibleParticipantsCount}명입니다.`
                         }
                         {...field}
                       />
