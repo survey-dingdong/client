@@ -46,6 +46,11 @@ axios.interceptors.response.use(
           ] = `Bearer ${res.data.token}`;
 
           return axios.request(error.config);
+        })
+        .catch(() => {
+          sessionStorage.removeItem(TOKEN_KEY);
+          sessionStorage.removeItem(REFRESH_TOKEN_KEY);
+          window.location.href = "/";
         });
     }
     return Promise.reject(error);
