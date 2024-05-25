@@ -124,13 +124,20 @@ export default function Page() {
     control: formMethods.control,
   });
 
+  const watchedExcludeDates = useWatch({
+    name: "excludedDates",
+    control: formMethods.control,
+  });
+
   const sumOfSessionParticipants = watchedTimeslots?.reduce(
     (acc, session) => acc + Number(session.maxParticipants),
     0
   );
 
   const possibleParticipantsCount =
-    (dayjs(watchedEndDate).diff(watchedStartDate, "day") + 2) *
+    (dayjs(watchedEndDate).diff(watchedStartDate, "day") +
+      1 -
+      watchedExcludeDates?.length) *
     sumOfSessionParticipants;
 
   //
@@ -138,19 +145,19 @@ export default function Page() {
   //
   React.useEffect(() => {
     if (project) {
-      formMethods.reset(project as unknown as ProjectFormType);
+      formMethods.reset({
+        ...project,
+        experimentTimeslots: project.experimentTimeslots.map((timeslot) => ({
+          ...timeslot,
+          startTime: convertTimeToDayjs(timeslot.startTime),
+          endTime: convertTimeToDayjs(timeslot.endTime),
+        })),
+        startDate: dayjs(project.startDate),
+        endDate: dayjs(project.endDate),
+      } as unknown as ProjectFormType);
 
       if (!project?.experimentTimeslots?.length) {
         formMethods.setValue("experimentTimeslots", [DEFAULT_TIMESLOT]);
-      } else {
-        formMethods.setValue(
-          "experimentTimeslots",
-          project.experimentTimeslots.map((timeslot) => ({
-            ...timeslot,
-            startTime: convertTimeToDayjs(timeslot.startTime),
-            endTime: convertTimeToDayjs(timeslot.endTime),
-          }))
-        );
       }
 
       if (!project?.endDate) {
@@ -207,6 +214,17 @@ export default function Page() {
       });
     }
   });
+
+  // endDate 변경했을 때 excludeDates 필터
+  React.useEffect(() => {
+    formMethods.setValue(
+      "excludedDates",
+      watchedExcludeDates?.filter((date) =>
+        dayjs(date).isBetween(watchedStartDate, watchedEndDate, "day", "[]")
+      )
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [watchedEndDate, watchedStartDate]);
 
   //
   //
@@ -342,6 +360,7 @@ export default function Page() {
                           }}
                           {...field}
                           value={dayjs(field.value)}
+                          minDate={watchedStartDate}
                         />
                       )}
                     />
