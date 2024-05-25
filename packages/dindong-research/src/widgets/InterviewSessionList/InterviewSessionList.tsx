@@ -24,6 +24,8 @@ export const DEFAULT_TIMESLOT: TimeSlotType = {
   maxParticipants: 0,
 };
 
+const MT = 1.2;
+
 //
 //
 //
@@ -46,7 +48,7 @@ const convertTimeToDayjs = (time: string) => {
 };
 
 const InterviewSessionList = () => {
-  const { control, getValues, setValue } = useFormContext();
+  const { control, setValue } = useFormContext();
 
   const watchedTimeslots: ExperimentTimeslotRequest[] =
     useWatch({
@@ -57,67 +59,123 @@ const InterviewSessionList = () => {
   return (
     <Stack gap={2}>
       {watchedTimeslots.map((session, index) => (
-        <Controller
-          key={index}
-          control={control}
-          name={`experimentTimeslots.${index}`}
-          render={({ field }) => (
-            <Box display="flex" key={index} gap={2} alignItems="center">
-              <Typography variant="caption">세션 {index + 1}</Typography>
-              {/* Date time picker range */}
-              <Stack
-                flexDirection="row"
-                divider={<span>~</span>}
-                alignItems="center"
-                gap={2}
-                flexGrow={1}
-              >
+        <Box display="flex" key={index} gap={2}>
+          <Typography variant="caption" sx={{ mt: MT }}>
+            세션 {index + 1}
+          </Typography>
+
+          {/* Date time picker range */}
+          <Stack
+            flexDirection="row"
+            divider={<Box sx={{ mt: MT }}>~</Box>}
+            gap={2}
+            flexGrow={1}
+          >
+            <Controller
+              key={index}
+              control={control}
+              rules={{
+                required: {
+                  value: true,
+                  message: "세션 시간을 입력해주세요.",
+                },
+              }}
+              name={`experimentTimeslots.${index}.startTime`}
+              render={({ field, fieldState }) => (
                 <TimePicker
-                  value={convertTimeToDayjs(field.value.startTime)}
+                  {...field}
+                  value={convertTimeToDayjs(field.value)}
                   slotProps={{
-                    textField: { fullWidth: true },
-                    openPickerIcon: <Check />,
+                    textField: {
+                      fullWidth: true,
+                      helperText: fieldState.error?.message,
+                      error: !!fieldState.error,
+                    },
                   }}
-                  onChange={(date) =>
-                    field.onChange({ ...field.value, startTime: date })
-                  }
                 />
+              )}
+            />
+
+            <Controller
+              control={control}
+              rules={{
+                required: {
+                  value: true,
+                  message: "세션 시간을 입력해주세요.",
+                },
+                validate: (value) => {
+                  if (value && session.startTime) {
+                    const startTime = convertTimeToDayjs(session.startTime);
+                    const endTime = convertTimeToDayjs(value);
+
+                    if (!endTime?.isAfter(startTime)) {
+                      return "시작 시간보다 늦은 시간을 입력해주세요.";
+                    }
+                  }
+                  return true;
+                },
+              }}
+              name={`experimentTimeslots.${index}.endTime`}
+              render={({ field, fieldState }) => (
                 <TimePicker
-                  value={convertTimeToDayjs(field.value.endTime)}
-                  slotProps={{ textField: { fullWidth: true } }}
-                  onChange={(date) =>
-                    field.onChange({ ...field.value, endTime: date })
-                  }
+                  {...field}
+                  value={convertTimeToDayjs(field.value)}
+                  slotProps={{
+                    textField: {
+                      fullWidth: true,
+                      helperText: fieldState.error?.message,
+                      error: !!fieldState.error,
+                    },
+                  }}
+                  minTime={watchedTimeslots[index]?.startTime}
                 />
-              </Stack>
+              )}
+            />
+          </Stack>
+
+          {/* Max participants */}
+          <Controller
+            control={control}
+            rules={{
+              required: {
+                value: true,
+                message: "참가 인원을 입력해주세요.",
+              },
+              min: {
+                value: 1,
+                message: "1명 이상의 참가 인원을 입력해주세요.",
+              },
+            }}
+            name={`experimentTimeslots.${index}.maxParticipants`}
+            render={({ field, fieldState }) => (
               <TextField
-                value={session.maxParticipants}
-                sx={{ width: 220 }}
+                {...field}
+                sx={{ maxWidth: 220 }}
                 type="number"
+                helperText={fieldState.error?.message}
+                error={!!fieldState.error}
                 endAdornment={
                   <InputAdornment position="end">명</InputAdornment>
                 }
-                onChange={(e) =>
-                  field.onChange({
-                    ...field.value,
-                    maxParticipants: e.target.value,
-                  })
-                }
               />
+            )}
+          />
 
-              <IconButton
-                onClick={() =>
-                  setValue(
-                    "experimentTimeslots",
-                    watchedTimeslots.filter((_, i) => i !== index)
-                  )
-                }
-              >
-                <DeleteRoundedIcon fontSize="small" />
-              </IconButton>
-            </Box>
-          )}
-        />
+          <span>
+            <IconButton
+              disabled={watchedTimeslots.length === 1}
+              onClick={() =>
+                setValue(
+                  "experimentTimeslots",
+                  watchedTimeslots.filter((_, i) => i !== index)
+                )
+              }
+              sx={{ mt: 0.3 }}
+            >
+              <DeleteRoundedIcon fontSize="small" />
+            </IconButton>
+          </span>
+        </Box>
       ))}
 
       <Button

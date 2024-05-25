@@ -38,6 +38,7 @@ import axios from "axios";
 import { useSnackbar } from "notistack";
 import {
   ExperimentTimeslotRequest,
+  ExperimentTypeEnum,
   ProjectTypeEnum,
   PutProjectRequest,
 } from "generated-client";
@@ -116,7 +117,7 @@ export default function Page() {
     control: formMethods.control,
   });
 
-  const sumOfSessionParticipants = watchedTimeslots.reduce(
+  const sumOfSessionParticipants = watchedTimeslots?.reduce(
     (acc, session) => acc + Number(session.maxParticipants),
     0
   );
@@ -440,7 +441,12 @@ export default function Page() {
                         error={fieldState.invalid}
                         helperText={
                           fieldState.error?.message ||
-                          `참여 가능한 최대 참가자 수는 ${possibleParticipantsCount}명입니다.`
+                          ((
+                            <span>
+                              참여 가능한 최대 참가자 수는{" "}
+                              <b>{possibleParticipantsCount}</b>명입니다.
+                            </span>
+                          ) as unknown as string)
                         }
                         {...field}
                       />
@@ -461,8 +467,12 @@ export default function Page() {
                     exclusive
                     sx={{ width: "420px" }}
                   >
-                    <ToggleButton value="offline">대면</ToggleButton>
-                    <ToggleButton value="online">비대면</ToggleButton>
+                    <ToggleButton value={ExperimentTypeEnum.Offline}>
+                      대면
+                    </ToggleButton>
+                    <ToggleButton value={ExperimentTypeEnum.Online}>
+                      비대면
+                    </ToggleButton>
                   </ToggleButtonGroup>
                 )}
               />
