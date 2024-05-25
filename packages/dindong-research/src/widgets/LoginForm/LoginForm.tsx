@@ -22,7 +22,6 @@ import { useRouter } from "next/navigation";
 import PasswordTextField from "src/shared/PasswordTextField";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { useWorkspaceCreate } from "src/hooks/useWorkspaceCreate";
 import { REFRESH_TOKEN_KEY, TOKEN_KEY } from "src/constants/token";
 
 const LoginForm = () => {
@@ -34,16 +33,13 @@ const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // [HANDLER]
-  const { mutateAsync: createWorkspace } = useWorkspaceCreate();
-
   const { mutate: login, isPending: isLoginLoading } = useMutation({
     mutationFn: () => axios.post("/users/login", { email, password }),
     onSuccess: async ({ data }) => {
       setError(false);
 
       sessionStorage.setItem(TOKEN_KEY, data.token);
-      sessionStorage.setItem(REFRESH_TOKEN_KEY, data.refresh_token);
+      sessionStorage.setItem(REFRESH_TOKEN_KEY, data.refreshToken);
 
       axios.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
 

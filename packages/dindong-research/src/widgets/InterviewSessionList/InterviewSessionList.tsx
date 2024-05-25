@@ -17,6 +17,7 @@ import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import dayjs, { Dayjs, isDayjs } from "dayjs";
 import { TimeSlotType } from "src/app/workspaces/[workspaceId]/projects/[projectId]/information/page";
 import isBetween from "dayjs/plugin/isBetween";
+import { TimePickerIcon } from "src/shared/TimePickerIcon";
 dayjs.extend(isBetween);
 
 //
@@ -122,6 +123,9 @@ const InterviewSessionList = () => {
                 <TimePicker
                   {...field}
                   value={convertTimeToDayjs(field.value)}
+                  slots={{
+                    openPickerIcon: TimePickerIcon,
+                  }}
                   slotProps={{
                     textField: {
                       fullWidth: true,
@@ -168,6 +172,9 @@ const InterviewSessionList = () => {
                 <TimePicker
                   {...field}
                   value={convertTimeToDayjs(field.value)}
+                  slots={{
+                    openPickerIcon: TimePickerIcon,
+                  }}
                   slotProps={{
                     textField: {
                       fullWidth: true,

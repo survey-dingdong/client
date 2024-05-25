@@ -44,6 +44,7 @@ import {
 } from "generated-client";
 import Tag from "src/widgets/Tag";
 import { DatePickerOpenIcon } from "src/shared/DatePickerIcon";
+import ExcludedDatePicker from "src/widgets/ExcludedDatePicker";
 
 //
 //
@@ -55,7 +56,7 @@ export interface TimeSlotType
   endTime: null | Dayjs;
 }
 
-interface ProjectFormType
+export interface ProjectFormType
   extends Omit<
     PutProjectRequest,
     "startDate" | "endDate" | "experimentTimeslots"
@@ -73,7 +74,6 @@ interface ProjectFormType
 //
 //
 
-const EXCLUDED_DATE_FORMAT = "YYYY. MM. DD.";
 const SERVER_DATE_FORMAT = "YYYY-MM-DD";
 const SERVER_TIME_FORMAT = "HH:mm:ss.SSS";
 
@@ -284,7 +284,6 @@ export default function Page() {
                             },
                           }}
                           {...field}
-                          format="YYYY. MM. DD."
                           value={dayjs(field.value)}
                         />
                       )}
@@ -311,7 +310,6 @@ export default function Page() {
                             },
                           }}
                           {...field}
-                          format="YYYY. MM. DD."
                           value={dayjs(field.value)}
                         />
                       )}
@@ -343,46 +341,17 @@ export default function Page() {
                             sx={{ bgcolor: "#F8FAFB", borderRadius: 4 }}
                           >
                             <CardContent component={Stack} sx={{ gap: 2 }}>
-                              <DatePicker
-                                disablePast
-                                slots={{
-                                  openPickerIcon: DatePickerOpenIcon,
-                                }}
-                                slotProps={{
-                                  actionBar: {
-                                    actions: ["clear", "accept"],
-                                  },
-                                }}
-                                value={undefined}
-                                minDate={dayjs(watchedStartDate)}
-                                maxDate={dayjs(watchedEndDate)}
-                                shouldDisableDate={(date) => {
-                                  return field.value?.includes(
-                                    date.format(
-                                      EXCLUDED_DATE_FORMAT
-                                    ) as unknown as Date
-                                  );
-                                }}
-                                localeText={{
-                                  clearButtonLabel: "초기화",
-                                  okButtonLabel: "적용",
-                                }}
-                                onChange={(date) => {
-                                  if (date) {
-                                    field.onChange([
-                                      ...field.value,
-                                      date.format(EXCLUDED_DATE_FORMAT),
-                                    ]);
-                                  }
-                                }}
+                              <ExcludedDatePicker
+                                value={field.value as unknown as string[]}
+                                onChange={field.onChange}
                               />
 
                               {field.value?.length > 0 ? (
                                 <Stack gap={1}>
                                   <Typography variant="body2" fontWeight={700}>
-                                    제외 할 날짜 목록
+                                    제외할 날짜 목록
                                   </Typography>
-                                  <Box display="flex" gap={1}>
+                                  <Box display="flex" gap={1} flexWrap="wrap">
                                     {field.value?.map((date: any) => (
                                       <DateChip
                                         key={date}

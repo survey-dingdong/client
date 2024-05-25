@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import axios from "axios";
 import { REFRESH_TOKEN_KEY, TOKEN_KEY } from "src/constants/token";
 import { camelToSnake, getObject } from "src/utils/snakeToCamel";
-
+import "dayjs/locale/ko";
 interface ProviderProps {
   children: React.ReactNode;
 }
@@ -57,7 +57,7 @@ axios.interceptors.response.use(
 export const Provider = ({ children }: ProviderProps) => {
   return (
     <QueryClientProvider client={queryClient}>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ko">
         {children}
       </LocalizationProvider>
     </QueryClientProvider>
