@@ -14,14 +14,19 @@ import { Controller, useFormContext, useWatch } from "react-hook-form";
 import { ExperimentTimeslotRequest } from "generated-client";
 
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
-import dayjs, { isDayjs } from "dayjs";
-import { Check } from "@mui/icons-material";
+import dayjs, { Dayjs, isDayjs } from "dayjs";
 import { TimeSlotType } from "src/app/workspaces/[workspaceId]/projects/[projectId]/information/page";
+import isBetween from "dayjs/plugin/isBetween";
+dayjs.extend(isBetween);
+
+//
+//
+//
 
 export const DEFAULT_TIMESLOT: TimeSlotType = {
   startTime: null,
   endTime: null,
-  maxParticipants: 0,
+  maxParticipants: 1,
 };
 
 const MT = 1.2;
@@ -46,6 +51,27 @@ const convertTimeToDayjs = (time: string) => {
     .set("minute", parseInt(m))
     .set("second", parseInt(s));
 };
+
+const getIsDuplicated = (
+  time: Dayjs,
+  timeslots: ExperimentTimeslotRequest[],
+  currentSlotIndex: number
+) => {
+  for (const [index, slot] of timeslots.entries()) {
+    if (
+      time.isBetween(slot.startTime, slot.endTime, "minute", "[]") &&
+      currentSlotIndex > index
+    ) {
+      return true;
+    }
+  }
+
+  return false;
+};
+
+//
+//
+//
 
 const InterviewSessionList = () => {
   const { control, setValue } = useFormContext();
@@ -79,6 +105,17 @@ const InterviewSessionList = () => {
                   value: true,
                   message: "세션 시간을 입력해주세요.",
                 },
+                validate: (value) => {
+                  const isDuplicated = getIsDuplicated(
+                    value,
+                    watchedTimeslots,
+                    index
+                  );
+
+                  if (isDuplicated) {
+                    return "중복된 시간을 입력할 수 없습니다.";
+                  }
+                },
               }}
               name={`experimentTimeslots.${index}.startTime`}
               render={({ field, fieldState }) => (
@@ -104,6 +141,16 @@ const InterviewSessionList = () => {
                   message: "세션 시간을 입력해주세요.",
                 },
                 validate: (value) => {
+                  const isDuplicated = getIsDuplicated(
+                    value,
+                    watchedTimeslots,
+                    index
+                  );
+
+                  if (isDuplicated) {
+                    return "중복된 시간을 입력할 수 없습니다.";
+                  }
+
                   if (value && session.startTime) {
                     const startTime = convertTimeToDayjs(session.startTime);
                     const endTime = convertTimeToDayjs(value);
@@ -112,6 +159,7 @@ const InterviewSessionList = () => {
                       return "시작 시간보다 늦은 시간을 입력해주세요.";
                     }
                   }
+
                   return true;
                 },
               }}
