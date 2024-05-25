@@ -14,7 +14,7 @@ import { GetProjectListResponse } from "generated-client";
 import Link from "next/link";
 import React from "react";
 import { usePath } from "src/hooks/usePath";
-import Tag from "src/widgets/Tag";
+import PublicTag from "src/widgets/PublicTag";
 
 //
 //
@@ -47,11 +47,20 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         <CardHeader
           title={
             <>
-              <Tag label="비공개" sx={{ mr: 1 }} />
+              <PublicTag
+                size="small"
+                isPublic={project?.isPublic}
+                sx={{ mr: 1 }}
+              />
               {project.title}
             </>
           }
-          titleTypographyProps={{ fontWeight: 800, noWrap: true }}
+          titleTypographyProps={{
+            fontWeight: 800,
+            noWrap: true,
+            display: "inline-flex",
+            alignItems: "center",
+          }}
           sx={{ [`& .${cardHeaderClasses.content}`]: { width: "100%" }, pb: 0 }}
         />
         <CardContent>

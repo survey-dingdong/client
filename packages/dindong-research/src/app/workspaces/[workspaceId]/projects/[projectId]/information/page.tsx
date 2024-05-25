@@ -4,7 +4,6 @@ import {
   Card,
   CardContent,
   Checkbox,
-  Chip,
   Collapse,
   Container,
   FormControlLabel,
@@ -24,26 +23,31 @@ import PageHeader from "src/shared/PageHeader";
 import TextField from "src/shared/TextField";
 import { AddressForm, CopyIconButton } from "src/widgets";
 import InterviewSessionList, {
+  convertTimeToDayjs,
   DEFAULT_TIMESLOT,
 } from "src/widgets/InterviewSessionList/InterviewSessionList";
 import { ProjectBottomNav } from "src/widgets/ProjectBottomNav";
 import { bottomNavHeight } from "src/widgets/ProjectBottomNav/ProjectBottomNav";
 import { Controller, FormProvider, useForm, useWatch } from "react-hook-form";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { useProject } from "src/hooks/useProject";
+import { GET_PROJECT_QUERY_KEY, useProject } from "src/hooks/useProject";
 import { useParams } from "next/navigation";
 import dayjs, { Dayjs } from "dayjs";
 import { DateChip } from "src/widgets/DateChip";
 import Image from "next/image";
-import noteTextIcon from "public/icons/note-text.png";
 import axios from "axios";
 import { useSnackbar } from "notistack";
 import {
   ExperimentTimeslotRequest,
+  ExperimentTypeEnum,
   ProjectTypeEnum,
   PutProjectRequest,
 } from "generated-client";
 import Tag from "src/widgets/Tag";
+import { DatePickerOpenIcon } from "src/shared/DatePickerIcon";
+import ExcludedDatePicker from "src/widgets/ExcludedDatePicker";
+import PublicTag from "src/widgets/PublicTag";
+import { useQueryClient } from "@tanstack/react-query";
 
 //
 //
@@ -55,7 +59,7 @@ export interface TimeSlotType
   endTime: null | Dayjs;
 }
 
-interface ProjectFormType
+export interface ProjectFormType
   extends Omit<
     PutProjectRequest,
     "startDate" | "endDate" | "experimentTimeslots"
@@ -69,24 +73,12 @@ interface ProjectFormType
 //
 //
 
-function MuiIcon() {
-  return (
-    <Image
-      src={noteTextIcon.src}
-      alt="Date picker opening icon"
-      width={16}
-      height={16}
-    />
-  );
-}
-
 //
 //
 //
 
-const EXCLUDED_DATE_FORMAT = "YYYY. MM. DD.";
 const SERVER_DATE_FORMAT = "YYYY-MM-DD";
-const SERVER_TIME_FORMAT = "HH:mm:ss.SSS";
+const SERVER_TIME_FORMAT = "HH:mm:ss";
 
 const TODAY = dayjs();
 
@@ -95,6 +87,8 @@ const TODAY = dayjs();
 //
 
 export default function Page() {
+  const queryClient = useQueryClient();
+
   const { enqueueSnackbar } = useSnackbar();
   const { workspaceId, projectId } = useParams();
 
@@ -107,7 +101,9 @@ export default function Page() {
     defaultValues: project as unknown as ProjectFormType,
   });
 
-  const [usingExcludeDates, setUsingExcludeDates] = React.useState(false);
+  const [usingExcludeDates, setUsingExcludeDates] = React.useState(
+    !!project?.excludedDates.length
+  );
 
   // watched form values
   const watchedStartDate = useWatch({
@@ -123,12 +119,46 @@ export default function Page() {
     control: formMethods.control,
   });
 
+  const watchedTimeslots: TimeSlotType[] = useWatch({
+    name: "experimentTimeslots",
+    control: formMethods.control,
+  });
+
+  const watchedExcludeDates = useWatch({
+    name: "excludedDates",
+    control: formMethods.control,
+  });
+
+  const sumOfSessionParticipants = watchedTimeslots?.reduce(
+    (acc, session) => acc + Number(session.maxParticipants),
+    0
+  );
+
+  const possibleParticipantsCount =
+    (dayjs(watchedEndDate).diff(watchedStartDate, "day") +
+      1 -
+      watchedExcludeDates?.length) *
+    sumOfSessionParticipants;
+
   //
   //
   //
   React.useEffect(() => {
     if (project) {
-      formMethods.reset(project as unknown as ProjectFormType);
+      formMethods.reset({
+        ...project,
+        experimentTimeslots: project.experimentTimeslots.map((timeslot) => ({
+          ...timeslot,
+          startTime: convertTimeToDayjs(timeslot.startTime),
+          endTime: convertTimeToDayjs(timeslot.endTime),
+        })),
+        startDate: dayjs(project.startDate),
+        endDate: dayjs(project.endDate),
+      } as unknown as ProjectFormType);
+
+      if (!project?.experimentTimeslots?.length) {
+        formMethods.setValue("experimentTimeslots", [DEFAULT_TIMESLOT]);
+      }
 
       if (!project?.endDate) {
         formMethods.setValue("endDate", TODAY.add(1, "month"));
@@ -164,9 +194,16 @@ export default function Page() {
               endTime: timeslot.endTime?.format(SERVER_TIME_FORMAT),
             })
           ),
+          excludedDates: usingExcludeDates
+            ? data.excludedDates?.map((date) =>
+                dayjs(date).format(SERVER_DATE_FORMAT)
+              )
+            : [],
         },
         { params: { project_type: ProjectTypeEnum.Experiment } }
       );
+
+      queryClient.invalidateQueries({ queryKey: [GET_PROJECT_QUERY_KEY] });
 
       enqueueSnackbar("프로젝트 정보가 성공적으로 저장되었습니다.", {
         variant: "success",
@@ -177,6 +214,17 @@ export default function Page() {
       });
     }
   });
+
+  // endDate 변경했을 때 excludeDates 필터
+  React.useEffect(() => {
+    formMethods.setValue(
+      "excludedDates",
+      watchedExcludeDates?.filter((date) =>
+        dayjs(date).isBetween(watchedStartDate, watchedEndDate, "day", "[]")
+      )
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [watchedEndDate, watchedStartDate]);
 
   //
   //
@@ -195,7 +243,11 @@ export default function Page() {
             <PageHeader
               title={
                 <>
-                  <Tag label="비공개" sx={{ mr: 1.5 }} />
+                  <PublicTag
+                    size="small"
+                    isPublic={!!project?.isPublic}
+                    sx={{ mr: 1.5 }}
+                  />
                   {project?.title}
                 </>
               }
@@ -270,13 +322,15 @@ export default function Page() {
                       }}
                       render={({ field, fieldState }) => (
                         <DatePicker
+                          slots={{
+                            openPickerIcon: DatePickerOpenIcon,
+                          }}
                           slotProps={{
                             textField: {
                               fullWidth: true,
                               error: fieldState.invalid,
                               helperText: fieldState.error?.message,
                             },
-                            openPickerIcon: MuiIcon,
                           }}
                           {...field}
                           value={dayjs(field.value)}
@@ -294,16 +348,19 @@ export default function Page() {
                       }}
                       render={({ field, fieldState }) => (
                         <DatePicker
+                          slots={{
+                            openPickerIcon: DatePickerOpenIcon,
+                          }}
                           slotProps={{
                             textField: {
                               fullWidth: true,
                               error: fieldState.invalid,
                               helperText: fieldState.error?.message,
                             },
-                            openPickerIcon: MuiIcon,
                           }}
                           {...field}
                           value={dayjs(field.value)}
+                          minDate={watchedStartDate}
                         />
                       )}
                     />
@@ -315,15 +372,15 @@ export default function Page() {
                     render={({ field }) => (
                       <Stack>
                         <FormControlLabel
-                          label="제외할 날짜 설정"
+                          label="제외할 날짜 사용"
                           componentsProps={{ typography: { variant: "body2" } }}
                           sx={{ width: "fit-content" }}
                           control={
                             <Checkbox
                               checked={usingExcludeDates}
-                              onChange={(e) => {
-                                setUsingExcludeDates(e.target.checked);
-                              }}
+                              onChange={(e) =>
+                                setUsingExcludeDates(e.target.checked)
+                              }
                             />
                           }
                         />
@@ -334,34 +391,17 @@ export default function Page() {
                             sx={{ bgcolor: "#F8FAFB", borderRadius: 4 }}
                           >
                             <CardContent component={Stack} sx={{ gap: 2 }}>
-                              <DatePicker
-                                disablePast
-                                value={undefined}
-                                minDate={dayjs(watchedStartDate)}
-                                maxDate={dayjs(watchedEndDate)}
-                                shouldDisableDate={(date) => {
-                                  return field.value?.includes(
-                                    date.format(
-                                      EXCLUDED_DATE_FORMAT
-                                    ) as unknown as Date
-                                  );
-                                }}
-                                onChange={(date) => {
-                                  if (date) {
-                                    field.onChange([
-                                      ...field.value,
-                                      date.format(EXCLUDED_DATE_FORMAT),
-                                    ]);
-                                  }
-                                }}
+                              <ExcludedDatePicker
+                                value={field.value as unknown as string[]}
+                                onChange={field.onChange}
                               />
 
                               {field.value?.length > 0 ? (
                                 <Stack gap={1}>
                                   <Typography variant="body2" fontWeight={700}>
-                                    제외 할 날짜 목록
+                                    제외할 날짜 목록
                                   </Typography>
-                                  <Box display="flex" gap={1}>
+                                  <Box display="flex" gap={1} flexWrap="wrap">
                                     {field.value?.map((date: any) => (
                                       <DateChip
                                         key={date}
@@ -407,9 +447,22 @@ export default function Page() {
                 />
                 <span>
                   <Controller
-                    name="title"
-                    // name="maxParticipants"
+                    name="maxParticipants"
                     control={formMethods.control}
+                    rules={{
+                      required: {
+                        value: true,
+                        message: "필수 입력 항목입니다.",
+                      },
+                      min: {
+                        value: 1,
+                        message: "1명 이상 입력해주세요.",
+                      },
+                      max: {
+                        value: possibleParticipantsCount,
+                        message: `참여 가능한 최대 참가자 수는 ${possibleParticipantsCount}명입니다.`,
+                      },
+                    }}
                     render={({ field, fieldState }) => (
                       <TextField
                         required
@@ -418,10 +471,14 @@ export default function Page() {
                           <InputAdornment position="end">명</InputAdornment>
                         }
                         error={fieldState.invalid}
-                        // TODO: add max participant validation
                         helperText={
                           fieldState.error?.message ||
-                          "참여 가능한 최대 참가자 수는 4명입니다."
+                          ((
+                            <span>
+                              참여 가능한 최대 참가자 수는{" "}
+                              <b>{possibleParticipantsCount}</b>명입니다.
+                            </span>
+                          ) as unknown as string)
                         }
                         {...field}
                       />
@@ -442,8 +499,12 @@ export default function Page() {
                     exclusive
                     sx={{ width: "420px" }}
                   >
-                    <ToggleButton value="offline">대면</ToggleButton>
-                    <ToggleButton value="online">비대면</ToggleButton>
+                    <ToggleButton value={ExperimentTypeEnum.Offline}>
+                      대면
+                    </ToggleButton>
+                    <ToggleButton value={ExperimentTypeEnum.Online}>
+                      비대면
+                    </ToggleButton>
                   </ToggleButtonGroup>
                 )}
               />

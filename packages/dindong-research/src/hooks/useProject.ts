@@ -24,12 +24,18 @@ interface useProjectPrams {
 //
 //
 
+export const GET_PROJECT_QUERY_KEY = "/project";
+
+//
+//
+//
+
 export function useProject({
   workspaceId,
   projectId,
 }: useProjectPrams): UseProjectReturn {
   const { data, isLoading, error } = useQuery({
-    queryKey: ["/project", workspaceId, projectId],
+    queryKey: [GET_PROJECT_QUERY_KEY, workspaceId, projectId],
     queryFn: () =>
       axios
         .get(`/workspaces/${workspaceId}/projects/${projectId}`, {

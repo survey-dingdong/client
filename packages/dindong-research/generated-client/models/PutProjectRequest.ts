@@ -75,6 +75,12 @@ export interface PutProjectRequest {
      */
     experimentTimeslots: Array<ExperimentTimeslotRequest>;
     /**
+     * Maximum number of experiment participants
+     * @type {number}
+     * @memberof PutProjectRequest
+     */
+    maxParticipants: number;
+    /**
      * 
      * @type {ExperimentTypeEnum}
      * @memberof PutProjectRequest
@@ -99,6 +105,7 @@ export function instanceOfPutProjectRequest(value: object): boolean {
     if (!('endDate' in value)) return false;
     if (!('excludedDates' in value)) return false;
     if (!('experimentTimeslots' in value)) return false;
+    if (!('maxParticipants' in value)) return false;
     if (!('experimentType' in value)) return false;
     if (!('location' in value)) return false;
     return true;
@@ -121,6 +128,7 @@ export function PutProjectRequestFromJSONTyped(json: any, ignoreDiscriminator: b
         'endDate': (new Date(json['end_date'])),
         'excludedDates': json['excluded_dates'],
         'experimentTimeslots': ((json['experiment_timeslots'] as Array<any>).map(ExperimentTimeslotRequestFromJSON)),
+        'maxParticipants': json['max_participants'],
         'experimentType': ExperimentTypeEnumFromJSON(json['experiment_type']),
         'location': json['location'],
     };
@@ -139,6 +147,7 @@ export function PutProjectRequestToJSON(value?: PutProjectRequest | null): any {
         'end_date': ((value['endDate']).toISOString().substring(0,10)),
         'excluded_dates': value['excludedDates'],
         'experiment_timeslots': ((value['experimentTimeslots'] as Array<any>).map(ExperimentTimeslotRequestToJSON)),
+        'max_participants': value['maxParticipants'],
         'experiment_type': ExperimentTypeEnumToJSON(value['experimentType']),
         'location': value['location'],
     };

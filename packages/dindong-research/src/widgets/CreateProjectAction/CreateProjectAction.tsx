@@ -66,9 +66,12 @@ const CreateProjectDialog: React.FC<CreateProjectDialogProps> = ({
                   },
                 }
               )
-              .then(() =>
-                queryClient.invalidateQueries({ queryKey: getProjectsQueryKey })
-              )
+              .then(() => {
+                queryClient.invalidateQueries({
+                  queryKey: getProjectsQueryKey,
+                });
+                onClose();
+              })
           }
         >
           만들기

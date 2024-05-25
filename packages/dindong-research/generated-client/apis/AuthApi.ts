@@ -15,27 +15,81 @@
 
 import * as runtime from '../runtime';
 import type {
+  CreateEmailVerificationRequest,
   HTTPValidationError,
   RefreshTokenRequest,
   RefreshTokenResponse,
+  VerifyEmailRequest,
 } from '../models/index';
 import {
+    CreateEmailVerificationRequestFromJSON,
+    CreateEmailVerificationRequestToJSON,
     HTTPValidationErrorFromJSON,
     HTTPValidationErrorToJSON,
     RefreshTokenRequestFromJSON,
     RefreshTokenRequestToJSON,
     RefreshTokenResponseFromJSON,
     RefreshTokenResponseToJSON,
+    VerifyEmailRequestFromJSON,
+    VerifyEmailRequestToJSON,
 } from '../models/index';
+
+export interface CreateEmailVerificationAuthEmailVerificationsPostRequest {
+    createEmailVerificationRequest: CreateEmailVerificationRequest;
+}
 
 export interface RefreshTokenAuthRefreshPostRequest {
     refreshTokenRequest: RefreshTokenRequest;
+}
+
+export interface VerifyEmailAuthEmailVerificationsVerifyPostRequest {
+    verifyEmailRequest: VerifyEmailRequest;
 }
 
 /**
  * 
  */
 export class AuthApi extends runtime.BaseAPI {
+
+    /**
+     * Create Email Verification
+     */
+    async createEmailVerificationAuthEmailVerificationsPostRaw(requestParameters: CreateEmailVerificationAuthEmailVerificationsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>> {
+        if (requestParameters['createEmailVerificationRequest'] == null) {
+            throw new runtime.RequiredError(
+                'createEmailVerificationRequest',
+                'Required parameter "createEmailVerificationRequest" was null or undefined when calling createEmailVerificationAuthEmailVerificationsPost().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/auth/email-verifications`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CreateEmailVerificationRequestToJSON(requestParameters['createEmailVerificationRequest']),
+        }, initOverrides);
+
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<any>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
+    }
+
+    /**
+     * Create Email Verification
+     */
+    async createEmailVerificationAuthEmailVerificationsPost(requestParameters: CreateEmailVerificationAuthEmailVerificationsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any> {
+        const response = await this.createEmailVerificationAuthEmailVerificationsPostRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
 
     /**
      * Refresh Token
@@ -70,6 +124,46 @@ export class AuthApi extends runtime.BaseAPI {
      */
     async refreshTokenAuthRefreshPost(requestParameters: RefreshTokenAuthRefreshPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RefreshTokenResponse> {
         const response = await this.refreshTokenAuthRefreshPostRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Verify Email
+     */
+    async verifyEmailAuthEmailVerificationsVerifyPostRaw(requestParameters: VerifyEmailAuthEmailVerificationsVerifyPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>> {
+        if (requestParameters['verifyEmailRequest'] == null) {
+            throw new runtime.RequiredError(
+                'verifyEmailRequest',
+                'Required parameter "verifyEmailRequest" was null or undefined when calling verifyEmailAuthEmailVerificationsVerifyPost().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/auth/email-verifications/verify`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: VerifyEmailRequestToJSON(requestParameters['verifyEmailRequest']),
+        }, initOverrides);
+
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<any>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
+    }
+
+    /**
+     * Verify Email
+     */
+    async verifyEmailAuthEmailVerificationsVerifyPost(requestParameters: VerifyEmailAuthEmailVerificationsVerifyPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any> {
+        const response = await this.verifyEmailAuthEmailVerificationsVerifyPostRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

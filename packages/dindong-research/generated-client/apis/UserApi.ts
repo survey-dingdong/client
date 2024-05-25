@@ -22,6 +22,9 @@ import type {
   HTTPValidationError,
   LoginRequest,
   LoginResponse,
+  UpdateUserRequest,
+  ValidateEmailRequest,
+  ValidateEmailResponse,
 } from '../models/index';
 import {
     ChangePasswordRequestFromJSON,
@@ -38,6 +41,12 @@ import {
     LoginRequestToJSON,
     LoginResponseFromJSON,
     LoginResponseToJSON,
+    UpdateUserRequestFromJSON,
+    UpdateUserRequestToJSON,
+    ValidateEmailRequestFromJSON,
+    ValidateEmailRequestToJSON,
+    ValidateEmailResponseFromJSON,
+    ValidateEmailResponseToJSON,
 } from '../models/index';
 
 export interface ChangePasswordUsersPasswordPatchRequest {
@@ -55,6 +64,14 @@ export interface GetUserListUsersGetRequest {
 
 export interface LoginUsersLoginPostRequest {
     loginRequest: LoginRequest;
+}
+
+export interface UpdateUserUsersPatchRequest {
+    updateUserRequest: UpdateUserRequest;
+}
+
+export interface ValidateEmailUsersValidationGetRequest {
+    validateEmailRequest: ValidateEmailRequest;
 }
 
 /**
@@ -243,6 +260,90 @@ export class UserApi extends runtime.BaseAPI {
      */
     async loginUsersLoginPost(requestParameters: LoginUsersLoginPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<LoginResponse> {
         const response = await this.loginUsersLoginPostRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Update User
+     */
+    async updateUserUsersPatchRaw(requestParameters: UpdateUserUsersPatchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>> {
+        if (requestParameters['updateUserRequest'] == null) {
+            throw new runtime.RequiredError(
+                'updateUserRequest',
+                'Required parameter "updateUserRequest" was null or undefined when calling updateUserUsersPatch().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Authorization"] = await this.configuration.apiKey("Authorization"); // PermissionDependency authentication
+        }
+
+        const response = await this.request({
+            path: `/users`,
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: UpdateUserRequestToJSON(requestParameters['updateUserRequest']),
+        }, initOverrides);
+
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<any>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
+    }
+
+    /**
+     * Update User
+     */
+    async updateUserUsersPatch(requestParameters: UpdateUserUsersPatchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any> {
+        const response = await this.updateUserUsersPatchRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Validate Email
+     */
+    async validateEmailUsersValidationGetRaw(requestParameters: ValidateEmailUsersValidationGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ValidateEmailResponse>> {
+        if (requestParameters['validateEmailRequest'] == null) {
+            throw new runtime.RequiredError(
+                'validateEmailRequest',
+                'Required parameter "validateEmailRequest" was null or undefined when calling validateEmailUsersValidationGet().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Authorization"] = await this.configuration.apiKey("Authorization"); // PermissionDependency authentication
+        }
+
+        const response = await this.request({
+            path: `/users/validation`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+            body: ValidateEmailRequestToJSON(requestParameters['validateEmailRequest']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ValidateEmailResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Validate Email
+     */
+    async validateEmailUsersValidationGet(requestParameters: ValidateEmailUsersValidationGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ValidateEmailResponse> {
+        const response = await this.validateEmailUsersValidationGetRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

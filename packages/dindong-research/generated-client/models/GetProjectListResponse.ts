@@ -56,7 +56,7 @@ export interface GetProjectListResponse {
      */
     joinedParticipants: number;
     /**
-     * Maximum number of experiment participants
+     * Maximum number of exparticipants per session
      * @type {number}
      * @memberof GetProjectListResponse
      */
