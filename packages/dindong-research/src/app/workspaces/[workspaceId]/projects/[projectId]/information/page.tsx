@@ -30,7 +30,7 @@ import { ProjectBottomNav } from "src/widgets/ProjectBottomNav";
 import { bottomNavHeight } from "src/widgets/ProjectBottomNav/ProjectBottomNav";
 import { Controller, FormProvider, useForm, useWatch } from "react-hook-form";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { useProject } from "src/hooks/useProject";
+import { GET_PROJECT_QUERY_KEY, useProject } from "src/hooks/useProject";
 import { useParams } from "next/navigation";
 import dayjs, { Dayjs } from "dayjs";
 import { DateChip } from "src/widgets/DateChip";
@@ -47,6 +47,7 @@ import Tag from "src/widgets/Tag";
 import { DatePickerOpenIcon } from "src/shared/DatePickerIcon";
 import ExcludedDatePicker from "src/widgets/ExcludedDatePicker";
 import PublicTag from "src/widgets/PublicTag";
+import { useQueryClient } from "@tanstack/react-query";
 
 //
 //
@@ -86,6 +87,8 @@ const TODAY = dayjs();
 //
 
 export default function Page() {
+  const queryClient = useQueryClient();
+
   const { enqueueSnackbar } = useSnackbar();
   const { workspaceId, projectId } = useParams();
 
@@ -192,6 +195,8 @@ export default function Page() {
         },
         { params: { project_type: ProjectTypeEnum.Experiment } }
       );
+
+      queryClient.invalidateQueries({ queryKey: [GET_PROJECT_QUERY_KEY] });
 
       enqueueSnackbar("프로젝트 정보가 성공적으로 저장되었습니다.", {
         variant: "success",
@@ -354,13 +359,9 @@ export default function Page() {
                           control={
                             <Checkbox
                               checked={usingExcludeDates}
-                              onChange={(e) => {
-                                setUsingExcludeDates(e.target.checked);
-
-                                if (!e.target.checked) {
-                                  field.onChange([]);
-                                }
-                              }}
+                              onChange={(e) =>
+                                setUsingExcludeDates(e.target.checked)
+                              }
                             />
                           }
                         />

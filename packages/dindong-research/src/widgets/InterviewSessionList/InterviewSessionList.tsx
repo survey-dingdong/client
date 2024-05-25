@@ -126,6 +126,11 @@ const InterviewSessionList = () => {
               render={({ field, fieldState }) => (
                 <TimePicker
                   {...field}
+                  value={
+                    typeof field.value === "string"
+                      ? convertTimeToDayjs(field.value)
+                      : field.value
+                  }
                   slots={{
                     openPickerIcon: TimePickerIcon,
                   }}
@@ -174,7 +179,11 @@ const InterviewSessionList = () => {
               render={({ field, fieldState }) => (
                 <TimePicker
                   {...field}
-                  value={field.value}
+                  value={
+                    typeof field.value === "string"
+                      ? convertTimeToDayjs(field.value)
+                      : field.value
+                  }
                   slots={{
                     openPickerIcon: TimePickerIcon,
                   }}
