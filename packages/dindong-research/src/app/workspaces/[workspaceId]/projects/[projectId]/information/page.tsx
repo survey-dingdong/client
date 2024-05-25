@@ -46,6 +46,7 @@ import {
 import Tag from "src/widgets/Tag";
 import { DatePickerOpenIcon } from "src/shared/DatePickerIcon";
 import ExcludedDatePicker from "src/widgets/ExcludedDatePicker";
+import PublicTag from "src/widgets/PublicTag";
 
 //
 //
@@ -136,14 +137,18 @@ export default function Page() {
     if (project) {
       formMethods.reset(project as unknown as ProjectFormType);
 
-      formMethods.setValue(
-        "experimentTimeslots",
-        project.experimentTimeslots.map((timeslot) => ({
-          ...timeslot,
-          startTime: convertTimeToDayjs(timeslot.startTime),
-          endTime: convertTimeToDayjs(timeslot.endTime),
-        }))
-      );
+      if (!project?.experimentTimeslots?.length) {
+        formMethods.setValue("experimentTimeslots", [DEFAULT_TIMESLOT]);
+      } else {
+        formMethods.setValue(
+          "experimentTimeslots",
+          project.experimentTimeslots.map((timeslot) => ({
+            ...timeslot,
+            startTime: convertTimeToDayjs(timeslot.startTime),
+            endTime: convertTimeToDayjs(timeslot.endTime),
+          }))
+        );
+      }
 
       if (!project?.endDate) {
         formMethods.setValue("endDate", TODAY.add(1, "month"));
@@ -179,9 +184,11 @@ export default function Page() {
               endTime: timeslot.endTime?.format(SERVER_TIME_FORMAT),
             })
           ),
-          excludedDates: data.excludedDates?.map((date) =>
-            dayjs(date).format(SERVER_DATE_FORMAT)
-          ),
+          excludedDates: usingExcludeDates
+            ? data.excludedDates?.map((date) =>
+                dayjs(date).format(SERVER_DATE_FORMAT)
+              )
+            : [],
         },
         { params: { project_type: ProjectTypeEnum.Experiment } }
       );
@@ -213,7 +220,11 @@ export default function Page() {
             <PageHeader
               title={
                 <>
-                  <Tag label="비공개" sx={{ mr: 1.5 }} />
+                  <PublicTag
+                    size="small"
+                    isPublic={!!project?.isPublic}
+                    sx={{ mr: 1.5 }}
+                  />
                   {project?.title}
                 </>
               }
@@ -337,7 +348,7 @@ export default function Page() {
                     render={({ field }) => (
                       <Stack>
                         <FormControlLabel
-                          label="제외할 날짜 설정"
+                          label="제외할 날짜 사용"
                           componentsProps={{ typography: { variant: "body2" } }}
                           sx={{ width: "fit-content" }}
                           control={
@@ -345,6 +356,10 @@ export default function Page() {
                               checked={usingExcludeDates}
                               onChange={(e) => {
                                 setUsingExcludeDates(e.target.checked);
+
+                                if (!e.target.checked) {
+                                  field.onChange([]);
+                                }
                               }}
                             />
                           }

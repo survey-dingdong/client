@@ -28,7 +28,7 @@ interface ExcludedDatePickerProps {
 
 const ExcludedDatePicker = ({ value, onChange }: ExcludedDatePickerProps) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  console.log("value", value);
+
   return (
     <Box>
       <TextField

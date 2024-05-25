@@ -46,12 +46,7 @@ export const convertTimeToDayjs = (time: string) => {
   }
 
   const [h, m, s] = time?.split(":");
-  console.log(
-    dayjs()
-      .set("hour", parseInt(h))
-      .set("minute", parseInt(m))
-      .set("second", parseInt(s))
-  );
+
   return dayjs()
     .set("hour", parseInt(h))
     .set("minute", parseInt(m))
@@ -63,7 +58,7 @@ const getIsDuplicated = (
   timeslots: ExperimentTimeslotRequest[],
   currentSlotIndex: number
 ) => {
-  for (const [index, slot] of timeslots.entries()) {
+  for (const [index, slot] of timeslots?.entries()) {
     if (
       time.isBetween(slot.startTime, slot.endTime, "minute", "[]") &&
       currentSlotIndex > index
@@ -131,7 +126,6 @@ const InterviewSessionList = () => {
               render={({ field, fieldState }) => (
                 <TimePicker
                   {...field}
-                  value={field.value}
                   slots={{
                     openPickerIcon: TimePickerIcon,
                   }}
@@ -164,7 +158,7 @@ const InterviewSessionList = () => {
                     return "중복된 시간을 입력할 수 없습니다.";
                   }
 
-                  if (value && session.startTime) {
+                  if (value && session?.startTime) {
                     const startTime = session.startTime;
                     const endTime = value;
 

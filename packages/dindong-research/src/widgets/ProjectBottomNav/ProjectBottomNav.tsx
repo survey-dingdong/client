@@ -10,11 +10,14 @@ import {
   Toolbar,
 } from "@mui/material";
 import React from "react";
+import { Controller, useFormContext } from "react-hook-form";
 import { drawerWidth } from "src/shared/Nav";
 
 export const bottomNavHeight = "64px";
 
 const ProjectBottomNav = () => {
+  const { control } = useFormContext();
+
   return (
     <Paper
       sx={{
@@ -28,16 +31,24 @@ const ProjectBottomNav = () => {
       <Toolbar>
         <Container maxWidth="lg">
           <Box display="flex" justifyContent="space-between">
-            <FormControlLabel
-              labelPlacement="start"
-              label="서베이 플랫폼에 공개하기"
-              slotProps={{
-                typography: {
-                  variant: "body1",
-                },
-              }}
-              control={<Switch />}
+            <Controller
+              control={control}
+              name="isPublic"
+              render={({ field }) => (
+                <FormControlLabel
+                  labelPlacement="start"
+                  label="서베이 플랫폼에 공개하기"
+                  slotProps={{
+                    typography: {
+                      variant: "body1",
+                    },
+                  }}
+                  {...field}
+                  control={<Switch checked={field.value} />}
+                />
+              )}
             />
+
             <Button type="submit">저장</Button>
           </Box>
         </Container>

@@ -17,11 +17,16 @@ const PageHeader: React.FC<PageHeaderProps> = ({
       gap={1}
       flexDirection={{ xs: "column", md: "row" }}
       width="100%"
+      alignItems="center"
       justifyContent="space-between"
     >
       {/* title and description */}
       <Stack gap={1}>
-        <Typography variant="h4" fontWeight={800}>
+        <Typography
+          variant="h4"
+          fontWeight={800}
+          sx={{ display: "inline-flex", alignItems: "center" }}
+        >
           {title}
         </Typography>
         {description ? (
