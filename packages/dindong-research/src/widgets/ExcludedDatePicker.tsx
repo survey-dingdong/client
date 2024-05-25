@@ -2,13 +2,11 @@ import {
   Box,
   Button,
   FormControlLabel,
-  Menu,
   Popover,
   Stack,
   Switch,
 } from "@mui/material";
 import { DateCalendar } from "@mui/x-date-pickers";
-import dayjs, { Dayjs } from "dayjs";
 import React from "react";
 import { DatePickerOpenIcon } from "src/shared/DatePickerIcon";
 import TextField from "src/shared/TextField";

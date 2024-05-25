@@ -44,6 +44,8 @@ axios.interceptors.response.use(
           axios.defaults.headers.common[
             "Authorization"
           ] = `Bearer ${res.data.token}`;
+
+          return axios.request(error.config);
         });
     }
     return Promise.reject(error);

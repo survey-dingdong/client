@@ -36,7 +36,7 @@ const MT = 1.2;
 //
 //
 
-const convertTimeToDayjs = (time: string) => {
+export const convertTimeToDayjs = (time: string) => {
   if (!time) {
     return null;
   }
@@ -46,7 +46,12 @@ const convertTimeToDayjs = (time: string) => {
   }
 
   const [h, m, s] = time?.split(":");
-
+  console.log(
+    dayjs()
+      .set("hour", parseInt(h))
+      .set("minute", parseInt(m))
+      .set("second", parseInt(s))
+  );
   return dayjs()
     .set("hour", parseInt(h))
     .set("minute", parseInt(m))
@@ -82,6 +87,10 @@ const InterviewSessionList = () => {
       control,
       name: "experimentTimeslots",
     }) ?? [];
+
+  //
+  //
+  //
 
   return (
     <Stack gap={2}>
@@ -122,7 +131,7 @@ const InterviewSessionList = () => {
               render={({ field, fieldState }) => (
                 <TimePicker
                   {...field}
-                  value={convertTimeToDayjs(field.value)}
+                  value={field.value}
                   slots={{
                     openPickerIcon: TimePickerIcon,
                   }}
@@ -156,8 +165,8 @@ const InterviewSessionList = () => {
                   }
 
                   if (value && session.startTime) {
-                    const startTime = convertTimeToDayjs(session.startTime);
-                    const endTime = convertTimeToDayjs(value);
+                    const startTime = session.startTime;
+                    const endTime = value;
 
                     if (!endTime?.isAfter(startTime)) {
                       return "시작 시간보다 늦은 시간을 입력해주세요.";
@@ -171,7 +180,7 @@ const InterviewSessionList = () => {
               render={({ field, fieldState }) => (
                 <TimePicker
                   {...field}
-                  value={convertTimeToDayjs(field.value)}
+                  value={field.value}
                   slots={{
                     openPickerIcon: TimePickerIcon,
                   }}
