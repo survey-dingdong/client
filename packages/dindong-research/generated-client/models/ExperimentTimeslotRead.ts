@@ -38,7 +38,7 @@ export interface ExperimentTimeslotRead {
      */
     endTime: string;
     /**
-     * Maximum number of experiment participants
+     * Maximum number of exparticipants per session
      * @type {number}
      * @memberof ExperimentTimeslotRead
      */

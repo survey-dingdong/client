@@ -32,7 +32,7 @@ export interface CreateUserRequest {
      */
     password: string;
     /**
-     * username
+     * Username
      * @type {string}
      * @memberof CreateUserRequest
      */

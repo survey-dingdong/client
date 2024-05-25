@@ -5,6 +5,7 @@ apis/WorkspaceApi.ts
 apis/index.ts
 index.ts
 models/ChangePasswordRequest.ts
+models/CreateEmailVerificationRequest.ts
 models/CreateProjectRequest.ts
 models/CreateProjectResponse.ts
 models/CreateUserRequest.ts
@@ -27,8 +28,12 @@ models/ProjectTypeEnum.ts
 models/PutProjectRequest.ts
 models/RefreshTokenRequest.ts
 models/RefreshTokenResponse.ts
+models/UpdateUserRequest.ts
 models/UpdateWorkspaceRequest.ts
+models/ValidateEmailRequest.ts
+models/ValidateEmailResponse.ts
 models/ValidationError.ts
 models/ValidationErrorLocInner.ts
+models/VerifyEmailRequest.ts
 models/index.ts
 runtime.ts

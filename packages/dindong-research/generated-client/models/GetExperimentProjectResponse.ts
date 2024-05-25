@@ -81,6 +81,12 @@ export interface GetExperimentProjectResponse {
      */
     experimentTimeslots: Array<ExperimentTimeslotRead>;
     /**
+     * Maximum number of experiment participants
+     * @type {number}
+     * @memberof GetExperimentProjectResponse
+     */
+    maxParticipants: number;
+    /**
      * 
      * @type {ExperimentTypeEnum}
      * @memberof GetExperimentProjectResponse
@@ -123,6 +129,7 @@ export function instanceOfGetExperimentProjectResponse(value: object): boolean {
     if (!('endDate' in value)) return false;
     if (!('excludedDates' in value)) return false;
     if (!('experimentTimeslots' in value)) return false;
+    if (!('maxParticipants' in value)) return false;
     if (!('experimentType' in value)) return false;
     if (!('location' in value)) return false;
     if (!('participantCode' in value)) return false;
@@ -149,6 +156,7 @@ export function GetExperimentProjectResponseFromJSONTyped(json: any, ignoreDiscr
         'endDate': (json['end_date'] == null ? null : new Date(json['end_date'])),
         'excludedDates': json['excluded_dates'],
         'experimentTimeslots': ((json['experiment_timeslots'] as Array<any>).map(ExperimentTimeslotReadFromJSON)),
+        'maxParticipants': json['max_participants'],
         'experimentType': ExperimentTypeEnumFromJSON(json['experiment_type']),
         'location': json['location'],
         'participantCode': json['participant_code'],
@@ -171,6 +179,7 @@ export function GetExperimentProjectResponseToJSON(value?: GetExperimentProjectR
         'end_date': (value['endDate'] == null ? null : (value['endDate'] as any).toISOString().substring(0,10)),
         'excluded_dates': value['excludedDates'],
         'experiment_timeslots': ((value['experimentTimeslots'] as Array<any>).map(ExperimentTimeslotReadToJSON)),
+        'max_participants': value['maxParticipants'],
         'experiment_type': ExperimentTypeEnumToJSON(value['experimentType']),
         'location': value['location'],
         'participant_code': value['participantCode'],

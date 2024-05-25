@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export * from './ChangePasswordRequest';
+export * from './CreateEmailVerificationRequest';
 export * from './CreateProjectRequest';
 export * from './CreateProjectResponse';
 export * from './CreateUserRequest';
@@ -23,6 +24,10 @@ export * from './ProjectTypeEnum';
 export * from './PutProjectRequest';
 export * from './RefreshTokenRequest';
 export * from './RefreshTokenResponse';
+export * from './UpdateUserRequest';
 export * from './UpdateWorkspaceRequest';
+export * from './ValidateEmailRequest';
+export * from './ValidateEmailResponse';
 export * from './ValidationError';
 export * from './ValidationErrorLocInner';
+export * from './VerifyEmailRequest';
