@@ -48,6 +48,8 @@ import { DatePickerOpenIcon } from "src/shared/DatePickerIcon";
 import ExcludedDatePicker from "src/widgets/ExcludedDatePicker";
 import PublicTag from "src/widgets/PublicTag";
 import { useQueryClient } from "@tanstack/react-query";
+import isBetween from "dayjs/plugin/isBetween";
+dayjs.extend(isBetween);
 
 //
 //
