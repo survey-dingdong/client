@@ -25,19 +25,16 @@ const Redirect = () => {
       return;
     }
 
-    let workspaceId;
-
     if (workspaces.length > 0) {
-      workspaceId = workspaces[0]?.id;
+      router.replace(`/workspaces/${workspaces[0].id}`);
     } else {
       mutation
         .mutateAsync({ title: "내 워크스페이스" })
-        .then((res) => (workspaceId = res.data.id));
+        .then((res) => router.replace(`/workspaces/${res.data.id}`));
     }
 
-    router.replace(`/workspaces/${workspaceId}`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading, mutation, router, tokenParam]);
+  }, [isLoading]);
 
   return <></>;
 };

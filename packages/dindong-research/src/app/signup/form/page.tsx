@@ -118,8 +118,10 @@ export default function Page() {
                 value={reEnterPw}
                 label="비밀번호 재입력"
                 placeholder="비밀번호를 재입력 해주세요."
-                error={pwNotMatch}
-                helperText={pwNotMatch ? "비밀번호가 일치하지 않습니다." : ""}
+                error={Boolean(reEnterPw && pwNotMatch)}
+                helperText={
+                  reEnterPw && pwNotMatch ? "비밀번호가 일치하지 않습니다." : ""
+                }
                 onChange={(e: any) => setReEnterPw(e.target.value)}
               />
             </Stack>
