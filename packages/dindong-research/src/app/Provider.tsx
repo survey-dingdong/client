@@ -6,6 +6,12 @@ import axios from "axios";
 import { REFRESH_TOKEN_KEY, TOKEN_KEY } from "src/constants/token";
 import { camelToSnake, getObject } from "src/utils/snakeToCamel";
 import "dayjs/locale/ko";
+import { token } from "src/utils/token";
+
+//
+//
+//
+
 interface ProviderProps {
   children: React.ReactNode;
 }
@@ -14,9 +20,7 @@ const queryClient = new QueryClient();
 const baseURL = "http://13.209.133.71:8000";
 
 axios.defaults.baseURL = baseURL;
-axios.defaults.headers.common[
-  "Authorization"
-] = `Bearer ${sessionStorage.getItem("token")}`;
+axios.defaults.headers.common["Authorization"] = `Bearer ${token.get("token")}`;
 
 axios.interceptors.request.use((request) => {
   request.params = camelToSnake(request.params);
@@ -34,12 +38,12 @@ axios.interceptors.response.use(
     if (error.response?.status === 401) {
       axios
         .post("/auth/refresh", {
-          token: sessionStorage.getItem(TOKEN_KEY),
-          refreshToken: sessionStorage.getItem(REFRESH_TOKEN_KEY),
+          token: token.get(TOKEN_KEY),
+          refreshToken: token.get(REFRESH_TOKEN_KEY),
         })
         .then((res) => {
-          sessionStorage.setItem(TOKEN_KEY, res.data.token);
-          sessionStorage.setItem(REFRESH_TOKEN_KEY, res.data.refreshToken);
+          token.set(TOKEN_KEY, res.data.token);
+          token.set(REFRESH_TOKEN_KEY, res.data.refreshToken);
 
           axios.defaults.headers.common[
             "Authorization"
@@ -48,8 +52,8 @@ axios.interceptors.response.use(
           return axios.request(error.config);
         })
         .catch(() => {
-          sessionStorage.removeItem(TOKEN_KEY);
-          sessionStorage.removeItem(REFRESH_TOKEN_KEY);
+          token.remove(TOKEN_KEY);
+          token.remove(REFRESH_TOKEN_KEY);
           window.location.href = "/";
         });
     }

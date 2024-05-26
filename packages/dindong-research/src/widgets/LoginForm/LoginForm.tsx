@@ -23,6 +23,11 @@ import PasswordTextField from "src/shared/PasswordTextField";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { REFRESH_TOKEN_KEY, TOKEN_KEY } from "src/constants/token";
+import { token } from "src/utils/token";
+
+//
+//
+//
 
 const LoginForm = () => {
   const router = useRouter();
@@ -38,8 +43,8 @@ const LoginForm = () => {
     onSuccess: async ({ data }) => {
       setError(false);
 
-      sessionStorage.setItem(TOKEN_KEY, data.token);
-      sessionStorage.setItem(REFRESH_TOKEN_KEY, data.refreshToken);
+      token.set(TOKEN_KEY, data.token);
+      token.set(REFRESH_TOKEN_KEY, data.refreshToken);
 
       axios.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
 

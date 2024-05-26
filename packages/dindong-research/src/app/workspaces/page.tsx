@@ -1,11 +1,12 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { TOKEN_KEY } from "src/constants/token";
 import { useWorkspaceCreate } from "src/hooks/useWorkspaceCreate";
 import { useWorkspaces } from "src/hooks/useWorkspaces";
+import { token } from "src/utils/token";
 
-export default function Page() {
+const Redirect = () => {
   const router = useRouter();
   const params = useSearchParams();
   const tokenParam = params.get(TOKEN_KEY);
@@ -15,7 +16,7 @@ export default function Page() {
 
   useEffect(() => {
     if (tokenParam) {
-      sessionStorage.setItem(TOKEN_KEY, tokenParam);
+      token.set(TOKEN_KEY, tokenParam);
       router.replace("/workspaces");
       return;
     }
@@ -39,4 +40,12 @@ export default function Page() {
   }, [isLoading, mutation, router, tokenParam]);
 
   return <></>;
+};
+
+export default function Page() {
+  return (
+    <Suspense>
+      <Redirect />
+    </Suspense>
+  );
 }
