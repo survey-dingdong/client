@@ -7,6 +7,8 @@ import { REFRESH_TOKEN_KEY, TOKEN_KEY } from "src/constants/token";
 import { camelToSnake, getObject } from "src/utils/snakeToCamel";
 import "dayjs/locale/ko";
 import { token } from "src/utils/token";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 //
 //
@@ -66,6 +68,15 @@ axios.interceptors.response.use(
 //
 
 export const Provider = ({ children }: ProviderProps) => {
+  const router = useRouter();
+  const accessToken = token.get("token");
+
+  useEffect(() => {
+    if (!accessToken) {
+      router.replace("/");
+    }
+  }, [accessToken, router]);
+
   return (
     <QueryClientProvider client={queryClient}>
       <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ko">
