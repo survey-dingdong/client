@@ -19,14 +19,27 @@ import EmailVerifiedForm from "src/widgets/EmailVerifiedForm";
 //
 //
 
+interface CreateUserFormType extends CreateUserRequest {
+  emailVerified: boolean;
+}
+
 export default function Page() {
-  const formMethods = useForm<CreateUserRequest>({
+  const formMethods = useForm<CreateUserFormType>({
     mode: "onChange",
-    defaultValues: { username: "", email: "", password: "" },
+    defaultValues: {
+      username: "",
+      email: "",
+      password: "",
+      emailVerified: false,
+    },
   });
   const [reEnterPw, setReEnterPw] = React.useState("");
 
   const pw = useWatch({ control: formMethods.control, name: "password" });
+  const emailVerified = useWatch({
+    control: formMethods.control,
+    name: "emailVerified",
+  });
 
   const pwNotMatch = pw !== reEnterPw;
 
@@ -45,7 +58,11 @@ export default function Page() {
     },
   });
 
-  const postUser = formMethods.handleSubmit((data) => {
+  const postUser = formMethods.handleSubmit(({ emailVerified, ...data }) => {
+    if (!emailVerified) {
+      return;
+    }
+
     mutation.mutate(data);
   });
 
@@ -108,7 +125,9 @@ export default function Page() {
 
             <Button
               type="submit"
-              disabled={!formMethods.formState.isValid || pwNotMatch}
+              disabled={
+                !formMethods.formState.isValid || pwNotMatch || !emailVerified
+              }
             >
               회원가입
             </Button>

@@ -9,6 +9,7 @@ import "dayjs/locale/ko";
 import { token } from "src/utils/token";
 import { useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import SnackbarClient from "src/shared/SnackbarClient";
 
 //
 //
@@ -79,10 +80,12 @@ export const Provider = ({ children }: ProviderProps) => {
   }, [accessToken, pathname, router]);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ko">
-        {children}
-      </LocalizationProvider>
-    </QueryClientProvider>
+    <SnackbarClient>
+      <QueryClientProvider client={queryClient}>
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ko">
+          {children}
+        </LocalizationProvider>
+      </QueryClientProvider>
+    </SnackbarClient>
   );
 };

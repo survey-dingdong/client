@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React from "react";
 
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
@@ -34,11 +34,9 @@ export default async function RootLayout(props: any) {
         >
           <AppRouterCacheProvider options={{ enableCssLayer: true }}>
             <ThemeProvider theme={theme}>
-              <SnackbarClient>
-                <Provider>
-                  <MSWComponent>{children}</MSWComponent>
-                </Provider>
-              </SnackbarClient>
+              <Provider>
+                <MSWComponent>{children}</MSWComponent>
+              </Provider>
             </ThemeProvider>
           </AppRouterCacheProvider>
         </body>

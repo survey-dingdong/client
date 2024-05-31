@@ -1,3 +1,4 @@
+"use client";
 import { Box, Button, FormHelperText, Stack, Typography } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
@@ -17,7 +18,7 @@ const BUTTON_WIDTH = 80;
 //
 
 const EmailVerifiedForm = () => {
-  const { control } = useFormContext();
+  const { control, setValue } = useFormContext();
   const watchedEmail = useWatch({ control, name: "email" });
 
   const { enqueueSnackbar } = useSnackbar();
@@ -27,7 +28,7 @@ const EmailVerifiedForm = () => {
   >("idle");
 
   // [TIMER]
-  const [timeLeft, setTimeLeft] = React.useState(3 * 60); // 3분을 초 단위로 설정
+  const [timeLeft, setTimeLeft] = React.useState(5 * 60);
   const timerRef = React.useRef<NodeJS.Timeout | null>(null);
 
   const isTimerRunning = !!timerRef.current;
@@ -84,6 +85,10 @@ const EmailVerifiedForm = () => {
     mutationFn: (data: { email: string; code: string }) =>
       axios.post("/auth/email-verifications/verify", data),
     onSuccess: () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+      setValue("emailVerified", true);
       setVerificationStatus("success");
     },
     onError: () => {
