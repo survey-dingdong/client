@@ -12,3 +12,5 @@ export { ProjectNav } from "./ProjectNav";
 export { default as WorkspaceNav } from "./WorkspaceNav";
 export { default as MyNav } from "./MyNav";
 export { default as ProfileCard } from "./ProfileCard";
+
+export * from "./EmailVerifiedForm";
