@@ -8,7 +8,7 @@ import {
   Tooltip,
 } from "@mui/material";
 import React from "react";
-import TextField from "src/shared/TextField";
+import { TextField } from "src/shared";
 
 const WriteNoticeAction = () => {
   const [open, setOpen] = React.useState(false);

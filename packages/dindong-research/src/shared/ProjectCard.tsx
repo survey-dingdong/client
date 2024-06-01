@@ -24,7 +24,7 @@ interface ProjectCardProps {
   project: GetProjectListResponse;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
+export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const informationPath = usePath({
     type: "project",
     slug: "/information",
@@ -116,5 +116,3 @@ function LinearProgressWithLabel({
     </Box>
   );
 }
-
-export default ProjectCard;

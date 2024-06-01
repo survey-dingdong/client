@@ -9,7 +9,6 @@ import {
 import { TimePicker } from "@mui/x-date-pickers";
 import React from "react";
 
-import TextField from "src/shared/TextField";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
 import { ExperimentTimeslotRequest } from "generated-client";
 
@@ -17,7 +16,7 @@ import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import dayjs, { Dayjs, isDayjs } from "dayjs";
 import { TimeSlotType } from "src/app/workspaces/[workspaceId]/projects/[projectId]/information/page";
 import isBetween from "dayjs/plugin/isBetween";
-import { TimePickerIcon } from "src/shared/TimePickerIcon";
+import { TimePickerIcon, TextField } from "src/shared";
 dayjs.extend(isBetween);
 
 //

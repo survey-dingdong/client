@@ -7,11 +7,9 @@ interface FormLabelWithDescriptionProps {
   labelProps?: FormLabelProps;
 }
 
-const FormLabelWithDescription: React.FC<FormLabelWithDescriptionProps> = ({
-  label,
-  description,
-  labelProps,
-}) => {
+export const FormLabelWithDescription: React.FC<
+  FormLabelWithDescriptionProps
+> = ({ label, description, labelProps }) => {
   return (
     <Stack>
       <FormLabel {...labelProps}>{label}</FormLabel>
@@ -21,5 +19,3 @@ const FormLabelWithDescription: React.FC<FormLabelWithDescriptionProps> = ({
     </Stack>
   );
 };
-
-export default FormLabelWithDescription;

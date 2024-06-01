@@ -1,8 +1,6 @@
-import { Box, InputAdornment, Stack } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import React from "react";
-import TextField from "src/shared/TextField";
-import ProjectCard from "src/shared/ProjectCard";
-import SearchIcon from "@mui/icons-material/Search";
+import { TextField, ProjectCard } from "src/shared";
 
 import { CreateProjectAction } from "../CreateProjectAction";
 import { GetProjectListResponse } from "generated-client";

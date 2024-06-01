@@ -8,11 +8,12 @@ import {
   useFormContext,
   useWatch,
 } from "react-hook-form";
-import PasswordTextField, {
+import {
+  PasswordTextField,
+  ThumbnailLayout,
   passwordMessage,
   passwordRegex,
-} from "src/shared/PasswordTextField";
-import ThumbnailLayout from "src/shared/ThumbnailLayout";
+} from "src/shared";
 import EmailVerifiedForm from "src/widgets/EmailVerifiedForm";
 
 export default function Page() {

@@ -5,7 +5,7 @@ import axios from "axios";
 import { useSnackbar } from "notistack";
 import React from "react";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
-import TextField from "src/shared/TextField";
+import { TextField } from "src/shared";
 
 //
 //

@@ -6,14 +6,16 @@ import { useRouter } from "next/navigation";
 import { useSnackbar } from "notistack";
 import React from "react";
 import { Controller, FormProvider, useForm, useWatch } from "react-hook-form";
-import PasswordTextField, {
-  passwordMessage,
-  passwordRegex,
-} from "src/shared/PasswordTextField";
-import TextField from "src/shared/TextField";
+
 import { useMutation } from "@tanstack/react-query";
 import { CreateUserRequest } from "generated-client";
 import EmailVerifiedForm from "src/widgets/EmailVerifiedForm";
+import {
+  TextField,
+  passwordMessage,
+  passwordRegex,
+  PasswordTextField,
+} from "src/shared";
 
 //
 //

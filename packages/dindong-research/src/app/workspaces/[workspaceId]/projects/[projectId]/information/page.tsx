@@ -17,10 +17,13 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import CardWithTitle from "src/shared/CardWithTitle";
-import FormLabelWithDescription from "src/shared/FormLabelWithDescription";
-import PageHeader from "src/shared/PageHeader";
-import TextField from "src/shared/TextField";
+import {
+  CardWithTitle,
+  FormLabelWithDescription,
+  TextField,
+  PageHeader,
+  DatePickerOpenIcon,
+} from "src/shared";
 import { AddressForm, CopyIconButton } from "src/widgets";
 import InterviewSessionList, {
   convertTimeToDayjs,
@@ -34,7 +37,6 @@ import { GET_PROJECT_QUERY_KEY, useProject } from "src/hooks/useProject";
 import { useParams } from "next/navigation";
 import dayjs, { Dayjs } from "dayjs";
 import { DateChip } from "src/widgets/DateChip";
-import Image from "next/image";
 import axios from "axios";
 import { useSnackbar } from "notistack";
 import {
@@ -43,8 +45,6 @@ import {
   ProjectTypeEnum,
   PutProjectRequest,
 } from "generated-client";
-import Tag from "src/widgets/Tag";
-import { DatePickerOpenIcon } from "src/shared/DatePickerIcon";
 import ExcludedDatePicker from "src/widgets/ExcludedDatePicker";
 import PublicTag from "src/widgets/PublicTag";
 import { useQueryClient } from "@tanstack/react-query";

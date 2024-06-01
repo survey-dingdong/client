@@ -4,7 +4,6 @@ import {
   FormLabel,
   InputProps,
   OutlinedInput,
-  TextFieldProps,
   Typography,
 } from "@mui/material";
 import React from "react";
@@ -15,7 +14,7 @@ export interface _TextFieldProps extends InputProps {
   helperText?: string;
 }
 
-const TextField: React.FC<_TextFieldProps> = ({
+export const TextField: React.FC<_TextFieldProps> = ({
   required,
   label,
   helperText,
@@ -42,5 +41,3 @@ const TextField: React.FC<_TextFieldProps> = ({
     </FormControl>
   );
 };
-
-export default TextField;

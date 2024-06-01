@@ -1,4 +1,4 @@
-import PageHeader from "src/shared/PageHeader";
+import { PageHeader } from "src/shared";
 import React from "react";
 
 const SurveyListPageHeader = () => {

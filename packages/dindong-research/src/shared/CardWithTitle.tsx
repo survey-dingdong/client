@@ -1,6 +1,5 @@
 import { Card, CardContent, Stack, Typography } from "@mui/material";
 import React from "react";
-import TextField from "./TextField";
 
 //
 //
@@ -11,7 +10,10 @@ interface CardWithTitleProps {
   children?: React.ReactNode;
 }
 
-const CardWithTitle: React.FC<CardWithTitleProps> = ({ title, children }) => {
+export const CardWithTitle: React.FC<CardWithTitleProps> = ({
+  title,
+  children,
+}) => {
   return (
     <Stack gap={1.5}>
       <Typography variant="subtitle1" fontWeight={800}>
@@ -25,5 +27,3 @@ const CardWithTitle: React.FC<CardWithTitleProps> = ({ title, children }) => {
     </Stack>
   );
 };
-
-export default CardWithTitle;

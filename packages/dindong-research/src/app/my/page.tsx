@@ -4,7 +4,6 @@ import {
   Paper,
   Stack,
   Typography,
-  useTheme,
   Link as MuiLink,
   Dialog,
   DialogTitle,
@@ -12,17 +11,19 @@ import {
   DialogActions,
   Button,
 } from "@mui/material";
-import TextField from "src/shared/TextField";
 import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlineRounded";
 import React from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
-import PasswordTextField, {
-  passwordMessage,
-  passwordRegex,
-} from "src/shared/PasswordTextField";
+
 import Tag from "src/widgets/Tag";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import {
+  passwordMessage,
+  passwordRegex,
+  PasswordTextField,
+  TextField,
+} from "src/shared";
 
 type DialogType = "nickname" | "account";
 

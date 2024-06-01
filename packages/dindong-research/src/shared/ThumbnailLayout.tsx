@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Stack, Typography } from "@mui/material";
 
-const ThumbnailLayout = ({
+export const ThumbnailLayout = ({
   children,
   title,
   description,
@@ -45,5 +45,3 @@ const ThumbnailLayout = ({
     </Box>
   );
 };
-
-export default ThumbnailLayout;
