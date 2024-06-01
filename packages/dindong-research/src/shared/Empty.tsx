@@ -42,12 +42,17 @@ const Empty: React.FC<EmptyProps> = ({
       />
 
       {/* title and description */}
-      <Stack gap={0.5}>
+      <Stack gap={0.5} alignItems="center">
         <Typography variant="h5" fontWeight={800}>
           {title}
         </Typography>
         {description ? (
-          <Typography color="text.secondary" variant="body1">
+          <Typography
+            color="text.secondary"
+            variant="body1"
+            whiteSpace="pre-wrap"
+            textAlign="center"
+          >
             {description}
           </Typography>
         ) : null}
