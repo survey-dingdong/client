@@ -25,7 +25,7 @@ const imageSize = 150;
 //
 //
 
-const Empty: React.FC<EmptyProps> = ({
+export const Empty: React.FC<EmptyProps> = ({
   imageSrc,
   title,
   description,
@@ -63,5 +63,3 @@ const Empty: React.FC<EmptyProps> = ({
     </Stack>
   );
 };
-
-export default Empty;

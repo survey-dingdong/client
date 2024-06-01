@@ -1,6 +1,6 @@
 import React from "react";
 import CreateProjectAction from "../CreateProjectAction/CreateProjectAction";
-import Empty from "src/shared/Empty";
+import { Empty } from "src/shared";
 
 interface SurveyListEmptyProps {
   workspaceId: number;

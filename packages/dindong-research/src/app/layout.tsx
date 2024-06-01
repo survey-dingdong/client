@@ -5,7 +5,6 @@ import { ThemeProvider } from "@mui/material/styles";
 import theme from "../theme";
 import MSWComponent from "src/mocks/MSWComponent";
 import Script from "next/script";
-import SnackbarClient from "src/shared/SnackbarClient";
 import { Provider } from "./Provider";
 
 //

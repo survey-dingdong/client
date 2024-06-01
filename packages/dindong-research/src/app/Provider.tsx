@@ -9,7 +9,7 @@ import "dayjs/locale/ko";
 import { token } from "src/utils/token";
 import { useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import SnackbarClient from "src/shared/SnackbarClient";
+import { SnackbarClient } from "src/shared";
 
 //
 //

@@ -30,7 +30,7 @@ const StyledMaterialDesignContent = styled(MaterialDesignContent)(
   })
 );
 
-const SnackbarClient: React.FC<SnackbarClientProps> = ({ children }) => {
+export const SnackbarClient: React.FC<SnackbarClientProps> = ({ children }) => {
   return (
     <SnackbarProvider
       style={{
@@ -56,5 +56,3 @@ const SnackbarClient: React.FC<SnackbarClientProps> = ({ children }) => {
     </SnackbarProvider>
   );
 };
-
-export default SnackbarClient;
