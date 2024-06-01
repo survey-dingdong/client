@@ -18,8 +18,8 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects, workspaceId }) => {
    */
   const renderListHeader = () => {
     return (
-      <Box display="flex" justifyContent="space-between">
-        <TextField
+      <Box display="flex" justifyContent="flex-end">
+        {/* <TextField
           placeholder="프로젝트 명으로 검색"
           size="small"
           sx={{ backgroundColor: (theme) => theme.palette.background.paper }}
@@ -28,7 +28,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects, workspaceId }) => {
               <SearchIcon />
             </InputAdornment>
           }
-        />
+        /> */}
         <CreateProjectAction workspaceId={workspaceId} />
       </Box>
     );
