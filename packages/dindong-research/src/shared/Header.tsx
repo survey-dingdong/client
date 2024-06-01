@@ -15,6 +15,7 @@ import {
 import { NextPage } from "next";
 import Link from "next/link";
 import React from "react";
+import { useUser } from "src/hooks/useUser";
 import { useWorkspaces } from "src/hooks/useWorkspaces";
 import { ProfileCard } from "src/widgets";
 
@@ -35,6 +36,7 @@ const Header: NextPage = () => {
   );
 
   const { workspaces } = useWorkspaces();
+  const { user } = useUser();
 
   const handleMenuClose = () => {
     setMenuAnchorEl(null);
@@ -134,14 +136,12 @@ const Header: NextPage = () => {
           </Typography>
         </Box>
 
-        <Tooltip title="Open settings">
-          <IconButton
-            sx={{ p: 0 }}
-            onClick={(e) => setMenuAnchorEl(e.currentTarget)}
-          >
-            <Avatar alt="" />
-          </IconButton>
-        </Tooltip>
+        <IconButton
+          sx={{ p: 0 }}
+          onClick={(e) => setMenuAnchorEl(e.currentTarget)}
+        >
+          <Avatar alt="avatar ">{user?.username}</Avatar>
+        </IconButton>
       </Toolbar>
       {renderMenu()}
     </AppBar>
