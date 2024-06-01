@@ -13,6 +13,8 @@ import TextField from "src/shared/TextField";
 
 const BUTTON_WIDTH = 80;
 
+const LIMIT_MINUTES = 5;
+
 //
 //
 //
@@ -34,17 +36,16 @@ const EmailVerifiedForm = () => {
   const isTimerRunning = !!timerRef.current;
 
   const startTimer = () => {
-    // 기존 타이머가 있으면 초기화
     if (timerRef.current) {
       clearTimeout(timerRef.current);
     }
 
-    setTimeLeft(3 * 60); // 3분으로 초기화
+    setTimeLeft(LIMIT_MINUTES * 60);
 
     // 새로운 타이머 설정
     timerRef.current = setTimeout(() => {
       setTimeLeft(0);
-    }, 3 * 60 * 1000);
+    }, LIMIT_MINUTES * 60 * 1000);
   };
 
   React.useEffect(() => {

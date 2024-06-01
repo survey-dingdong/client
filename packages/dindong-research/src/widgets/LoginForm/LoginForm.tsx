@@ -98,7 +98,7 @@ const LoginForm = () => {
             />
             <MuiLink
               component={Link}
-              href="/forgot-password"
+              href="/password"
               color="text.primary"
               sx={{ fontSize: 14 }}
             >

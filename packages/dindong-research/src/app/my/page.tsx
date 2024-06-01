@@ -31,8 +31,6 @@ type DialogType = "nickname" | "account";
 //
 
 export default function Page() {
-  const theme = useTheme();
-
   const { data: userData = {} } = useQuery({
     queryKey: ["/users/me"],
     queryFn: () => axios.get("/users/me").then((res) => res.data),
