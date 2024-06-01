@@ -10,11 +10,11 @@ import {
 } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import TextField from "src/shared/TextField";
-import { createProject } from "src/hooks/createProject";
 import axios from "axios";
 import { useQueryClient } from "@tanstack/react-query";
 import { getProjectsQueryKey } from "src/hooks/useProjects";
 import { ProjectTypeEnum } from "generated-client";
+import { useSnackbar } from "notistack";
 
 //
 //
@@ -31,6 +31,7 @@ const CreateProjectDialog: React.FC<CreateProjectDialogProps> = ({
   workspaceId,
   onClose,
 }) => {
+  const { enqueueSnackbar } = useSnackbar();
   const queryClient = useQueryClient();
   const [value, setValue] = React.useState("");
 
@@ -67,6 +68,10 @@ const CreateProjectDialog: React.FC<CreateProjectDialogProps> = ({
                 }
               )
               .then(() => {
+                enqueueSnackbar("프로젝트가 만들어졌습니다.", {
+                  variant: "success",
+                });
+
                 queryClient.invalidateQueries({
                   queryKey: getProjectsQueryKey,
                 });

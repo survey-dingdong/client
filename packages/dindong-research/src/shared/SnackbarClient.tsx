@@ -36,8 +36,6 @@ const SnackbarClient: React.FC<SnackbarClientProps> = ({ children }) => {
       style={{
         backgroundColor: "#191F28",
         borderRadius: "12px",
-        minWidth: 0,
-        width: "fit-content",
       }}
       Components={{
         default: StyledMaterialDesignContent,
@@ -48,7 +46,11 @@ const SnackbarClient: React.FC<SnackbarClientProps> = ({ children }) => {
         success: <i className="fa-solid fa-circle-check" />,
         error: <i className="fa-solid fa-circle-exclamation" />,
       }}
-      autoHideDuration={3000}
+      autoHideDuration={300000}
+      anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "right",
+      }}
     >
       {children}
     </SnackbarProvider>
