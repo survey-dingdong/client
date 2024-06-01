@@ -1,5 +1,5 @@
+import React from "react";
 import { IconButton, InputAdornment } from "@mui/material";
-import React, { useState } from "react";
 import { _TextFieldProps, TextField } from "./TextField";
 
 export const passwordRegex =
@@ -9,7 +9,7 @@ export const passwordMessage =
   "영문(대문자 포함), 숫자 및 특수문자의 조합으로 8자 이상 입력해 주세요.";
 
 export const PasswordTextField: React.FC<_TextFieldProps> = (props) => {
-  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [passwordVisible, setPasswordVisible] = React.useState(false);
 
   //
   //

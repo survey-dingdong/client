@@ -1,6 +1,6 @@
-import { Box, Stack, Typography, Link as MuiLink } from "@mui/material";
+import { Box, Typography, Link as MuiLink } from "@mui/material";
 import Link from "next/link";
-import ThumbnailLayout from "src/shared/ThumbnailLayout";
+import { ThumbnailLayout } from "src/shared";
 import { LoginForm } from "src/widgets";
 
 export default function Home() {

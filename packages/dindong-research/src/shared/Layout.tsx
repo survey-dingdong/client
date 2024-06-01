@@ -11,7 +11,7 @@ interface LayoutProps {
 
 const noPaddingPath = ["/chat"];
 
-const Layout: React.FC<LayoutProps> = ({ children, NavComponent }) => {
+export const Layout: React.FC<LayoutProps> = ({ children, NavComponent }) => {
   const pathname = usePathname();
   const isNoPadding = noPaddingPath.some((path) => pathname.includes(path));
 
@@ -39,5 +39,3 @@ const Layout: React.FC<LayoutProps> = ({ children, NavComponent }) => {
     </Box>
   );
 };
-
-export default Layout;

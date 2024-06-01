@@ -1,6 +1,6 @@
 import { Box, Stack } from "@mui/material";
 import React from "react";
-import { TextField, ProjectCard } from "src/shared";
+import { ProjectCard } from "src/shared";
 
 import { CreateProjectAction } from "../CreateProjectAction";
 import { GetProjectListResponse } from "generated-client";

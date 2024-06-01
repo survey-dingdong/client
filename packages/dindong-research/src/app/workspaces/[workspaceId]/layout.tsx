@@ -1,6 +1,6 @@
 "use client";
 import { usePathname } from "next/navigation";
-import Layout from "src/shared/Layout";
+import { Layout } from "src/shared";
 import { ProjectNav } from "src/widgets";
 import WorkspaceNav from "src/widgets/WorkspaceNav";
 

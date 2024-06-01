@@ -1,4 +1,4 @@
-import Layout from "src/shared/Layout";
+import { Layout } from "src/shared";
 import { MyNav } from "src/widgets";
 
 export default function WorkspaceLayout({

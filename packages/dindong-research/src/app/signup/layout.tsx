@@ -1,8 +1,7 @@
 "use client";
-import { useParams, usePathname, useRouter } from "next/navigation";
 import React from "react";
-import ThumbnailLayout from "src/shared/ThumbnailLayout";
-import {} from "next/router";
+import { usePathname } from "next/navigation";
+import { ThumbnailLayout } from "src/shared";
 
 export default function WorkspaceLayout({
   children,
