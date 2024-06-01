@@ -11,9 +11,9 @@ const ThumbnailLayout = ({
   return (
     <Box display="grid" gridTemplateColumns="560px 1fr" height="100vh">
       <Stack p="80px 44px 44px 44px" gap={3}>
-        <Box display="flex" alignItems="flex-end" gap={1}>
+        <Box display="flex" alignItems="flex-end" gap={0.5}>
           <Typography variant="h5" color="primary.main" fontWeight={800}>
-            Dingdong
+            dingdong
           </Typography>
           <Typography variant="caption" color="text.secondary">
             for Researcher

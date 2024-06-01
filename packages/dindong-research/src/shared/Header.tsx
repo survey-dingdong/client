@@ -127,7 +127,7 @@ const Header: NextPage = () => {
             sx={{ textDecoration: "none" }}
             href={workspaces ? `/workspaces/${workspaces[0]?.id}` : "/"}
           >
-            Dingdong
+            dingdong
           </Typography>
           <Typography variant="caption" color="text.tertiary">
             for Researcher
