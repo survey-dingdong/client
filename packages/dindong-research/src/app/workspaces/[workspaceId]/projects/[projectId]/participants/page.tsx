@@ -11,7 +11,7 @@ import { useParams } from "next/navigation";
 import React from "react";
 import { useProject } from "src/hooks/useProject";
 import Empty from "src/shared/Empty";
-import PageHeader from "src/shared/PageHeader";
+import { PageHeader } from "src/shared";
 import { CopyIconButton } from "src/widgets";
 import { ParticipantsTable } from "src/widgets/ParticipantsTable";
 
