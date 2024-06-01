@@ -64,10 +64,6 @@ axios.interceptors.response.use(
         });
     }
 
-    if (error.response?.status === 401 && !_token && !_refreshToken) {
-      window.location.href = "/";
-    }
-
     return Promise.reject(error);
   }
 );
