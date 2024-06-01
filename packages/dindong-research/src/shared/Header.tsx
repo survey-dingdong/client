@@ -110,16 +110,27 @@ const Header: NextPage = () => {
       elevation={0}
     >
       <Toolbar>
-        <Box sx={{ flexGrow: 1, display: "flex", gap: 1 }}>
+        <Box
+          sx={{
+            flexGrow: 1,
+            display: "flex",
+            gap: 0.5,
+            alignItems: "flex-end",
+          }}
+        >
           {/* TODO: changed logo image */}
           <Typography
             variant="h5"
             color={theme.palette.primary.main}
             fontWeight={800}
             component={Link}
+            sx={{ textDecoration: "none" }}
             href={workspaces ? `/workspaces/${workspaces[0]?.id}` : "/"}
           >
-            LOGO
+            Dingdong
+          </Typography>
+          <Typography variant="caption" color="text.tertiary">
+            for Researcher
           </Typography>
         </Box>
 

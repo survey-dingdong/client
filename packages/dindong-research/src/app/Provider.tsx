@@ -38,11 +38,14 @@ axios.interceptors.response.use(
     return response;
   },
   (error: any) => {
-    if (error.response?.status === 401) {
+    const _token = token.get(TOKEN_KEY);
+    const _refreshToken = token.get(REFRESH_TOKEN_KEY);
+
+    if (error.response?.status === 401 && _token && _refreshToken) {
       axios
         .post("/auth/refresh", {
-          token: token.get(TOKEN_KEY),
-          refreshToken: token.get(REFRESH_TOKEN_KEY),
+          token: _token,
+          refreshToken: _refreshToken,
         })
         .then((res) => {
           token.set(TOKEN_KEY, res.data.token);
@@ -60,6 +63,11 @@ axios.interceptors.response.use(
           window.location.href = "/";
         });
     }
+
+    if (error.response?.status === 401 && !_token && !_refreshToken) {
+      window.location.href = "/";
+    }
+
     return Promise.reject(error);
   }
 );

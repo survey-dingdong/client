@@ -11,9 +11,14 @@ const ThumbnailLayout = ({
   return (
     <Box display="grid" gridTemplateColumns="560px 1fr" height="100vh">
       <Stack p="80px 44px 44px 44px" gap={3}>
-        <Typography variant="h5" color="primary.main" fontWeight={800}>
-          LOGO
-        </Typography>
+        <Box display="flex" alignItems="flex-end" gap={1}>
+          <Typography variant="h5" color="primary.main" fontWeight={800}>
+            Dingdong
+          </Typography>
+          <Typography variant="caption" color="text.secondary">
+            for Researcher
+          </Typography>
+        </Box>
 
         <Typography variant="h4" whiteSpace="pre-wrap">
           {title}

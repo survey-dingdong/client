@@ -12,7 +12,7 @@ const Redirect = () => {
   const tokenParam = params.get(TOKEN_KEY);
 
   const { workspaces = [], isLoading } = useWorkspaces();
-  const mutation = useWorkspaceCreate();
+  const mutation = useWorkspaceCreate({ hideSnackbar: true });
 
   useEffect(() => {
     if (tokenParam) {

@@ -182,7 +182,6 @@ export default function Page() {
         {/*  */}
         <CardSection
           title="연락처"
-          verified
           headerAction={
             <Typography variant="body2" color="text.secondary">
               <MuiLink>본인인증</MuiLink>을 통해 휴대폰 번호를 변경할 수

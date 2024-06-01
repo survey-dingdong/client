@@ -45,7 +45,7 @@ export const convertTimeToDayjs = (time: string) => {
     return time;
   }
 
-  const [h, m, s] = time?.split(":");
+  const [h, m, s] = time.split(":");
 
   return dayjs()
     .set("hour", parseInt(h))
