@@ -85,7 +85,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
               <LinearProgressWithLabel
                 project={project}
                 value={
-                  (project.joinedParticipants / project.maxParticipants) * 100
+                  project.maxParticipants === 0
+                    ? 0
+                    : (project.joinedParticipants / project.maxParticipants) *
+                      100
                 }
               />
             </Stack>
