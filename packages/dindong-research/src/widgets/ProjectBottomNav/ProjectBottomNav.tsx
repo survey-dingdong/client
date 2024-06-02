@@ -19,7 +19,6 @@ const ProjectBottomNav = () => {
   return (
     <Paper
       sx={{
-        // position: "sticky",
         bottom: 0,
         top: "auto",
         left: drawerWidth,

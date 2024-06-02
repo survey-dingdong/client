@@ -2,8 +2,6 @@
 import {
   Stack,
   Box,
-  FormControlLabel,
-  Checkbox,
   Divider,
   Button,
   Link as MuiLink,
@@ -61,7 +59,7 @@ const LoginForm = () => {
   //
 
   return (
-    <Stack>
+    <Stack gap={3}>
       <Stack gap={2}>
         {error ? (
           <Alert
@@ -85,16 +83,7 @@ const LoginForm = () => {
             error={error}
           />
 
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-          >
-            <FormControlLabel
-              label="자동 로그인"
-              control={<Checkbox />}
-              componentsProps={{ typography: { fontSize: 14 } }}
-            />
+          <Box display="flex" justifyContent="flex-end" alignItems="center">
             <MuiLink
               component={Link}
               href="/password"
