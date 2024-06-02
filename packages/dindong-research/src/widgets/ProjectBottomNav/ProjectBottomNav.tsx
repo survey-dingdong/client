@@ -1,17 +1,15 @@
 import {
-  AppBar,
   Box,
   Button,
   Container,
   FormControlLabel,
   Paper,
-  Stack,
   Switch,
   Toolbar,
 } from "@mui/material";
 import React from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { drawerWidth } from "src/shared/Nav";
+import { drawerWidth } from "src/shared";
 
 export const bottomNavHeight = "64px";
 
@@ -21,7 +19,7 @@ const ProjectBottomNav = () => {
   return (
     <Paper
       sx={{
-        position: "fixed",
+        // position: "sticky",
         bottom: 0,
         top: "auto",
         left: drawerWidth,

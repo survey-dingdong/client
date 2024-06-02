@@ -27,13 +27,13 @@ export const Layout: React.FC<LayoutProps> = ({ children, NavComponent }) => {
           }}
         >
           {NavComponent ? NavComponent : null}
-          {isNoPadding ? (
+          {children}
+          {/* {isNoPadding ? (
             children
           ) : (
             <Container maxWidth="lg" sx={{ py: 7 }}>
-              {children}
             </Container>
-          )}
+          )} */}
         </main>
       </Box>
     </Box>

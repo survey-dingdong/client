@@ -3,7 +3,7 @@ import React from "react";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../theme";
-import MSWComponent from "src/mocks/MSWComponent";
+// import MSWComponent from "src/mocks/MSWComponent";
 import Script from "next/script";
 import { Provider } from "./Provider";
 
@@ -33,9 +33,7 @@ export default async function RootLayout(props: any) {
         >
           <AppRouterCacheProvider options={{ enableCssLayer: true }}>
             <ThemeProvider theme={theme}>
-              <Provider>
-                <MSWComponent>{children}</MSWComponent>
-              </Provider>
+              <Provider>{children}</Provider>
             </ThemeProvider>
           </AppRouterCacheProvider>
         </body>

@@ -1,8 +1,7 @@
 "use client";
 import { usePathname } from "next/navigation";
 import { Layout } from "src/shared";
-import { ProjectNav } from "src/widgets";
-import WorkspaceNav from "src/widgets/WorkspaceNav";
+import { ProjectNav, WorkspaceNav } from "src/widgets";
 
 export default function WorkspaceLayout({
   children,

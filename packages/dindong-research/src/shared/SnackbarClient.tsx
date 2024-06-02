@@ -46,7 +46,7 @@ export const SnackbarClient: React.FC<SnackbarClientProps> = ({ children }) => {
         success: <i className="fa-solid fa-circle-check" />,
         error: <i className="fa-solid fa-circle-exclamation" />,
       }}
-      autoHideDuration={300000}
+      autoHideDuration={3000}
       anchorOrigin={{
         vertical: "bottom",
         horizontal: "right",

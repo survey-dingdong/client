@@ -11,6 +11,7 @@ import axios from "axios";
 import { useParams, useRouter } from "next/navigation";
 import { useSnackbar } from "notistack";
 import React from "react";
+import { WORKSPACES_QUERY_KEY } from "src/hooks/useWorkspaces";
 
 interface WorkspaceDeleteDialogProps {
   open: boolean;
@@ -41,7 +42,7 @@ const WorkspaceDeleteDialog: React.FC<WorkspaceDeleteDialogProps> = ({
       await axios.delete(`/workspaces/${id}`);
 
       enqueueSnackbar("워크스페이스가 삭제되었습니다.", { variant: "success" });
-      queryClient.invalidateQueries({ queryKey: ["workspaces"] });
+      queryClient.invalidateQueries({ queryKey: [WORKSPACES_QUERY_KEY] });
 
       if (isDeleteThisWorkspace) {
         router.push(`/workspaces`);
@@ -65,17 +66,17 @@ const WorkspaceDeleteDialog: React.FC<WorkspaceDeleteDialogProps> = ({
         <DialogContentText>
           <b>{title}</b>이 삭제됩니다. 계속하시겠습니까?
         </DialogContentText>
-        <DialogActions>
-          <Button color="inherit" onClick={onClose}>
-            취소
-          </Button>
-
-          {/* TODO: add delete function */}
-          <Button color="error" onClick={handleDelete}>
-            삭제
-          </Button>
-        </DialogActions>
       </DialogContent>
+      <DialogActions>
+        <Button color="inherit" onClick={onClose}>
+          취소
+        </Button>
+
+        {/* TODO: add delete function */}
+        <Button color="error" onClick={handleDelete}>
+          삭제
+        </Button>
+      </DialogActions>
     </Dialog>
   );
 };

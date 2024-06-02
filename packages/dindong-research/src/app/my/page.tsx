@@ -15,7 +15,6 @@ import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlin
 import React from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 
-import Tag from "src/widgets/Tag";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import {
@@ -24,6 +23,7 @@ import {
   PasswordTextField,
   TextField,
 } from "src/shared";
+import { Tag } from "src/widgets";
 
 type DialogType = "nickname" | "account";
 
