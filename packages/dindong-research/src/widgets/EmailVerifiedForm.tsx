@@ -30,7 +30,7 @@ const EmailVerifiedForm = () => {
   >("idle");
 
   // [TIMER]
-  const [timeLeft, setTimeLeft] = React.useState(5 * 60);
+  const [timeLeft, setTimeLeft] = React.useState(LIMIT_MINUTES * 60);
   const timerRef = React.useRef<NodeJS.Timeout | null>(null);
 
   const isTimerRunning = !!timerRef.current;
@@ -90,6 +90,7 @@ const EmailVerifiedForm = () => {
         clearTimeout(timerRef.current);
       }
       setValue("emailVerified", true);
+      setValue("verifiedEmail", watchedEmail);
       setVerificationStatus("success");
     },
     onError: () => {
@@ -123,7 +124,7 @@ const EmailVerifiedForm = () => {
               placeholder="email@dingdong.com"
               error={Boolean(fieldState.error)}
               helperText={fieldState.error?.message}
-              disabled={isTimerRunning || verificationStatus === "success"}
+              disabled={isTimerRunning}
               {...field}
             />
             <span>

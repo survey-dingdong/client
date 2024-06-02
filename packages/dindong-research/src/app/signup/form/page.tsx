@@ -23,6 +23,7 @@ import {
 
 interface CreateUserFormType extends CreateUserRequest {
   emailVerified: boolean;
+  verifiedEmail: string;
 }
 
 export default function Page() {
@@ -32,6 +33,7 @@ export default function Page() {
       username: "",
       email: "",
       password: "",
+      verifiedEmail: "",
       emailVerified: false,
     },
   });
@@ -60,13 +62,15 @@ export default function Page() {
     },
   });
 
-  const postUser = formMethods.handleSubmit(({ emailVerified, ...data }) => {
-    if (!emailVerified) {
-      return;
-    }
+  const postUser = formMethods.handleSubmit(
+    ({ emailVerified, verifiedEmail, ...data }) => {
+      if (!emailVerified || !verifiedEmail || verifiedEmail !== data.email) {
+        return;
+      }
 
-    mutation.mutate(data);
-  });
+      mutation.mutate(data);
+    }
+  );
 
   return (
     <>
