@@ -1,5 +1,5 @@
 "use client";
-import { Stack } from "@mui/material";
+import { Container, Stack } from "@mui/material";
 import { useProjects } from "src/hooks/useProjects";
 import ProjectList from "src/widgets/ProjectList/ProjectList";
 import { useParams } from "next/navigation";
@@ -21,11 +21,13 @@ export default function Page() {
   const _workspaceId = Number(workspaceId);
 
   return (
-    <Stack height="100%">
-      <SurveyListPageHeader />
+    <Container maxWidth="lg" sx={{ py: 7 }}>
+      <Stack height="100%">
+        <SurveyListPageHeader />
 
-      <ProjectList projects={projects} workspaceId={_workspaceId} />
-      {hasNoProjects ? <SurveyListEmpty workspaceId={_workspaceId} /> : null}
-    </Stack>
+        <ProjectList projects={projects} workspaceId={_workspaceId} />
+        {hasNoProjects ? <SurveyListEmpty workspaceId={_workspaceId} /> : null}
+      </Stack>
+    </Container>
   );
 }
