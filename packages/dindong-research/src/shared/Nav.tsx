@@ -13,7 +13,7 @@ export const drawerWidth = 256;
 //
 //
 
-const Nav = ({ children }: { children: React.ReactNode }) => {
+export const Nav = ({ children }: { children: React.ReactNode }) => {
   //
   //
   //
@@ -47,5 +47,3 @@ const Nav = ({ children }: { children: React.ReactNode }) => {
     </Drawer>
   );
 };
-
-export default Nav;

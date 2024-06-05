@@ -19,7 +19,7 @@ import React from "react";
 
 import Link from "next/link";
 import { useParams, usePathname, useRouter } from "next/navigation";
-import Nav from "src/shared/Nav";
+import { Nav } from "src/shared";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import { usePath } from "src/hooks/usePath";
 import { useWorkspaces } from "src/hooks/useWorkspaces";

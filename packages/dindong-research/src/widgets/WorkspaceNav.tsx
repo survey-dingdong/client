@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import React from "react";
-import Nav from "src/shared/Nav";
+import { Nav } from "src/shared";
 import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import editIcon from "public/icons/edit.png";

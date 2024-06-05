@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import Nav from "src/shared/Nav";
+
 import ProfileCard from "./ProfileCard";
 import {
   List,
@@ -11,6 +11,7 @@ import {
   ListSubheader,
   Stack,
 } from "@mui/material";
+import { Nav } from "src/shared";
 
 const MyNav = () => {
   return (
