@@ -9,7 +9,12 @@ export default function WorkspaceLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const [, , step] = pathname?.split("/");
+
+  let step: string;
+
+  if (Array.isArray(pathname)) {
+    const [, , step] = pathname?.split("/");
+  }
 
   const getTitle = () => {
     switch (step) {

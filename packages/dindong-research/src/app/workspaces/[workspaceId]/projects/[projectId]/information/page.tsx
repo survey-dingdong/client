@@ -26,7 +26,6 @@ import {
 } from "src/shared";
 import {
   AddressForm,
-  bottomNavHeight,
   convertTimeToDayjs,
   CopyIconButton,
   DateChip,
@@ -74,9 +73,10 @@ export interface ProjectFormType
   experimentTimeslots: TimeSlotType[];
 }
 
-//
-//
-//
+type Params = {
+  workspaceId: string;
+  projectId: string;
+};
 
 //
 //
@@ -95,11 +95,14 @@ export default function Page() {
   const queryClient = useQueryClient();
 
   const { enqueueSnackbar } = useSnackbar();
-  const { workspaceId, projectId } = useParams();
+  const params = useParams<Params>();
+
+  const _workspaceId = Number(params?.workspaceId);
+  const _projectId = Number(params?.projectId);
 
   const { project } = useProject({
-    workspaceId: Number(workspaceId),
-    projectId: Number(projectId),
+    workspaceId: _workspaceId,
+    projectId: _projectId,
   });
 
   const formMethods = useForm<ProjectFormType>({
@@ -187,7 +190,7 @@ export default function Page() {
   const handleSubmit = formMethods.handleSubmit(async (data) => {
     try {
       await axios.put(
-        `/workspaces/${workspaceId}/projects/${projectId}`,
+        `/workspaces/${_workspaceId}/projects/${_projectId}`,
         {
           ...data,
           startDate: dayjs(data.startDate).format(SERVER_DATE_FORMAT),

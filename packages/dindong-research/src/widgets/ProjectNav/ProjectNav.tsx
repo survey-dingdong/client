@@ -44,13 +44,14 @@ const ProjectNav = () => {
   const queryClient = useQueryClient();
   const { enqueueSnackbar } = useSnackbar();
 
-  const { projectId, workspaceId } = useParams();
-  const _workspaceId = Number(workspaceId);
+  const params = useParams();
+  const workspaceId = Number(params?.workspaceId);
+  const projectId = Number(params?.projectId);
 
   const { workspaces } = useWorkspaces();
   const { project } = useProject({
-    workspaceId: Number(workspaceId),
-    projectId: Number(projectId),
+    workspaceId,
+    projectId,
   });
 
   const informationPath = usePath({ type: "project", slug: "/information" });
@@ -60,7 +61,7 @@ const ProjectNav = () => {
   const workspacesPath = usePath({
     type: "workspace",
     slug: "/",
-    workspaceId: _workspaceId,
+    workspaceId,
   });
 
   const pathname = usePathname();
@@ -144,7 +145,7 @@ const ProjectNav = () => {
           <ListItemButton
             LinkComponent={Link}
             href={informationPath}
-            selected={pathname.includes("/information")}
+            selected={pathname?.includes("/information")}
           >
             <ListItemIcon>
               <i className="fa-regular fa-clone"></i>
@@ -161,7 +162,7 @@ const ProjectNav = () => {
           <ListItemButton
             LinkComponent={Link}
             href={participantsPath}
-            selected={pathname.includes("/participants")}
+            selected={pathname?.includes("/participants")}
           >
             <ListItemIcon>
               <i className="fa-regular fa-user"></i>
@@ -178,7 +179,7 @@ const ProjectNav = () => {
           <ListItemButton
             LinkComponent={Link}
             href={chatPath}
-            selected={pathname.includes("/chat")}
+            selected={pathname?.includes("/chat")}
           >
             <ListItemIcon>
               <i className="fa-regular fa-comment-dots" />

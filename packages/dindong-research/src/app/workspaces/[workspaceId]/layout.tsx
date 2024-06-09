@@ -10,7 +10,7 @@ export default function WorkspaceLayout({
 }) {
   const path = usePathname();
 
-  const isProjectPage = path.includes("project");
+  const isProjectPage = path?.includes("project");
 
   return (
     <Layout NavComponent={isProjectPage ? <ProjectNav /> : <WorkspaceNav />}>

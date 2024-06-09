@@ -11,14 +11,14 @@ import { SurveyListEmpty } from "src/widgets";
 //
 
 export default function Page() {
-  const { workspaceId } = useParams();
+  const params = useParams<{ workspaceId: string }>();
+  const _workspaceId = Number(params?.workspaceId);
+
   const { projects } = useProjects({
-    workspaceId: Number(workspaceId),
+    workspaceId: _workspaceId,
   });
 
   const hasNoProjects = projects?.length === 0;
-
-  const _workspaceId = Number(workspaceId);
 
   return (
     <Container maxWidth="lg" sx={{ py: 7 }}>

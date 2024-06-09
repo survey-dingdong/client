@@ -46,7 +46,8 @@ type WorkspaceType = {
 //
 
 const WorkspaceNav = () => {
-  const { workspaceId } = useParams();
+  const params = useParams<{ workspaceId: string }>();
+  const _workspaceId = Number(params?.workspaceId);
 
   // [STATE]
   const [editMode, setEditMode] = React.useState(false);
@@ -184,7 +185,7 @@ const WorkspaceNav = () => {
                   <ListItemButton
                     LinkComponent={Link}
                     href={`/workspaces/${workspace.id}`}
-                    selected={workspace.id === Number(workspaceId)}
+                    selected={workspace.id === _workspaceId}
                     sx={{ height: "100%" }}
                   >
                     <ListItemText primaryTypographyProps={{ noWrap: true }}>

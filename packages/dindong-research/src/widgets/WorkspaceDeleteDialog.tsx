@@ -27,11 +27,13 @@ const WorkspaceDeleteDialog: React.FC<WorkspaceDeleteDialogProps> = ({
   onClose,
 }) => {
   const { enqueueSnackbar } = useSnackbar();
-  const { workspaceId } = useParams();
+  const params = useParams<{ workspaceId: string }>();
+  const _workspaceId = Number(params?.workspaceId);
+
   const router = useRouter();
   const queryClient = useQueryClient();
 
-  const isDeleteThisWorkspace = Number(workspaceId) === id;
+  const isDeleteThisWorkspace = _workspaceId === id;
 
   const handleDelete = async () => {
     try {

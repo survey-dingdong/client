@@ -14,17 +14,30 @@ import { Empty, PageHeader } from "src/shared";
 import { CopyIconButton } from "src/widgets";
 import { ParticipantsTable } from "src/widgets/ParticipantsTable";
 
+//
+//
+//
+
+type Params = {
+  workspaceId: string;
+  projectId: string;
+};
+
+//
+//
+//
+
 export default function Page() {
-  const { workspaceId, projectId } = useParams();
-  const _workspaceId = parseInt(workspaceId as string);
-  const _projectId = parseInt(projectId as string);
+  const params = useParams<Params>();
+  const _workspaceId = Number(params?.workspaceId);
+  const _projectId = Number(params?.projectId);
 
   const { data: participantsData = [] } = useQuery({
     queryKey: ["participants"],
     queryFn: async () =>
       axios
         .get<GetExperimentParticipantResponse[]>(
-          `/workspaces/${workspaceId}/projects/${projectId}/participants`,
+          `/workspaces/${_workspaceId}/projects/${_projectId}/participants`,
           {
             params: {
               projectType: ProjectTypeEnum.Experiment,

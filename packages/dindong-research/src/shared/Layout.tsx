@@ -13,7 +13,7 @@ const noPaddingPath = ["/chat"];
 
 export const Layout: React.FC<LayoutProps> = ({ children, NavComponent }) => {
   const pathname = usePathname();
-  const isNoPadding = noPaddingPath.some((path) => pathname.includes(path));
+  const isNoPadding = noPaddingPath.some((path) => pathname?.includes(path));
 
   return (
     <Box display="flex">

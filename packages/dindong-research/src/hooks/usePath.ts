@@ -15,11 +15,10 @@ export const usePath = ({
   projectId,
   slug,
 }: UsePathParams) => {
-  const { workspaceId: workspaceIdFromParam, projectId: projectIdFromParam } =
-    useParams();
+  const params = useParams();
 
-  const _workspaceId = workspaceId || workspaceIdFromParam;
-  const _projectId = projectId || projectIdFromParam;
+  const _workspaceId = workspaceId || Number(params?.workspaceId);
+  const _projectId = projectId || Number(params?.projectId);
 
   //
   //

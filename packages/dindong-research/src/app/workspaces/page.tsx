@@ -9,7 +9,7 @@ import { token } from "src/utils/token";
 const Redirect = () => {
   const router = useRouter();
   const params = useSearchParams();
-  const tokenParam = params.get(TOKEN_KEY);
+  const tokenParam = params?.get(TOKEN_KEY);
 
   const { workspaces = [], isLoading } = useWorkspaces();
   const mutation = useWorkspaceCreate({ hideSnackbar: true });

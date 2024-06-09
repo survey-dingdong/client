@@ -78,7 +78,7 @@ export const Provider = ({ children }: ProviderProps) => {
   const accessToken = token.get("token");
 
   useEffect(() => {
-    if (!accessToken && !pathname.includes("/signup")) {
+    if (!accessToken && !pathname?.includes("/signup")) {
       router.replace("/");
     }
   }, [accessToken, pathname, router]);
