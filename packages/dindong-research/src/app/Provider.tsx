@@ -20,7 +20,7 @@ interface ProviderProps {
 }
 const queryClient = new QueryClient();
 
-const baseURL = "http://13.209.133.71:8000";
+const baseURL = "https://survey-dingdong.site";
 
 axios.defaults.baseURL = baseURL;
 axios.defaults.headers.common["Authorization"] = `Bearer ${token.get("token")}`;

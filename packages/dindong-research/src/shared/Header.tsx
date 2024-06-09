@@ -8,7 +8,6 @@ import {
   IconButton,
   Popover,
   Toolbar,
-  Typography,
   useTheme,
 } from "@mui/material";
 import { NextPage } from "next";
@@ -112,35 +111,21 @@ const Header: NextPage = () => {
       }}
       elevation={0}
     >
-      <Toolbar>
-        <Box
-          sx={{
-            flexGrow: 1,
-            display: "flex",
-            gap: 0.5,
-            alignItems: "flex-end",
-          }}
+      <Toolbar sx={{ justifyContent: "space-between", alignItems: "center" }}>
+        <Link
+          href={workspaces ? `/workspaces/${workspaces[0]?.id}` : "/"}
+          style={{ height: 25 }}
         >
-          <Typography
-            variant="h5"
-            color={theme.palette.primary.main}
-            fontWeight={800}
-            component={Link}
-            sx={{ textDecoration: "none" }}
-            href={workspaces ? `/workspaces/${workspaces[0]?.id}` : "/"}
-          >
-            <Image src={logo.src} width={128} height={25} alt="logo" />
-          </Typography>
-          <Typography variant="caption" color="text.tertiary">
-            for Researcher
-          </Typography>
-        </Box>
+          <Image src={logo.src} width={128} height={25} alt="logo" />
+        </Link>
 
         <IconButton
           sx={{ p: 0 }}
           onClick={(e) => setMenuAnchorEl(e.currentTarget)}
         >
-          <Avatar alt="avatar ">{user?.username}</Avatar>
+          <Avatar alt="avatar" sx={{ width: 32, height: 32 }}>
+            {user?.username}
+          </Avatar>
         </IconButton>
       </Toolbar>
       {renderMenu()}
