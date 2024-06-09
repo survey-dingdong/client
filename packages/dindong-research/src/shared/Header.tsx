@@ -12,11 +12,13 @@ import {
   useTheme,
 } from "@mui/material";
 import { NextPage } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { useUser } from "src/hooks/useUser";
 import { useWorkspaces } from "src/hooks/useWorkspaces";
 import { ProfileCard } from "src/widgets";
+import logo from "public/logo.png";
 
 //
 //
@@ -119,7 +121,6 @@ const Header: NextPage = () => {
             alignItems: "flex-end",
           }}
         >
-          {/* TODO: changed logo image */}
           <Typography
             variant="h5"
             color={theme.palette.primary.main}
@@ -128,7 +129,7 @@ const Header: NextPage = () => {
             sx={{ textDecoration: "none" }}
             href={workspaces ? `/workspaces/${workspaces[0]?.id}` : "/"}
           >
-            dingdong
+            <Image src={logo.src} width={128} height={25} alt="logo" />
           </Typography>
           <Typography variant="caption" color="text.tertiary">
             for Researcher
