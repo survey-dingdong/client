@@ -20,9 +20,20 @@ export const ThumbnailLayout = ({
   title: string;
   description?: string;
 }) => {
+  const [gridTemplateColumns, setGridTemplateColumns] =
+    React.useState("560px 1fr");
+
   const theme = useTheme();
   const isLargerThanLg = useMediaQuery(theme.breakpoints.up("lg"));
   const isLargerThanMd = useMediaQuery(theme.breakpoints.up("md"));
+
+  React.useEffect(() => {
+    if (!isLargerThanMd) {
+      setGridTemplateColumns("1fr");
+    } else {
+      setGridTemplateColumns("560px 1fr");
+    }
+  }, [isLargerThanMd]);
 
   //
   //
@@ -31,7 +42,7 @@ export const ThumbnailLayout = ({
   return (
     <Box
       display="grid"
-      gridTemplateColumns={isLargerThanMd ? "560px 1fr" : "1fr"}
+      gridTemplateColumns={gridTemplateColumns}
       height="100vh"
     >
       <Stack p="80px 44px 44px 44px" gap={3}>
@@ -81,6 +92,7 @@ export const ThumbnailLayout = ({
             >
               <Image
                 src={textLogo.src}
+                priority
                 width={283}
                 height={40}
                 alt="dingdong"
