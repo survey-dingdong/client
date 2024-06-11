@@ -87,11 +87,11 @@ export interface PutProjectRequest {
      */
     experimentType: ExperimentTypeEnum;
     /**
-     * Experiment location
+     * 
      * @type {string}
      * @memberof PutProjectRequest
      */
-    location: string;
+    location?: string;
 }
 
 /**
@@ -107,7 +107,6 @@ export function instanceOfPutProjectRequest(value: object): boolean {
     if (!('experimentTimeslots' in value)) return false;
     if (!('maxParticipants' in value)) return false;
     if (!('experimentType' in value)) return false;
-    if (!('location' in value)) return false;
     return true;
 }
 
@@ -130,7 +129,7 @@ export function PutProjectRequestFromJSONTyped(json: any, ignoreDiscriminator: b
         'experimentTimeslots': ((json['experiment_timeslots'] as Array<any>).map(ExperimentTimeslotRequestFromJSON)),
         'maxParticipants': json['max_participants'],
         'experimentType': ExperimentTypeEnumFromJSON(json['experiment_type']),
-        'location': json['location'],
+        'location': json['location'] == null ? undefined : json['location'],
     };
 }
 

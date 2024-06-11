@@ -23,8 +23,6 @@ import type {
   LoginRequest,
   LoginResponse,
   UpdateUserRequest,
-  ValidateEmailRequest,
-  ValidateEmailResponse,
 } from '../models/index';
 import {
     ChangePasswordRequestFromJSON,
@@ -43,10 +41,6 @@ import {
     LoginResponseToJSON,
     UpdateUserRequestFromJSON,
     UpdateUserRequestToJSON,
-    ValidateEmailRequestFromJSON,
-    ValidateEmailRequestToJSON,
-    ValidateEmailResponseFromJSON,
-    ValidateEmailResponseToJSON,
 } from '../models/index';
 
 export interface ChangePasswordUsersPasswordPatchRequest {
@@ -70,10 +64,6 @@ export interface UpdateUserUsersPatchRequest {
     updateUserRequest: UpdateUserRequest;
 }
 
-export interface ValidateEmailUsersValidationGetRequest {
-    validateEmailRequest: ValidateEmailRequest;
-}
-
 /**
  * 
  */
@@ -82,7 +72,7 @@ export class UserApi extends runtime.BaseAPI {
     /**
      * Change Password
      */
-    async changePasswordUsersPasswordPatchRaw(requestParameters: ChangePasswordUsersPasswordPatchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>> {
+    async changePasswordUsersPasswordPatchRaw(requestParameters: ChangePasswordUsersPasswordPatchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters['changePasswordRequest'] == null) {
             throw new runtime.RequiredError(
                 'changePasswordRequest',
@@ -108,19 +98,14 @@ export class UserApi extends runtime.BaseAPI {
             body: ChangePasswordRequestToJSON(requestParameters['changePasswordRequest']),
         }, initOverrides);
 
-        if (this.isJsonMime(response.headers.get('content-type'))) {
-            return new runtime.JSONApiResponse<any>(response);
-        } else {
-            return new runtime.TextApiResponse(response) as any;
-        }
+        return new runtime.VoidApiResponse(response);
     }
 
     /**
      * Change Password
      */
-    async changePasswordUsersPasswordPatch(requestParameters: ChangePasswordUsersPasswordPatchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any> {
-        const response = await this.changePasswordUsersPasswordPatchRaw(requestParameters, initOverrides);
-        return await response.value();
+    async changePasswordUsersPasswordPatch(requestParameters: ChangePasswordUsersPasswordPatchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.changePasswordUsersPasswordPatchRaw(requestParameters, initOverrides);
     }
 
     /**
@@ -157,6 +142,35 @@ export class UserApi extends runtime.BaseAPI {
     async createUserUsersPost(requestParameters: CreateUserUsersPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateUserResponse> {
         const response = await this.createUserUsersPostRaw(requestParameters, initOverrides);
         return await response.value();
+    }
+
+    /**
+     * Delete User
+     */
+    async deleteUserUsersMeDeleteRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Authorization"] = await this.configuration.apiKey("Authorization"); // PermissionDependency authentication
+        }
+
+        const response = await this.request({
+            path: `/users/me`,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Delete User
+     */
+    async deleteUserUsersMeDelete(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteUserUsersMeDeleteRaw(initOverrides);
     }
 
     /**
@@ -304,46 +318,6 @@ export class UserApi extends runtime.BaseAPI {
      */
     async updateUserUsersPatch(requestParameters: UpdateUserUsersPatchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any> {
         const response = await this.updateUserUsersPatchRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Validate Email
-     */
-    async validateEmailUsersValidationGetRaw(requestParameters: ValidateEmailUsersValidationGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ValidateEmailResponse>> {
-        if (requestParameters['validateEmailRequest'] == null) {
-            throw new runtime.RequiredError(
-                'validateEmailRequest',
-                'Required parameter "validateEmailRequest" was null or undefined when calling validateEmailUsersValidationGet().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Authorization"] = await this.configuration.apiKey("Authorization"); // PermissionDependency authentication
-        }
-
-        const response = await this.request({
-            path: `/users/validation`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-            body: ValidateEmailRequestToJSON(requestParameters['validateEmailRequest']),
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ValidateEmailResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * Validate Email
-     */
-    async validateEmailUsersValidationGet(requestParameters: ValidateEmailUsersValidationGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ValidateEmailResponse> {
-        const response = await this.validateEmailUsersValidationGetRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

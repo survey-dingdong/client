@@ -15,26 +15,17 @@
 
 import * as runtime from '../runtime';
 import type {
-  CreateProjectRequest,
-  CreateProjectResponse,
   GetExperimentParticipantResponse,
   GetExperimentProjectResponse,
-  GetProjectListResponse,
   HTTPValidationError,
   ProjectTypeEnum,
   PutProjectRequest,
 } from '../models/index';
 import {
-    CreateProjectRequestFromJSON,
-    CreateProjectRequestToJSON,
-    CreateProjectResponseFromJSON,
-    CreateProjectResponseToJSON,
     GetExperimentParticipantResponseFromJSON,
     GetExperimentParticipantResponseToJSON,
     GetExperimentProjectResponseFromJSON,
     GetExperimentProjectResponseToJSON,
-    GetProjectListResponseFromJSON,
-    GetProjectListResponseToJSON,
     HTTPValidationErrorFromJSON,
     HTTPValidationErrorToJSON,
     ProjectTypeEnumFromJSON,
@@ -43,48 +34,30 @@ import {
     PutProjectRequestToJSON,
 } from '../models/index';
 
-export interface CreateProjectWorkspacesWorkspaceIdProjectsPostRequest {
-    workspaceId: number;
-    projectType: ProjectTypeEnum;
-    createProjectRequest: CreateProjectRequest;
-}
-
-export interface DeleteProjectParticipantWorkspacesWorkspaceIdProjectsProjectIdParticipantsParticipantIdDeleteRequest {
-    workspaceId: number;
+export interface DeleteProjectParticipantProjectsProjectIdParticipantsParticipantIdDeleteRequest {
     projectId: number;
     participantId: number;
     projectType: ProjectTypeEnum;
 }
 
-export interface DeleteProjectWorkspacesWorkspaceIdProjectsProjectIdDeleteRequest {
-    workspaceId: number;
+export interface DeleteProjectProjectsProjectIdDeleteRequest {
     projectId: number;
     projectType: ProjectTypeEnum;
 }
 
-export interface GetProjectListWorkspacesWorkspaceIdProjectsGetRequest {
-    workspaceId: number;
-    projectType: ProjectTypeEnum;
-    page?: number;
-    size?: number;
-}
-
-export interface GetProjectParticipantListWorkspacesWorkspaceIdProjectsProjectIdParticipantsGetRequest {
-    workspaceId: number;
+export interface GetProjectParticipantListProjectsProjectIdParticipantsGetRequest {
     projectId: number;
     projectType: ProjectTypeEnum;
     page?: number;
     size?: number;
 }
 
-export interface GetProjectWorkspacesWorkspaceIdProjectsProjectIdGetRequest {
-    workspaceId: number;
+export interface GetProjectProjectsProjectIdGetRequest {
     projectId: number;
     projectType: ProjectTypeEnum;
 }
 
-export interface UpdateProjectWorkspacesWorkspaceIdProjectsProjectIdPutRequest {
-    workspaceId: number;
+export interface UpdateProjectProjectsProjectIdPutRequest {
     projectId: number;
     projectType: ProjectTypeEnum;
     putProjectRequest: PutProjectRequest;
@@ -96,92 +69,27 @@ export interface UpdateProjectWorkspacesWorkspaceIdProjectsProjectIdPutRequest {
 export class ProjectApi extends runtime.BaseAPI {
 
     /**
-     * Create Project
-     */
-    async createProjectWorkspacesWorkspaceIdProjectsPostRaw(requestParameters: CreateProjectWorkspacesWorkspaceIdProjectsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreateProjectResponse>> {
-        if (requestParameters['workspaceId'] == null) {
-            throw new runtime.RequiredError(
-                'workspaceId',
-                'Required parameter "workspaceId" was null or undefined when calling createProjectWorkspacesWorkspaceIdProjectsPost().'
-            );
-        }
-
-        if (requestParameters['projectType'] == null) {
-            throw new runtime.RequiredError(
-                'projectType',
-                'Required parameter "projectType" was null or undefined when calling createProjectWorkspacesWorkspaceIdProjectsPost().'
-            );
-        }
-
-        if (requestParameters['createProjectRequest'] == null) {
-            throw new runtime.RequiredError(
-                'createProjectRequest',
-                'Required parameter "createProjectRequest" was null or undefined when calling createProjectWorkspacesWorkspaceIdProjectsPost().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        if (requestParameters['projectType'] != null) {
-            queryParameters['project_type'] = requestParameters['projectType'];
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Authorization"] = await this.configuration.apiKey("Authorization"); // PermissionDependency authentication
-        }
-
-        const response = await this.request({
-            path: `/workspaces/{workspace_id}/projects`.replace(`{${"workspace_id"}}`, encodeURIComponent(String(requestParameters['workspaceId']))),
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: CreateProjectRequestToJSON(requestParameters['createProjectRequest']),
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => CreateProjectResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * Create Project
-     */
-    async createProjectWorkspacesWorkspaceIdProjectsPost(requestParameters: CreateProjectWorkspacesWorkspaceIdProjectsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateProjectResponse> {
-        const response = await this.createProjectWorkspacesWorkspaceIdProjectsPostRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
      * Delete Project Participant
      */
-    async deleteProjectParticipantWorkspacesWorkspaceIdProjectsProjectIdParticipantsParticipantIdDeleteRaw(requestParameters: DeleteProjectParticipantWorkspacesWorkspaceIdProjectsProjectIdParticipantsParticipantIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>> {
-        if (requestParameters['workspaceId'] == null) {
-            throw new runtime.RequiredError(
-                'workspaceId',
-                'Required parameter "workspaceId" was null or undefined when calling deleteProjectParticipantWorkspacesWorkspaceIdProjectsProjectIdParticipantsParticipantIdDelete().'
-            );
-        }
-
+    async deleteProjectParticipantProjectsProjectIdParticipantsParticipantIdDeleteRaw(requestParameters: DeleteProjectParticipantProjectsProjectIdParticipantsParticipantIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>> {
         if (requestParameters['projectId'] == null) {
             throw new runtime.RequiredError(
                 'projectId',
-                'Required parameter "projectId" was null or undefined when calling deleteProjectParticipantWorkspacesWorkspaceIdProjectsProjectIdParticipantsParticipantIdDelete().'
+                'Required parameter "projectId" was null or undefined when calling deleteProjectParticipantProjectsProjectIdParticipantsParticipantIdDelete().'
             );
         }
 
         if (requestParameters['participantId'] == null) {
             throw new runtime.RequiredError(
                 'participantId',
-                'Required parameter "participantId" was null or undefined when calling deleteProjectParticipantWorkspacesWorkspaceIdProjectsProjectIdParticipantsParticipantIdDelete().'
+                'Required parameter "participantId" was null or undefined when calling deleteProjectParticipantProjectsProjectIdParticipantsParticipantIdDelete().'
             );
         }
 
         if (requestParameters['projectType'] == null) {
             throw new runtime.RequiredError(
                 'projectType',
-                'Required parameter "projectType" was null or undefined when calling deleteProjectParticipantWorkspacesWorkspaceIdProjectsProjectIdParticipantsParticipantIdDelete().'
+                'Required parameter "projectType" was null or undefined when calling deleteProjectParticipantProjectsProjectIdParticipantsParticipantIdDelete().'
             );
         }
 
@@ -198,7 +106,7 @@ export class ProjectApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/workspaces/{workspace_id}/projects/{project_id}/participants/{participant_id}`.replace(`{${"workspace_id"}}`, encodeURIComponent(String(requestParameters['workspaceId']))).replace(`{${"project_id"}}`, encodeURIComponent(String(requestParameters['projectId']))).replace(`{${"participant_id"}}`, encodeURIComponent(String(requestParameters['participantId']))),
+            path: `/projects/{project_id}/participants/{participant_id}`.replace(`{${"project_id"}}`, encodeURIComponent(String(requestParameters['projectId']))).replace(`{${"participant_id"}}`, encodeURIComponent(String(requestParameters['participantId']))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -214,33 +122,26 @@ export class ProjectApi extends runtime.BaseAPI {
     /**
      * Delete Project Participant
      */
-    async deleteProjectParticipantWorkspacesWorkspaceIdProjectsProjectIdParticipantsParticipantIdDelete(requestParameters: DeleteProjectParticipantWorkspacesWorkspaceIdProjectsProjectIdParticipantsParticipantIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any> {
-        const response = await this.deleteProjectParticipantWorkspacesWorkspaceIdProjectsProjectIdParticipantsParticipantIdDeleteRaw(requestParameters, initOverrides);
+    async deleteProjectParticipantProjectsProjectIdParticipantsParticipantIdDelete(requestParameters: DeleteProjectParticipantProjectsProjectIdParticipantsParticipantIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any> {
+        const response = await this.deleteProjectParticipantProjectsProjectIdParticipantsParticipantIdDeleteRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      * Delete Project
      */
-    async deleteProjectWorkspacesWorkspaceIdProjectsProjectIdDeleteRaw(requestParameters: DeleteProjectWorkspacesWorkspaceIdProjectsProjectIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>> {
-        if (requestParameters['workspaceId'] == null) {
-            throw new runtime.RequiredError(
-                'workspaceId',
-                'Required parameter "workspaceId" was null or undefined when calling deleteProjectWorkspacesWorkspaceIdProjectsProjectIdDelete().'
-            );
-        }
-
+    async deleteProjectProjectsProjectIdDeleteRaw(requestParameters: DeleteProjectProjectsProjectIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>> {
         if (requestParameters['projectId'] == null) {
             throw new runtime.RequiredError(
                 'projectId',
-                'Required parameter "projectId" was null or undefined when calling deleteProjectWorkspacesWorkspaceIdProjectsProjectIdDelete().'
+                'Required parameter "projectId" was null or undefined when calling deleteProjectProjectsProjectIdDelete().'
             );
         }
 
         if (requestParameters['projectType'] == null) {
             throw new runtime.RequiredError(
                 'projectType',
-                'Required parameter "projectType" was null or undefined when calling deleteProjectWorkspacesWorkspaceIdProjectsProjectIdDelete().'
+                'Required parameter "projectType" was null or undefined when calling deleteProjectProjectsProjectIdDelete().'
             );
         }
 
@@ -257,7 +158,7 @@ export class ProjectApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/workspaces/{workspace_id}/projects/{project_id}`.replace(`{${"workspace_id"}}`, encodeURIComponent(String(requestParameters['workspaceId']))).replace(`{${"project_id"}}`, encodeURIComponent(String(requestParameters['projectId']))),
+            path: `/projects/{project_id}`.replace(`{${"project_id"}}`, encodeURIComponent(String(requestParameters['projectId']))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -273,89 +174,26 @@ export class ProjectApi extends runtime.BaseAPI {
     /**
      * Delete Project
      */
-    async deleteProjectWorkspacesWorkspaceIdProjectsProjectIdDelete(requestParameters: DeleteProjectWorkspacesWorkspaceIdProjectsProjectIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any> {
-        const response = await this.deleteProjectWorkspacesWorkspaceIdProjectsProjectIdDeleteRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Get Project List
-     */
-    async getProjectListWorkspacesWorkspaceIdProjectsGetRaw(requestParameters: GetProjectListWorkspacesWorkspaceIdProjectsGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<GetProjectListResponse>>> {
-        if (requestParameters['workspaceId'] == null) {
-            throw new runtime.RequiredError(
-                'workspaceId',
-                'Required parameter "workspaceId" was null or undefined when calling getProjectListWorkspacesWorkspaceIdProjectsGet().'
-            );
-        }
-
-        if (requestParameters['projectType'] == null) {
-            throw new runtime.RequiredError(
-                'projectType',
-                'Required parameter "projectType" was null or undefined when calling getProjectListWorkspacesWorkspaceIdProjectsGet().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        if (requestParameters['projectType'] != null) {
-            queryParameters['project_type'] = requestParameters['projectType'];
-        }
-
-        if (requestParameters['page'] != null) {
-            queryParameters['page'] = requestParameters['page'];
-        }
-
-        if (requestParameters['size'] != null) {
-            queryParameters['size'] = requestParameters['size'];
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Authorization"] = await this.configuration.apiKey("Authorization"); // PermissionDependency authentication
-        }
-
-        const response = await this.request({
-            path: `/workspaces/{workspace_id}/projects`.replace(`{${"workspace_id"}}`, encodeURIComponent(String(requestParameters['workspaceId']))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(GetProjectListResponseFromJSON));
-    }
-
-    /**
-     * Get Project List
-     */
-    async getProjectListWorkspacesWorkspaceIdProjectsGet(requestParameters: GetProjectListWorkspacesWorkspaceIdProjectsGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<GetProjectListResponse>> {
-        const response = await this.getProjectListWorkspacesWorkspaceIdProjectsGetRaw(requestParameters, initOverrides);
+    async deleteProjectProjectsProjectIdDelete(requestParameters: DeleteProjectProjectsProjectIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any> {
+        const response = await this.deleteProjectProjectsProjectIdDeleteRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      * Get Project Participant List
      */
-    async getProjectParticipantListWorkspacesWorkspaceIdProjectsProjectIdParticipantsGetRaw(requestParameters: GetProjectParticipantListWorkspacesWorkspaceIdProjectsProjectIdParticipantsGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<GetExperimentParticipantResponse>>> {
-        if (requestParameters['workspaceId'] == null) {
-            throw new runtime.RequiredError(
-                'workspaceId',
-                'Required parameter "workspaceId" was null or undefined when calling getProjectParticipantListWorkspacesWorkspaceIdProjectsProjectIdParticipantsGet().'
-            );
-        }
-
+    async getProjectParticipantListProjectsProjectIdParticipantsGetRaw(requestParameters: GetProjectParticipantListProjectsProjectIdParticipantsGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<GetExperimentParticipantResponse>>> {
         if (requestParameters['projectId'] == null) {
             throw new runtime.RequiredError(
                 'projectId',
-                'Required parameter "projectId" was null or undefined when calling getProjectParticipantListWorkspacesWorkspaceIdProjectsProjectIdParticipantsGet().'
+                'Required parameter "projectId" was null or undefined when calling getProjectParticipantListProjectsProjectIdParticipantsGet().'
             );
         }
 
         if (requestParameters['projectType'] == null) {
             throw new runtime.RequiredError(
                 'projectType',
-                'Required parameter "projectType" was null or undefined when calling getProjectParticipantListWorkspacesWorkspaceIdProjectsProjectIdParticipantsGet().'
+                'Required parameter "projectType" was null or undefined when calling getProjectParticipantListProjectsProjectIdParticipantsGet().'
             );
         }
 
@@ -380,7 +218,7 @@ export class ProjectApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/workspaces/{workspace_id}/projects/{project_id}/participants`.replace(`{${"workspace_id"}}`, encodeURIComponent(String(requestParameters['workspaceId']))).replace(`{${"project_id"}}`, encodeURIComponent(String(requestParameters['projectId']))),
+            path: `/projects/{project_id}/participants`.replace(`{${"project_id"}}`, encodeURIComponent(String(requestParameters['projectId']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -392,33 +230,26 @@ export class ProjectApi extends runtime.BaseAPI {
     /**
      * Get Project Participant List
      */
-    async getProjectParticipantListWorkspacesWorkspaceIdProjectsProjectIdParticipantsGet(requestParameters: GetProjectParticipantListWorkspacesWorkspaceIdProjectsProjectIdParticipantsGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<GetExperimentParticipantResponse>> {
-        const response = await this.getProjectParticipantListWorkspacesWorkspaceIdProjectsProjectIdParticipantsGetRaw(requestParameters, initOverrides);
+    async getProjectParticipantListProjectsProjectIdParticipantsGet(requestParameters: GetProjectParticipantListProjectsProjectIdParticipantsGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<GetExperimentParticipantResponse>> {
+        const response = await this.getProjectParticipantListProjectsProjectIdParticipantsGetRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      * Get Project
      */
-    async getProjectWorkspacesWorkspaceIdProjectsProjectIdGetRaw(requestParameters: GetProjectWorkspacesWorkspaceIdProjectsProjectIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetExperimentProjectResponse>> {
-        if (requestParameters['workspaceId'] == null) {
-            throw new runtime.RequiredError(
-                'workspaceId',
-                'Required parameter "workspaceId" was null or undefined when calling getProjectWorkspacesWorkspaceIdProjectsProjectIdGet().'
-            );
-        }
-
+    async getProjectProjectsProjectIdGetRaw(requestParameters: GetProjectProjectsProjectIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetExperimentProjectResponse>> {
         if (requestParameters['projectId'] == null) {
             throw new runtime.RequiredError(
                 'projectId',
-                'Required parameter "projectId" was null or undefined when calling getProjectWorkspacesWorkspaceIdProjectsProjectIdGet().'
+                'Required parameter "projectId" was null or undefined when calling getProjectProjectsProjectIdGet().'
             );
         }
 
         if (requestParameters['projectType'] == null) {
             throw new runtime.RequiredError(
                 'projectType',
-                'Required parameter "projectType" was null or undefined when calling getProjectWorkspacesWorkspaceIdProjectsProjectIdGet().'
+                'Required parameter "projectType" was null or undefined when calling getProjectProjectsProjectIdGet().'
             );
         }
 
@@ -435,7 +266,7 @@ export class ProjectApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/workspaces/{workspace_id}/projects/{project_id}`.replace(`{${"workspace_id"}}`, encodeURIComponent(String(requestParameters['workspaceId']))).replace(`{${"project_id"}}`, encodeURIComponent(String(requestParameters['projectId']))),
+            path: `/projects/{project_id}`.replace(`{${"project_id"}}`, encodeURIComponent(String(requestParameters['projectId']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -447,40 +278,33 @@ export class ProjectApi extends runtime.BaseAPI {
     /**
      * Get Project
      */
-    async getProjectWorkspacesWorkspaceIdProjectsProjectIdGet(requestParameters: GetProjectWorkspacesWorkspaceIdProjectsProjectIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetExperimentProjectResponse> {
-        const response = await this.getProjectWorkspacesWorkspaceIdProjectsProjectIdGetRaw(requestParameters, initOverrides);
+    async getProjectProjectsProjectIdGet(requestParameters: GetProjectProjectsProjectIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetExperimentProjectResponse> {
+        const response = await this.getProjectProjectsProjectIdGetRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      * Update Project
      */
-    async updateProjectWorkspacesWorkspaceIdProjectsProjectIdPutRaw(requestParameters: UpdateProjectWorkspacesWorkspaceIdProjectsProjectIdPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>> {
-        if (requestParameters['workspaceId'] == null) {
-            throw new runtime.RequiredError(
-                'workspaceId',
-                'Required parameter "workspaceId" was null or undefined when calling updateProjectWorkspacesWorkspaceIdProjectsProjectIdPut().'
-            );
-        }
-
+    async updateProjectProjectsProjectIdPutRaw(requestParameters: UpdateProjectProjectsProjectIdPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>> {
         if (requestParameters['projectId'] == null) {
             throw new runtime.RequiredError(
                 'projectId',
-                'Required parameter "projectId" was null or undefined when calling updateProjectWorkspacesWorkspaceIdProjectsProjectIdPut().'
+                'Required parameter "projectId" was null or undefined when calling updateProjectProjectsProjectIdPut().'
             );
         }
 
         if (requestParameters['projectType'] == null) {
             throw new runtime.RequiredError(
                 'projectType',
-                'Required parameter "projectType" was null or undefined when calling updateProjectWorkspacesWorkspaceIdProjectsProjectIdPut().'
+                'Required parameter "projectType" was null or undefined when calling updateProjectProjectsProjectIdPut().'
             );
         }
 
         if (requestParameters['putProjectRequest'] == null) {
             throw new runtime.RequiredError(
                 'putProjectRequest',
-                'Required parameter "putProjectRequest" was null or undefined when calling updateProjectWorkspacesWorkspaceIdProjectsProjectIdPut().'
+                'Required parameter "putProjectRequest" was null or undefined when calling updateProjectProjectsProjectIdPut().'
             );
         }
 
@@ -499,7 +323,7 @@ export class ProjectApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/workspaces/{workspace_id}/projects/{project_id}`.replace(`{${"workspace_id"}}`, encodeURIComponent(String(requestParameters['workspaceId']))).replace(`{${"project_id"}}`, encodeURIComponent(String(requestParameters['projectId']))),
+            path: `/projects/{project_id}`.replace(`{${"project_id"}}`, encodeURIComponent(String(requestParameters['projectId']))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -516,8 +340,8 @@ export class ProjectApi extends runtime.BaseAPI {
     /**
      * Update Project
      */
-    async updateProjectWorkspacesWorkspaceIdProjectsProjectIdPut(requestParameters: UpdateProjectWorkspacesWorkspaceIdProjectsProjectIdPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any> {
-        const response = await this.updateProjectWorkspacesWorkspaceIdProjectsProjectIdPutRaw(requestParameters, initOverrides);
+    async updateProjectProjectsProjectIdPut(requestParameters: UpdateProjectProjectsProjectIdPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any> {
+        const response = await this.updateProjectProjectsProjectIdPutRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
