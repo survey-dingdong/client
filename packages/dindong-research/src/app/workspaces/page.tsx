@@ -30,7 +30,7 @@ const Redirect = () => {
     } else {
       mutation
         .mutateAsync({ title: "내 워크스페이스" })
-        .then((res) => router.replace(`/workspaces/${res.data.id}`));
+        .then((res) => router.replace(`/workspaces/${res.id}`));
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
