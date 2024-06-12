@@ -1,10 +1,11 @@
 "use client";
 import { Box, Button, FormHelperText, Stack, Typography } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
+import { EmailVerificationRequest } from "generated-client";
 import { useSnackbar } from "notistack";
 import React from "react";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
+import { authApi, userApi } from "src/apis/client";
 import { TextField } from "src/shared";
 
 //
@@ -74,7 +75,11 @@ const EmailVerifiedForm = () => {
   //
 
   const sendVerificationEmail = useMutation({
-    mutationFn: (data: any) => axios.post("/auth/email-verifications", data),
+    mutationFn: (data: EmailVerificationRequest) =>
+      authApi.sendVerificationEmailAuthEmailVerificationsPost({
+        emailVerificationRequest: data,
+        verificationType: "signup",
+      }),
     onSuccess: () => {
       enqueueSnackbar("인증번호를 발송했습니다. 이메일을 확인해주세요.", {
         variant: "success",
@@ -84,7 +89,10 @@ const EmailVerifiedForm = () => {
 
   const verifyCode = useMutation({
     mutationFn: (data: { email: string; code: string }) =>
-      axios.post("/auth/email-verifications/verify", data),
+      authApi.validateVerificationEmailAuthEmailVerificationsValidationPost({
+        verifyEmailRequest: data,
+        verificationType: "signup",
+      }),
     onSuccess: () => {
       if (timerRef.current) {
         clearTimeout(timerRef.current);

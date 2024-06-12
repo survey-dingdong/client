@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useSnackbar } from "notistack";
+import { workspaceApi } from "src/apis/client";
 
 //
 //
@@ -17,7 +17,10 @@ export const useWorkspaceCreate = ({
   const router = useRouter();
 
   const mutation = useMutation({
-    mutationFn: (data: { title: string }) => axios.post("/workspaces", data),
+    mutationFn: (data: { title: string }) =>
+      workspaceApi.createWorkspaceWorkspacesPost({
+        createWorkspaceRequest: data,
+      }),
     onSuccess: () => {
       if (!hideSnackbar) {
         enqueueSnackbar("워크스페이스가 생성되었습니다.", {

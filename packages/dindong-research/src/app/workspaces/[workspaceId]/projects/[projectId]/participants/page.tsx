@@ -2,13 +2,10 @@
 import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import {
-  GetExperimentParticipantResponse,
-  ProjectTypeEnum,
-} from "generated-client";
+import { ProjectTypeEnum } from "generated-client";
 import { useParams } from "next/navigation";
 import React from "react";
+import { projectApi } from "src/apis/client";
 import { useProject } from "src/hooks/useProject";
 import { Empty, PageHeader } from "src/shared";
 import { CopyIconButton } from "src/widgets";
@@ -35,16 +32,10 @@ export default function Page() {
   const { data: participantsData = [] } = useQuery({
     queryKey: ["participants"],
     queryFn: async () =>
-      axios
-        .get<GetExperimentParticipantResponse[]>(
-          `/workspaces/${_workspaceId}/projects/${_projectId}/participants`,
-          {
-            params: {
-              projectType: ProjectTypeEnum.Experiment,
-            },
-          }
-        )
-        .then((res) => res.data),
+      projectApi.getProjectParticipantListProjectsProjectIdParticipantsGet({
+        projectId: _projectId,
+        projectType: ProjectTypeEnum.Experiment,
+      }),
   });
 
   const { project } = useProject({

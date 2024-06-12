@@ -10,6 +10,7 @@ import { token } from "src/utils/token";
 import { useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { SnackbarClient } from "src/shared";
+import { basePath } from "src/apis/client";
 
 //
 //
@@ -20,9 +21,8 @@ interface ProviderProps {
 }
 const queryClient = new QueryClient();
 
-const baseURL = "https://survey-dingdong.site";
-
-axios.defaults.baseURL = baseURL;
+// TODO: remove after migration
+axios.defaults.baseURL = basePath;
 axios.defaults.headers.common["Authorization"] = `Bearer ${token.get("token")}`;
 
 axios.interceptors.request.use((request) => {

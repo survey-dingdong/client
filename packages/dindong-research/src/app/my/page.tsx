@@ -15,8 +15,7 @@ import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlin
 import React from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   passwordMessage,
   passwordRegex,
@@ -24,6 +23,9 @@ import {
   TextField,
 } from "src/shared";
 import { Tag } from "src/widgets";
+import { userApi } from "src/apis/client";
+import { enqueueSnackbar } from "notistack";
+import { fetchUserQueryKey, useUser } from "src/hooks/useUser";
 
 type DialogType = "nickname" | "account";
 
@@ -32,16 +34,14 @@ type DialogType = "nickname" | "account";
 //
 
 export default function Page() {
-  const { data: userData = {} } = useQuery({
-    queryKey: ["/users/me"],
-    queryFn: () => axios.get("/users/me").then((res) => res.data),
-  });
+  const { user } = useUser();
+  const queryClient = useQueryClient();
 
-  const formMethods = useForm({ defaultValues: userData });
+  const formMethods = useForm({ defaultValues: user });
 
   React.useEffect(() => {
-    formMethods.reset(userData);
-  }, [formMethods, userData]);
+    formMethods.reset(user);
+  }, [formMethods, user]);
 
   // [STATE]
   const [editType, setEditType] = React.useState<null | DialogType>(null);
@@ -50,6 +50,27 @@ export default function Page() {
   const handleDialogClose = () => {
     setEditType(null);
   };
+
+  const handleSubmit = formMethods.handleSubmit(async (data) => {
+    try {
+      await userApi.updateUserUsersPatch({
+        updateUserRequest: data,
+      });
+
+      await queryClient.invalidateQueries({ queryKey: [fetchUserQueryKey] });
+
+      enqueueSnackbar("계정 정보가 수정되었습니다.", {
+        variant: "success",
+      });
+
+      handleDialogClose();
+    } catch (error) {
+      enqueueSnackbar("계정 정보 수정에 실패했습니다.", {
+        variant: "error",
+      });
+      console.error(error);
+    }
+  });
 
   // [COMPONENTS RENDER]
   const renderEditUsernameDialog = () => {
@@ -80,7 +101,7 @@ export default function Page() {
           <Button color="inherit" onClick={handleDialogClose}>
             취소
           </Button>
-          <Button>저장</Button>
+          <Button onClick={handleSubmit}>저장</Button>
         </DialogActions>
       </Dialog>
     );
@@ -120,7 +141,7 @@ export default function Page() {
               />
             )}
           />
-          <Controller
+          {/* <Controller
             control={formMethods.control}
             name="password"
             rules={{
@@ -139,7 +160,7 @@ export default function Page() {
                 helperText={fieldState.error?.message}
               />
             )}
-          />
+          /> */}
         </DialogContent>
         <DialogActions>
           <Button color="inherit" onClick={handleDialogClose}>
@@ -171,11 +192,7 @@ export default function Page() {
           title="기본 정보"
           headerAction={<EditButton onClick={() => setEditType("nickname")} />}
         >
-          <TextField
-            readOnly
-            label="이름 또는 닉네임"
-            value={userData.username}
-          />
+          <TextField readOnly label="이름 또는 닉네임" value={user?.username} />
         </CardSection>
 
         {/*  */}
@@ -198,19 +215,8 @@ export default function Page() {
           headerAction={<EditButton onClick={() => setEditType("account")} />}
         >
           <Box display="flex" gap={2}>
-            <TextField
-              fullWidth
-              readOnly
-              label="계정"
-              value={userData?.email}
-            />
-            <TextField
-              fullWidth
-              readOnly
-              label="비밀번호"
-              type="password"
-              value={userData?.password}
-            />
+            <TextField fullWidth readOnly label="계정" value={user?.email} />
+            <TextField fullWidth readOnly label="비밀번호" type="password" />
           </Box>
         </CardSection>
       </Paper>

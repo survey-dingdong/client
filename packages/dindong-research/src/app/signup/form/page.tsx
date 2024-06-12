@@ -1,6 +1,5 @@
 "use client";
 import { Box, Button, Link as MuiLink, Stack, Typography } from "@mui/material";
-import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useSnackbar } from "notistack";
@@ -16,6 +15,7 @@ import {
   passwordRegex,
   PasswordTextField,
 } from "src/shared";
+import { userApi } from "src/apis/client";
 
 //
 //
@@ -52,7 +52,8 @@ export default function Page() {
 
   // [HANDLER]
   const mutation = useMutation({
-    mutationFn: (data: any) => axios.post("/users", data),
+    mutationFn: (createUserRequest: CreateUserRequest) =>
+      userApi.createUserUsersPost({ createUserRequest }),
     onSuccess: () => {
       enqueueSnackbar("회원가입에 성공했습니다.", {
         variant: "success",

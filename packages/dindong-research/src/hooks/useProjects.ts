@@ -1,6 +1,6 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { GetProjectListResponse, ProjectTypeEnum } from "generated-client";
+import { workspaceApi } from "src/apis/client";
 
 type UseProjectReturn = {
   projects: GetProjectListResponse[] | undefined;
@@ -22,11 +22,11 @@ export function useProjects({
   } = useQuery({
     queryKey: [...getProjectsQueryKey, workspaceId],
     queryFn: () =>
-      axios
-        .get(`/workspaces/${workspaceId}/projects`, {
-          params: { project_type: ProjectTypeEnum.Experiment },
-        })
-        .then((res) => res.data),
+      workspaceApi.getProjectListWorkspacesWorkspaceIdProjectsGet({
+        workspaceId,
+        projectType: ProjectTypeEnum.Experiment,
+      }),
+
     placeholderData: keepPreviousData,
   });
 

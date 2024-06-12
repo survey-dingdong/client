@@ -9,11 +9,11 @@ import {
 } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { TextField } from "src/shared";
-import axios from "axios";
 import { useQueryClient } from "@tanstack/react-query";
 import { getProjectsQueryKey } from "src/hooks/useProjects";
 import { ProjectTypeEnum } from "generated-client";
 import { useSnackbar } from "notistack";
+import { workspaceApi } from "src/apis/client";
 
 //
 //
@@ -54,18 +54,14 @@ const CreateProjectDialog: React.FC<CreateProjectDialogProps> = ({
         </Button>
         <Button
           onClick={() =>
-            axios
-              .post(
-                `/workspaces/${workspaceId}/projects`,
-                {
+            workspaceApi
+              .createProjectWorkspacesWorkspaceIdProjectsPost({
+                workspaceId,
+                projectType: ProjectTypeEnum.Experiment,
+                createProjectRequest: {
                   title: value,
                 },
-                {
-                  params: {
-                    project_type: ProjectTypeEnum.Experiment,
-                  },
-                }
-              )
+              })
               .then(() => {
                 enqueueSnackbar("프로젝트가 만들어졌습니다.", {
                   variant: "success",

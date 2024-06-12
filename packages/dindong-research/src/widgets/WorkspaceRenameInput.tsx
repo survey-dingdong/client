@@ -1,8 +1,8 @@
-import { Input, OutlinedInput, TextField } from "@mui/material";
+import { OutlinedInput } from "@mui/material";
 import { useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
 import { useSnackbar } from "notistack";
 import React from "react";
+import { workspaceApi } from "src/apis/client";
 import { WORKSPACES_QUERY_KEY } from "src/hooks/useWorkspaces";
 
 interface WorkspaceRenameInputProps {
@@ -28,9 +28,13 @@ const WorkspaceRenameInput: React.FC<WorkspaceRenameInputProps> = ({
         return;
       }
 
-      await axios.patch(`/workspaces/${workspaceId}`, {
-        title: inputValue,
+      await workspaceApi.updateWorkspaceWorkspacesWorkspaceIdPatch({
+        workspaceId,
+        updateWorkspaceRequest: {
+          title: inputValue,
+        },
       });
+
       await queryClient.invalidateQueries({ queryKey: [WORKSPACES_QUERY_KEY] });
 
       enqueueSnackbar("워크스페이스 이름이 변경되었습니다.", {

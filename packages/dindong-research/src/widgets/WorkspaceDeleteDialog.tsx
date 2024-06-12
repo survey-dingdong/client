@@ -7,10 +7,10 @@ import {
   DialogTitle,
 } from "@mui/material";
 import { useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
 import { useParams, useRouter } from "next/navigation";
 import { useSnackbar } from "notistack";
 import React from "react";
+import { workspaceApi } from "src/apis/client";
 import { WORKSPACES_QUERY_KEY } from "src/hooks/useWorkspaces";
 
 interface WorkspaceDeleteDialogProps {
@@ -40,8 +40,9 @@ const WorkspaceDeleteDialog: React.FC<WorkspaceDeleteDialogProps> = ({
       if (!id) {
         return;
       }
-
-      await axios.delete(`/workspaces/${id}`);
+      workspaceApi.deleteWorkspaceWorkspacesWorkspaceIdDelete({
+        workspaceId: id,
+      });
 
       enqueueSnackbar("워크스페이스가 삭제되었습니다.", { variant: "success" });
       queryClient.invalidateQueries({ queryKey: [WORKSPACES_QUERY_KEY] });

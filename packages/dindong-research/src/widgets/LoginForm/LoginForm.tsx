@@ -18,9 +18,9 @@ import Image from "next/image";
 import { useSnackbar } from "notistack";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
 import { REFRESH_TOKEN_KEY, TOKEN_KEY } from "src/constants/token";
 import { token } from "src/utils/token";
+import { userApi } from "src/apis/client";
 
 //
 //
@@ -36,14 +36,13 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
 
   const { mutate: login, isPending: isLoginLoading } = useMutation({
-    mutationFn: () => axios.post("/users/login", { email, password }),
-    onSuccess: async ({ data }) => {
+    mutationFn: () =>
+      userApi.loginUsersLoginPost({ loginRequest: { email, password } }),
+    onSuccess: async ({ refreshToken, token: userToken }) => {
       setError(false);
 
-      token.set(TOKEN_KEY, data.token);
-      token.set(REFRESH_TOKEN_KEY, data.refreshToken);
-
-      axios.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
+      token.set(TOKEN_KEY, userToken);
+      token.set(REFRESH_TOKEN_KEY, refreshToken);
 
       router.push(`/workspaces`);
 

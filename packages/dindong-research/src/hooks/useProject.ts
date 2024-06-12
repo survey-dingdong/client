@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import {
   GetExperimentProjectResponse,
   ProjectTypeEnum,
 } from "generated-client";
+import { projectApi } from "src/apis/client";
 
 //
 // types
@@ -37,11 +37,10 @@ export function useProject({
   const { data, isLoading, error } = useQuery({
     queryKey: [GET_PROJECT_QUERY_KEY, workspaceId, projectId],
     queryFn: () =>
-      axios
-        .get(`/workspaces/${workspaceId}/projects/${projectId}`, {
-          params: { project_type: ProjectTypeEnum.Experiment },
-        })
-        .then((res) => res.data),
+      projectApi.getProjectProjectsProjectIdGet({
+        projectId,
+        projectType: ProjectTypeEnum.Experiment,
+      }),
   });
 
   return {

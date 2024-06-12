@@ -41,7 +41,6 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { GET_PROJECT_QUERY_KEY, useProject } from "src/hooks/useProject";
 import { useParams } from "next/navigation";
 import dayjs, { Dayjs } from "dayjs";
-import axios from "axios";
 import { useSnackbar } from "notistack";
 import {
   ExperimentTimeslotRequest,
@@ -51,6 +50,7 @@ import {
 } from "generated-client";
 import { useQueryClient } from "@tanstack/react-query";
 import isBetween from "dayjs/plugin/isBetween";
+import { projectApi } from "src/apis/client";
 dayjs.extend(isBetween);
 
 //
@@ -189,27 +189,27 @@ export default function Page() {
    */
   const handleSubmit = formMethods.handleSubmit(async (data) => {
     try {
-      await axios.put(
-        `/workspaces/${_workspaceId}/projects/${_projectId}`,
-        {
+      projectApi.updateProjectProjectsProjectIdPut({
+        projectId: _projectId,
+        projectType: ProjectTypeEnum.Experiment,
+        putProjectRequest: {
           ...data,
-          startDate: dayjs(data.startDate).format(SERVER_DATE_FORMAT),
-          endDate: dayjs(data.endDate).format(SERVER_DATE_FORMAT),
+          startDate: dayjs(data.startDate).format(SERVER_DATE_FORMAT) as any,
+          endDate: dayjs(data.endDate).format(SERVER_DATE_FORMAT) as any,
           experimentTimeslots: data.experimentTimeslots.map(
             (timeslot: TimeSlotType) => ({
               ...timeslot,
               startTime: timeslot.startTime?.format(SERVER_TIME_FORMAT),
               endTime: timeslot.endTime?.format(SERVER_TIME_FORMAT),
             })
-          ),
+          ) as any,
           excludedDates: usingExcludeDates
-            ? data.excludedDates?.map((date) =>
+            ? (data.excludedDates?.map((date) =>
                 dayjs(date).format(SERVER_DATE_FORMAT)
-              )
+              ) as any)
             : [],
         },
-        { params: { project_type: ProjectTypeEnum.Experiment } }
-      );
+      });
 
       queryClient.invalidateQueries({ queryKey: [GET_PROJECT_QUERY_KEY] });
 
