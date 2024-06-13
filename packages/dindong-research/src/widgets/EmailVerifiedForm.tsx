@@ -1,11 +1,18 @@
 "use client";
-import { Box, Button, FormHelperText, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Collapse,
+  FormHelperText,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import { EmailVerificationRequest } from "generated-client";
 import { useSnackbar } from "notistack";
 import React from "react";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
-import { authApi, userApi } from "src/apis/client";
+import { authApi } from "src/apis/client";
 import { TextField } from "src/shared";
 
 //
@@ -27,16 +34,15 @@ const EmailVerifiedForm = () => {
   const { enqueueSnackbar } = useSnackbar();
   const [verificationCode, setVerificationCode] = React.useState("");
   const [verificationStatus, setVerificationStatus] = React.useState<
-    "success" | "error" | "idle"
+    "success" | "error" | "idle" | "verifying"
   >("idle");
-
+  console.log(verificationStatus);
   // [TIMER]
   const [timeLeft, setTimeLeft] = React.useState(LIMIT_MINUTES * 60);
   const timerRef = React.useRef<NodeJS.Timeout | null>(null);
 
-  const isTimerRunning = !!timerRef.current;
-
   const startTimer = () => {
+    setVerificationStatus("verifying");
     if (timerRef.current) {
       clearTimeout(timerRef.current);
     }
@@ -54,6 +60,7 @@ const EmailVerifiedForm = () => {
     const interval = setInterval(() => {
       setTimeLeft((prevTimeLeft) => {
         if (prevTimeLeft <= 0) {
+          setVerificationStatus("idle");
           clearInterval(interval);
           return 0;
         }
@@ -94,9 +101,6 @@ const EmailVerifiedForm = () => {
         verificationType: "signup",
       }),
     onSuccess: () => {
-      if (timerRef.current) {
-        clearTimeout(timerRef.current);
-      }
       setValue("emailVerified", true);
       setValue("verifiedEmail", watchedEmail);
       setVerificationStatus("success");
@@ -105,6 +109,14 @@ const EmailVerifiedForm = () => {
       setVerificationStatus("error");
     },
   });
+
+  React.useEffect(() => {
+    if (verificationStatus === "success") {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    }
+  }, [verificationStatus]);
 
   //
   //
@@ -132,7 +144,6 @@ const EmailVerifiedForm = () => {
               placeholder="email@dingdong.com"
               error={Boolean(fieldState.error)}
               helperText={fieldState.error?.message}
-              disabled={isTimerRunning}
               {...field}
             />
             <span>
@@ -152,7 +163,7 @@ const EmailVerifiedForm = () => {
                   startTimer();
                 }}
               >
-                {isTimerRunning ? "재발송" : "인증번호 발송"}
+                {verificationStatus === "idle" ? "인증번호 발송" : "재발송"}
               </Button>
             </span>
           </Box>
@@ -160,43 +171,33 @@ const EmailVerifiedForm = () => {
       />
 
       {/* 인증번호 입력 */}
-      {isTimerRunning ? (
-        <Stack gap={1}>
-          <Box display="flex" gap={1}>
-            <Stack gap={0.5} width="100%">
-              <TextField
-                fullWidth
-                value={verificationCode}
-                placeholder="6자리 인증코드 입력해 주세요."
-                type="number"
-                error={verificationStatus === "error"}
-                onChange={(e) => {
-                  if (e.target.value.length > 6) {
-                    return;
-                  }
 
-                  setVerificationCode(e.target.value);
-                }}
-              />
-              <FormHelperText
-                error={verificationStatus === "error"}
-                sx={{
-                  color: verificationStatus === "success" ? "success.main" : "",
-                }}
-              >
-                {verificationStatus === "error"
-                  ? "인증번호가 일치하지 않습니다."
-                  : verificationStatus === "success"
-                  ? "인증이 완료되었습니다."
-                  : ""}
-              </FormHelperText>
-            </Stack>
+      <Stack>
+        <Collapse in={verificationStatus === "verifying"}>
+          <Box display="flex" gap={1}>
+            <TextField
+              fullWidth
+              value={verificationCode}
+              placeholder="6자리 인증코드 입력해 주세요."
+              type="number"
+              error={verificationStatus === "error"}
+              onChange={(e) => {
+                if (e.target.value.length > 6) {
+                  return;
+                }
+
+                setVerificationCode(e.target.value);
+              }}
+            />
 
             <span>
               <Button
                 variant="text"
                 sx={{ whiteSpace: "nowrap", minWidth: BUTTON_WIDTH }}
-                disabled={verificationCode.length !== 6}
+                disabled={
+                  verificationCode.length !== 6 ||
+                  verificationStatus === "success"
+                }
                 onClick={() => {
                   verifyCode.mutateAsync({
                     email: watchedEmail,
@@ -208,14 +209,27 @@ const EmailVerifiedForm = () => {
               </Button>
             </span>
           </Box>
+        </Collapse>
 
-          {isTimerRunning ? (
-            <Typography variant="body2" color="text.secondary">
-              남은 시간 {formatTime(timeLeft)}
-            </Typography>
-          ) : null}
-        </Stack>
-      ) : null}
+        <FormHelperText
+          error={verificationStatus === "error"}
+          sx={{
+            color: verificationStatus === "success" ? "success.main" : "",
+          }}
+        >
+          {verificationStatus === "error"
+            ? "인증번호가 일치하지 않습니다."
+            : verificationStatus === "success"
+            ? "인증이 완료되었습니다."
+            : ""}
+        </FormHelperText>
+
+        {verificationStatus === "verifying" ? (
+          <Typography variant="body2" color="text.secondary">
+            남은 시간 {formatTime(timeLeft)}
+          </Typography>
+        ) : null}
+      </Stack>
     </Stack>
   );
 };
