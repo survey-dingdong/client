@@ -113,6 +113,7 @@ const EmailVerifiedForm = () => {
   React.useEffect(() => {
     if (verificationStatus === "success") {
       if (timerRef.current) {
+        setVerificationCode("");
         clearTimeout(timerRef.current);
       }
     }
