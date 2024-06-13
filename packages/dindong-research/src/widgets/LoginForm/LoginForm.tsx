@@ -16,7 +16,6 @@ import googleImage from "public/icons/google.png";
 import { useState } from "react";
 import Image from "next/image";
 import { useSnackbar } from "notistack";
-import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import { REFRESH_TOKEN_KEY, TOKEN_KEY } from "src/constants/token";
 import { token } from "src/utils/token";
@@ -27,7 +26,7 @@ import { userApi } from "src/apis/client";
 //
 
 const LoginForm = () => {
-  const router = useRouter();
+  const location = window.location;
   const { enqueueSnackbar } = useSnackbar();
 
   const [error, setError] = useState(false);
@@ -44,7 +43,7 @@ const LoginForm = () => {
       token.set(TOKEN_KEY, userToken);
       token.set(REFRESH_TOKEN_KEY, refreshToken);
 
-      router.push(`/workspaces`);
+      location.href = `${location.origin}/workspaces`;
 
       enqueueSnackbar("로그인 되었습니다.", { variant: "success" });
     },

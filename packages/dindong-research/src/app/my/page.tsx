@@ -15,7 +15,7 @@ import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlin
 import React from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   passwordMessage,
   passwordRegex,
