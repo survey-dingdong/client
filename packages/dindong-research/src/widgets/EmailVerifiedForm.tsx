@@ -87,13 +87,14 @@ const EmailVerifiedForm = () => {
         emailVerificationRequest: { email: watchedEmail },
       }),
     onSuccess: (res) => {
-      if (!res.availability)
+      if (!res.availability) {
         setError("email", {
           message: "이미 사용중인 이메일입니다.",
           type: "duplicate",
         });
 
-      throw new Error("이미 사용중인 이메일입니다.");
+        throw new Error("이미 사용중인 이메일입니다.");
+      }
     },
     onError: () => {
       setError("email", {
