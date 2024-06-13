@@ -28,7 +28,7 @@ const LIMIT_MINUTES = 5;
 //
 
 const EmailVerifiedForm = () => {
-  const { control, setValue } = useFormContext();
+  const { control, setValue, setError } = useFormContext();
   const watchedEmail = useWatch({ control, name: "email" });
 
   const { enqueueSnackbar } = useSnackbar();
@@ -36,7 +36,7 @@ const EmailVerifiedForm = () => {
   const [verificationStatus, setVerificationStatus] = React.useState<
     "success" | "error" | "idle" | "verifying"
   >("idle");
-  console.log(verificationStatus);
+
   // [TIMER]
   const [timeLeft, setTimeLeft] = React.useState(LIMIT_MINUTES * 60);
   const timerRef = React.useRef<NodeJS.Timeout | null>(null);
@@ -81,18 +81,54 @@ const EmailVerifiedForm = () => {
   //
   //
 
+  const checkDuplicate = useMutation({
+    mutationFn: () =>
+      authApi.checkEmailAvailabilityAuthEmailAvailabilityPost({
+        emailVerificationRequest: { email: watchedEmail },
+      }),
+    onSuccess: (res) => {
+      if (!res.availability)
+        setError("email", {
+          message: "이미 사용중인 이메일입니다.",
+          type: "duplicate",
+        });
+
+      throw new Error("이미 사용중인 이메일입니다.");
+    },
+    onError: () => {
+      setError("email", {
+        message: "이미 사용중인 이메일입니다.",
+        type: "duplicate",
+      });
+    },
+  });
+
   const sendVerificationEmail = useMutation({
     mutationFn: (data: EmailVerificationRequest) =>
       authApi.sendVerificationEmailAuthEmailVerificationsPost({
         emailVerificationRequest: data,
         verificationType: "signup",
       }),
+
     onSuccess: () => {
+      startTimer();
       enqueueSnackbar("인증번호를 발송했습니다. 이메일을 확인해주세요.", {
         variant: "success",
       });
     },
   });
+
+  const handleSendVerificationEmail = async () => {
+    try {
+      await checkDuplicate.mutateAsync();
+
+      sendVerificationEmail.mutateAsync({
+        email: watchedEmail,
+      });
+    } catch (err) {
+      //
+    }
+  };
 
   const verifyCode = useMutation({
     mutationFn: (data: { email: string; code: string }) =>
@@ -156,13 +192,7 @@ const EmailVerifiedForm = () => {
                   minWidth: BUTTON_WIDTH,
                   mt: 4,
                 }}
-                onClick={() => {
-                  sendVerificationEmail.mutateAsync({
-                    email: field.value,
-                  });
-
-                  startTimer();
-                }}
+                onClick={handleSendVerificationEmail}
               >
                 {verificationStatus === "idle" ? "인증번호 발송" : "재발송"}
               </Button>
