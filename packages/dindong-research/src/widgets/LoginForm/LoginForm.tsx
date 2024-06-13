@@ -26,7 +26,6 @@ import { userApi } from "src/apis/client";
 //
 
 const LoginForm = () => {
-  const location = window.location;
   const { enqueueSnackbar } = useSnackbar();
 
   const [error, setError] = useState(false);
@@ -43,7 +42,9 @@ const LoginForm = () => {
       token.set(TOKEN_KEY, userToken);
       token.set(REFRESH_TOKEN_KEY, refreshToken);
 
-      location.href = `${location.origin}/workspaces`;
+      if (window !== undefined) {
+        window.location.href = `${window.location.origin}/workspaces`;
+      }
 
       enqueueSnackbar("로그인 되었습니다.", { variant: "success" });
     },
