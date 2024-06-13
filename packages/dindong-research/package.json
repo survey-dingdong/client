@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "generate": "openapi-generator-cli generate -i https://survey-dingdong.site/openapi.json -g typescript-fetch -t ./my-templates -o ./generated-client"
+    "generate": "openapi-ts --input https://survey-dingdong.site/openapi.json --output ./src/client --client axios"
   },
   "peerDependencies": {
     "react": "^17.0.0 || ^18.0.0",
