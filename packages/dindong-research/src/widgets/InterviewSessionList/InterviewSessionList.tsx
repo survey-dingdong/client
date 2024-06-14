@@ -10,12 +10,14 @@ import {
 import { TimePicker } from "@mui/x-date-pickers";
 import React from "react";
 
-import { Controller, useFormContext, useWatch } from "react-hook-form";
-import { ExperimentTimeslotRequest } from "generated-client";
+import { Controller, useFieldArray, useFormContext } from "react-hook-form";
 
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import dayjs, { Dayjs, isDayjs } from "dayjs";
-import { TimeSlotType } from "src/app/workspaces/[workspaceId]/projects/[projectId]/information/page";
+import {
+  ProjectFormType,
+  TimeSlotType,
+} from "src/app/workspaces/[workspaceId]/projects/[projectId]/information/page";
 import isBetween from "dayjs/plugin/isBetween";
 import { TimePickerIcon, TextField } from "src/shared";
 dayjs.extend(isBetween);
@@ -54,10 +56,14 @@ export const convertTimeToDayjs = (time: string) => {
 };
 
 const getIsDuplicated = (
-  time: Dayjs,
-  timeslots: ExperimentTimeslotRequest[],
+  time: Dayjs | null,
+  timeslots: TimeSlotType[],
   currentSlotIndex: number
 ) => {
+  if (!time) {
+    return true;
+  }
+
   for (const [index, slot] of timeslots?.entries()) {
     if (
       time.isBetween(slot.startTime, slot.endTime, "minute", "[]") &&
@@ -75,13 +81,18 @@ const getIsDuplicated = (
 //
 
 const InterviewSessionList = () => {
-  const { control, setValue } = useFormContext();
+  const { control } = useFormContext<ProjectFormType>();
 
-  const watchedTimeslots: ExperimentTimeslotRequest[] =
-    useWatch({
-      control,
-      name: "experimentTimeslots",
-    }) ?? [];
+  const {
+    fields: timeSlots,
+    remove,
+    append,
+    update,
+  } = useFieldArray({
+    control,
+    name: "experimentTimeslots",
+    keyName: "slotId",
+  });
 
   //
   //
@@ -89,7 +100,7 @@ const InterviewSessionList = () => {
 
   return (
     <Stack gap={2}>
-      {watchedTimeslots.map((session, index) => (
+      {timeSlots.map((session, index) => (
         <Box display="flex" key={index} gap={2}>
           <Typography variant="caption" sx={{ mt: MT }}>
             세션 {index + 1}
@@ -111,11 +122,7 @@ const InterviewSessionList = () => {
                   message: "세션 시간을 입력해주세요.",
                 },
                 validate: (value) => {
-                  const isDuplicated = getIsDuplicated(
-                    value,
-                    watchedTimeslots,
-                    index
-                  );
+                  const isDuplicated = getIsDuplicated(value, timeSlots, index);
 
                   if (isDuplicated) {
                     return "중복된 시간을 입력할 수 없습니다.";
@@ -153,11 +160,7 @@ const InterviewSessionList = () => {
                   message: "세션 시간을 입력해주세요.",
                 },
                 validate: (value) => {
-                  const isDuplicated = getIsDuplicated(
-                    value,
-                    watchedTimeslots,
-                    index
-                  );
+                  const isDuplicated = getIsDuplicated(value, timeSlots, index);
 
                   if (isDuplicated) {
                     return "중복된 시간을 입력할 수 없습니다.";
@@ -194,7 +197,7 @@ const InterviewSessionList = () => {
                       error: !!fieldState.error,
                     },
                   }}
-                  minTime={watchedTimeslots[index]?.startTime}
+                  minTime={timeSlots[index]?.startTime ?? undefined}
                 />
               )}
             />
@@ -230,13 +233,8 @@ const InterviewSessionList = () => {
 
           <span>
             <IconButton
-              disabled={watchedTimeslots.length === 1}
-              onClick={() =>
-                setValue(
-                  "experimentTimeslots",
-                  watchedTimeslots.filter((_, i) => i !== index)
-                )
-              }
+              disabled={timeSlots.length === 1}
+              onClick={() => remove(index)}
               sx={{ mt: 0.3 }}
             >
               <DeleteRoundedIcon fontSize="small" />
@@ -245,15 +243,7 @@ const InterviewSessionList = () => {
         </Box>
       ))}
 
-      <Button
-        color="inherit"
-        onClick={() =>
-          setValue("experimentTimeslots", [
-            ...watchedTimeslots,
-            DEFAULT_TIMESLOT,
-          ])
-        }
-      >
+      <Button color="inherit" onClick={() => append(DEFAULT_TIMESLOT)}>
         세션 추가
       </Button>
     </Stack>

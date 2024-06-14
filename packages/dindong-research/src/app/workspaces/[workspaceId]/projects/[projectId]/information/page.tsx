@@ -155,11 +155,13 @@ export default function Page() {
     if (project) {
       formMethods.reset({
         ...project,
-        experimentTimeslots: project.experimentTimeslots.map((timeslot) => ({
-          ...timeslot,
-          startTime: convertTimeToDayjs(timeslot.startTime),
-          endTime: convertTimeToDayjs(timeslot.endTime),
-        })),
+        experimentTimeslots: project.experimentTimeslots?.length
+          ? project.experimentTimeslots.map((timeslot) => ({
+              ...timeslot,
+              startTime: convertTimeToDayjs(timeslot.startTime),
+              endTime: convertTimeToDayjs(timeslot.endTime),
+            }))
+          : [DEFAULT_TIMESLOT],
         startDate: dayjs(project.startDate),
         endDate: dayjs(project.endDate),
       } as unknown as ProjectFormType);
@@ -176,10 +178,6 @@ export default function Page() {
         formMethods.setValue("startDate", TODAY);
       }
 
-      if (!project?.experimentTimeslots?.length) {
-        formMethods.setValue("experimentTimeslots", [DEFAULT_TIMESLOT]);
-      }
-
       setUsingExcludeDates(!!project.excludedDates?.length);
     }
   }, [formMethods, project]);
@@ -189,7 +187,7 @@ export default function Page() {
    */
   const handleSubmit = formMethods.handleSubmit(async (data) => {
     try {
-      projectApi.updateProjectProjectsProjectIdPut({
+      await projectApi.updateProjectProjectsProjectIdPut({
         projectId: _projectId,
         projectType: ProjectTypeEnum.Experiment,
         putProjectRequest: {
