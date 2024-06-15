@@ -16,16 +16,11 @@ import React from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 
 import { useQueryClient } from "@tanstack/react-query";
-import {
-  passwordMessage,
-  passwordRegex,
-  PasswordTextField,
-  TextField,
-} from "src/shared";
+import { TextField } from "src/shared";
 import { Tag } from "src/widgets";
-import { userApi } from "src/apis/client";
 import { enqueueSnackbar } from "notistack";
 import { fetchUserQueryKey, useUser } from "src/hooks/useUser";
+import { updateUserUsersPatch } from "src/client";
 
 type DialogType = "nickname" | "account";
 
@@ -53,8 +48,8 @@ export default function Page() {
 
   const handleSubmit = formMethods.handleSubmit(async (data) => {
     try {
-      await userApi.updateUserUsersPatch({
-        updateUserRequest: data,
+      await updateUserUsersPatch({
+        requestBody: data,
       });
 
       await queryClient.invalidateQueries({ queryKey: [fetchUserQueryKey] });
