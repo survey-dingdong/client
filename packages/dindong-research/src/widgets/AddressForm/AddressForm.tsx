@@ -4,7 +4,7 @@ import { Box, OutlinedInput } from "@mui/material";
 import { Controller, useFormContext } from "react-hook-form";
 
 const AddressForm = () => {
-  const { control, setValue } = useFormContext();
+  const { control, setValue, trigger } = useFormContext();
 
   const [address, setAddress] = React.useState<string>("");
   const [detailAddress, setDetailAddress] = React.useState<string>("");
@@ -38,6 +38,7 @@ const AddressForm = () => {
 
         setAddress(addr);
         setValue("location", addr + extraAddr);
+        trigger();
       },
     }).open();
   };
@@ -46,11 +47,12 @@ const AddressForm = () => {
     <Controller
       name="location"
       control={control}
-      render={({ field }) => (
+      render={({ field, fieldState }) => (
         <Box display="flex" gap={2} mt={1}>
           <OutlinedInput
             fullWidth
             readOnly
+            error={Boolean(fieldState.error)}
             placeholder="기본 주소(필수)"
             onClick={execDaumPostcode}
             value={address || field.value}
@@ -58,6 +60,7 @@ const AddressForm = () => {
           <OutlinedInput
             fullWidth
             value={detailAddress}
+            error={Boolean(fieldState.error)}
             placeholder="상세 주소(선택)"
             onChange={(e) => {
               setDetailAddress(e.target.value);

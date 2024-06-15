@@ -527,23 +527,26 @@ export default function Page() {
                         message: "필수 입력 항목입니다.",
                       },
                     }}
-                    render={({ field }) =>
+                    render={({ field, fieldState }) =>
                       watchedExperimentType === "online" ? (
                         <TextField
-                          label="참여 URL"
-                          helperText="비대면 실험 참여를 위한 URL이 있는 경우 입력해 주세요.
-                    입력된 URL은 예약이 완료된 참여자에 한하여 모바일 앱 채팅
-                    알림으로 전송됩니다."
-                          fullWidth
                           {...field}
+                          fullWidth
+                          required
+                          label="참여 URL"
+                          error={Boolean(fieldState.error)}
+                          helperText={
+                            fieldState.error?.message ??
+                            "비대면 실험 참여를 위한 URL이 있는 경우 입력해 주세요. 입력된 URL은 예약이 완료된 참여자에 한하여 모바일 앱 채팅 알림으로 전송됩니다."
+                          }
                         />
                       ) : (
                         <>
                           <FormLabel required>실험 장소</FormLabel>
                           <AddressForm />
-                          <FormHelperText>
-                            실험 진행을 위한 주소를 입력할 수 있습니다. 주소는
-                            참여자에게 공개됩니다.
+                          <FormHelperText error={Boolean(fieldState.error)}>
+                            {fieldState.error?.message ??
+                              "실험 진행을 위한 주소를 입력할 수 있습니다. 주소는 참여자에게 공개됩니다."}
                           </FormHelperText>
                         </>
                       )
