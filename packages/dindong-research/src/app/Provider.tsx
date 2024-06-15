@@ -25,14 +25,14 @@ const queryClient = new QueryClient();
 
 export const Provider = ({ children }: ProviderProps) => {
   return (
-    <SnackbarClient>
-      <QueryClientProvider client={queryClient}>
-        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ko">
-          <Suspense>
-            <AppGuard>{children}</AppGuard>
-          </Suspense>
-        </LocalizationProvider>
-      </QueryClientProvider>
-    </SnackbarClient>
+    <AppGuard>
+      <SnackbarClient>
+        <QueryClientProvider client={queryClient}>
+          <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ko">
+            <Suspense fallback={<></>}>{children}</Suspense>
+          </LocalizationProvider>
+        </QueryClientProvider>
+      </SnackbarClient>
+    </AppGuard>
   );
 };

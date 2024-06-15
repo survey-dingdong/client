@@ -86,7 +86,6 @@ const InterviewSessionList = () => {
     fields: timeSlots,
     remove,
     append,
-    update,
   } = useFieldArray({
     control,
     name: "experimentTimeslots",
@@ -99,7 +98,7 @@ const InterviewSessionList = () => {
 
   return (
     <Stack gap={2}>
-      {timeSlots.map((session, index) => (
+      {timeSlots?.map((session, index) => (
         <Box display="flex" key={index} gap={2}>
           <Typography variant="caption" sx={{ mt: MT }}>
             세션 {index + 1}

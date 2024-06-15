@@ -11,9 +11,7 @@ const NO_TOKEN_PATHNAME_REGEX = /^\/(signup\/.*)?$/;
 
 export const AppGuard: React.FC<AppGuardProps> = ({ children }) => {
   const accessToken = token.get("token");
-
   const pathname = usePathname();
-
   const noToken = !accessToken && !NO_TOKEN_PATHNAME_REGEX.test(pathname ?? "");
 
   if (noToken && typeof window !== "undefined") {
@@ -21,7 +19,7 @@ export const AppGuard: React.FC<AppGuardProps> = ({ children }) => {
   }
 
   if (noToken) {
-    return null;
+    return <></>;
   }
 
   return <>{children}</>;
