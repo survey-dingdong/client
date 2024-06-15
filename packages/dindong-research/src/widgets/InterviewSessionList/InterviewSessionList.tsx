@@ -15,7 +15,10 @@ import dayjs, { Dayjs, isDayjs } from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
 import { TimePickerIcon, TextField } from "src/shared";
-import { TimeSlotType } from "src/app/workspaces/[workspaceId]/projects/[projectId]/information/page";
+import {
+  ProjectFormType,
+  TimeSlotType,
+} from "src/app/workspaces/[workspaceId]/projects/[projectId]/information/page";
 dayjs.extend(isBetween);
 
 //

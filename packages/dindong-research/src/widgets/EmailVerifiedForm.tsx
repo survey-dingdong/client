@@ -8,11 +8,16 @@ import {
   Typography,
 } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
-import { EmailVerificationRequest } from "generated-client";
 import { useSnackbar } from "notistack";
 import React from "react";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
-import { authApi } from "src/apis/client";
+import {
+  checkEmailAvailabilityAuthEmailAvailabilityPost,
+  EmailVerificationRequest,
+  sendVerificationEmailAuthEmailVerificationsPost,
+  validateVerificationEmailAuthEmailVerificationsValidationPost,
+  VerifyEmailRequest,
+} from "src/client";
 import { TextField } from "src/shared";
 
 //
@@ -83,8 +88,8 @@ const EmailVerifiedForm = () => {
 
   const checkDuplicate = useMutation({
     mutationFn: () =>
-      authApi.checkEmailAvailabilityAuthEmailAvailabilityPost({
-        emailVerificationRequest: { email: watchedEmail },
+      checkEmailAvailabilityAuthEmailAvailabilityPost({
+        requestBody: { email: watchedEmail },
       }),
     onSuccess: (res) => {
       if (!res.availability) {
@@ -106,8 +111,8 @@ const EmailVerifiedForm = () => {
 
   const sendVerificationEmail = useMutation({
     mutationFn: (data: EmailVerificationRequest) =>
-      authApi.sendVerificationEmailAuthEmailVerificationsPost({
-        emailVerificationRequest: data,
+      sendVerificationEmailAuthEmailVerificationsPost({
+        requestBody: data,
         verificationType: "signup",
       }),
 
@@ -132,9 +137,9 @@ const EmailVerifiedForm = () => {
   };
 
   const verifyCode = useMutation({
-    mutationFn: (data: { email: string; code: string }) =>
-      authApi.validateVerificationEmailAuthEmailVerificationsValidationPost({
-        verifyEmailRequest: data,
+    mutationFn: (data: VerifyEmailRequest) =>
+      validateVerificationEmailAuthEmailVerificationsValidationPost({
+        requestBody: data,
         verificationType: "signup",
       }),
     onSuccess: () => {

@@ -11,9 +11,8 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { TextField } from "src/shared";
 import { useQueryClient } from "@tanstack/react-query";
 import { getProjectsQueryKey } from "src/hooks/useProjects";
-import { ProjectTypeEnum } from "generated-client";
 import { useSnackbar } from "notistack";
-import { workspaceApi } from "src/apis/client";
+import { createProjectWorkspacesWorkspaceIdProjectsPost } from "src/client";
 
 //
 //
@@ -54,24 +53,22 @@ const CreateProjectDialog: React.FC<CreateProjectDialogProps> = ({
         </Button>
         <Button
           onClick={() =>
-            workspaceApi
-              .createProjectWorkspacesWorkspaceIdProjectsPost({
-                workspaceId,
-                projectType: ProjectTypeEnum.Experiment,
-                createProjectRequest: {
-                  title: value,
-                },
-              })
-              .then(() => {
-                enqueueSnackbar("프로젝트가 만들어졌습니다.", {
-                  variant: "success",
-                });
+            createProjectWorkspacesWorkspaceIdProjectsPost({
+              workspaceId,
+              projectType: "experiment",
+              requestBody: {
+                title: value,
+              },
+            }).then(() => {
+              enqueueSnackbar("프로젝트가 만들어졌습니다.", {
+                variant: "success",
+              });
 
-                queryClient.invalidateQueries({
-                  queryKey: getProjectsQueryKey,
-                });
-                onClose();
-              })
+              queryClient.invalidateQueries({
+                queryKey: getProjectsQueryKey,
+              });
+              onClose();
+            })
           }
         >
           만들기

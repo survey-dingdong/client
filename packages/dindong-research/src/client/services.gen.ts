@@ -2,7 +2,7 @@
 
 import type { CancelablePromise } from './core/CancelablePromise';
 import { OpenAPI } from './core/OpenAPI';
-import { request as __request } from './core/request';
+import { request as _Request } from './core/request';
 import type { RefreshTokenAuthRefreshPostData, RefreshTokenAuthRefreshPostResponse, CheckEmailAvailabilityAuthEmailAvailabilityPostData, CheckEmailAvailabilityAuthEmailAvailabilityPostResponse, SendVerificationEmailAuthEmailVerificationsPostData, SendVerificationEmailAuthEmailVerificationsPostResponse, ValidateVerificationEmailAuthEmailVerificationsValidationPostData, ValidateVerificationEmailAuthEmailVerificationsValidationPostResponse, GetUserListUsersGetData, GetUserListUsersGetResponse, CreateUserUsersPostData, CreateUserUsersPostResponse, UpdateUserUsersPatchData, UpdateUserUsersPatchResponse, GetUserMeUsersMeGetResponse, DeleteUserUsersMeDeleteResponse, LoginUsersLoginPostData, LoginUsersLoginPostResponse, ChangePasswordUsersPasswordPatchData, ChangePasswordUsersPasswordPatchResponse, GetWorkspaceListWorkspacesGetResponse, CreateWorkspaceWorkspacesPostData, CreateWorkspaceWorkspacesPostResponse, UpdateWorkspaceWorkspacesWorkspaceIdPatchData, UpdateWorkspaceWorkspacesWorkspaceIdPatchResponse, DeleteWorkspaceWorkspacesWorkspaceIdDeleteData, DeleteWorkspaceWorkspacesWorkspaceIdDeleteResponse, GetProjectListWorkspacesWorkspaceIdProjectsGetData, GetProjectListWorkspacesWorkspaceIdProjectsGetResponse, CreateProjectWorkspacesWorkspaceIdProjectsPostData, CreateProjectWorkspacesWorkspaceIdProjectsPostResponse, GetProjectProjectsProjectIdGetData, GetProjectProjectsProjectIdGetResponse, UpdateProjectProjectsProjectIdPutData, UpdateProjectProjectsProjectIdPutResponse, DeleteProjectProjectsProjectIdDeleteData, DeleteProjectProjectsProjectIdDeleteResponse, GetProjectParticipantListProjectsProjectIdParticipantsGetData, GetProjectParticipantListProjectsProjectIdParticipantsGetResponse, DeleteProjectParticipantProjectsProjectIdParticipantsParticipantIdDeleteData, DeleteProjectParticipantProjectsProjectIdParticipantsParticipantIdDeleteResponse } from './types.gen';
 
 /**
@@ -12,7 +12,7 @@ import type { RefreshTokenAuthRefreshPostData, RefreshTokenAuthRefreshPostRespon
  * @returns RefreshTokenResponse Successful Response
  * @throws ApiError
  */
-export const refreshTokenAuthRefreshPost = (data: RefreshTokenAuthRefreshPostData): CancelablePromise<RefreshTokenAuthRefreshPostResponse> => { return __request(OpenAPI, {
+export const refreshTokenAuthRefreshPost = (data: RefreshTokenAuthRefreshPostData): CancelablePromise<RefreshTokenAuthRefreshPostResponse> => { return _Request(OpenAPI, {
     method: 'POST',
     url: '/auth/refresh',
     body: data.requestBody,
@@ -26,10 +26,10 @@ export const refreshTokenAuthRefreshPost = (data: RefreshTokenAuthRefreshPostDat
  * Check Email Availability
  * @param data The data for the request.
  * @param data.requestBody
- * @returns unknown Successful Response
+ * @returns ValidateEmailResponse Successful Response
  * @throws ApiError
  */
-export const checkEmailAvailabilityAuthEmailAvailabilityPost = (data: CheckEmailAvailabilityAuthEmailAvailabilityPostData): CancelablePromise<CheckEmailAvailabilityAuthEmailAvailabilityPostResponse> => { return __request(OpenAPI, {
+export const checkEmailAvailabilityAuthEmailAvailabilityPost = (data: CheckEmailAvailabilityAuthEmailAvailabilityPostData): CancelablePromise<CheckEmailAvailabilityAuthEmailAvailabilityPostResponse> => { return _Request(OpenAPI, {
     method: 'POST',
     url: '/auth/email-availability',
     body: data.requestBody,
@@ -47,11 +47,11 @@ export const checkEmailAvailabilityAuthEmailAvailabilityPost = (data: CheckEmail
  * @returns unknown Successful Response
  * @throws ApiError
  */
-export const sendVerificationEmailAuthEmailVerificationsPost = (data: SendVerificationEmailAuthEmailVerificationsPostData): CancelablePromise<SendVerificationEmailAuthEmailVerificationsPostResponse> => { return __request(OpenAPI, {
+export const sendVerificationEmailAuthEmailVerificationsPost = (data: SendVerificationEmailAuthEmailVerificationsPostData): CancelablePromise<SendVerificationEmailAuthEmailVerificationsPostResponse> => { return _Request(OpenAPI, {
     method: 'POST',
     url: '/auth/email-verifications',
     query: {
-        verification_type: data.verificationType
+        verificationType: data.verificationType
     },
     body: data.requestBody,
     mediaType: 'application/json',
@@ -68,11 +68,11 @@ export const sendVerificationEmailAuthEmailVerificationsPost = (data: SendVerifi
  * @returns unknown Successful Response
  * @throws ApiError
  */
-export const validateVerificationEmailAuthEmailVerificationsValidationPost = (data: ValidateVerificationEmailAuthEmailVerificationsValidationPostData): CancelablePromise<ValidateVerificationEmailAuthEmailVerificationsValidationPostResponse> => { return __request(OpenAPI, {
+export const validateVerificationEmailAuthEmailVerificationsValidationPost = (data: ValidateVerificationEmailAuthEmailVerificationsValidationPostData): CancelablePromise<ValidateVerificationEmailAuthEmailVerificationsValidationPostResponse> => { return _Request(OpenAPI, {
     method: 'POST',
     url: '/auth/email-verifications/validation',
     query: {
-        verification_type: data.verificationType
+        verificationType: data.verificationType
     },
     body: data.requestBody,
     mediaType: 'application/json',
@@ -89,7 +89,7 @@ export const validateVerificationEmailAuthEmailVerificationsValidationPost = (da
  * @returns GetUserListResponse Successful Response
  * @throws ApiError
  */
-export const getUserListUsersGet = (data: GetUserListUsersGetData = {}): CancelablePromise<GetUserListUsersGetResponse> => { return __request(OpenAPI, {
+export const getUserListUsersGet = (data: GetUserListUsersGetData = {}): CancelablePromise<GetUserListUsersGetResponse> => { return _Request(OpenAPI, {
     method: 'GET',
     url: '/users',
     query: {
@@ -108,7 +108,7 @@ export const getUserListUsersGet = (data: GetUserListUsersGetData = {}): Cancela
  * @returns CreateUserResponse Successful Response
  * @throws ApiError
  */
-export const createUserUsersPost = (data: CreateUserUsersPostData): CancelablePromise<CreateUserUsersPostResponse> => { return __request(OpenAPI, {
+export const createUserUsersPost = (data: CreateUserUsersPostData): CancelablePromise<CreateUserUsersPostResponse> => { return _Request(OpenAPI, {
     method: 'POST',
     url: '/users',
     body: data.requestBody,
@@ -125,7 +125,7 @@ export const createUserUsersPost = (data: CreateUserUsersPostData): CancelablePr
  * @returns unknown Successful Response
  * @throws ApiError
  */
-export const updateUserUsersPatch = (data: UpdateUserUsersPatchData): CancelablePromise<UpdateUserUsersPatchResponse> => { return __request(OpenAPI, {
+export const updateUserUsersPatch = (data: UpdateUserUsersPatchData): CancelablePromise<UpdateUserUsersPatchResponse> => { return _Request(OpenAPI, {
     method: 'PATCH',
     url: '/users',
     body: data.requestBody,
@@ -140,7 +140,7 @@ export const updateUserUsersPatch = (data: UpdateUserUsersPatchData): Cancelable
  * @returns GetUserListResponse Successful Response
  * @throws ApiError
  */
-export const getUserMeUsersMeGet = (): CancelablePromise<GetUserMeUsersMeGetResponse> => { return __request(OpenAPI, {
+export const getUserMeUsersMeGet = (): CancelablePromise<GetUserMeUsersMeGetResponse> => { return _Request(OpenAPI, {
     method: 'GET',
     url: '/users/me'
 }); };
@@ -150,7 +150,7 @@ export const getUserMeUsersMeGet = (): CancelablePromise<GetUserMeUsersMeGetResp
  * @returns void Successful Response
  * @throws ApiError
  */
-export const deleteUserUsersMeDelete = (): CancelablePromise<DeleteUserUsersMeDeleteResponse> => { return __request(OpenAPI, {
+export const deleteUserUsersMeDelete = (): CancelablePromise<DeleteUserUsersMeDeleteResponse> => { return _Request(OpenAPI, {
     method: 'DELETE',
     url: '/users/me'
 }); };
@@ -162,7 +162,7 @@ export const deleteUserUsersMeDelete = (): CancelablePromise<DeleteUserUsersMeDe
  * @returns LoginResponse Successful Response
  * @throws ApiError
  */
-export const loginUsersLoginPost = (data: LoginUsersLoginPostData): CancelablePromise<LoginUsersLoginPostResponse> => { return __request(OpenAPI, {
+export const loginUsersLoginPost = (data: LoginUsersLoginPostData): CancelablePromise<LoginUsersLoginPostResponse> => { return _Request(OpenAPI, {
     method: 'POST',
     url: '/users/login',
     body: data.requestBody,
@@ -179,7 +179,7 @@ export const loginUsersLoginPost = (data: LoginUsersLoginPostData): CancelablePr
  * @returns void Successful Response
  * @throws ApiError
  */
-export const changePasswordUsersPasswordPatch = (data: ChangePasswordUsersPasswordPatchData): CancelablePromise<ChangePasswordUsersPasswordPatchResponse> => { return __request(OpenAPI, {
+export const changePasswordUsersPasswordPatch = (data: ChangePasswordUsersPasswordPatchData): CancelablePromise<ChangePasswordUsersPasswordPatchResponse> => { return _Request(OpenAPI, {
     method: 'PATCH',
     url: '/users/password',
     body: data.requestBody,
@@ -194,7 +194,7 @@ export const changePasswordUsersPasswordPatch = (data: ChangePasswordUsersPasswo
  * @returns GetWorkspaceListResponse Successful Response
  * @throws ApiError
  */
-export const getWorkspaceListWorkspacesGet = (): CancelablePromise<GetWorkspaceListWorkspacesGetResponse> => { return __request(OpenAPI, {
+export const getWorkspaceListWorkspacesGet = (): CancelablePromise<GetWorkspaceListWorkspacesGetResponse> => { return _Request(OpenAPI, {
     method: 'GET',
     url: '/workspaces'
 }); };
@@ -206,7 +206,7 @@ export const getWorkspaceListWorkspacesGet = (): CancelablePromise<GetWorkspaceL
  * @returns CreateWorkspaceResponse Successful Response
  * @throws ApiError
  */
-export const createWorkspaceWorkspacesPost = (data: CreateWorkspaceWorkspacesPostData): CancelablePromise<CreateWorkspaceWorkspacesPostResponse> => { return __request(OpenAPI, {
+export const createWorkspaceWorkspacesPost = (data: CreateWorkspaceWorkspacesPostData): CancelablePromise<CreateWorkspaceWorkspacesPostResponse> => { return _Request(OpenAPI, {
     method: 'POST',
     url: '/workspaces',
     body: data.requestBody,
@@ -224,11 +224,11 @@ export const createWorkspaceWorkspacesPost = (data: CreateWorkspaceWorkspacesPos
  * @returns unknown Successful Response
  * @throws ApiError
  */
-export const updateWorkspaceWorkspacesWorkspaceIdPatch = (data: UpdateWorkspaceWorkspacesWorkspaceIdPatchData): CancelablePromise<UpdateWorkspaceWorkspacesWorkspaceIdPatchResponse> => { return __request(OpenAPI, {
+export const updateWorkspaceWorkspacesWorkspaceIdPatch = (data: UpdateWorkspaceWorkspacesWorkspaceIdPatchData): CancelablePromise<UpdateWorkspaceWorkspacesWorkspaceIdPatchResponse> => { return _Request(OpenAPI, {
     method: 'PATCH',
-    url: '/workspaces/{workspace_id}',
+    url: '/workspaces/{workspaceId}',
     path: {
-        workspace_id: data.workspaceId
+        workspaceId: data.workspaceId
     },
     body: data.requestBody,
     mediaType: 'application/json',
@@ -244,11 +244,11 @@ export const updateWorkspaceWorkspacesWorkspaceIdPatch = (data: UpdateWorkspaceW
  * @returns unknown Successful Response
  * @throws ApiError
  */
-export const deleteWorkspaceWorkspacesWorkspaceIdDelete = (data: DeleteWorkspaceWorkspacesWorkspaceIdDeleteData): CancelablePromise<DeleteWorkspaceWorkspacesWorkspaceIdDeleteResponse> => { return __request(OpenAPI, {
+export const deleteWorkspaceWorkspacesWorkspaceIdDelete = (data: DeleteWorkspaceWorkspacesWorkspaceIdDeleteData): CancelablePromise<DeleteWorkspaceWorkspacesWorkspaceIdDeleteResponse> => { return _Request(OpenAPI, {
     method: 'DELETE',
-    url: '/workspaces/{workspace_id}',
+    url: '/workspaces/{workspaceId}',
     path: {
-        workspace_id: data.workspaceId
+        workspaceId: data.workspaceId
     },
     errors: {
         422: 'Validation Error'
@@ -265,14 +265,14 @@ export const deleteWorkspaceWorkspacesWorkspaceIdDelete = (data: DeleteWorkspace
  * @returns GetProjectListResponse Successful Response
  * @throws ApiError
  */
-export const getProjectListWorkspacesWorkspaceIdProjectsGet = (data: GetProjectListWorkspacesWorkspaceIdProjectsGetData): CancelablePromise<GetProjectListWorkspacesWorkspaceIdProjectsGetResponse> => { return __request(OpenAPI, {
+export const getProjectListWorkspacesWorkspaceIdProjectsGet = (data: GetProjectListWorkspacesWorkspaceIdProjectsGetData): CancelablePromise<GetProjectListWorkspacesWorkspaceIdProjectsGetResponse> => { return _Request(OpenAPI, {
     method: 'GET',
-    url: '/workspaces/{workspace_id}/projects',
+    url: '/workspaces/{workspaceId}/projects',
     path: {
-        workspace_id: data.workspaceId
+        workspaceId: data.workspaceId
     },
     query: {
-        project_type: data.projectType,
+        projectType: data.projectType,
         page: data.page,
         size: data.size
     },
@@ -290,14 +290,14 @@ export const getProjectListWorkspacesWorkspaceIdProjectsGet = (data: GetProjectL
  * @returns CreateProjectResponse Successful Response
  * @throws ApiError
  */
-export const createProjectWorkspacesWorkspaceIdProjectsPost = (data: CreateProjectWorkspacesWorkspaceIdProjectsPostData): CancelablePromise<CreateProjectWorkspacesWorkspaceIdProjectsPostResponse> => { return __request(OpenAPI, {
+export const createProjectWorkspacesWorkspaceIdProjectsPost = (data: CreateProjectWorkspacesWorkspaceIdProjectsPostData): CancelablePromise<CreateProjectWorkspacesWorkspaceIdProjectsPostResponse> => { return _Request(OpenAPI, {
     method: 'POST',
-    url: '/workspaces/{workspace_id}/projects',
+    url: '/workspaces/{workspaceId}/projects',
     path: {
-        workspace_id: data.workspaceId
+        workspaceId: data.workspaceId
     },
     query: {
-        project_type: data.projectType
+        projectType: data.projectType
     },
     body: data.requestBody,
     mediaType: 'application/json',
@@ -314,14 +314,14 @@ export const createProjectWorkspacesWorkspaceIdProjectsPost = (data: CreateProje
  * @returns GetExperimentProjectResponse Successful Response
  * @throws ApiError
  */
-export const getProjectProjectsProjectIdGet = (data: GetProjectProjectsProjectIdGetData): CancelablePromise<GetProjectProjectsProjectIdGetResponse> => { return __request(OpenAPI, {
+export const getProjectProjectsProjectIdGet = (data: GetProjectProjectsProjectIdGetData): CancelablePromise<GetProjectProjectsProjectIdGetResponse> => { return _Request(OpenAPI, {
     method: 'GET',
-    url: '/projects/{project_id}',
+    url: '/projects/{projectId}',
     path: {
-        project_id: data.projectId
+        projectId: data.projectId
     },
     query: {
-        project_type: data.projectType
+        projectType: data.projectType
     },
     errors: {
         422: 'Validation Error'
@@ -337,14 +337,14 @@ export const getProjectProjectsProjectIdGet = (data: GetProjectProjectsProjectId
  * @returns unknown Successful Response
  * @throws ApiError
  */
-export const updateProjectProjectsProjectIdPut = (data: UpdateProjectProjectsProjectIdPutData): CancelablePromise<UpdateProjectProjectsProjectIdPutResponse> => { return __request(OpenAPI, {
+export const updateProjectProjectsProjectIdPut = (data: UpdateProjectProjectsProjectIdPutData): CancelablePromise<UpdateProjectProjectsProjectIdPutResponse> => { return _Request(OpenAPI, {
     method: 'PUT',
-    url: '/projects/{project_id}',
+    url: '/projects/{projectId}',
     path: {
-        project_id: data.projectId
+        projectId: data.projectId
     },
     query: {
-        project_type: data.projectType
+        projectType: data.projectType
     },
     body: data.requestBody,
     mediaType: 'application/json',
@@ -361,14 +361,14 @@ export const updateProjectProjectsProjectIdPut = (data: UpdateProjectProjectsPro
  * @returns unknown Successful Response
  * @throws ApiError
  */
-export const deleteProjectProjectsProjectIdDelete = (data: DeleteProjectProjectsProjectIdDeleteData): CancelablePromise<DeleteProjectProjectsProjectIdDeleteResponse> => { return __request(OpenAPI, {
+export const deleteProjectProjectsProjectIdDelete = (data: DeleteProjectProjectsProjectIdDeleteData): CancelablePromise<DeleteProjectProjectsProjectIdDeleteResponse> => { return _Request(OpenAPI, {
     method: 'DELETE',
-    url: '/projects/{project_id}',
+    url: '/projects/{projectId}',
     path: {
-        project_id: data.projectId
+        projectId: data.projectId
     },
     query: {
-        project_type: data.projectType
+        projectType: data.projectType
     },
     errors: {
         422: 'Validation Error'
@@ -385,14 +385,14 @@ export const deleteProjectProjectsProjectIdDelete = (data: DeleteProjectProjects
  * @returns GetExperimentParticipantResponse Successful Response
  * @throws ApiError
  */
-export const getProjectParticipantListProjectsProjectIdParticipantsGet = (data: GetProjectParticipantListProjectsProjectIdParticipantsGetData): CancelablePromise<GetProjectParticipantListProjectsProjectIdParticipantsGetResponse> => { return __request(OpenAPI, {
+export const getProjectParticipantListProjectsProjectIdParticipantsGet = (data: GetProjectParticipantListProjectsProjectIdParticipantsGetData): CancelablePromise<GetProjectParticipantListProjectsProjectIdParticipantsGetResponse> => { return _Request(OpenAPI, {
     method: 'GET',
-    url: '/projects/{project_id}/participants',
+    url: '/projects/{projectId}/participants',
     path: {
-        project_id: data.projectId
+        projectId: data.projectId
     },
     query: {
-        project_type: data.projectType,
+        projectType: data.projectType,
         page: data.page,
         size: data.size
     },
@@ -410,15 +410,15 @@ export const getProjectParticipantListProjectsProjectIdParticipantsGet = (data: 
  * @returns unknown Successful Response
  * @throws ApiError
  */
-export const deleteProjectParticipantProjectsProjectIdParticipantsParticipantIdDelete = (data: DeleteProjectParticipantProjectsProjectIdParticipantsParticipantIdDeleteData): CancelablePromise<DeleteProjectParticipantProjectsProjectIdParticipantsParticipantIdDeleteResponse> => { return __request(OpenAPI, {
+export const deleteProjectParticipantProjectsProjectIdParticipantsParticipantIdDelete = (data: DeleteProjectParticipantProjectsProjectIdParticipantsParticipantIdDeleteData): CancelablePromise<DeleteProjectParticipantProjectsProjectIdParticipantsParticipantIdDeleteResponse> => { return _Request(OpenAPI, {
     method: 'DELETE',
-    url: '/projects/{project_id}/participants/{participant_id}',
+    url: '/projects/{projectId}/participants/{participantId}',
     path: {
-        project_id: data.projectId,
-        participant_id: data.participantId
+        projectId: data.projectId,
+        participantId: data.participantId
     },
     query: {
-        project_type: data.projectType
+        projectType: data.projectType
     },
     errors: {
         422: 'Validation Error'

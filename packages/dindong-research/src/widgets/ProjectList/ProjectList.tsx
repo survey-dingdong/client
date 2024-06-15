@@ -3,7 +3,7 @@ import React from "react";
 import { ProjectCard } from "src/shared";
 
 import { CreateProjectAction } from "../CreateProjectAction";
-import { GetProjectListResponse } from "generated-client";
+import { GetProjectListResponse } from "src/client";
 
 interface ProjectListProps {
   projects?: GetProjectListResponse[];

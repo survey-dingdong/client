@@ -2,14 +2,14 @@
 
 export const $ChangePasswordRequest = {
     properties: {
-        old_password: {
+        oldPassword: {
             type: 'string',
             format: 'password',
             title: 'Old Password',
             description: 'Origin Password',
             writeOnly: true
         },
-        new_password: {
+        newPassword: {
             type: 'string',
             format: 'password',
             title: 'New Password',
@@ -18,7 +18,7 @@ export const $ChangePasswordRequest = {
         }
     },
     type: 'object',
-    required: ['old_password', 'new_password'],
+    required: ['oldPassword', 'newPassword'],
     title: 'ChangePasswordRequest'
 } as const;
 
@@ -131,13 +131,13 @@ export const $EmailVerificationRequest = {
 
 export const $EmailVerificationType = {
     type: 'string',
-    enum: ['signup', 'reset_password'],
+    enum: ['signup', 'resetPassword'],
     title: 'EmailVerificationType'
 } as const;
 
 export const $ExperimentAttendanceStatus = {
     type: 'string',
-    enum: ['scheduled', 'not_attended', 'attended'],
+    enum: ['scheduled', 'notAttended', 'attended'],
     title: 'ExperimentAttendanceStatus'
 } as const;
 
@@ -148,26 +148,26 @@ export const $ExperimentTimeslotRead = {
             title: 'Id',
             description: 'ID'
         },
-        start_time: {
+        startTime: {
             type: 'string',
             format: 'time',
             title: 'Start Time',
             description: 'Experiment start time'
         },
-        end_time: {
+        endTime: {
             type: 'string',
             format: 'time',
             title: 'End Time',
             description: 'Experiment end time'
         },
-        max_participants: {
+        maxParticipants: {
             type: 'integer',
             title: 'Max Participants',
             description: 'Maximum number of exparticipants per session'
         }
     },
     type: 'object',
-    required: ['id', 'start_time', 'end_time', 'max_participants'],
+    required: ['id', 'startTime', 'endTime', 'maxParticipants'],
     title: 'ExperimentTimeslotRead'
 } as const;
 
@@ -185,26 +185,26 @@ export const $ExperimentTimeslotRequest = {
             title: 'Id',
             description: 'ID'
         },
-        start_time: {
+        startTime: {
             type: 'string',
             format: 'time',
             title: 'Start Time',
             description: 'Experiment start time'
         },
-        end_time: {
+        endTime: {
             type: 'string',
             format: 'time',
             title: 'End Time',
             description: 'Experiment end time'
         },
-        max_participants: {
+        maxParticipants: {
             type: 'integer',
             title: 'Max Participants',
             description: 'Maximum number of exparticipants per session'
         }
     },
     type: 'object',
-    required: ['start_time', 'end_time', 'max_participants'],
+    required: ['startTime', 'endTime', 'maxParticipants'],
     title: 'ExperimentTimeslotRequest'
 } as const;
 
@@ -226,12 +226,12 @@ export const $GetExperimentParticipantResponse = {
             title: 'Username',
             description: 'Username'
         },
-        reserved_date: {
+        reservedDate: {
             type: 'string',
             title: 'Reserved Date',
             description: 'Reserved Date'
         },
-        attendance_status: {
+        attendanceStatus: {
             allOf: [
                 {
                     '$ref': '#/components/schemas/ExperimentAttendanceStatus'
@@ -239,13 +239,13 @@ export const $GetExperimentParticipantResponse = {
             ],
             description: 'Attendance Status'
         },
-        created_at: {
+        createdAt: {
             type: 'string',
             format: 'date-time',
             title: 'Created At',
             description: 'Created datetime'
         },
-        updated_at: {
+        updatedAt: {
             type: 'string',
             format: 'date-time',
             title: 'Updated At',
@@ -253,7 +253,7 @@ export const $GetExperimentParticipantResponse = {
         }
     },
     type: 'object',
-    required: ['id', 'username', 'reserved_date', 'attendance_status', 'created_at', 'updated_at'],
+    required: ['id', 'username', 'reservedDate', 'attendanceStatus', 'createdAt', 'updatedAt'],
     title: 'GetExperimentParticipantResponse'
 } as const;
 
@@ -281,12 +281,12 @@ export const $GetExperimentProjectResponse = {
             title: 'Description',
             description: 'Description'
         },
-        is_public: {
+        isPublic: {
             type: 'boolean',
             title: 'Is Public',
             description: 'Whether the project is public'
         },
-        start_date: {
+        startDate: {
             anyOf: [
                 {
                     type: 'string',
@@ -299,7 +299,7 @@ export const $GetExperimentProjectResponse = {
             title: 'Start Date',
             description: 'Experiment start date'
         },
-        end_date: {
+        endDate: {
             anyOf: [
                 {
                     type: 'string',
@@ -312,7 +312,7 @@ export const $GetExperimentProjectResponse = {
             title: 'End Date',
             description: 'Experiment end date'
         },
-        excluded_dates: {
+        excludedDates: {
             items: {
                 type: 'string',
                 format: 'date'
@@ -321,7 +321,7 @@ export const $GetExperimentProjectResponse = {
             title: 'Excluded Dates',
             description: 'Experimental exclusion days'
         },
-        experiment_timeslots: {
+        experimentTimeslots: {
             items: {
                 '$ref': '#/components/schemas/ExperimentTimeslotRead'
             },
@@ -329,12 +329,12 @@ export const $GetExperimentProjectResponse = {
             title: 'Experiment Timeslots',
             description: 'Time information of experiment'
         },
-        max_participants: {
+        maxParticipants: {
             type: 'integer',
             title: 'Max Participants',
             description: 'Maximum number of experiment participants'
         },
-        experiment_type: {
+        experimentType: {
             '$ref': '#/components/schemas/ExperimentTypeEnum'
         },
         location: {
@@ -349,18 +349,13 @@ export const $GetExperimentProjectResponse = {
             title: 'Location',
             description: 'Experiment location'
         },
-        participant_code: {
-            type: 'string',
-            title: 'Participant Code',
-            description: 'Experiment participant code'
-        },
-        created_at: {
+        createdAt: {
             type: 'string',
             format: 'date-time',
             title: 'Created At',
             description: 'Created datetime'
         },
-        updated_at: {
+        updatedAt: {
             type: 'string',
             format: 'date-time',
             title: 'Updated At',
@@ -368,7 +363,7 @@ export const $GetExperimentProjectResponse = {
         }
     },
     type: 'object',
-    required: ['id', 'title', 'is_public', 'start_date', 'end_date', 'excluded_dates', 'experiment_timeslots', 'max_participants', 'experiment_type', 'location', 'participant_code', 'created_at', 'updated_at'],
+    required: ['id', 'title', 'isPublic', 'startDate', 'endDate', 'excludedDates', 'experimentTimeslots', 'maxParticipants', 'experimentType', 'location', 'createdAt', 'updatedAt'],
     title: 'GetExperimentProjectResponse'
 } as const;
 
@@ -379,7 +374,7 @@ export const $GetProjectListResponse = {
             title: 'Id',
             description: 'ID'
         },
-        workspace_id: {
+        workspaceId: {
             type: 'integer',
             title: 'Workspace Id',
             description: 'Workspace ID'
@@ -401,34 +396,34 @@ export const $GetProjectListResponse = {
             title: 'Description',
             description: 'Description'
         },
-        is_public: {
+        isPublic: {
             type: 'boolean',
             title: 'Is Public',
             description: 'Whether the project is public'
         },
-        joined_participants: {
+        joinedParticipants: {
             type: 'integer',
             title: 'Joined Participants',
             description: 'Number of experiment participants'
         },
-        max_participants: {
+        maxParticipants: {
             type: 'integer',
             title: 'Max Participants',
             description: 'Maximum number of exparticipants per session'
         },
-        created_at: {
+        createdAt: {
             type: 'string',
             format: 'date-time',
             title: 'Created At'
         },
-        updated_at: {
+        updatedAt: {
             type: 'string',
             format: 'date-time',
             title: 'Updated At'
         }
     },
     type: 'object',
-    required: ['id', 'workspace_id', 'title', 'is_public', 'joined_participants', 'max_participants', 'created_at', 'updated_at'],
+    required: ['id', 'workspaceId', 'title', 'isPublic', 'joinedParticipants', 'maxParticipants', 'createdAt', 'updatedAt'],
     title: 'GetProjectListResponse'
 } as const;
 
@@ -467,14 +462,14 @@ export const $GetWorkspaceListResponse = {
             title: 'Title',
             description: 'Title'
         },
-        order_no: {
+        orderNo: {
             type: 'integer',
             title: 'Order No',
             description: 'Order'
         }
     },
     type: 'object',
-    required: ['id', 'title', 'order_no'],
+    required: ['id', 'title', 'orderNo'],
     title: 'GetWorkspaceListResponse'
 } as const;
 
@@ -520,14 +515,14 @@ export const $LoginResponse = {
             title: 'Token',
             description: 'Token'
         },
-        refresh_token: {
+        refreshToken: {
             type: 'string',
             title: 'Refresh Token',
             description: 'Refresh token'
         }
     },
     type: 'object',
-    required: ['token', 'refresh_token'],
+    required: ['token', 'refreshToken'],
     title: 'LoginResponse'
 } as const;
 
@@ -553,24 +548,24 @@ export const $PutProjectRequest = {
             title: 'Description',
             description: 'Description'
         },
-        is_public: {
+        isPublic: {
             type: 'boolean',
             title: 'Is Public',
             description: 'Whether the project is public'
         },
-        start_date: {
+        startDate: {
             type: 'string',
             format: 'date',
             title: 'Start Date',
             ddescription: 'Experiment start date'
         },
-        end_date: {
+        endDate: {
             type: 'string',
             format: 'date',
             title: 'End Date',
             description: 'Experiment end date'
         },
-        excluded_dates: {
+        excludedDates: {
             items: {
                 type: 'string',
                 format: 'date'
@@ -579,7 +574,7 @@ export const $PutProjectRequest = {
             title: 'Excluded Dates',
             description: 'Experimental exclusion days'
         },
-        experiment_timeslots: {
+        experimentTimeslots: {
             items: {
                 '$ref': '#/components/schemas/ExperimentTimeslotRequest'
             },
@@ -587,29 +582,22 @@ export const $PutProjectRequest = {
             title: 'Experiment Timeslots',
             description: 'Time information of experiment'
         },
-        max_participants: {
+        maxParticipants: {
             type: 'integer',
             title: 'Max Participants',
             description: 'Maximum number of experiment participants'
         },
-        experiment_type: {
+        experimentType: {
             '$ref': '#/components/schemas/ExperimentTypeEnum'
         },
         location: {
-            anyOf: [
-                {
-                    type: 'string'
-                },
-                {
-                    type: 'null'
-                }
-            ],
+            type: 'string',
             title: 'Location',
             description: 'Experiment location'
         }
     },
     type: 'object',
-    required: ['title', 'description', 'is_public', 'start_date', 'end_date', 'excluded_dates', 'experiment_timeslots', 'max_participants', 'experiment_type'],
+    required: ['title', 'description', 'isPublic', 'startDate', 'endDate', 'excludedDates', 'experimentTimeslots', 'maxParticipants', 'experimentType', 'location'],
     title: 'PutProjectRequest'
 } as const;
 
@@ -620,14 +608,14 @@ export const $RefreshTokenRequest = {
             title: 'Token',
             description: 'Token'
         },
-        refresh_token: {
+        refreshToken: {
             type: 'string',
             title: 'Refresh Token',
             description: 'Refresh token'
         }
     },
     type: 'object',
-    required: ['token', 'refresh_token'],
+    required: ['token', 'refreshToken'],
     title: 'RefreshTokenRequest'
 } as const;
 
@@ -638,14 +626,14 @@ export const $RefreshTokenResponse = {
             title: 'Token',
             description: 'Token'
         },
-        refresh_token: {
+        refreshToken: {
             type: 'string',
             title: 'Refresh Token',
             description: 'Refresh token'
         }
     },
     type: 'object',
-    required: ['token', 'refresh_token'],
+    required: ['token', 'refreshToken'],
     title: 'RefreshTokenResponse'
 } as const;
 
@@ -663,7 +651,7 @@ export const $UpdateUserRequest = {
             title: 'Username',
             description: 'User username'
         },
-        phone_num: {
+        phoneNum: {
             anyOf: [
                 {
                     type: 'string'
@@ -694,7 +682,7 @@ export const $UpdateWorkspaceRequest = {
             title: 'Title',
             description: 'Title'
         },
-        order_no: {
+        orderNo: {
             anyOf: [
                 {
                     type: 'integer'
@@ -709,6 +697,19 @@ export const $UpdateWorkspaceRequest = {
     },
     type: 'object',
     title: 'UpdateWorkspaceRequest'
+} as const;
+
+export const $ValidateEmailResponse = {
+    properties: {
+        availability: {
+            type: 'boolean',
+            title: 'Availability',
+            description: 'Email Availability'
+        }
+    },
+    type: 'object',
+    required: ['availability'],
+    title: 'ValidateEmailResponse'
 } as const;
 
 export const $ValidationError = {

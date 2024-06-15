@@ -4,11 +4,11 @@ export type ChangePasswordRequest = {
     /**
      * Origin Password
      */
-    old_password: string;
+    oldPassword: string;
     /**
      * New Password
      */
-    new_password: string;
+    newPassword: string;
 };
 
 export type CreateProjectRequest = {
@@ -68,9 +68,9 @@ export type EmailVerificationRequest = {
     email: string;
 };
 
-export type EmailVerificationType = 'signup' | 'reset_password';
+export type EmailVerificationType = 'signup' | 'resetPassword';
 
-export type ExperimentAttendanceStatus = 'scheduled' | 'not_attended' | 'attended';
+export type ExperimentAttendanceStatus = 'scheduled' | 'notAttended' | 'attended';
 
 export type ExperimentTimeslotRead = {
     /**
@@ -80,15 +80,15 @@ export type ExperimentTimeslotRead = {
     /**
      * Experiment start time
      */
-    start_time: string;
+    startTime: string;
     /**
      * Experiment end time
      */
-    end_time: string;
+    endTime: string;
     /**
      * Maximum number of exparticipants per session
      */
-    max_participants: number;
+    maxParticipants: number;
 };
 
 export type ExperimentTimeslotRequest = {
@@ -99,15 +99,15 @@ export type ExperimentTimeslotRequest = {
     /**
      * Experiment start time
      */
-    start_time: string;
+    startTime: string;
     /**
      * Experiment end time
      */
-    end_time: string;
+    endTime: string;
     /**
      * Maximum number of exparticipants per session
      */
-    max_participants: number;
+    maxParticipants: number;
 };
 
 export type ExperimentTypeEnum = 'online' | 'offline';
@@ -124,19 +124,19 @@ export type GetExperimentParticipantResponse = {
     /**
      * Reserved Date
      */
-    reserved_date: string;
+    reservedDate: string;
     /**
      * Attendance Status
      */
-    attendance_status: ExperimentAttendanceStatus;
+    attendanceStatus: ExperimentAttendanceStatus;
     /**
      * Created datetime
      */
-    created_at: string;
+    createdAt: string;
     /**
      * Updated datetime
      */
-    updated_at: string;
+    updatedAt: string;
 };
 
 export type GetExperimentProjectResponse = {
@@ -155,44 +155,40 @@ export type GetExperimentProjectResponse = {
     /**
      * Whether the project is public
      */
-    is_public: boolean;
+    isPublic: boolean;
     /**
      * Experiment start date
      */
-    start_date: string | null;
+    startDate: string | null;
     /**
      * Experiment end date
      */
-    end_date: string | null;
+    endDate: string | null;
     /**
      * Experimental exclusion days
      */
-    excluded_dates: Array<(string)>;
+    excludedDates: Array<(string)>;
     /**
      * Time information of experiment
      */
-    experiment_timeslots: Array<ExperimentTimeslotRead>;
+    experimentTimeslots: Array<ExperimentTimeslotRead>;
     /**
      * Maximum number of experiment participants
      */
-    max_participants: number;
-    experiment_type: ExperimentTypeEnum;
+    maxParticipants: number;
+    experimentType: ExperimentTypeEnum;
     /**
      * Experiment location
      */
     location: string | null;
     /**
-     * Experiment participant code
-     */
-    participant_code: string;
-    /**
      * Created datetime
      */
-    created_at: string;
+    createdAt: string;
     /**
      * Updated datetime
      */
-    updated_at: string;
+    updatedAt: string;
 };
 
 export type GetProjectListResponse = {
@@ -203,7 +199,7 @@ export type GetProjectListResponse = {
     /**
      * Workspace ID
      */
-    workspace_id: number;
+    workspaceId: number;
     /**
      * Title
      */
@@ -215,17 +211,17 @@ export type GetProjectListResponse = {
     /**
      * Whether the project is public
      */
-    is_public: boolean;
+    isPublic: boolean;
     /**
      * Number of experiment participants
      */
-    joined_participants: number;
+    joinedParticipants: number;
     /**
      * Maximum number of exparticipants per session
      */
-    max_participants: number;
-    created_at: string;
-    updated_at: string;
+    maxParticipants: number;
+    createdAt: string;
+    updatedAt: string;
 };
 
 export type GetUserListResponse = {
@@ -255,7 +251,7 @@ export type GetWorkspaceListResponse = {
     /**
      * Order
      */
-    order_no: number;
+    orderNo: number;
 };
 
 export type HTTPValidationError = {
@@ -281,7 +277,7 @@ export type LoginResponse = {
     /**
      * Refresh token
      */
-    refresh_token: string;
+    refreshToken: string;
 };
 
 export type ProjectTypeEnum = 'survey' | 'experiment';
@@ -298,29 +294,29 @@ export type PutProjectRequest = {
     /**
      * Whether the project is public
      */
-    is_public: boolean;
-    start_date: string;
+    isPublic: boolean;
+    startDate: string;
     /**
      * Experiment end date
      */
-    end_date: string;
+    endDate: string;
     /**
      * Experimental exclusion days
      */
-    excluded_dates: Array<(string)>;
+    excludedDates: Array<(string)>;
     /**
      * Time information of experiment
      */
-    experiment_timeslots: Array<ExperimentTimeslotRequest>;
+    experimentTimeslots: Array<ExperimentTimeslotRequest>;
     /**
      * Maximum number of experiment participants
      */
-    max_participants: number;
-    experiment_type: ExperimentTypeEnum;
+    maxParticipants: number;
+    experimentType: ExperimentTypeEnum;
     /**
      * Experiment location
      */
-    location?: string | null;
+    location: string;
 };
 
 export type RefreshTokenRequest = {
@@ -331,7 +327,7 @@ export type RefreshTokenRequest = {
     /**
      * Refresh token
      */
-    refresh_token: string;
+    refreshToken: string;
 };
 
 export type RefreshTokenResponse = {
@@ -342,7 +338,7 @@ export type RefreshTokenResponse = {
     /**
      * Refresh token
      */
-    refresh_token: string;
+    refreshToken: string;
 };
 
 export type UpdateUserRequest = {
@@ -353,7 +349,7 @@ export type UpdateUserRequest = {
     /**
      * Phone Number
      */
-    phone_num?: string | null;
+    phoneNum?: string | null;
 };
 
 export type UpdateWorkspaceRequest = {
@@ -364,7 +360,14 @@ export type UpdateWorkspaceRequest = {
     /**
      * New order no
      */
-    order_no?: number | null;
+    orderNo?: number | null;
+};
+
+export type ValidateEmailResponse = {
+    /**
+     * Email Availability
+     */
+    availability: boolean;
 };
 
 export type ValidationError = {
@@ -394,7 +397,7 @@ export type CheckEmailAvailabilityAuthEmailAvailabilityPostData = {
     requestBody: EmailVerificationRequest;
 };
 
-export type CheckEmailAvailabilityAuthEmailAvailabilityPostResponse = unknown;
+export type CheckEmailAvailabilityAuthEmailAvailabilityPostResponse = ValidateEmailResponse;
 
 export type SendVerificationEmailAuthEmailVerificationsPostData = {
     requestBody: EmailVerificationRequest;
@@ -545,7 +548,7 @@ export type $OpenApiTs = {
                 /**
                  * Successful Response
                  */
-                200: unknown;
+                200: ValidateEmailResponse;
                 /**
                  * Validation Error
                  */
@@ -695,7 +698,7 @@ export type $OpenApiTs = {
             };
         };
     };
-    '/workspaces/{workspace_id}': {
+    '/workspaces/{workspaceId}': {
         patch: {
             req: UpdateWorkspaceWorkspacesWorkspaceIdPatchData;
             res: {
@@ -723,7 +726,7 @@ export type $OpenApiTs = {
             };
         };
     };
-    '/workspaces/{workspace_id}/projects': {
+    '/workspaces/{workspaceId}/projects': {
         get: {
             req: GetProjectListWorkspacesWorkspaceIdProjectsGetData;
             res: {
@@ -751,7 +754,7 @@ export type $OpenApiTs = {
             };
         };
     };
-    '/projects/{project_id}': {
+    '/projects/{projectId}': {
         get: {
             req: GetProjectProjectsProjectIdGetData;
             res: {
@@ -792,7 +795,7 @@ export type $OpenApiTs = {
             };
         };
     };
-    '/projects/{project_id}/participants': {
+    '/projects/{projectId}/participants': {
         get: {
             req: GetProjectParticipantListProjectsProjectIdParticipantsGetData;
             res: {
@@ -807,7 +810,7 @@ export type $OpenApiTs = {
             };
         };
     };
-    '/projects/{project_id}/participants/{participant_id}': {
+    '/projects/{projectId}/participants/{participantId}': {
         delete: {
             req: DeleteProjectParticipantProjectsProjectIdParticipantsParticipantIdDeleteData;
             res: {

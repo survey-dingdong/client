@@ -2,7 +2,7 @@ import { OutlinedInput } from "@mui/material";
 import { useQueryClient } from "@tanstack/react-query";
 import { useSnackbar } from "notistack";
 import React from "react";
-import { workspaceApi } from "src/apis/client";
+import { updateWorkspaceWorkspacesWorkspaceIdPatch } from "src/client";
 import { WORKSPACES_QUERY_KEY } from "src/hooks/useWorkspaces";
 
 interface WorkspaceRenameInputProps {
@@ -28,9 +28,9 @@ const WorkspaceRenameInput: React.FC<WorkspaceRenameInputProps> = ({
         return;
       }
 
-      await workspaceApi.updateWorkspaceWorkspacesWorkspaceIdPatch({
+      await updateWorkspaceWorkspacesWorkspaceIdPatch({
         workspaceId,
-        updateWorkspaceRequest: {
+        requestBody: {
           title: inputValue,
         },
       });

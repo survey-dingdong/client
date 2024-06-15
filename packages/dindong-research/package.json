@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "generate": "openapi-ts --input https://survey-dingdong.site/openapi.json --output ./src/client --client axios"
+    "generate": "openapi-ts --input https://survey-dingdong.site/openapi.json --output ./src/client --client axios && ts-node convertToCamelCase.ts"
   },
   "peerDependencies": {
     "react": "^17.0.0 || ^18.0.0",
@@ -30,6 +30,7 @@
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@hey-api/openapi-ts": "^0.46.3",
     "@types/lodash": "^4.17.4",
     "@types/node": "^20",
     "@types/react": "^18",
@@ -45,6 +46,7 @@
     "notistack": "^3.0.1",
     "react-hook-form": "^7.51.3",
     "sharp": "^0.33.4",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }

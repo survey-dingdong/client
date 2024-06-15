@@ -1,5 +1,4 @@
-import Clear from "@mui/icons-material/Clear";
-import { Chip, chipClasses, ChipProps } from "@mui/material";
+import { Chip, ChipProps } from "@mui/material";
 import React from "react";
 
 const DateChip: React.FC<ChipProps> = (props) => {
