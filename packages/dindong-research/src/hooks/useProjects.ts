@@ -1,9 +1,12 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { GetProjectListResponse, ProjectTypeEnum } from "generated-client";
-import { workspaceApi } from "src/apis/client";
+
+import {
+  getProjectListWorkspacesWorkspaceIdProjectsGet,
+  GetProjectListWorkspacesWorkspaceIdProjectsGetResponse,
+} from "src/client";
 
 type UseProjectReturn = {
-  projects: GetProjectListResponse[] | undefined;
+  projects: GetProjectListWorkspacesWorkspaceIdProjectsGetResponse | undefined;
   isLoading: boolean;
   isError: any;
 };
@@ -22,9 +25,9 @@ export function useProjects({
   } = useQuery({
     queryKey: [...getProjectsQueryKey, workspaceId],
     queryFn: () =>
-      workspaceApi.getProjectListWorkspacesWorkspaceIdProjectsGet({
+      getProjectListWorkspacesWorkspaceIdProjectsGet({
         workspaceId,
-        projectType: ProjectTypeEnum.Experiment,
+        projectType: "experiment",
       }),
 
     placeholderData: keepPreviousData,

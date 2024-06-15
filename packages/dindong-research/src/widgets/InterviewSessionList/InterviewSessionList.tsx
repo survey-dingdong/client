@@ -1,4 +1,7 @@
 "use client";
+import React from "react";
+
+import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import {
   Box,
   Button,
@@ -8,18 +11,11 @@ import {
   Typography,
 } from "@mui/material";
 import { TimePicker } from "@mui/x-date-pickers";
-import React from "react";
-
-import { Controller, useFieldArray, useFormContext } from "react-hook-form";
-
-import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import dayjs, { Dayjs, isDayjs } from "dayjs";
-import {
-  ProjectFormType,
-  TimeSlotType,
-} from "src/app/workspaces/[workspaceId]/projects/[projectId]/information/page";
 import isBetween from "dayjs/plugin/isBetween";
+import { Controller, useFieldArray, useFormContext } from "react-hook-form";
 import { TimePickerIcon, TextField } from "src/shared";
+import { TimeSlotType } from "src/app/workspaces/[workspaceId]/projects/[projectId]/information/page";
 dayjs.extend(isBetween);
 
 //

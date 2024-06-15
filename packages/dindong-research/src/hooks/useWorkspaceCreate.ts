@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useSnackbar } from "notistack";
-import { workspaceApi } from "src/apis/client";
+import { createWorkspaceWorkspacesPost } from "src/client";
 
 //
 //
@@ -18,8 +18,8 @@ export const useWorkspaceCreate = ({
 
   const mutation = useMutation({
     mutationFn: (data: { title: string }) =>
-      workspaceApi.createWorkspaceWorkspacesPost({
-        createWorkspaceRequest: data,
+      createWorkspaceWorkspacesPost({
+        requestBody: data,
       }),
     onSuccess: () => {
       if (!hideSnackbar) {

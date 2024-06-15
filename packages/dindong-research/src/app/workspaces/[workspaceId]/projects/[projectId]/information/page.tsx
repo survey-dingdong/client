@@ -1,4 +1,6 @@
 "use client";
+import React from "react";
+
 import {
   Box,
   Card,
@@ -16,7 +18,21 @@ import {
   ToggleButtonGroup,
   Typography,
 } from "@mui/material";
-import React from "react";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { useQueryClient } from "@tanstack/react-query";
+import dayjs, { Dayjs } from "dayjs";
+import isBetween from "dayjs/plugin/isBetween";
+import {
+  ExperimentTimeslotRequest,
+  ExperimentTypeEnum,
+  ProjectTypeEnum,
+  PutProjectRequest,
+} from "generated-client";
+import { useParams } from "next/navigation";
+import { useSnackbar } from "notistack";
+import { Controller, FormProvider, useForm, useWatch } from "react-hook-form";
+import { projectApi } from "src/apis/client";
+import { GET_PROJECT_QUERY_KEY, useProject } from "src/hooks/useProject";
 import {
   CardWithTitle,
   FormLabelWithDescription,
@@ -35,22 +51,6 @@ import {
   ProjectBottomNav,
   PublicTag,
 } from "src/widgets";
-
-import { Controller, FormProvider, useForm, useWatch } from "react-hook-form";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { GET_PROJECT_QUERY_KEY, useProject } from "src/hooks/useProject";
-import { useParams } from "next/navigation";
-import dayjs, { Dayjs } from "dayjs";
-import { useSnackbar } from "notistack";
-import {
-  ExperimentTimeslotRequest,
-  ExperimentTypeEnum,
-  ProjectTypeEnum,
-  PutProjectRequest,
-} from "generated-client";
-import { useQueryClient } from "@tanstack/react-query";
-import isBetween from "dayjs/plugin/isBetween";
-import { projectApi } from "src/apis/client";
 dayjs.extend(isBetween);
 
 //
