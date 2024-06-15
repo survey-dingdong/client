@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
+
 import {
   GetExperimentProjectResponse,
-  ProjectTypeEnum,
-} from "generated-client";
-import { projectApi } from "src/apis/client";
+  getProjectProjectsProjectIdGet,
+} from "src/client";
 
 //
 // types
@@ -37,9 +37,9 @@ export function useProject({
   const { data, isLoading, error } = useQuery({
     queryKey: [GET_PROJECT_QUERY_KEY, workspaceId, projectId],
     queryFn: () =>
-      projectApi.getProjectProjectsProjectIdGet({
+      getProjectProjectsProjectIdGet({
         projectId,
-        projectType: ProjectTypeEnum.Experiment,
+        projectType: "experiment",
       }),
   });
 

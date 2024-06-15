@@ -22,12 +22,11 @@ import { Nav } from "src/shared";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import { usePath } from "src/hooks/usePath";
 import { useWorkspaces } from "src/hooks/useWorkspaces";
-import { ProjectTypeEnum } from "generated-client";
 import { useSnackbar } from "notistack";
 import { useQueryClient } from "@tanstack/react-query";
 import { getProjectsQueryKey } from "src/hooks/useProjects";
 import { useProject } from "src/hooks/useProject";
-import { projectApi } from "src/apis/client";
+import { deleteProjectProjectsProjectIdDelete } from "src/client";
 //
 //
 //
@@ -72,9 +71,9 @@ const ProjectNav = () => {
    */
   const handleDeleteProject = async () => {
     try {
-      await projectApi.deleteProjectProjectsProjectIdDelete({
+      await deleteProjectProjectsProjectIdDelete({
         projectId,
-        projectType: ProjectTypeEnum.Experiment,
+        projectType: "experiment",
       });
 
       queryClient.invalidateQueries({ queryKey: getProjectsQueryKey });

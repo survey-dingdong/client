@@ -2,10 +2,9 @@
 import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import { ProjectTypeEnum } from "generated-client";
 import { useParams } from "next/navigation";
 import React from "react";
-import { projectApi } from "src/apis/client";
+import { getProjectParticipantListProjectsProjectIdParticipantsGet } from "src/client";
 import { useProject } from "src/hooks/useProject";
 import { Empty, PageHeader } from "src/shared";
 import { CopyIconButton } from "src/widgets";
@@ -32,9 +31,9 @@ export default function Page() {
   const { data: participantsData = [] } = useQuery({
     queryKey: ["participants"],
     queryFn: async () =>
-      projectApi.getProjectParticipantListProjectsProjectIdParticipantsGet({
+      getProjectParticipantListProjectsProjectIdParticipantsGet({
         projectId: _projectId,
-        projectType: ProjectTypeEnum.Experiment,
+        projectType: "experiment",
       }),
   });
 
@@ -56,19 +55,9 @@ export default function Page() {
           title="참여자 목록"
           actions={
             noParticipants ? null : (
-              <Box display="flex" alignItems="center" gap={3}>
-                {/* participate code */}
-                <Box display="flex" gap={1} alignItems="center">
-                  <Typography variant="body2">
-                    참여 코드: {project?.participantCode}
-                  </Typography>
-                  <CopyIconButton content="ZXWE" />
-                </Box>
-                {/* download report */}
-                <Button color="secondary" startIcon={<DownloadRoundedIcon />}>
-                  리포트 다운로드
-                </Button>
-              </Box>
+              <Button color="secondary" startIcon={<DownloadRoundedIcon />}>
+                리포트 다운로드
+              </Button>
             )
           }
         />

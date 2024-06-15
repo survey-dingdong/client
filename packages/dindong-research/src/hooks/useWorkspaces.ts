@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { workspaceApi } from "src/apis/client";
+import { getWorkspaceListWorkspacesGet } from "src/client";
 
 type WorkspaceType = {
   id: number;
@@ -17,7 +17,7 @@ export const WORKSPACES_QUERY_KEY = "/workspaces";
 export function useWorkspaces(): UseProjectReturn {
   const { data, isError, isLoading } = useQuery<WorkspaceType[]>({
     queryKey: [WORKSPACES_QUERY_KEY],
-    queryFn: () => workspaceApi.getWorkspaceListWorkspacesGet(),
+    queryFn: () => getWorkspaceListWorkspacesGet(),
   });
 
   return {

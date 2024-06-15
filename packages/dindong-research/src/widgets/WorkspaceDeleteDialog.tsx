@@ -10,7 +10,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 import { useSnackbar } from "notistack";
 import React from "react";
-import { workspaceApi } from "src/apis/client";
+import { deleteWorkspaceWorkspacesWorkspaceIdDelete } from "src/client";
 import { WORKSPACES_QUERY_KEY } from "src/hooks/useWorkspaces";
 
 interface WorkspaceDeleteDialogProps {
@@ -40,7 +40,7 @@ const WorkspaceDeleteDialog: React.FC<WorkspaceDeleteDialogProps> = ({
       if (!id) {
         return;
       }
-      workspaceApi.deleteWorkspaceWorkspacesWorkspaceIdDelete({
+      deleteWorkspaceWorkspacesWorkspaceIdDelete({
         workspaceId: id,
       });
 

@@ -25,7 +25,7 @@ import React from "react";
 import ParticipantStatusChip from "./ParticipantStatusChip";
 import Link from "next/link";
 import { usePath } from "src/hooks/usePath";
-import { GetExperimentParticipantResponse } from "generated-client";
+import { GetExperimentParticipantResponse } from "src/client";
 
 const heads = ["이름", "예약 일시", "참여 여부", ""];
 

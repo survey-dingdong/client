@@ -7,7 +7,6 @@ import React from "react";
 import { Controller, FormProvider, useForm, useWatch } from "react-hook-form";
 
 import { useMutation } from "@tanstack/react-query";
-import { CreateUserRequest } from "generated-client";
 import EmailVerifiedForm from "src/widgets/EmailVerifiedForm";
 import {
   TextField,
@@ -15,7 +14,7 @@ import {
   passwordRegex,
   PasswordTextField,
 } from "src/shared";
-import { userApi } from "src/apis/client";
+import { CreateUserRequest, createUserUsersPost } from "src/client";
 
 //
 //
@@ -52,8 +51,8 @@ export default function Page() {
 
   // [HANDLER]
   const mutation = useMutation({
-    mutationFn: (createUserRequest: CreateUserRequest) =>
-      userApi.createUserUsersPost({ createUserRequest }),
+    mutationFn: (data: CreateUserRequest) =>
+      createUserUsersPost({ requestBody: data }),
     onSuccess: () => {
       enqueueSnackbar("회원가입에 성공했습니다.", {
         variant: "success",

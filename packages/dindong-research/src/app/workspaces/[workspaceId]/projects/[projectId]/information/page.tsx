@@ -1,4 +1,6 @@
 "use client";
+import React from "react";
+
 import {
   Box,
   Card,
@@ -16,7 +18,15 @@ import {
   ToggleButtonGroup,
   Typography,
 } from "@mui/material";
-import React from "react";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { useQueryClient } from "@tanstack/react-query";
+import dayjs, { Dayjs } from "dayjs";
+import isBetween from "dayjs/plugin/isBetween";
+
+import { useParams } from "next/navigation";
+import { useSnackbar } from "notistack";
+import { Controller, FormProvider, useForm, useWatch } from "react-hook-form";
+import { GET_PROJECT_QUERY_KEY, useProject } from "src/hooks/useProject";
 import {
   CardWithTitle,
   FormLabelWithDescription,
@@ -35,22 +45,11 @@ import {
   ProjectBottomNav,
   PublicTag,
 } from "src/widgets";
-
-import { Controller, FormProvider, useForm, useWatch } from "react-hook-form";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { GET_PROJECT_QUERY_KEY, useProject } from "src/hooks/useProject";
-import { useParams } from "next/navigation";
-import dayjs, { Dayjs } from "dayjs";
-import { useSnackbar } from "notistack";
 import {
   ExperimentTimeslotRequest,
-  ExperimentTypeEnum,
-  ProjectTypeEnum,
   PutProjectRequest,
-} from "generated-client";
-import { useQueryClient } from "@tanstack/react-query";
-import isBetween from "dayjs/plugin/isBetween";
-import { projectApi } from "src/apis/client";
+  updateProjectProjectsProjectIdPut,
+} from "src/client";
 dayjs.extend(isBetween);
 
 //
@@ -187,10 +186,10 @@ export default function Page() {
    */
   const handleSubmit = formMethods.handleSubmit(async (data) => {
     try {
-      await projectApi.updateProjectProjectsProjectIdPut({
+      await updateProjectProjectsProjectIdPut({
         projectId: _projectId,
-        projectType: ProjectTypeEnum.Experiment,
-        putProjectRequest: {
+        projectType: "experiment",
+        requestBody: {
           ...data,
           startDate: dayjs(data.startDate).format(SERVER_DATE_FORMAT) as any,
           endDate: dayjs(data.endDate).format(SERVER_DATE_FORMAT) as any,
@@ -511,12 +510,8 @@ export default function Page() {
                       exclusive
                       sx={{ width: "420px" }}
                     >
-                      <ToggleButton value={ExperimentTypeEnum.Offline}>
-                        대면
-                      </ToggleButton>
-                      <ToggleButton value={ExperimentTypeEnum.Online}>
-                        비대면
-                      </ToggleButton>
+                      <ToggleButton value={"offline"}>대면</ToggleButton>
+                      <ToggleButton value={"online"}>비대면</ToggleButton>
                     </ToggleButtonGroup>
                   )}
                 />
@@ -547,20 +542,6 @@ export default function Page() {
                       )
                     }
                   />
-                </Stack>
-
-                <Stack gap={0.5}>
-                  <Typography variant="body1" fontWeight={700}>
-                    참여 코드
-                  </Typography>
-
-                  <Box display="flex" gap={1.5} alignItems="center">
-                    <OutlinedInput readOnly value={project?.participantCode} />
-                    <CopyIconButton content={project?.participantCode ?? ""} />
-                  </Box>
-                  <FormHelperText sx={{ whiteSpace: "pre-wrap" }}>
-                    {`참여자의 실험 참여 여부를 체크하기 위한 참여코드가 발급됩니다.\n참여자는 실험 참여 10분 전 또는 참여 이후 모바일 앱을 통해 해당코드를 입력하여 참여 완료 여부를 입력할 수 있습니다.`}
-                  </FormHelperText>
                 </Stack>
               </CardWithTitle>
             </Stack>

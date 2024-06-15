@@ -10,9 +10,9 @@ import {
   CardActionArea,
   cardHeaderClasses,
 } from "@mui/material";
-import { GetProjectListResponse } from "generated-client";
 import Link from "next/link";
 import React from "react";
+import { GetProjectListResponse } from "src/client";
 import { usePath } from "src/hooks/usePath";
 import PublicTag from "src/widgets/PublicTag";
 
