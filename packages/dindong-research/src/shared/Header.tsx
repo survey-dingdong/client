@@ -18,6 +18,8 @@ import { useUser } from "src/hooks/useUser";
 import { useWorkspaces } from "src/hooks/useWorkspaces";
 import { ProfileCard } from "src/widgets";
 import logo from "public/logo.png";
+import { token } from "src/utils/token";
+import { REFRESH_TOKEN_KEY, TOKEN_KEY } from "src/constants/token";
 
 //
 //
@@ -89,7 +91,11 @@ const Header: NextPage = () => {
             fullWidth
             LinkComponent={Link}
             href="/"
-            onClick={handleMenuClose}
+            onClick={() => {
+              handleMenuClose();
+              token.remove(TOKEN_KEY);
+              token.remove(REFRESH_TOKEN_KEY);
+            }}
           >
             로그아웃
           </Button>

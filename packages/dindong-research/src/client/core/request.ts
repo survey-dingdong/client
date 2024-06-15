@@ -340,7 +340,6 @@ export const request = <T>(
 ): CancelablePromise<T> => {
   return new CancelablePromise(async (resolve, reject, onCancel) => {
     try {
-      console.log("options", options);
       const _options: ApiRequestOptions = {
         ...options,
         query: camelToSnake(options.query as any),
