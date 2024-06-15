@@ -26,7 +26,7 @@ import isBetween from "dayjs/plugin/isBetween";
 import { useParams } from "next/navigation";
 import { useSnackbar } from "notistack";
 import { Controller, FormProvider, useForm, useWatch } from "react-hook-form";
-import { GET_PROJECT_QUERY_KEY, useProject } from "src/hooks/useProject";
+
 import {
   CardWithTitle,
   FormLabelWithDescription,
@@ -50,6 +50,7 @@ import {
   PutProjectRequest,
   updateProjectProjectsProjectIdPut,
 } from "src/client";
+import { GET_PROJECT_QUERY_KEY, useProject } from "src/hooks/useProject";
 dayjs.extend(isBetween);
 
 //
@@ -520,6 +521,12 @@ export default function Page() {
                   <Controller
                     name="location"
                     control={formMethods.control}
+                    rules={{
+                      required: {
+                        value: true,
+                        message: "필수 입력 항목입니다.",
+                      },
+                    }}
                     render={({ field }) =>
                       watchedExperimentType === "online" ? (
                         <TextField
