@@ -33,6 +33,8 @@ const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const isFormValid = email && password;
+
   const { mutate: login, isPending: isLoginLoading } = useMutation({
     mutationFn: () => loginUsersLoginPost({ requestBody: { email, password } }),
     onSuccess: async ({ refreshToken, token: userToken }) => {
@@ -70,15 +72,25 @@ const LoginForm = () => {
         <TextField
           placeholder="계정을 입력해주세요."
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
           error={error}
+          onChange={(e) => setEmail(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && isFormValid) {
+              login();
+            }
+          }}
         />
         <Stack gap="6px">
           <PasswordTextField
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
             placeholder="비밀번호를 입력해주세요."
             error={error}
+            onChange={(e) => setPassword(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && isFormValid) {
+                login();
+              }
+            }}
           />
 
           <Box display="flex" justifyContent="flex-end" alignItems="center">
@@ -103,7 +115,7 @@ const LoginForm = () => {
           </Divider>
         }
       >
-        <Button onClick={() => login()}>
+        <Button disabled={!isFormValid} onClick={() => login()}>
           {isLoginLoading ? (
             <CircularProgress size={24} color="inherit" />
           ) : (
