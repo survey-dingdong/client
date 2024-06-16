@@ -362,6 +362,11 @@ export const request = <T>(
           axiosClient
         );
 
+        if (response.status === 401) {
+          token.remove(TOKEN_KEY);
+          window.location.href = `${window.location.origin}/`;
+        }
+
         for (const fn of config.interceptors.response.Fns) {
           response = await fn(response);
         }
