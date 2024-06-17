@@ -16,6 +16,7 @@ export { default as ProfileCard } from "./ProfileCard";
 export { default as Tag } from "./Tag";
 export { default as PublicTag } from "./PublicTag";
 export { default as ExcludedDatePicker } from "./ExcludedDatePicker";
+export { default as OpenSwitch } from "./OpenSwitch";
 
 export * from "./notice";
 export * from "./ProjectBottomNav";

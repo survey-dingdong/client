@@ -12,10 +12,10 @@ import {
   FormHelperText,
   FormLabel,
   InputAdornment,
-  OutlinedInput,
   Stack,
   ToggleButton,
   ToggleButtonGroup,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -42,6 +42,7 @@ import {
   DEFAULT_TIMESLOT,
   ExcludedDatePicker,
   InterviewSessionList,
+  OpenSwitch,
   ProjectBottomNav,
   PublicTag,
 } from "src/widgets";
@@ -51,6 +52,7 @@ import {
   updateProjectProjectsProjectIdPut,
 } from "src/client";
 import { GET_PROJECT_QUERY_KEY, useProject } from "src/hooks/useProject";
+import { isProjectFulfilled } from "src/utils/project";
 dayjs.extend(isBetween);
 
 //
@@ -105,6 +107,8 @@ export default function Page() {
     projectId: _projectId,
   });
 
+  const projectFulfilled = isProjectFulfilled(project);
+
   const formMethods = useForm<ProjectFormType>({
     defaultValues: project as unknown as ProjectFormType,
   });
@@ -134,6 +138,11 @@ export default function Page() {
 
   const watchedExcludeDates = useWatch({
     name: "excludedDates",
+    control: formMethods.control,
+  });
+
+  const watchedIsPublic = useWatch({
+    name: "isPublic",
     control: formMethods.control,
   });
 
@@ -257,6 +266,55 @@ export default function Page() {
                     />
                     {project?.title}
                   </>
+                }
+                actions={
+                  <OpenSwitch
+                    originValue={watchedIsPublic}
+                    disabled={!projectFulfilled}
+                    onToggle={() => {
+                      if (!projectFulfilled) {
+                        return;
+                      }
+
+                      updateProjectProjectsProjectIdPut({
+                        projectId: _projectId,
+                        projectType: "experiment",
+                        requestBody: {
+                          ...(project as PutProjectRequest),
+                          isPublic: !watchedIsPublic,
+                        },
+                      });
+                    }}
+                  />
+                  // <Tooltip
+                  //   title={
+                  //     projectFulfilled
+                  //       ? ""
+                  //       : "프로젝트를 공개하려면 프로젝트 정보 입력 및 저장이 완료되어야 합니다. "
+                  //   }
+                  // >
+                  //   <span>
+                  //     <FormControlLabel
+                  //       labelPlacement="start"
+                  //       disabled={!projectFulfilled}
+                  //       label="서베이 플랫폼에 공개하기"
+                  //       slotProps={{
+                  //         typography: {
+                  //           variant: "body1",
+                  //         },
+                  //       }}
+                  //       onChange={(e) => {
+                  //         if()
+                  //       }}
+                  //       control={
+                  //         <Switch
+
+                  //           checked={project?.isPublic}
+                  //         />
+                  //       }
+                  //     />
+                  //   </span>
+                  // </Tooltip>
                 }
               />
               {/*  */}
