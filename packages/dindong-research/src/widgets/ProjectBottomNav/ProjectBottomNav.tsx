@@ -16,6 +16,7 @@ const ProjectBottomNav = () => {
         top: "auto",
         left: drawerWidth,
         right: 0,
+        borderRadius: 0,
       }}
     >
       <Toolbar>

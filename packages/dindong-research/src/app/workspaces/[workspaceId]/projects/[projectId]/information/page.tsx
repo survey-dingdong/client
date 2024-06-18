@@ -15,7 +15,6 @@ import {
   Stack,
   ToggleButton,
   ToggleButtonGroup,
-  Tooltip,
   Typography,
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -37,7 +36,6 @@ import {
 import {
   AddressForm,
   convertTimeToDayjs,
-  CopyIconButton,
   DateChip,
   DEFAULT_TIMESLOT,
   ExcludedDatePicker,
@@ -560,22 +558,22 @@ export default function Page() {
 
               {/* 실험 유형 */}
               <CardWithTitle title="실험 유형">
-                <Controller
-                  name="experimentType"
-                  control={formMethods.control}
-                  render={({ field }) => (
-                    <ToggleButtonGroup
-                      {...field}
-                      exclusive
-                      sx={{ width: "420px" }}
-                    >
-                      <ToggleButton value={"offline"}>대면</ToggleButton>
-                      <ToggleButton value={"online"}>비대면</ToggleButton>
-                    </ToggleButtonGroup>
-                  )}
-                />
+                <Stack gap={3}>
+                  <Controller
+                    name="experimentType"
+                    control={formMethods.control}
+                    render={({ field }) => (
+                      <ToggleButtonGroup
+                        {...field}
+                        exclusive
+                        sx={{ width: "420px" }}
+                      >
+                        <ToggleButton value={"offline"}>대면</ToggleButton>
+                        <ToggleButton value={"online"}>비대면</ToggleButton>
+                      </ToggleButtonGroup>
+                    )}
+                  />
 
-                <Stack>
                   <Controller
                     name="location"
                     control={formMethods.control}
@@ -591,6 +589,7 @@ export default function Page() {
                           {...field}
                           fullWidth
                           required
+                          placeholder="URL"
                           label="참여 URL"
                           error={Boolean(fieldState.error)}
                           helperText={
@@ -599,14 +598,16 @@ export default function Page() {
                           }
                         />
                       ) : (
-                        <>
-                          <FormLabel required>실험 장소</FormLabel>
+                        <Stack>
+                          <FormLabel required sx={{ mb: 1 }}>
+                            실험 장소
+                          </FormLabel>
                           <AddressForm />
                           <FormHelperText error={Boolean(fieldState.error)}>
                             {fieldState.error?.message ??
                               "실험 진행을 위한 주소를 입력할 수 있습니다. 주소는 참여자에게 공개됩니다."}
                           </FormHelperText>
-                        </>
+                        </Stack>
                       )
                     }
                   />
