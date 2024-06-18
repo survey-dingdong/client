@@ -21,6 +21,7 @@ import { Tag } from "src/widgets";
 import { enqueueSnackbar } from "notistack";
 import { fetchUserQueryKey, useUser } from "src/hooks/useUser";
 import { updateUserUsersPatch } from "src/client";
+import EditPasswordDialog from "src/shared/EditPasswordDialog";
 
 type DialogType = "nickname" | "account";
 
@@ -102,73 +103,6 @@ export default function Page() {
     );
   };
 
-  const renderEditAccountDialog = () => {
-    return (
-      <Dialog
-        open={editType === "account"}
-        maxWidth="xs"
-        fullWidth
-        onClose={handleDialogClose}
-      >
-        <DialogTitle>계정 정보 수정</DialogTitle>
-        <DialogContent
-          sx={{ display: "flex", flexDirection: "column", gap: 2 }}
-        >
-          <Controller
-            control={formMethods.control}
-            name="email"
-            rules={{
-              required: true,
-              pattern: {
-                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                message: "이메일 형식으로 입력해 주세요.",
-              },
-            }}
-            render={({ field, fieldState }) => (
-              <TextField
-                {...field}
-                required
-                fullWidth
-                label="계정"
-                placeholder="이메일을 입력해주세요."
-                error={Boolean(fieldState.error) || fieldState.invalid}
-                helperText={fieldState.error?.message}
-              />
-            )}
-          />
-          {/* <Controller
-            control={formMethods.control}
-            name="password"
-            rules={{
-              required: true,
-              pattern: {
-                value: passwordRegex,
-                message: passwordMessage,
-              },
-            }}
-            render={({ field, fieldState }) => (
-              <PasswordTextField
-                {...field}
-                fullWidth
-                label="비밀번호"
-                error={Boolean(fieldState.error)}
-                helperText={fieldState.error?.message}
-              />
-            )}
-          /> */}
-        </DialogContent>
-        <DialogActions>
-          <Button color="inherit" onClick={handleDialogClose}>
-            취소
-          </Button>
-          <Button type="submit" disabled={!formMethods.formState.isDirty}>
-            저장
-          </Button>
-        </DialogActions>
-      </Dialog>
-    );
-  };
-
   //
   //
   //
@@ -218,11 +152,12 @@ export default function Page() {
 
       {/* Dialogs */}
       <FormProvider {...formMethods}>
-        <form>
-          {renderEditUsernameDialog()}
-          {renderEditAccountDialog()}
-        </form>
+        <form>{renderEditUsernameDialog()}</form>
       </FormProvider>
+      <EditPasswordDialog
+        open={editType === "account"}
+        onClose={handleDialogClose}
+      />
     </Stack>
   );
 }
