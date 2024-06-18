@@ -5,6 +5,7 @@ import {
   Avatar,
   Box,
   Button,
+  buttonClasses,
   IconButton,
   Popover,
   Toolbar,
@@ -20,6 +21,8 @@ import { ProfileCard } from "src/widgets";
 import logo from "public/logo.png";
 import { token } from "src/utils/token";
 import { REFRESH_TOKEN_KEY, TOKEN_KEY } from "src/constants/token";
+import logoutIcon from "public/icons/logout.svg";
+import mypageIcon from "public/icons/user-search.svg";
 
 //
 //
@@ -58,7 +61,7 @@ const Header: NextPage = () => {
               flexDirection: "column",
               gap: 2,
               p: 2,
-              width: 286,
+              width: 254,
               borderRadius: 4,
               border: (theme) => `1px solid ${theme.palette.divider}`,
             },
@@ -82,15 +85,27 @@ const Header: NextPage = () => {
             fullWidth
             LinkComponent={Link}
             href="/my"
+            startIcon={
+              <Image alt="" src={mypageIcon.src} width={16} height={16} />
+            }
+            sx={{
+              [`&.${buttonClasses.root}`]: { padding: "8px 16px !important" },
+            }}
             onClick={handleMenuClose}
           >
             마이페이지
           </Button>
           <Button
-            color="inherit"
             fullWidth
+            color="inherit"
+            startIcon={
+              <Image alt="" src={logoutIcon.src} width={16} height={16} />
+            }
             LinkComponent={Link}
             href="/"
+            sx={{
+              [`&.${buttonClasses.root}`]: { padding: "8px 16px !important" },
+            }}
             onClick={() => {
               handleMenuClose();
               token.remove(TOKEN_KEY);
