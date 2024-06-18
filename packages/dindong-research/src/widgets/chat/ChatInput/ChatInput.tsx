@@ -33,7 +33,7 @@ const ChatInput = () => {
 
   return (
     <Stack
-      borderRadius={4}
+      borderRadius={3.5}
       divider={<Divider orientation="horizontal" />}
       bgcolor="background.paper"
       sx={{
