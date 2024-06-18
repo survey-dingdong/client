@@ -362,7 +362,10 @@ export const request = <T>(
           axiosClient
         );
 
-        if (response.status === 401) {
+        if (
+          response.status === 401 &&
+          (response.data as any).error_code === "UNAUTHORIZED"
+        ) {
           token.remove(TOKEN_KEY);
           window.location.href = `${window.location.origin}/`;
         }

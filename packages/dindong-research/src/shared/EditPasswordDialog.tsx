@@ -52,14 +52,8 @@ const EditPasswordDialogContent: React.FC<EditPasswordDialogContentProps> = ({
     name: "newPassword",
   });
 
-  const watchedReEnterPw = useWatch({
-    control: formMethods.control,
-    name: "reEnterPw",
-  });
-
   const handleSubmit = formMethods.handleSubmit(
     async ({ reEnterPw, ...data }) => {
-      console.log("hi");
       try {
         await changePasswordUsersPasswordPatch({ requestBody: data });
         enqueueSnackbar("비밀번호가 변경되었습니다.", {
@@ -67,8 +61,16 @@ const EditPasswordDialogContent: React.FC<EditPasswordDialogContentProps> = ({
         });
 
         onClose();
-      } catch (err) {
-        enqueueSnackbar("비밀번호 변경에 실패했습니다.", {
+      } catch (err: any) {
+        if (err.body.errorCode === "USER__PASSWORD_DOES_NOT_MATCH") {
+          formMethods.setError("oldPassword", {
+            type: "manual",
+            message: "현재 설정되어 있는 비밀번호가 올바르지 않습니다.",
+          });
+          return;
+        }
+
+        enqueueSnackbar("에러가 발생했습니다. 다시 시도해 주세요.", {
           variant: "error",
         });
       }
@@ -161,7 +163,7 @@ const EditPasswordDialogContent: React.FC<EditPasswordDialogContentProps> = ({
           form={formId}
           disabled={!formMethods.formState.isValid}
         >
-          저장(주의 틀리면 로그인창으로 감!! 개발중)
+          저장
         </Button>
       </DialogActions>
     </>
