@@ -2,6 +2,8 @@
 import React from "react";
 import { usePathname } from "next/navigation";
 import { ThumbnailLayout } from "src/shared";
+import { Box, Typography, Link as MuiLink } from "@mui/material";
+import Link from "next/link";
 
 export default function WorkspaceLayout({
   children,
@@ -28,5 +30,16 @@ export default function WorkspaceLayout({
     }
   };
 
-  return <ThumbnailLayout title={getTitle()}>{children}</ThumbnailLayout>;
+  return (
+    <ThumbnailLayout title={getTitle()}>
+      {children}
+      <Box flexGrow={1} />
+      <Box display="flex" gap={1} alignItems="center">
+        <Typography variant="body2">이미 계정이 있으신가요?</Typography>
+        <MuiLink component={Link} href="/" color="primary.main" variant="body2">
+          로그인
+        </MuiLink>
+      </Box>
+    </ThumbnailLayout>
+  );
 }

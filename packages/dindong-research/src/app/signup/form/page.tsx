@@ -73,82 +73,71 @@ export default function Page() {
   );
 
   return (
-    <>
-      <FormProvider {...formMethods}>
-        <form onSubmit={postUser}>
-          <Stack gap={3}>
-            <Stack gap={2}>
-              <Controller
-                name="username"
-                control={formMethods.control}
-                rules={{ required: true }}
-                render={({ field }) => (
-                  <TextField
-                    required
-                    label="이름"
-                    placeholder="본인 이름을 입력해 주세요."
-                    {...field}
-                  />
-                )}
-              />
+    <FormProvider {...formMethods}>
+      <form onSubmit={postUser}>
+        <Stack gap={3}>
+          <Stack gap={2}>
+            <Controller
+              name="username"
+              control={formMethods.control}
+              rules={{ required: true }}
+              render={({ field }) => (
+                <TextField
+                  required
+                  label="이름"
+                  placeholder="본인 이름을 입력해 주세요."
+                  {...field}
+                />
+              )}
+            />
 
-              <EmailVerifiedForm />
+            <EmailVerifiedForm />
 
-              <Controller
-                name="password"
-                control={formMethods.control}
-                rules={{
-                  required: true,
-                  pattern: {
-                    value: passwordRegex,
-                    message: passwordMessage,
-                  },
-                }}
-                render={({ field, fieldState }) => (
-                  <PasswordTextField
-                    {...field}
-                    required
-                    error={Boolean(fieldState.error)}
-                    helperText={fieldState.error?.message}
-                    label="비밀번호"
-                    placeholder={passwordMessage}
-                  />
-                )}
-              />
+            <Controller
+              name="password"
+              control={formMethods.control}
+              rules={{
+                required: true,
+                pattern: {
+                  value: passwordRegex,
+                  message: passwordMessage,
+                },
+              }}
+              render={({ field, fieldState }) => (
+                <PasswordTextField
+                  {...field}
+                  required
+                  error={Boolean(fieldState.error)}
+                  helperText={fieldState.error?.message}
+                  label="비밀번호"
+                  placeholder={passwordMessage}
+                />
+              )}
+            />
 
-              <PasswordTextField
-                required
-                value={reEnterPw}
-                label="비밀번호 재입력"
-                placeholder="비밀번호를 재입력 해주세요."
-                error={Boolean(reEnterPw && pwNotMatch)}
-                helperText={
-                  reEnterPw && pwNotMatch ? "비밀번호가 일치하지 않습니다." : ""
-                }
-                onChange={(e: any) => setReEnterPw(e.target.value)}
-              />
-            </Stack>
-
-            <Button
-              type="submit"
-              disabled={
-                !formMethods.formState.isValid || pwNotMatch || !emailVerified
+            <PasswordTextField
+              required
+              value={reEnterPw}
+              label="비밀번호 재입력"
+              placeholder="비밀번호를 재입력 해주세요."
+              error={Boolean(reEnterPw && pwNotMatch)}
+              helperText={
+                reEnterPw && pwNotMatch ? "비밀번호가 일치하지 않습니다." : ""
               }
-            >
-              회원가입
-            </Button>
+              onChange={(e: any) => setReEnterPw(e.target.value)}
+            />
           </Stack>
-        </form>
-      </FormProvider>
 
-      <Box flexGrow={1} />
-
-      <Box display="flex" gap={1} alignItems="center">
-        <Typography variant="body2">이미 계정이 있으신가요?</Typography>
-        <MuiLink component={Link} href="/" color="primary.main" variant="body2">
-          로그인
-        </MuiLink>
-      </Box>
-    </>
+          <Button
+            type="submit"
+            disabled={
+              !formMethods.formState.isValid || pwNotMatch || !emailVerified
+            }
+          >
+            회원가입
+          </Button>
+        </Stack>
+      </form>
+    </FormProvider>
   );
 }
