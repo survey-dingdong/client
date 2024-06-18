@@ -47,7 +47,10 @@ const theme = createTheme({
         fontFamily: "Pretendard Variable",
       },
       variants: [
-        { props: { variant: "h4" }, style: { fontWeight: 800 } },
+        {
+          props: { variant: "h4" },
+          style: { fontWeight: 800, fontSize: "32px" },
+        },
         { props: { variant: "h6" }, style: { fontWeight: 800 } },
         { props: { color: "text.tertiary" }, style: { color: "#8E97A8" } },
       ],
