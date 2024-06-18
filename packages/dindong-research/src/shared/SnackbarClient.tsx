@@ -2,6 +2,8 @@
 import { styled } from "@mui/material";
 import { MaterialDesignContent, SnackbarProvider } from "notistack";
 import React from "react";
+import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
+import ErrorRoundedIcon from "@mui/icons-material/ErrorRounded";
 
 interface SnackbarClientProps {
   children: React.ReactNode;
@@ -43,8 +45,16 @@ export const SnackbarClient: React.FC<SnackbarClientProps> = ({ children }) => {
         error: StyledMaterialDesignContent,
       }}
       iconVariant={{
-        success: <i className="fa-solid fa-circle-check" />,
-        error: <i className="fa-solid fa-circle-exclamation" />,
+        success: (
+          <CheckCircleRoundedIcon
+            color="success"
+            fontSize="small"
+            sx={{ mr: 1.5 }}
+          />
+        ),
+        error: (
+          <ErrorRoundedIcon color="error" fontSize="small" sx={{ mr: 1.5 }} />
+        ),
       }}
       autoHideDuration={3000}
       anchorOrigin={{
