@@ -84,8 +84,8 @@ export default function Page() {
               render={({ field }) => (
                 <TextField
                   required
-                  label="이름"
-                  placeholder="본인 이름을 입력해 주세요."
+                  label="닉네임"
+                  placeholder="닉네임을 입력해 주세요."
                   {...field}
                 />
               )}

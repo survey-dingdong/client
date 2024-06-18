@@ -161,7 +161,7 @@ const SendNoticeDialog = () => {
                   <Typography variant="body2" fontWeight={700} sx={{ mb: 1 }}>
                     전체 5명
                   </Typography>
-                  <TextField fullWidth placeholder="참여자 이름으로 검색" />
+                  <TextField fullWidth placeholder="참여자 닉네임으로 검색" />
                   <List
                     sx={{
                       maxHeight: `${userListHeight}px`,

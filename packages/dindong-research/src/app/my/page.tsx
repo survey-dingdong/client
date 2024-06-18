@@ -86,8 +86,8 @@ export default function Page() {
                 {...field}
                 required
                 fullWidth
-                label="이름 또는 닉네임"
-                placeholder="이름 또는 닉네임을 입력해주세요."
+                label="닉네임"
+                placeholder="닉네임을 입력해주세요."
               />
             )}
           />
@@ -187,7 +187,7 @@ export default function Page() {
           title="기본 정보"
           headerAction={<EditButton onClick={() => setEditType("nickname")} />}
         >
-          <TextField readOnly label="이름 또는 닉네임" value={user?.username} />
+          <TextField readOnly label="닉네임" value={user?.username} />
         </CardSection>
 
         {/*  */}

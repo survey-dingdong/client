@@ -124,7 +124,7 @@ const WorkspaceNav = () => {
                 secondaryAction={
                   editMode && !isEditing ? (
                     <>
-                      <Tooltip title="이름 변경">
+                      <Tooltip title="닉네임 변경">
                         <IconButton
                           size="small"
                           onClick={() => setEditingWorkspace(workspace)}
