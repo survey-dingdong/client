@@ -2,6 +2,7 @@
 import {
   buttonClasses,
   linearProgressClasses,
+  listItemButtonClasses,
   listItemTextClasses,
   toggleButtonGroupClasses,
 } from "@mui/material";
@@ -297,6 +298,9 @@ const theme = createTheme({
           ...(ownerState.selected && {
             [`& .${listItemTextClasses.primary}`]: {
               color: theme.palette.primary.main,
+            },
+            [`&.${listItemButtonClasses.selected}`]: {
+              backgroundColor: "#F0F7FF",
             },
             i: {
               color: theme.palette.primary.main,
