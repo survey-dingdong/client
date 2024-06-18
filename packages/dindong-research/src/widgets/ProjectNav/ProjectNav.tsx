@@ -13,6 +13,7 @@ import {
   ListItemIcon,
   ListItemText,
   ListSubheader,
+  Stack,
 } from "@mui/material";
 import React from "react";
 
@@ -117,81 +118,78 @@ const ProjectNav = () => {
 
   return (
     <Nav>
-      <Button
-        component={Link}
-        href={workspaces ? `/workspaces/${workspaces[0].id}` : "/"}
-        variant="text"
-        color="inherit"
-        startIcon={<ArrowBackRoundedIcon fontSize="small" />}
-        sx={{ justifyContent: "flex-start" }}
-        fullWidth
-      >
-        프로젝트 홈
-      </Button>
-      <List
-        subheader={
-          <ListSubheader
-            component="div"
-            sx={{ position: "static" }}
-            style={{ fontWeight: 700 }}
-          >
-            프로젝트 메뉴
-          </ListSubheader>
-        }
-        sx={{ flexGrow: 1 }}
-      >
-        <ListItem disablePadding>
-          <ListItemButton
-            LinkComponent={Link}
-            href={informationPath}
-            selected={pathname?.includes("/information")}
-          >
-            <ListItemIcon>
-              <i className="fa-regular fa-clone"></i>
-            </ListItemIcon>
-            <ListItemText
-              primaryTypographyProps={{ variant: "body2", fontWeight: 500 }}
+      <Stack gap={2} sx={{ flexGrow: 1 }}>
+        <Button
+          component={Link}
+          href={workspaces ? `/workspaces/${workspaces[0].id}` : "/"}
+          variant="text"
+          color="inherit"
+          startIcon={<ArrowBackRoundedIcon fontSize="small" />}
+          sx={{ justifyContent: "flex-start" }}
+          fullWidth
+        >
+          프로젝트 홈
+        </Button>
+        <List
+          subheader={
+            <ListSubheader component="div" sx={{ position: "static" }}>
+              프로젝트 메뉴
+            </ListSubheader>
+          }
+          sx={{ flexGrow: 1 }}
+        >
+          <ListItem disablePadding>
+            <ListItemButton
+              LinkComponent={Link}
+              href={informationPath}
+              selected={pathname?.includes("/information")}
             >
-              프로젝트 정보
-            </ListItemText>
-          </ListItemButton>
-        </ListItem>
+              <ListItemIcon>
+                <i className="fa-regular fa-clone"></i>
+              </ListItemIcon>
+              <ListItemText
+                primaryTypographyProps={{ variant: "body2", fontWeight: 500 }}
+              >
+                프로젝트 정보
+              </ListItemText>
+            </ListItemButton>
+          </ListItem>
 
-        <ListItem disablePadding>
-          <ListItemButton
-            LinkComponent={Link}
-            href={participantsPath}
-            selected={pathname?.includes("/participants")}
-          >
-            <ListItemIcon>
-              <i className="fa-regular fa-user"></i>
-            </ListItemIcon>
-            <ListItemText
-              primaryTypographyProps={{ variant: "body2", fontWeight: 500 }}
+          <ListItem disablePadding>
+            <ListItemButton
+              LinkComponent={Link}
+              href={participantsPath}
+              selected={pathname?.includes("/participants")}
             >
-              참여자
-            </ListItemText>
-          </ListItemButton>
-        </ListItem>
+              <ListItemIcon>
+                <i className="fa-regular fa-user"></i>
+              </ListItemIcon>
+              <ListItemText
+                primaryTypographyProps={{ variant: "body2", fontWeight: 500 }}
+              >
+                참여자
+              </ListItemText>
+            </ListItemButton>
+          </ListItem>
 
-        <ListItem disablePadding>
-          <ListItemButton
-            LinkComponent={Link}
-            href={chatPath}
-            selected={pathname?.includes("/chat")}
-          >
-            <ListItemIcon>
-              <i className="fa-regular fa-comment-dots" />
-            </ListItemIcon>
-            <ListItemText
-              primaryTypographyProps={{ variant: "body2", fontWeight: 500 }}
+          <ListItem disablePadding>
+            <ListItemButton
+              LinkComponent={Link}
+              href={chatPath}
+              selected={pathname?.includes("/chat")}
             >
-              채팅
-            </ListItemText>
-          </ListItemButton>
-        </ListItem>
-      </List>
-
+              <ListItemIcon>
+                <i className="fa-regular fa-comment-dots" />
+              </ListItemIcon>
+              <ListItemText
+                primaryTypographyProps={{ variant: "body2", fontWeight: 500 }}
+              >
+                채팅
+              </ListItemText>
+            </ListItemButton>
+          </ListItem>
+        </List>
+      </Stack>
       {/* add workspace button */}
       <Button color="inherit" onClick={() => setOpen(true)}>
         프로젝트 삭제

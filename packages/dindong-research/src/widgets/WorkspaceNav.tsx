@@ -95,6 +95,7 @@ const WorkspaceNav = () => {
                   color: (theme) => theme.palette.primary.main,
                   cursor: "pointer",
                   pr: 1,
+                  fontWeight: 500,
                 }}
                 onClick={() => setEditMode(!editMode)}
               >

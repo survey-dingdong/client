@@ -279,6 +279,9 @@ const theme = createTheme({
         }),
       },
     },
+    //
+    // List
+    //
     MuiListItem: {
       styleOverrides: {
         root: {
@@ -301,6 +304,7 @@ const theme = createTheme({
           ...(ownerState.selected && {
             [`& .${listItemTextClasses.primary}`]: {
               color: theme.palette.primary.main,
+              fontWeight: 500,
             },
             [`&.${listItemButtonClasses.selected}`]: {
               backgroundColor: "#F0F7FF",
@@ -329,7 +333,17 @@ const theme = createTheme({
         }),
       },
     },
-
+    MuiListSubheader: {
+      styleOverrides: {
+        root: {
+          fontSize: "12px",
+          fontWeight: 700,
+          padding: "0 8px",
+          lineHeight: "18px",
+          marginBottom: 8,
+        },
+      },
+    },
     MuiListItemIcon: {
       styleOverrides: {
         root: {
