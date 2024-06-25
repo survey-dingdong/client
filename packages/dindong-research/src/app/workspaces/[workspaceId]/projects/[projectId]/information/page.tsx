@@ -284,35 +284,6 @@ export default function Page() {
                       });
                     }}
                   />
-                  // <Tooltip
-                  //   title={
-                  //     projectFulfilled
-                  //       ? ""
-                  //       : "프로젝트를 공개하려면 프로젝트 정보 입력 및 저장이 완료되어야 합니다. "
-                  //   }
-                  // >
-                  //   <span>
-                  //     <FormControlLabel
-                  //       labelPlacement="start"
-                  //       disabled={!projectFulfilled}
-                  //       label="서베이 플랫폼에 공개하기"
-                  //       slotProps={{
-                  //         typography: {
-                  //           variant: "body1",
-                  //         },
-                  //       }}
-                  //       onChange={(e) => {
-                  //         if()
-                  //       }}
-                  //       control={
-                  //         <Switch
-
-                  //           checked={project?.isPublic}
-                  //         />
-                  //       }
-                  //     />
-                  //   </span>
-                  // </Tooltip>
                 }
               />
               {/*  */}
