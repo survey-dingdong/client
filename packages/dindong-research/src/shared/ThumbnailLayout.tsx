@@ -102,6 +102,7 @@ export const ThumbnailLayout = ({
                 color={(theme) => theme.palette.common.white}
                 whiteSpace="pre-wrap"
                 fontWeight={400}
+                sx={{ pr: 12 }}
               >
                 {`딩동(DING DONG)은 연구자와 실험 참여자를 연결하는 실험 빌드 및 참여 서비스를 제공하는 플랫폼입니다.\n신뢰할 수 있는 사용자 데이터를 확보하여 양질의 연구를 수행해 보세요!`}
               </Typography>
