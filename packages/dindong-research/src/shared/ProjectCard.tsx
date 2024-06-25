@@ -108,11 +108,9 @@ function LinearProgressWithLabel({
       <Box sx={{ width: "100%", mr: 1 }}>
         <LinearProgress variant="determinate" {...props} />
       </Box>
-      <Box sx={{ minWidth: 35 }}>
-        <Typography variant="caption" fontWeight={600}>
-          {project.joinedParticipants}/{project.maxParticipants}
-        </Typography>
-      </Box>
+      <Typography variant="caption" fontWeight={600}>
+        {project.joinedParticipants}/{project.maxParticipants}
+      </Typography>
     </Box>
   );
 }
