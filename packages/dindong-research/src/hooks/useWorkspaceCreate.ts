@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useSnackbar } from "notistack";
 import { createWorkspaceWorkspacesPost } from "src/client";
+import { WORKSPACES_QUERY_KEY } from "./useWorkspaces";
 
 //
 //
@@ -28,8 +29,7 @@ export const useWorkspaceCreate = ({
         });
       }
 
-      queryClient.invalidateQueries({ queryKey: ["workspaces"] });
-      router.push("/workspaces");
+      queryClient.invalidateQueries({ queryKey: [WORKSPACES_QUERY_KEY] });
     },
   });
 

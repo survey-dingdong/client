@@ -45,7 +45,7 @@ const WorkspaceDeleteDialog: React.FC<WorkspaceDeleteDialogProps> = ({
       });
 
       enqueueSnackbar("워크스페이스가 삭제되었습니다.", { variant: "success" });
-      queryClient.invalidateQueries({ queryKey: [WORKSPACES_QUERY_KEY] });
+      await queryClient.refetchQueries({ queryKey: [WORKSPACES_QUERY_KEY] });
 
       if (isDeleteThisWorkspace) {
         router.push(`/workspaces`);
@@ -75,7 +75,6 @@ const WorkspaceDeleteDialog: React.FC<WorkspaceDeleteDialogProps> = ({
           취소
         </Button>
 
-        {/* TODO: add delete function */}
         <Button color="error" onClick={handleDelete}>
           삭제
         </Button>

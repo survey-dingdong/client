@@ -141,7 +141,12 @@ export default function Page() {
         <CardSection
           title="계정 정보"
           verified
-          headerAction={<EditButton onClick={() => setEditType("account")} />}
+          headerAction={
+            <EditButton
+              label="비밀번호 변경"
+              onClick={() => setEditType("account")}
+            />
+          }
         >
           <Box display="flex" gap={2}>
             <TextField fullWidth readOnly label="계정" value={user?.email} />
@@ -210,10 +215,11 @@ const CardSection: React.FC<CardSectionProps> = ({
 //
 
 interface EditButtonProps {
+  label?: string;
   onClick?: () => void;
 }
 
-const EditButton: React.FC<EditButtonProps> = ({ onClick }) => {
+const EditButton: React.FC<EditButtonProps> = ({ label, onClick }) => {
   return (
     <Typography
       color="primary.main"
@@ -225,7 +231,7 @@ const EditButton: React.FC<EditButtonProps> = ({ onClick }) => {
       onClick={onClick}
     >
       <i className="fa-regular fa-pen-to-square" />
-      수정하기
+      {label ?? "수정하기"}
     </Typography>
   );
 };
