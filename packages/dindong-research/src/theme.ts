@@ -58,6 +58,7 @@ const theme = createTheme({
     MuiButton: {
       defaultProps: {
         variant: "contained",
+        disableRipple: true,
         disableElevation: true,
         style: {
           borderRadius: 10,
@@ -309,6 +310,9 @@ const theme = createTheme({
       },
     },
     MuiListItemButton: {
+      defaultProps: {
+        disableRipple: true,
+      },
       styleOverrides: {
         root: ({ theme, ownerState }) => ({
           ...(ownerState.selected && {
