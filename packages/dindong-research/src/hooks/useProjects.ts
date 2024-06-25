@@ -1,4 +1,5 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 import {
   getProjectListWorkspacesWorkspaceIdProjectsGet,
@@ -18,6 +19,8 @@ export function useProjects({
 }: {
   workspaceId: number;
 }): UseProjectReturn {
+  const router = useRouter();
+
   const {
     data = [],
     isLoading,
@@ -28,8 +31,9 @@ export function useProjects({
       getProjectListWorkspacesWorkspaceIdProjectsGet({
         workspaceId,
         projectType: "experiment",
+      }).catch(() => {
+        router.replace("/workspaces");
       }),
-
     placeholderData: keepPreviousData,
   });
 
