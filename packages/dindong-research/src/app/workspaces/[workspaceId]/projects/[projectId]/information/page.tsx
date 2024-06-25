@@ -337,9 +337,6 @@ export default function Page() {
                 <Controller
                   name="description"
                   control={formMethods.control}
-                  rules={{
-                    required: { value: true, message: "필수 입력 항목입니다." },
-                  }}
                   render={({ field, fieldState }) => (
                     <TextField
                       label="프로젝트 설명"
@@ -348,7 +345,6 @@ export default function Page() {
                       error={fieldState.invalid}
                       helperText={fieldState.error?.message}
                       multiline
-                      required
                       fullWidth
                       {...field}
                     />
