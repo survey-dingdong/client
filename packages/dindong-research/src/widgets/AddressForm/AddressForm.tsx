@@ -51,7 +51,6 @@ const AddressForm = () => {
         <Box display="flex" gap={2} mt={1}>
           <OutlinedInput
             fullWidth
-            readOnly
             error={Boolean(fieldState.error)}
             placeholder="기본 주소(필수)"
             onClick={execDaumPostcode}
