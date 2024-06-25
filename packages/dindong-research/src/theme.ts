@@ -443,6 +443,13 @@ const theme = createTheme({
         },
       },
     },
+
+    // Card
+    MuiCardActionArea: {
+      defaultProps: {
+        disableRipple: true,
+      },
+    },
   },
 });
 
