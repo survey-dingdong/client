@@ -169,14 +169,24 @@ const theme = createTheme({
     },
     MuiOutlinedInput: {
       styleOverrides: {
-        root: {
+        root: ({ theme, ownerState }) => ({
+          ...(ownerState.readOnly && {
+            backgroundColor: "#E0E4EA",
+          }),
           borderRadius: "8px",
-          backgroundColor: "#F5F7FA",
+          backgroundColor: theme.palette.background.default,
           padding: "8px 12px",
           "& fieldset": {
             borderColor: "#E0E4EA",
           },
-        },
+          ...(ownerState.readOnly && {
+            backgroundColor: "#E0E4EA",
+            borderColor: "inherit",
+            "& fieldset": {
+              border: "none !important",
+            },
+          }),
+        }),
         input: {
           fontSize: "14px",
           padding: 0,
