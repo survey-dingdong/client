@@ -59,16 +59,25 @@ const CreateProjectDialog: React.FC<CreateProjectDialogProps> = ({
               requestBody: {
                 title: value,
               },
-            }).then(() => {
-              enqueueSnackbar("프로젝트가 만들어졌습니다.", {
-                variant: "success",
-              });
-
-              queryClient.invalidateQueries({
-                queryKey: getProjectsQueryKey,
-              });
-              onClose();
             })
+              .then(() => {
+                enqueueSnackbar("프로젝트가 만들어졌습니다.", {
+                  variant: "success",
+                });
+
+                queryClient.invalidateQueries({
+                  queryKey: getProjectsQueryKey,
+                });
+                onClose();
+              })
+              .catch(() => {
+                enqueueSnackbar(
+                  "에러가 발생했습니다. 새로고침 후 다시 시도해주세요.",
+                  {
+                    variant: "error",
+                  }
+                );
+              })
           }
         >
           만들기
