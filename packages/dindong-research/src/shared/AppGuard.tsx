@@ -15,12 +15,12 @@ export const AppGuard: React.FC<AppGuardProps> = ({ children }) => {
   const noToken = !accessToken && !NO_TOKEN_PATHNAME_REGEX.test(pathname ?? "");
 
   if (noToken && typeof window !== "undefined") {
-    window.location.href = "/";
+    // window.location.href = "/";
   }
 
-  if (noToken) {
-    return <></>;
-  }
+  // if (noToken) {
+  //   return <></>;
+  // }
 
   return <>{children}</>;
 };
