@@ -7,6 +7,8 @@ import {
   toggleButtonGroupClasses,
 } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
+import React from "react";
+import { RadioCheckedIcon, RadioIcon } from "./shared/RadioIcon";
 
 const theme = createTheme({
   // palette
@@ -290,6 +292,37 @@ const theme = createTheme({
         }),
       },
     },
+
+    // Menu
+    MuiMenu: {
+      defaultProps: {
+        elevation: 0,
+      },
+      styleOverrides: {
+        paper: ({ theme }) => ({
+          borderRadius: 16,
+          padding: 8,
+          border: `1px solid ${theme.palette.divider}`,
+        }),
+        list: {
+          padding: 0,
+        },
+      },
+    },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+          height: 44,
+          ":hover": {
+            backgroundColor: "#E0E4EA33",
+          },
+          [`&.${listItemButtonClasses.selected}`]: {
+            backgroundColor: "#F0F7FF !important",
+          },
+        },
+      },
+    },
     //
     // List
     //
@@ -403,6 +436,9 @@ const theme = createTheme({
         root: {
           width: "fit-content",
         },
+        label: {
+          fontSize: 14,
+        },
       },
     },
 
@@ -448,6 +484,15 @@ const theme = createTheme({
     MuiCardActionArea: {
       defaultProps: {
         disableRipple: true,
+      },
+    },
+
+    MuiRadio: {
+      defaultProps: {
+        disableRipple: true,
+        size: "small",
+        icon: RadioIcon,
+        checkedIcon: RadioCheckedIcon,
       },
     },
   },

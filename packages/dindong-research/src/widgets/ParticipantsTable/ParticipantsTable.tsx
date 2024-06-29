@@ -20,14 +20,36 @@ import {
   List,
   ListItemIcon,
   ListItemText,
+  Select,
+  MenuItem,
+  FormControlLabel,
+  Radio,
+  inputBaseClasses,
 } from "@mui/material";
 import React from "react";
 import ParticipantStatusChip from "./ParticipantStatusChip";
 import Link from "next/link";
 import { usePath } from "src/hooks/usePath";
-import { GetExperimentParticipantResponse } from "src/client";
+import {
+  GetExperimentParticipantResponse,
+  ExperimentAttendanceStatus,
+} from "src/client";
+
+//
+//
+//
 
 const heads = ["닉네임", "예약 일시", "참여 여부", ""];
+
+const ATTENDANCE_STATUS_LABEL: Record<ExperimentAttendanceStatus, string> = {
+  attended: "참여",
+  notAttended: "미참여",
+  scheduled: "예정",
+};
+
+//
+//
+//
 
 interface ParticipantsTableProps {
   participants: GetExperimentParticipantResponse[];
@@ -42,6 +64,9 @@ const ParticipantsTable: React.FC<ParticipantsTableProps> = ({
 
   const chatPath = usePath({ type: "project", slug: "/chat" });
 
+  /**
+   *
+   */
   const renderDeleteDialog = () => {
     return (
       <Dialog
@@ -120,15 +145,42 @@ const ParticipantsTable: React.FC<ParticipantsTableProps> = ({
 
           {/* body */}
           <TableBody>
-            {/* mock */}
             {participants.map((participant) => (
               <TableRow key={participant.id}>
                 <TableCell>{participant.username}</TableCell>
                 <TableCell>{participant.reservedDate}</TableCell>
                 <TableCell>
-                  <ParticipantStatusChip
-                    status={participant.attendanceStatus}
-                  />
+                  <Select
+                    value={participant.attendanceStatus}
+                    renderValue={(value) => (
+                      <ParticipantStatusChip status={value as any} />
+                    )}
+                    sx={{
+                      fieldset: {
+                        border: "none",
+                      },
+                      [`&.${inputBaseClasses.root}`]: {
+                        backgroundColor: "inherit",
+                      },
+                    }}
+                  >
+                    {Object.entries(ATTENDANCE_STATUS_LABEL).map(
+                      ([status, label]) => (
+                        <MenuItem key={status} value={status}>
+                          <FormControlLabel
+                            label={label}
+                            control={
+                              <Radio
+                                checked={
+                                  participant.attendanceStatus === status
+                                }
+                              />
+                            }
+                          />
+                        </MenuItem>
+                      )
+                    )}
+                  </Select>
                 </TableCell>
                 <TableCell>
                   <Box display="flex" gap={2}>
