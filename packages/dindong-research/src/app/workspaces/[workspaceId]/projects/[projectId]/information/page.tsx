@@ -247,20 +247,36 @@ export default function Page() {
    *
    */
   const handleProjectPublicToggle = async () => {
-    await updateProjectProjectsProjectIdPut({
-      projectId: _projectId,
-      projectType: "experiment",
-      requestBody: {
-        ...(project as PutProjectRequest),
-        isPublic: !watchedIsPublic,
-      },
-    });
+    try {
+      await updateProjectProjectsProjectIdPut({
+        projectId: _projectId,
+        projectType: "experiment",
+        requestBody: {
+          ...(project as PutProjectRequest),
+          isPublic: !watchedIsPublic,
+        },
+      });
 
-    setPublicDialogOpen(false);
+      if (!project?.isPublic) {
+        enqueueSnackbar("공개되었습니다.", {
+          variant: "success",
+        });
+      } else {
+        enqueueSnackbar("비공개되었습니다.", {
+          variant: "success",
+        });
+      }
 
-    queryClient.refetchQueries({
-      queryKey: [GET_PROJECT_QUERY_KEY, _workspaceId, _projectId],
-    });
+      setPublicDialogOpen(false);
+
+      await queryClient.refetchQueries({
+        queryKey: [GET_PROJECT_QUERY_KEY, _workspaceId, _projectId],
+      });
+    } catch (_) {
+      enqueueSnackbar("에러가 발생했습니다. 다시 시도해 주세요.", {
+        variant: "error",
+      });
+    }
   };
 
   /**
