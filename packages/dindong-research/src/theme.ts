@@ -1,5 +1,7 @@
 "use client";
 import {
+  alertClasses,
+  alertTitleClasses,
   buttonClasses,
   linearProgressClasses,
   listItemButtonClasses,
@@ -7,7 +9,6 @@ import {
   toggleButtonGroupClasses,
 } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
-import React from "react";
 import { RadioCheckedIcon, RadioIcon } from "./shared/RadioIcon";
 
 const theme = createTheme({
@@ -16,7 +17,6 @@ const theme = createTheme({
     primary: {
       main: "#3F57FD",
     },
-
     secondary: {
       main: "#191F28",
     },
@@ -100,8 +100,8 @@ const theme = createTheme({
       variants: [
         {
           props: { color: "inherit", variant: "contained" },
-          style: {
-            color: "#36445F",
+          style: ({ theme }) => ({
+            color: theme.palette.text.primary,
             backgroundColor: "#EAEDF3",
             ":hover": {
               backgroundColor: "#E0E4EA",
@@ -109,17 +109,17 @@ const theme = createTheme({
             ":disabled": {
               backgroundColor: "#EAEDF3",
               opacity: 0.4,
-              color: "#36445F",
+              color: theme.palette.text.primary,
             },
-          },
+          }),
         },
         {
           props: { variant: "outlined", color: "primary" },
-          style: {
+          style: ({ theme }) => ({
             ":hover": {
-              backgroundColor: "#F5F7FA",
+              backgroundColor: theme.palette.background.default,
             },
-          },
+          }),
         },
       ],
     },
@@ -424,9 +424,54 @@ const theme = createTheme({
     },
 
     MuiAlert: {
+      variants: [
+        {
+          props: { variant: "standard" },
+          style: ({ theme }) => ({
+            border: `1px solid ${theme.palette.divider}`,
+          }),
+        },
+        {
+          props: { severity: "success" },
+          style: ({ theme }) => ({
+            color: theme.palette.success.main,
+          }),
+        },
+        {
+          props: { severity: "info" },
+          style: ({ theme }) => ({
+            color: theme.palette.info.main,
+            [`& .${alertTitleClasses.root}`]: {
+              color: theme.palette.info.main,
+            },
+          }),
+        },
+        {
+          props: { severity: "warning" },
+          style: ({ theme }) => ({
+            color: theme.palette.warning.main,
+          }),
+        },
+        {
+          props: { severity: "error" },
+          style: ({ theme }) => ({
+            color: theme.palette.error.main,
+          }),
+        },
+      ],
       styleOverrides: {
         root: {
           borderRadius: 8,
+          alignItems: "center",
+        },
+      },
+    },
+
+    MuiAlertTitle: {
+      styleOverrides: {
+        root: {
+          fontSize: 14,
+          fontWeight: 700,
         },
       },
     },

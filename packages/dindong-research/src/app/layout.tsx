@@ -22,6 +22,7 @@ export default async function RootLayout(props: any) {
             rel="stylesheet"
             as="style"
             crossOrigin="anonymous"
+            property="stylesheet"
             href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
           />
         </head>

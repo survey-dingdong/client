@@ -51,6 +51,7 @@ import {
 } from "src/client";
 import { GET_PROJECT_QUERY_KEY, useProject } from "src/hooks/useProject";
 import { isProjectFulfilled } from "src/utils/project";
+import ProjectOpenStatusAlert from "src/widgets/ProjectOpenStatusAlert";
 dayjs.extend(isBetween);
 
 //
@@ -239,6 +240,17 @@ export default function Page() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watchedEndDate, watchedStartDate]);
 
+  const handleProjectPublicToggle = () => {
+    updateProjectProjectsProjectIdPut({
+      projectId: _projectId,
+      projectType: "experiment",
+      requestBody: {
+        ...(project as PutProjectRequest),
+        isPublic: !watchedIsPublic,
+      },
+    });
+  };
+
   //
   //
   //
@@ -274,18 +286,19 @@ export default function Page() {
                         return;
                       }
 
-                      updateProjectProjectsProjectIdPut({
-                        projectId: _projectId,
-                        projectType: "experiment",
-                        requestBody: {
-                          ...(project as PutProjectRequest),
-                          isPublic: !watchedIsPublic,
-                        },
-                      });
+                      handleProjectPublicToggle();
                     }}
                   />
                 }
               />
+              {/*  */}
+              {projectFulfilled ? (
+                <ProjectOpenStatusAlert
+                  isOpened={project?.isPublic}
+                  onClickButton={handleProjectPublicToggle}
+                />
+              ) : null}
+
               {/*  */}
               <CardWithTitle title="기본 정보">
                 <Controller

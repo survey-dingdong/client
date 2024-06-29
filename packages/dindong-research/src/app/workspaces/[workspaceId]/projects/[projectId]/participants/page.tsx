@@ -1,13 +1,11 @@
 "use client";
 import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
-import { Box, Button, Container, Stack, Typography } from "@mui/material";
+import { Button, Container, Stack } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import React from "react";
 import { getProjectParticipantListProjectsProjectIdParticipantsGet } from "src/client";
-import { useProject } from "src/hooks/useProject";
 import { Empty, PageHeader } from "src/shared";
-import { CopyIconButton } from "src/widgets";
 import { ParticipantsTable } from "src/widgets/ParticipantsTable";
 
 //
@@ -25,7 +23,6 @@ type Params = {
 
 export default function Page() {
   const params = useParams<Params>();
-  const _workspaceId = Number(params?.workspaceId);
   const _projectId = Number(params?.projectId);
 
   const { data: participantsData = [] } = useQuery({
@@ -35,11 +32,6 @@ export default function Page() {
         projectId: _projectId,
         projectType: "experiment",
       }),
-  });
-
-  const { project } = useProject({
-    workspaceId: _workspaceId,
-    projectId: _projectId,
   });
 
   const noParticipants = participantsData.length === 0;
