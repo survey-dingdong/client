@@ -24,7 +24,7 @@ interface useProjectPrams {
 //
 //
 
-export const GET_PROJECT_QUERY_KEY = "/project";
+export const GET_PROJECT_QUERY_KEY = "getProjectProjectsProjectIdGet";
 
 //
 //

@@ -12,6 +12,7 @@ const ProjectOpenStatusAlert: React.FC<ProjectOpenStatusAlertProps> = ({
   isOpened,
   onClickButton,
 }) => {
+  const color = isOpened ? "success" : "info";
   if (isOpened === undefined) {
     return null;
   }
@@ -19,13 +20,13 @@ const ProjectOpenStatusAlert: React.FC<ProjectOpenStatusAlertProps> = ({
   return (
     <Alert
       icon={isOpened ? <CheckCircleOutlineRounded /> : <InfoOutlinedIcon />}
-      severity={isOpened ? "success" : "info"}
+      severity={color}
       action={
         <Button
           size="small"
           variant="text"
-          color="info"
-          sx={{ fontWeight: 600 }}
+          color={color}
+          sx={{ fontWeight: 600, whiteSpace: "nowrap" }}
           onClick={onClickButton}
         >
           {isOpened ? "비공개" : "공개"}하기

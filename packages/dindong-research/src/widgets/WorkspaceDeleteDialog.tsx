@@ -40,7 +40,7 @@ const WorkspaceDeleteDialog: React.FC<WorkspaceDeleteDialogProps> = ({
       if (!id) {
         return;
       }
-      deleteWorkspaceWorkspacesWorkspaceIdDelete({
+      await deleteWorkspaceWorkspacesWorkspaceIdDelete({
         workspaceId: id,
       });
 

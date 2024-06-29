@@ -422,7 +422,6 @@ const theme = createTheme({
         },
       },
     },
-
     MuiAlert: {
       variants: [
         {
@@ -435,6 +434,9 @@ const theme = createTheme({
           props: { severity: "success" },
           style: ({ theme }) => ({
             color: theme.palette.success.main,
+            [`& .${alertTitleClasses.root}`]: {
+              color: theme.palette.success.main,
+            },
           }),
         },
         {
@@ -450,12 +452,18 @@ const theme = createTheme({
           props: { severity: "warning" },
           style: ({ theme }) => ({
             color: theme.palette.warning.main,
+            [`& .${alertTitleClasses.root}`]: {
+              color: theme.palette.warning.main,
+            },
           }),
         },
         {
           props: { severity: "error" },
           style: ({ theme }) => ({
             color: theme.palette.error.main,
+            [`& .${alertTitleClasses.root}`]: {
+              color: theme.palette.error.main,
+            },
           }),
         },
       ],

@@ -32,6 +32,7 @@ import {
   TextField,
   PageHeader,
   DatePickerOpenIcon,
+  OpenProjectDialog,
 } from "src/shared";
 import {
   AddressForm,
@@ -107,6 +108,8 @@ export default function Page() {
   });
 
   const projectFulfilled = isProjectFulfilled(project);
+
+  const [publicDialogOpen, setPublicDialogOpen] = React.useState(false);
 
   const formMethods = useForm<ProjectFormType>({
     defaultValues: project as unknown as ProjectFormType,
@@ -240,8 +243,11 @@ export default function Page() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watchedEndDate, watchedStartDate]);
 
-  const handleProjectPublicToggle = () => {
-    updateProjectProjectsProjectIdPut({
+  /**
+   *
+   */
+  const handleProjectPublicToggle = async () => {
+    await updateProjectProjectsProjectIdPut({
       projectId: _projectId,
       projectType: "experiment",
       requestBody: {
@@ -249,6 +255,29 @@ export default function Page() {
         isPublic: !watchedIsPublic,
       },
     });
+
+    setPublicDialogOpen(false);
+
+    queryClient.refetchQueries({
+      queryKey: [GET_PROJECT_QUERY_KEY, _workspaceId, _projectId],
+    });
+  };
+
+  /**
+   *
+   * @returns
+   */
+  const handlePublicClick = () => {
+    if (!projectFulfilled) {
+      return null;
+    }
+
+    if (!project?.isPublic) {
+      setPublicDialogOpen(true);
+      return;
+    }
+
+    handleProjectPublicToggle();
   };
 
   //
@@ -281,13 +310,8 @@ export default function Page() {
                   <OpenSwitch
                     originValue={watchedIsPublic}
                     disabled={!projectFulfilled}
-                    onToggle={() => {
-                      if (!projectFulfilled) {
-                        return;
-                      }
-
-                      handleProjectPublicToggle();
-                    }}
+                    isPublic={project?.isPublic}
+                    onToggle={handlePublicClick}
                   />
                 }
               />
@@ -295,7 +319,7 @@ export default function Page() {
               {projectFulfilled ? (
                 <ProjectOpenStatusAlert
                   isOpened={project?.isPublic}
-                  onClickButton={handleProjectPublicToggle}
+                  onClickButton={handlePublicClick}
                 />
               ) : null}
 
@@ -598,6 +622,12 @@ export default function Page() {
         </Box>
         <ProjectBottomNav />
       </Stack>
+
+      <OpenProjectDialog
+        open={publicDialogOpen}
+        onClose={() => setPublicDialogOpen(false)}
+        onConfirm={handleProjectPublicToggle}
+      />
     </FormProvider>
   );
 }
