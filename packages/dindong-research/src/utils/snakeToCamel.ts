@@ -47,3 +47,16 @@ export function getObject(obj: AxiosResponse, type: "response" | "request") {
   }
   return type === "request" ? camelToSnake(obj.data) : snakeToCamel(obj.data);
 }
+
+export function toSnakeCaseQueryParams(url: string) {
+  const _url = new URL(url);
+  const params = new URLSearchParams(_url.search);
+  const newParams = new URLSearchParams();
+
+  for (const [key, value] of params.entries()) {
+    newParams.append(snakeCase(key), value);
+  }
+
+  _url.search = newParams.toString();
+  return _url;
+}

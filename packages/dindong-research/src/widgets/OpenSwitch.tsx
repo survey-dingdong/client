@@ -1,7 +1,6 @@
 import { FormControlLabel, Switch, Tooltip } from "@mui/material";
 import React from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { OpenProjectDialog } from "src/shared";
 
 //
 //
