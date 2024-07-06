@@ -73,7 +73,7 @@ export default function Page() {
 }
 
 const FormSection = ({ isEmilVerified }: { isEmilVerified: boolean }) => {
-  const { control, setError, clearErrors } = useFormContext();
+  const { control } = useFormContext();
 
   const pw = useWatch({ control, name: "password" });
 
@@ -133,5 +133,5 @@ const FormSection = ({ isEmilVerified }: { isEmilVerified: boolean }) => {
     );
   }
 
-  return <EmailVerifiedForm />;
+  return <EmailVerifiedForm verificationType="reset_password" />;
 };

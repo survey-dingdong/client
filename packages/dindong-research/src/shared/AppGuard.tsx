@@ -7,18 +7,19 @@ interface AppGuardProps {
   children: React.ReactNode;
 }
 
-const NO_TOKEN_PATHNAME_REGEX = /^\/(signup\/.*)?$/;
+const NO_TOKEN_PATHNAME_REGEX = /^\/$|^\/signup\/.*$|^\/password(?:\/.*)?$/;
 
 export const AppGuard: React.FC<AppGuardProps> = ({ children }) => {
   const accessToken = token.get("token");
   const pathname = usePathname();
-  const noToken = !accessToken && !NO_TOKEN_PATHNAME_REGEX.test(pathname ?? "");
+  const guestPage =
+    !accessToken && !NO_TOKEN_PATHNAME_REGEX.test(pathname ?? "");
 
-  if (noToken && typeof window !== "undefined") {
+  if (guestPage && typeof window !== "undefined") {
     window.location.href = "/";
   }
 
-  if (noToken) {
+  if (guestPage) {
     return <></>;
   }
 

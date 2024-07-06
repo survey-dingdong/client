@@ -14,6 +14,7 @@ import { Controller, useFormContext, useWatch } from "react-hook-form";
 import {
   checkEmailAvailabilityAuthEmailAvailabilityPost,
   EmailVerificationRequest,
+  EmailVerificationType,
   sendVerificationEmailAuthEmailVerificationsPost,
   validateVerificationEmailAuthEmailVerificationsValidationPost,
   VerifyEmailRequest,
@@ -25,14 +26,23 @@ import { TextField } from "src/shared";
 //
 
 const BUTTON_WIDTH = 80;
-
 const LIMIT_MINUTES = 5;
 
 //
 //
 //
 
-const EmailVerifiedForm = () => {
+interface EmailVerifiedFormProps {
+  verificationType?: "signup" | "reset_password";
+}
+
+//
+//
+//
+
+const EmailVerifiedForm: React.FC<EmailVerifiedFormProps> = ({
+  verificationType = "signup",
+}) => {
   const { control, setValue, setError } = useFormContext();
   const watchedEmail = useWatch({ control, name: "email" });
 
@@ -113,12 +123,12 @@ const EmailVerifiedForm = () => {
     mutationFn: (data: EmailVerificationRequest) =>
       sendVerificationEmailAuthEmailVerificationsPost({
         requestBody: data,
-        verificationType: "signup",
+        verificationType: verificationType as EmailVerificationType,
       }),
 
     onSuccess: () => {
       startTimer();
-      enqueueSnackbar("인증번호를 발송했습니다. 이메일을 확인해주세요.", {
+      enqueueSnackbar("인증 메일이 발송되었습니다.", {
         variant: "success",
       });
     },

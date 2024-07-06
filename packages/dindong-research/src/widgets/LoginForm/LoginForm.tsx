@@ -96,8 +96,8 @@ const LoginForm = () => {
           <Box display="flex" justifyContent="flex-end" alignItems="center">
             <MuiLink
               component={Link}
-              href="/password"
               color="text.primary"
+              href="/password"
               sx={{ fontSize: 14 }}
             >
               비밀번호를 잊어버리셨나요?

@@ -83,7 +83,7 @@ const responseInterceptor = () => {
 };
 
 export const OpenAPI: OpenAPIConfig = {
-  BASE: BASE_PATH,
+  BASE: "https://survey-dingdong.site",
   CREDENTIALS: "include",
   ENCODE_PATH: undefined,
   HEADERS: undefined,
