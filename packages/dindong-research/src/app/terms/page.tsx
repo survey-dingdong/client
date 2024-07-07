@@ -34,9 +34,7 @@ export default function Page() {
 
         {/* index */}
         <Stack gap={1}>
-          <MuiLink component={"a"} href={`#${SERVICE_ID}`}>
-            서비스 이용 약관
-          </MuiLink>
+          <MuiLink href={`#${SERVICE_ID}`}>서비스 이용 약관</MuiLink>
           <MuiLink href={`#${PRIVACY_ID}`}>개인정보 수집 및 이용 동의</MuiLink>
         </Stack>
 
@@ -61,7 +59,7 @@ export default function Page() {
 
                 {content.map((term, termIndex) => (
                   <Stack key={termIndex} gap={0.5}>
-                    <Typography variant="h6">{`제 ${term?.id} 조 (${term?.title})`}</Typography>
+                    <Typography variant="h5">{`제 ${term?.id} 조 (${term?.title})`}</Typography>
                     <Stack component="ol">
                       {typeof term?.content === "string" ? (
                         <Typography>{term.content}</Typography>
