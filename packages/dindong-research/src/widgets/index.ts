@@ -19,6 +19,7 @@ export { default as ExcludedDatePicker } from "./ExcludedDatePicker";
 export { default as OpenSwitch } from "./OpenSwitch";
 export { default as ContentContainer } from "./ContentContainer";
 export { default as PrivacyPolicy } from "./PrivacyPolicy";
+export { default as AccountDeleteDialog } from "./AccountDeleteDialog";
 
 export * from "./notice";
 export * from "./ProjectBottomNav";

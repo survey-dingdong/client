@@ -55,6 +55,10 @@ const theme = createTheme({
         },
         { props: { variant: "h5" }, style: { fontWeight: 800 } },
         { props: { variant: "h6" }, style: { fontWeight: 800 } },
+        {
+          props: { variant: "subtitle1" },
+          style: { fontWeight: 800, fontSize: 20 },
+        },
         { props: { color: "text.tertiary" }, style: { color: "#8E97A8" } },
       ],
     },
@@ -134,6 +138,7 @@ const theme = createTheme({
     MuiDialogTitle: {
       styleOverrides: {
         root: {
+          fontSize: 24,
           fontWeight: 800,
         },
       },
