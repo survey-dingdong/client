@@ -24,8 +24,17 @@ const remove = (name: string) => {
   localStorage.removeItem(name);
 };
 
+const clear = () => {
+  if (!localStorage) {
+    return;
+  }
+
+  localStorage.clear();
+};
+
 export const token = {
   get,
   set,
   remove,
+  clear,
 } as const;

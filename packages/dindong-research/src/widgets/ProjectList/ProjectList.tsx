@@ -18,7 +18,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects, workspaceId }) => {
    */
   const renderListHeader = () => {
     return (
-      <Box display="flex" justifyContent="flex-end">
+      <Box display="flex" justifyContent="space-between">
         <TextField
           placeholder="프로젝트 명으로 검색"
           size="small"

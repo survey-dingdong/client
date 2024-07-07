@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import React from "react";
-import { PRIVACY_ID, SERVICE_ID } from "src/app/terms/page";
+import { PRIVACY_ID, SERVICE_ID } from "src/constants/terms";
 
 //
 //

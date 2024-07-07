@@ -1,13 +1,13 @@
 import type { AxiosRequestConfig, AxiosResponse } from "axios";
 import type { ApiRequestOptions } from "./ApiRequestOptions";
-import { BASE_PATH } from "src/app/Provider";
 import { token } from "src/utils/token";
-import { TOKEN_KEY } from "src/constants/token";
+import { REFRESH_TOKEN_KEY, TOKEN_KEY } from "src/constants/token";
 import {
   camelToSnake,
   snakeToCamel,
   toSnakeCaseQueryParams,
 } from "src/utils/snakeToCamel";
+import { refreshTokenAuthRefreshPost } from "../services.gen";
 
 type Headers = Record<string, string>;
 type Middleware<T> = (value: T) => T | Promise<T>;
@@ -55,7 +55,6 @@ const requestInterceptor = () => {
       config.data = camelToSnake(config.data);
     }
     const url = new URL(config.url ?? "");
-    console.log(url);
 
     if (config.params) {
       config.params = camelToSnake(config.params);
@@ -73,6 +72,32 @@ const requestInterceptor = () => {
 const responseInterceptor = () => {
   const interceptors = new Interceptors<AxiosResponse>();
   interceptors.use(async (response: AxiosResponse) => {
+    if (response.status === 401) {
+      const accessToken = token.get(TOKEN_KEY);
+      const refreshToken = token.get(REFRESH_TOKEN_KEY);
+
+      if (!accessToken || !refreshToken) {
+        token.clear();
+        window.location.href = `/`;
+
+        return response;
+      }
+
+      refreshTokenAuthRefreshPost({
+        requestBody: {
+          token: accessToken,
+          refreshToken,
+        },
+      }).catch(() => {
+        token.clear();
+        window.location.href = `/`;
+      });
+
+      response.request();
+
+      return response;
+    }
+
     if (response.data) {
       response.data = snakeToCamel(response.data);
     }
@@ -83,6 +108,7 @@ const responseInterceptor = () => {
 };
 
 export const OpenAPI: OpenAPIConfig = {
+  // BASE: "https://survey-dingdong.site",
   BASE: "https://survey-dingdong.site",
   CREDENTIALS: "include",
   ENCODE_PATH: undefined,

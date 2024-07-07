@@ -4,7 +4,6 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import "dayjs/locale/ko";
-import { Suspense } from "react";
 import { AppGuard, SnackbarClient } from "src/shared";
 
 //
@@ -29,7 +28,7 @@ export const Provider = ({ children }: ProviderProps) => {
       <SnackbarClient>
         <QueryClientProvider client={queryClient}>
           <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ko">
-            <Suspense fallback={<></>}>{children}</Suspense>
+            {children}
           </LocalizationProvider>
         </QueryClientProvider>
       </SnackbarClient>

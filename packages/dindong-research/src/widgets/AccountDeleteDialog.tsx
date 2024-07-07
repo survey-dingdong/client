@@ -14,7 +14,6 @@ import { useRouter } from "next/navigation";
 import { useSnackbar } from "notistack";
 import React from "react";
 import { deleteUserUsersMeDelete } from "src/client";
-import { REFRESH_TOKEN_KEY, TOKEN_KEY } from "src/constants/token";
 import { token } from "src/utils/token";
 
 //
@@ -49,8 +48,7 @@ const AccountDeleteDialog: React.FC<AccountDeleteDialogProps> = ({
       }
 
       await deleteUserUsersMeDelete();
-      token.remove(TOKEN_KEY);
-      token.remove(REFRESH_TOKEN_KEY);
+      token.clear();
 
       onClose();
 

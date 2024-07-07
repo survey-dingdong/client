@@ -1,16 +1,8 @@
-// "use client";
+"use client";
 import { Paper, Stack, Typography, Link as MuiLink } from "@mui/material";
-import Link from "next/link";
 import React from "react";
-import { SERVICE_TERMS } from "src/constants/terms";
+import { PRIVACY_ID, SERVICE_ID, SERVICE_TERMS } from "src/constants/terms";
 import { ContentContainer, PrivacyPolicy } from "src/widgets";
-
-//
-//
-//
-
-export const SERVICE_ID = "service";
-export const PRIVACY_ID = "privacy";
 
 //
 //

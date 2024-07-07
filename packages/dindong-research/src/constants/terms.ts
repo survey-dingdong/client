@@ -1,3 +1,6 @@
+export const SERVICE_ID = "service";
+export const PRIVACY_ID = "privacy";
+
 export const SERVICE_TERMS = [
   {
     title: "총칙",

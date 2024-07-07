@@ -1,10 +1,10 @@
 "use client";
-import { Box, CircularProgress, Container, Stack } from "@mui/material";
+import { Box, CircularProgress, Stack } from "@mui/material";
 import { useProjects } from "src/hooks/useProjects";
 import ProjectList from "src/widgets/ProjectList/ProjectList";
 import { useParams } from "next/navigation";
 import SurveyListPageHeader from "src/widgets/WorkspacePageHeader/WorkspacePageHeader";
-import { ContentContainer, SurveyListEmpty } from "src/widgets";
+import { ContentContainer } from "src/widgets";
 
 //
 //
