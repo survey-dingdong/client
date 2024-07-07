@@ -1,6 +1,5 @@
-import { Container } from "@mui/material";
 import { Layout } from "src/shared";
-import { MyNav } from "src/widgets";
+import { ContentContainer, MyNav } from "src/widgets";
 
 export default function WorkspaceLayout({
   children,
@@ -9,9 +8,7 @@ export default function WorkspaceLayout({
 }) {
   return (
     <Layout NavComponent={<MyNav />}>
-      <Container maxWidth="lg" sx={{ py: 7 }}>
-        {children}
-      </Container>
+      <ContentContainer sx={{ py: 7 }}>{children}</ContentContainer>
     </Layout>
   );
 }

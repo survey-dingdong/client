@@ -1,8 +1,9 @@
 "use client";
-import { Button, Container, Paper, Toolbar, Tooltip } from "@mui/material";
+import { Button, Paper, Toolbar, Tooltip } from "@mui/material";
 import React from "react";
 import { useFormContext } from "react-hook-form";
 import { drawerWidth } from "src/shared";
+import ContentContainer from "../ContentContainer";
 
 export const bottomNavHeight = "64px";
 
@@ -20,7 +21,7 @@ const ProjectBottomNav = () => {
       }}
     >
       <Toolbar>
-        <Container maxWidth="lg" sx={{ textAlign: "end" }}>
+        <ContentContainer sx={{ textAlign: "end", py: 0 }}>
           <Tooltip
             title={!formState.isValid ? "필수 항목을 입력해 주세요." : ""}
           >
@@ -30,7 +31,7 @@ const ProjectBottomNav = () => {
               </Button>
             </span>
           </Tooltip>
-        </Container>
+        </ContentContainer>
       </Toolbar>
     </Paper>
   );

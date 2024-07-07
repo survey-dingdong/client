@@ -36,6 +36,7 @@ import {
 } from "src/shared";
 import {
   AddressForm,
+  ContentContainer,
   convertTimeToDayjs,
   DateChip,
   DEFAULT_TIMESLOT,
@@ -309,7 +310,7 @@ export default function Page() {
         onSubmit={handleSubmit}
       >
         <Box overflow="auto">
-          <Container maxWidth="lg" sx={{ py: 7 }}>
+          <ContentContainer>
             <Stack gap={4}>
               <PageHeader
                 title={
@@ -634,7 +635,7 @@ export default function Page() {
                 </Stack>
               </CardWithTitle>
             </Stack>
-          </Container>
+          </ContentContainer>
         </Box>
         <ProjectBottomNav />
       </Stack>

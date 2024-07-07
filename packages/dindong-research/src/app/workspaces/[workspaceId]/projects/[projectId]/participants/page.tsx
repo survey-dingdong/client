@@ -1,11 +1,12 @@
 "use client";
 import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
-import { Button, Container, Stack } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import React from "react";
 import { getProjectParticipantListProjectsProjectIdParticipantsGet } from "src/client";
 import { Empty, PageHeader } from "src/shared";
+import { ContentContainer } from "src/widgets";
 import { ParticipantsTable } from "src/widgets/ParticipantsTable";
 
 //
@@ -41,7 +42,7 @@ export default function Page() {
   //
 
   return (
-    <Container maxWidth="lg" sx={{ py: 7 }}>
+    <ContentContainer>
       <Stack gap={4} height="100%">
         <PageHeader
           title="참여자 목록"
@@ -64,6 +65,6 @@ export default function Page() {
           <ParticipantsTable participants={participantsData} />
         )}
       </Stack>
-    </Container>
+    </ContentContainer>
   );
 }
