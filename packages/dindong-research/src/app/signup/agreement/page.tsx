@@ -100,6 +100,7 @@ const CheckboxItem: React.FC<CheckboxItemProps> = ({
           href={link}
           target="_blank"
           color="text.primary"
+          variant="body2"
         >
           자세히
         </MuiLink>
