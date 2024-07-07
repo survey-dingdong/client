@@ -1,21 +1,19 @@
 import { createUserUsersPost } from "src/client";
 
 export function fetchUserProfile(accessToken: string) {
-  console.log("hi");
   fetch(
     "https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=" +
       accessToken
   )
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
-      // createUserUsersPost({
-      //   requestBody: {
-      //     email: data.email,
-      //     username: data.name,
-      //     password: "",
-      //   },
-      // });
+      createUserUsersPost({
+        requestBody: {
+          email: data.email,
+          username: data.name,
+          password: "",
+        },
+      });
     })
     .catch((error) =>
       console.error("Error fetching user profile data:", error)
