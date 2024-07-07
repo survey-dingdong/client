@@ -205,6 +205,7 @@ const theme = createTheme({
           fontWeight: 500,
           marginLeft: 0,
           lineHeight: "16px",
+          color: "#545D7580",
         },
       },
     },

@@ -136,7 +136,9 @@ const EmailVerifiedForm: React.FC<EmailVerifiedFormProps> = ({
 
   const handleSendVerificationEmail = async () => {
     try {
-      await checkDuplicate.mutateAsync();
+      if (verificationType === "signup") {
+        await checkDuplicate.mutateAsync();
+      }
 
       sendVerificationEmail.mutateAsync({
         email: watchedEmail,
@@ -150,7 +152,7 @@ const EmailVerifiedForm: React.FC<EmailVerifiedFormProps> = ({
     mutationFn: (data: VerifyEmailRequest) =>
       validateVerificationEmailAuthEmailVerificationsValidationPost({
         requestBody: data,
-        verificationType: "signup",
+        verificationType: verificationType as EmailVerificationType,
       }),
     onSuccess: () => {
       setValue("emailVerified", true);
@@ -220,7 +222,11 @@ const EmailVerifiedForm: React.FC<EmailVerifiedFormProps> = ({
       {/* 인증번호 입력 */}
 
       <Stack>
-        <Collapse in={verificationStatus === "verifying"}>
+        <Collapse
+          in={
+            verificationStatus === "verifying" || verificationStatus === "error"
+          }
+        >
           <Box display="flex" gap={1}>
             <TextField
               fullWidth

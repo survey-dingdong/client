@@ -38,7 +38,9 @@ export const TextField: React.FC<_TextFieldProps> = ({
         </FormLabel>
       ) : null}
       <OutlinedInput {...props} />
-      {helperText ? <FormHelperText>{helperText}</FormHelperText> : null}
+      {helperText ? (
+        <FormHelperText error={error}>{helperText}</FormHelperText>
+      ) : null}
     </FormControl>
   );
 };

@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import React from "react";
-import { TextField, PasswordTextField } from "src/shared";
+import { TextField, PasswordTextField, PASSWORD_HELPER_TEXT } from "src/shared";
 import googleImage from "public/icons/google.png";
 import { useState } from "react";
 import Image from "next/image";

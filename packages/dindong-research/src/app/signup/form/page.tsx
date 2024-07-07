@@ -10,7 +10,7 @@ import { useMutation } from "@tanstack/react-query";
 import EmailVerifiedForm from "src/widgets/EmailVerifiedForm";
 import {
   TextField,
-  passwordMessage,
+  PASSWORD_HELPER_TEXT,
   passwordRegex,
   PasswordTextField,
 } from "src/shared";
@@ -100,7 +100,7 @@ export default function Page() {
                 required: true,
                 pattern: {
                   value: passwordRegex,
-                  message: passwordMessage,
+                  message: PASSWORD_HELPER_TEXT,
                 },
               }}
               render={({ field, fieldState }) => (
@@ -108,9 +108,9 @@ export default function Page() {
                   {...field}
                   required
                   error={Boolean(fieldState.error)}
-                  helperText={fieldState.error?.message}
+                  helperText={PASSWORD_HELPER_TEXT ?? fieldState.error?.message}
                   label="비밀번호"
-                  placeholder={passwordMessage}
+                  placeholder="설정할 비밀번호를 입력해 주세요."
                 />
               )}
             />
@@ -119,7 +119,7 @@ export default function Page() {
               required
               value={reEnterPw}
               label="비밀번호 재입력"
-              placeholder="비밀번호를 재입력 해주세요."
+              placeholder="설정할 비밀번호를 재입력 해주세요."
               error={Boolean(reEnterPw && pwNotMatch)}
               helperText={
                 reEnterPw && pwNotMatch ? "비밀번호가 일치하지 않습니다." : ""
