@@ -51,19 +51,18 @@ export default function Page() {
           <CheckboxItem
             checked={checked.age}
             label="[필수] 만 14세 이상입니다."
-            link="/terms/age"
             onChange={(_, value) => setChecked({ ...checked, age: value })}
           />
           <CheckboxItem
             checked={checked.dingdong}
             label="[필수] 딩동 이용 약관"
-            link="/terms/dingdong"
+            link="/terms#service"
             onChange={(_, value) => setChecked({ ...checked, dingdong: value })}
           />
           <CheckboxItem
             checked={checked.privacy}
             label="[필수] 개인정보 수집 및 이용 동의"
-            link="/terms/privacy"
+            link="/terms#privacy"
             onChange={(_, value) => setChecked({ ...checked, privacy: value })}
           />
         </Stack>
@@ -77,7 +76,7 @@ export default function Page() {
 }
 
 type CheckboxItemProps = Omit<FormControlLabelProps, "control"> & {
-  link: string;
+  link?: string;
   checked?: boolean;
   onChange?: CheckboxProps["onChange"];
 };
@@ -94,9 +93,16 @@ const CheckboxItem: React.FC<CheckboxItemProps> = ({
         {...props}
         control={<Checkbox checked={checked} onChange={onChange} />}
       />
-      <MuiLink component={Link} href={link} color="text.primary">
-        자세히
-      </MuiLink>
+      {link ? (
+        <MuiLink
+          component={Link}
+          href={link}
+          target="_blank"
+          color="text.primary"
+        >
+          자세히
+        </MuiLink>
+      ) : null}
     </Box>
   );
 };
