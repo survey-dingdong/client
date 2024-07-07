@@ -179,9 +179,6 @@ const theme = createTheme({
     MuiOutlinedInput: {
       styleOverrides: {
         root: ({ theme, ownerState }) => ({
-          ...(ownerState.readOnly && {
-            backgroundColor: "#E0E4EA",
-          }),
           borderRadius: "8px",
           backgroundColor: theme.palette.background.default,
           padding: "8px 12px",

@@ -195,7 +195,6 @@ const EmailVerifiedForm: React.FC<EmailVerifiedFormProps> = ({
               fullWidth
               required
               label="계정"
-              type="email"
               placeholder="email@dingdong.com"
               error={Boolean(fieldState.error)}
               helperText={fieldState.error?.message}
