@@ -43,7 +43,7 @@ export const TextField: React.FC<_TextFieldProps> = ({
         sx={{
           input: {
             "&:-webkit-autofill": {
-              "-webkit-box-shadow": (theme) =>
+              WebkitBoxShadow: (theme) =>
                 `0 0 0 100px ${theme.palette.background.default} inset`,
             },
           },
