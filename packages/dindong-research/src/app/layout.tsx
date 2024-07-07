@@ -6,6 +6,7 @@ import theme from "../theme";
 // import MSWComponent from "src/mocks/MSWComponent";
 import Script from "next/script";
 import { Provider } from "./Provider";
+import { GlobalStyles } from "@mui/material";
 
 //
 //
@@ -34,6 +35,16 @@ export default async function RootLayout(props: any) {
         >
           <AppRouterCacheProvider options={{ enableCssLayer: true }}>
             <ThemeProvider theme={theme}>
+              <GlobalStyles
+                styles={{
+                  ol: {
+                    margin: 0,
+                  },
+                  ul: {
+                    margin: 0,
+                  },
+                }}
+              />
               <Provider>{children}</Provider>
             </ThemeProvider>
           </AppRouterCacheProvider>

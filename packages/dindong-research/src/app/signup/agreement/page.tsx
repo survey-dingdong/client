@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import React from "react";
+import { PRIVACY_ID, SERVICE_ID } from "src/app/terms/page";
 
 //
 //
@@ -56,13 +57,13 @@ export default function Page() {
           <CheckboxItem
             checked={checked.dingdong}
             label="[필수] 딩동 이용 약관"
-            link="/terms#service"
+            link={`/terms#${SERVICE_ID}`}
             onChange={(_, value) => setChecked({ ...checked, dingdong: value })}
           />
           <CheckboxItem
             checked={checked.privacy}
             label="[필수] 개인정보 수집 및 이용 동의"
-            link="/terms#privacy"
+            link={`/terms#${PRIVACY_ID}`}
             onChange={(_, value) => setChecked({ ...checked, privacy: value })}
           />
         </Stack>

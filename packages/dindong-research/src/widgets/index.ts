@@ -18,6 +18,7 @@ export { default as PublicTag } from "./PublicTag";
 export { default as ExcludedDatePicker } from "./ExcludedDatePicker";
 export { default as OpenSwitch } from "./OpenSwitch";
 export { default as ContentContainer } from "./ContentContainer";
+export { default as PrivacyPolicy } from "./PrivacyPolicy";
 
 export * from "./notice";
 export * from "./ProjectBottomNav";
