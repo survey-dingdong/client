@@ -54,12 +54,16 @@ export default function Page() {
                     <Typography variant="h5">{`제 ${term?.id} 조 (${term?.title})`}</Typography>
                     <Stack component="ol">
                       {typeof term?.content === "string" ? (
-                        <Typography>{term.content}</Typography>
+                        <Typography variant="body2">{term.content}</Typography>
                       ) : (
                         term?.content?.map((line, index) => {
                           if (typeof line === "string") {
                             return (
-                              <Typography key={index} component="li">
+                              <Typography
+                                key={index}
+                                component="li"
+                                variant="body2"
+                              >
                                 {line}
                               </Typography>
                             );
@@ -69,7 +73,11 @@ export default function Page() {
                             return (
                               <Stack component="ul" key={index}>
                                 {line.map((l, index) => (
-                                  <Typography component="li" key={index}>
+                                  <Typography
+                                    component="li"
+                                    key={index}
+                                    variant="body2"
+                                  >
                                     {l}
                                   </Typography>
                                 ))}
@@ -78,7 +86,11 @@ export default function Page() {
                           }
 
                           return (
-                            <Typography component="li" key={index}>
+                            <Typography
+                              component="li"
+                              key={index}
+                              variant="body2"
+                            >
                               {line}
                             </Typography>
                           );
