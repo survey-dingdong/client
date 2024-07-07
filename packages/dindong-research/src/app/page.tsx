@@ -1,9 +1,20 @@
+"use client";
 import { Box, Typography, Link as MuiLink } from "@mui/material";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { TOKEN_KEY } from "src/constants/token";
 import { ThumbnailLayout } from "src/shared";
+import { token } from "src/utils/token";
 import { LoginForm } from "src/widgets";
 
 export default function Home() {
+  const router = useRouter();
+  const accessToken = token.get(TOKEN_KEY);
+
+  if (accessToken) {
+    return router.replace("/workspaces");
+  }
+
   return (
     <main>
       <ThumbnailLayout title="로그인">
