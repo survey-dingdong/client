@@ -1,9 +1,11 @@
-import { Box, Stack } from "@mui/material";
+import { Box, InputAdornment, Stack } from "@mui/material";
 import React from "react";
-import { ProjectCard } from "src/shared";
+import { ProjectCard, TextField } from "src/shared";
+import SearchIcon from "@mui/icons-material/Search";
 
 import { CreateProjectAction } from "../CreateProjectAction";
 import { GetProjectListResponse } from "src/client";
+import { SurveyListEmpty } from "../SurveyListEmpty";
 
 interface ProjectListProps {
   projects?: GetProjectListResponse[];
@@ -16,8 +18,8 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects, workspaceId }) => {
    */
   const renderListHeader = () => {
     return (
-      <Box display="flex" justifyContent="flex-end">
-        {/* <TextField
+      <Box display="flex" justifyContent="space-between">
+        <TextField
           placeholder="프로젝트 명으로 검색"
           size="small"
           sx={{ backgroundColor: (theme) => theme.palette.background.paper }}
@@ -26,7 +28,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects, workspaceId }) => {
               <SearchIcon />
             </InputAdornment>
           }
-        /> */}
+        />
         <CreateProjectAction workspaceId={workspaceId} />
       </Box>
     );
@@ -55,7 +57,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects, workspaceId }) => {
   //
 
   if (projects?.length === 0) {
-    return null;
+    return <SurveyListEmpty workspaceId={workspaceId} />;
   }
 
   return (

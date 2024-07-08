@@ -32,9 +32,11 @@ import {
   TextField,
   PageHeader,
   DatePickerOpenIcon,
+  OpenProjectDialog,
 } from "src/shared";
 import {
   AddressForm,
+  ContentContainer,
   convertTimeToDayjs,
   DateChip,
   DEFAULT_TIMESLOT,
@@ -51,6 +53,7 @@ import {
 } from "src/client";
 import { GET_PROJECT_QUERY_KEY, useProject } from "src/hooks/useProject";
 import { isProjectFulfilled } from "src/utils/project";
+import ProjectOpenStatusAlert from "src/widgets/ProjectOpenStatusAlert";
 dayjs.extend(isBetween);
 
 //
@@ -106,6 +109,8 @@ export default function Page() {
   });
 
   const projectFulfilled = isProjectFulfilled(project);
+
+  const [publicDialogOpen, setPublicDialogOpen] = React.useState(false);
 
   const formMethods = useForm<ProjectFormType>({
     defaultValues: project as unknown as ProjectFormType,
@@ -239,6 +244,59 @@ export default function Page() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watchedEndDate, watchedStartDate]);
 
+  /**
+   *
+   */
+  const handleProjectPublicToggle = async () => {
+    try {
+      await updateProjectProjectsProjectIdPut({
+        projectId: _projectId,
+        projectType: "experiment",
+        requestBody: {
+          ...(project as PutProjectRequest),
+          isPublic: !watchedIsPublic,
+        },
+      });
+
+      if (!project?.isPublic) {
+        enqueueSnackbar("공개되었습니다.", {
+          variant: "success",
+        });
+      } else {
+        enqueueSnackbar("비공개되었습니다.", {
+          variant: "success",
+        });
+      }
+
+      setPublicDialogOpen(false);
+
+      await queryClient.refetchQueries({
+        queryKey: [GET_PROJECT_QUERY_KEY, _workspaceId, _projectId],
+      });
+    } catch (_) {
+      enqueueSnackbar("에러가 발생했습니다. 다시 시도해 주세요.", {
+        variant: "error",
+      });
+    }
+  };
+
+  /**
+   *
+   * @returns
+   */
+  const handlePublicClick = () => {
+    if (!projectFulfilled) {
+      return null;
+    }
+
+    if (!project?.isPublic) {
+      setPublicDialogOpen(true);
+      return;
+    }
+
+    handleProjectPublicToggle();
+  };
+
   //
   //
   //
@@ -252,7 +310,7 @@ export default function Page() {
         onSubmit={handleSubmit}
       >
         <Box overflow="auto">
-          <Container maxWidth="lg" sx={{ py: 7 }}>
+          <ContentContainer>
             <Stack gap={4}>
               <PageHeader
                 title={
@@ -269,23 +327,19 @@ export default function Page() {
                   <OpenSwitch
                     originValue={watchedIsPublic}
                     disabled={!projectFulfilled}
-                    onToggle={() => {
-                      if (!projectFulfilled) {
-                        return;
-                      }
-
-                      updateProjectProjectsProjectIdPut({
-                        projectId: _projectId,
-                        projectType: "experiment",
-                        requestBody: {
-                          ...(project as PutProjectRequest),
-                          isPublic: !watchedIsPublic,
-                        },
-                      });
-                    }}
+                    isPublic={project?.isPublic}
+                    onToggle={handlePublicClick}
                   />
                 }
               />
+              {/*  */}
+              {projectFulfilled ? (
+                <ProjectOpenStatusAlert
+                  isOpened={project?.isPublic}
+                  onClickButton={handlePublicClick}
+                />
+              ) : null}
+
               {/*  */}
               <CardWithTitle title="기본 정보">
                 <Controller
@@ -581,10 +635,16 @@ export default function Page() {
                 </Stack>
               </CardWithTitle>
             </Stack>
-          </Container>
+          </ContentContainer>
         </Box>
         <ProjectBottomNav />
       </Stack>
+
+      <OpenProjectDialog
+        open={publicDialogOpen}
+        onClose={() => setPublicDialogOpen(false)}
+        onConfirm={handleProjectPublicToggle}
+      />
     </FormProvider>
   );
 }

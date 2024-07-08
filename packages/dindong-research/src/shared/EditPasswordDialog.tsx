@@ -1,3 +1,4 @@
+"use client";
 import {
   Dialog,
   DialogTitle,
@@ -8,7 +9,7 @@ import {
 } from "@mui/material";
 import React, { useId } from "react";
 import {
-  passwordMessage,
+  PASSWORD_HELPER_TEXT,
   passwordRegex,
   PasswordTextField,
 } from "./PasswordTextField";
@@ -86,7 +87,7 @@ const EditPasswordDialogContent: React.FC<EditPasswordDialogContentProps> = ({
       <DialogTitle>계정 정보 수정</DialogTitle>
       <DialogContent sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
         <FormProvider {...formMethods}>
-          <Stack component="form" id={formId} onSubmit={handleSubmit} gap={1}>
+          <Stack component="form" id={formId} onSubmit={handleSubmit} gap={2}>
             {/* old password */}
             <Controller
               name="oldPassword"
@@ -111,7 +112,7 @@ const EditPasswordDialogContent: React.FC<EditPasswordDialogContentProps> = ({
                 required: true,
                 pattern: {
                   value: passwordRegex,
-                  message: passwordMessage,
+                  message: PASSWORD_HELPER_TEXT,
                 },
               }}
               control={formMethods.control}
@@ -120,9 +121,9 @@ const EditPasswordDialogContent: React.FC<EditPasswordDialogContentProps> = ({
                   required
                   {...field}
                   label="변경할 비밀번호"
-                  placeholder="변경할 비밀번호를 입력해 주세요. (영문, 숫자/특수문자 8자 이상)"
+                  placeholder="변경할 비밀번호를 입력해 주세요."
                   error={Boolean(fieldState.error)}
-                  helperText={fieldState.error?.message}
+                  helperText={fieldState.error?.message ?? PASSWORD_HELPER_TEXT}
                 />
               )}
             />

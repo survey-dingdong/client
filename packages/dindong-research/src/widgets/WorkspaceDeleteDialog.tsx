@@ -1,3 +1,4 @@
+"use client";
 import {
   Button,
   Dialog,
@@ -40,7 +41,7 @@ const WorkspaceDeleteDialog: React.FC<WorkspaceDeleteDialogProps> = ({
       if (!id) {
         return;
       }
-      deleteWorkspaceWorkspacesWorkspaceIdDelete({
+      await deleteWorkspaceWorkspacesWorkspaceIdDelete({
         workspaceId: id,
       });
 

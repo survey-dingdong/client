@@ -1,6 +1,7 @@
+"use client";
 import { FormControlLabel, Switch, Tooltip } from "@mui/material";
 import React from "react";
-import { OpenProjectDialog } from "src/shared";
+import { Controller, useFormContext } from "react-hook-form";
 
 //
 //
@@ -8,6 +9,7 @@ import { OpenProjectDialog } from "src/shared";
 
 interface OpenSwitchProps {
   disabled?: boolean;
+  isPublic?: boolean;
   originValue?: boolean;
   onToggle: () => void;
 }
@@ -21,18 +23,12 @@ const OpenSwitch: React.FC<OpenSwitchProps> = ({
   originValue = false,
   onToggle,
 }) => {
-  const [open, setOpen] = React.useState(originValue);
+  const { control } = useFormContext();
   const [checked, setChecked] = React.useState(originValue);
 
   //
   //
   //
-
-  const handleToggle = () => {
-    setChecked((prev) => !prev);
-    onToggle();
-    setOpen(false);
-  };
 
   return (
     <>
@@ -44,36 +40,25 @@ const OpenSwitch: React.FC<OpenSwitchProps> = ({
         }
       >
         <span>
-          <FormControlLabel
-            labelPlacement="start"
-            disabled={disabled}
-            label="서베이 플랫폼에 공개하기"
-            slotProps={{
-              typography: {
-                variant: "body1",
-              },
-            }}
-            control={
-              <Switch
-                checked={checked}
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    setOpen(true);
-                  } else {
-                    handleToggle();
-                  }
+          <Controller
+            name="isPublic"
+            control={control}
+            render={({ field }) => (
+              <FormControlLabel
+                labelPlacement="start"
+                disabled={disabled}
+                label="서베이 플랫폼에 공개하기"
+                slotProps={{
+                  typography: {
+                    variant: "body1",
+                  },
                 }}
+                control={<Switch checked={field.value} onChange={onToggle} />}
               />
-            }
+            )}
           />
         </span>
       </Tooltip>
-
-      <OpenProjectDialog
-        open={open}
-        onClose={() => setOpen(false)}
-        onConfirm={handleToggle}
-      />
     </>
   );
 };

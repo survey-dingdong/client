@@ -135,10 +135,10 @@ export const $EmailVerificationType = {
     title: 'EmailVerificationType'
 } as const;
 
-export const $ExperimentAttendanceStatus = {
+export const $ExperimentAttendanceStatusTypeEnum = {
     type: 'string',
     enum: ['scheduled', 'notAttended', 'attended'],
-    title: 'ExperimentAttendanceStatus'
+    title: 'ExperimentAttendanceStatusTypeEnum'
 } as const;
 
 export const $ExperimentTimeslotRead = {
@@ -234,7 +234,7 @@ export const $GetExperimentParticipantResponse = {
         attendanceStatus: {
             allOf: [
                 {
-                    '$ref': '#/components/schemas/ExperimentAttendanceStatus'
+                    '$ref': '#/components/schemas/ExperimentAttendanceStatusTypeEnum'
                 }
             ],
             description: 'Attendance Status'
@@ -443,10 +443,18 @@ export const $GetUserListResponse = {
             type: 'string',
             title: 'Username',
             description: 'username'
+        },
+        oauthAccounts: {
+            items: {
+                '$ref': '#/components/schemas/UserOauthResponse'
+            },
+            type: 'array',
+            title: 'Oauth Accounts',
+            description: 'oauth accounts'
         }
     },
     type: 'object',
-    required: ['id', 'email', 'username'],
+    required: ['id', 'email', 'username', 'oauthAccounts'],
     title: 'GetUserListResponse'
 } as const;
 
@@ -526,6 +534,43 @@ export const $LoginResponse = {
     title: 'LoginResponse'
 } as const;
 
+export const $OauthLoginRequest = {
+    properties: {
+        email: {
+            type: 'string',
+            format: 'email',
+            title: 'Email',
+            description: 'Email'
+        },
+        username: {
+            anyOf: [
+                {
+                    type: 'string'
+                },
+                {
+                    type: 'null'
+                }
+            ],
+            title: 'Username',
+            description: 'User username'
+        },
+        oauthId: {
+            type: 'string',
+            title: 'Oauth Id',
+            description: 'OAuth ID'
+        }
+    },
+    type: 'object',
+    required: ['email', 'oauthId'],
+    title: 'OauthLoginRequest'
+} as const;
+
+export const $OauthProviderTypeEnum = {
+    type: 'string',
+    enum: ['google', 'facebook', 'github', 'kakao', 'naver'],
+    title: 'OauthProviderTypeEnum'
+} as const;
+
 export const $ProjectTypeEnum = {
     type: 'string',
     enum: ['survey', 'experiment'],
@@ -542,9 +587,15 @@ export const $PutProjectRequest = {
             description: 'Title'
         },
         description: {
-            type: 'string',
-            maxLength: 512,
-            minLength: 0,
+            anyOf: [
+                {
+                    type: 'string',
+                    maxLength: 512
+                },
+                {
+                    type: 'null'
+                }
+            ],
             title: 'Description',
             description: 'Description'
         },
@@ -597,7 +648,7 @@ export const $PutProjectRequest = {
         }
     },
     type: 'object',
-    required: ['title', 'description', 'isPublic', 'startDate', 'endDate', 'excludedDates', 'experimentTimeslots', 'maxParticipants', 'experimentType', 'location'],
+    required: ['title', 'isPublic', 'startDate', 'endDate', 'excludedDates', 'experimentTimeslots', 'maxParticipants', 'experimentType', 'location'],
     title: 'PutProjectRequest'
 } as const;
 
@@ -635,6 +686,27 @@ export const $RefreshTokenResponse = {
     type: 'object',
     required: ['token', 'refreshToken'],
     title: 'RefreshTokenResponse'
+} as const;
+
+export const $ResetPasswordRequest = {
+    properties: {
+        email: {
+            type: 'string',
+            format: 'email',
+            title: 'Email',
+            description: 'Email'
+        },
+        password: {
+            type: 'string',
+            format: 'password',
+            title: 'Password',
+            description: 'Password',
+            writeOnly: true
+        }
+    },
+    type: 'object',
+    required: ['email', 'password'],
+    title: 'ResetPasswordRequest'
 } as const;
 
 export const $UpdateUserRequest = {
@@ -697,6 +769,29 @@ export const $UpdateWorkspaceRequest = {
     },
     type: 'object',
     title: 'UpdateWorkspaceRequest'
+} as const;
+
+export const $UserOauthResponse = {
+    properties: {
+        id: {
+            type: 'integer',
+            title: 'Id',
+            description: 'ID'
+        },
+        oauthId: {
+            type: 'string',
+            title: 'Oauth Id',
+            description: 'Oauth ID'
+        },
+        provider: {
+            type: 'string',
+            title: 'Provider',
+            description: 'Provider'
+        }
+    },
+    type: 'object',
+    required: ['id', 'oauthId', 'provider'],
+    title: 'UserOauthResponse'
 } as const;
 
 export const $ValidateEmailResponse = {

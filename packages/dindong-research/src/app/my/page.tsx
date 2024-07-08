@@ -17,7 +17,7 @@ import { Controller, FormProvider, useForm } from "react-hook-form";
 
 import { useQueryClient } from "@tanstack/react-query";
 import { TextField } from "src/shared";
-import { Tag } from "src/widgets";
+import { AccountDeleteDialog, Tag } from "src/widgets";
 import { enqueueSnackbar } from "notistack";
 import { fetchUserQueryKey, useUser } from "src/hooks/useUser";
 import { updateUserUsersPatch } from "src/client";
@@ -41,6 +41,8 @@ export default function Page() {
 
   // [STATE]
   const [editType, setEditType] = React.useState<null | DialogType>(null);
+  const [isAccountDeleteDialogOpen, setIsAccountDeleteDialogOpen] =
+    React.useState(false);
 
   // [HANDLERS]
   const handleDialogClose = () => {
@@ -111,11 +113,7 @@ export default function Page() {
     <Stack height="100%" gap={4.5}>
       <Typography variant="h4">내 계정</Typography>
 
-      <Paper
-        component={Stack}
-        elevation={0}
-        sx={{ p: 3, gap: 5, borderRadius: 5 }}
-      >
+      <PaperCard>
         {/*  */}
         <CardSection
           title="기본 정보"
@@ -153,7 +151,25 @@ export default function Page() {
             <TextField fullWidth readOnly label="비밀번호" type="password" />
           </Box>
         </CardSection>
-      </Paper>
+      </PaperCard>
+
+      <PaperCard>
+        <Box
+          display="flex"
+          gap={1}
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          <Typography variant="subtitle1">계정 삭제</Typography>
+          <Button
+            variant="outlined"
+            color="error"
+            onClick={() => setIsAccountDeleteDialogOpen(true)}
+          >
+            탈퇴하기
+          </Button>
+        </Box>
+      </PaperCard>
 
       {/* Dialogs */}
       <FormProvider {...formMethods}>
@@ -163,9 +179,26 @@ export default function Page() {
         open={editType === "account"}
         onClose={handleDialogClose}
       />
+      <AccountDeleteDialog
+        open={isAccountDeleteDialogOpen}
+        onClose={() => setIsAccountDeleteDialogOpen(false)}
+      />
     </Stack>
   );
 }
+
+//
+const PaperCard = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <Paper
+      component={Stack}
+      elevation={0}
+      sx={{ p: 3, gap: 5, borderRadius: 5 }}
+    >
+      {children}
+    </Paper>
+  );
+};
 
 interface CardSectionProps {
   title: string;

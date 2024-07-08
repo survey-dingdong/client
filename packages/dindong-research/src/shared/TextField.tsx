@@ -37,8 +37,21 @@ export const TextField: React.FC<_TextFieldProps> = ({
           ) : null}
         </FormLabel>
       ) : null}
-      <OutlinedInput {...props} />
-      {helperText ? <FormHelperText>{helperText}</FormHelperText> : null}
+      <OutlinedInput
+        {...props}
+        autoComplete="new-password"
+        sx={{
+          input: {
+            "&:-webkit-autofill": {
+              WebkitBoxShadow: (theme) =>
+                `0 0 0 100px ${theme.palette.background.default} inset`,
+            },
+          },
+        }}
+      />
+      {helperText ? (
+        <FormHelperText error={error}>{helperText}</FormHelperText>
+      ) : null}
     </FormControl>
   );
 };

@@ -11,7 +11,7 @@ import {
 import {
   PasswordTextField,
   ThumbnailLayout,
-  passwordMessage,
+  PASSWORD_HELPER_TEXT,
   passwordRegex,
 } from "src/shared";
 import EmailVerifiedForm from "src/widgets/EmailVerifiedForm";
@@ -73,7 +73,7 @@ export default function Page() {
 }
 
 const FormSection = ({ isEmilVerified }: { isEmilVerified: boolean }) => {
-  const { control, setError, clearErrors } = useFormContext();
+  const { control } = useFormContext();
 
   const pw = useWatch({ control, name: "password" });
 
@@ -91,7 +91,7 @@ const FormSection = ({ isEmilVerified }: { isEmilVerified: boolean }) => {
             required: true,
             pattern: {
               value: passwordRegex,
-              message: passwordMessage,
+              message: PASSWORD_HELPER_TEXT,
             },
           }}
           render={({ field, fieldState }) => (
@@ -99,9 +99,9 @@ const FormSection = ({ isEmilVerified }: { isEmilVerified: boolean }) => {
               {...field}
               required
               error={Boolean(fieldState.error)}
-              helperText={fieldState.error?.message}
+              helperText={PASSWORD_HELPER_TEXT ?? fieldState.error?.message}
               label="비밀번호"
-              placeholder={passwordMessage}
+              placeholder="변경할 비밀번호를 입력해 주세요."
             />
           )}
         />
@@ -123,7 +123,7 @@ const FormSection = ({ isEmilVerified }: { isEmilVerified: boolean }) => {
               {...field}
               required
               label="비밀번호 재입력"
-              placeholder="비밀번호를 재입력 해주세요."
+              placeholder="변경할 비밀번호를 재입력 해주세요."
               error={Boolean(fieldState.error)}
               helperText={fieldState.error?.message}
             />
@@ -133,5 +133,5 @@ const FormSection = ({ isEmilVerified }: { isEmilVerified: boolean }) => {
     );
   }
 
-  return <EmailVerifiedForm />;
+  return <EmailVerifiedForm verificationType="reset_password" />;
 };

@@ -1,5 +1,7 @@
 "use client";
 import {
+  alertClasses,
+  alertTitleClasses,
   buttonClasses,
   linearProgressClasses,
   listItemButtonClasses,
@@ -7,6 +9,7 @@ import {
   toggleButtonGroupClasses,
 } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
+import { RadioCheckedIcon, RadioIcon } from "./shared/RadioIcon";
 
 const theme = createTheme({
   // palette
@@ -14,7 +17,6 @@ const theme = createTheme({
     primary: {
       main: "#3F57FD",
     },
-
     secondary: {
       main: "#191F28",
     },
@@ -51,7 +53,12 @@ const theme = createTheme({
           props: { variant: "h4" },
           style: { fontWeight: 800, fontSize: "32px" },
         },
+        { props: { variant: "h5" }, style: { fontWeight: 800 } },
         { props: { variant: "h6" }, style: { fontWeight: 800 } },
+        {
+          props: { variant: "subtitle1" },
+          style: { fontWeight: 800, fontSize: 20 },
+        },
         { props: { color: "text.tertiary" }, style: { color: "#8E97A8" } },
       ],
     },
@@ -98,8 +105,8 @@ const theme = createTheme({
       variants: [
         {
           props: { color: "inherit", variant: "contained" },
-          style: {
-            color: "#36445F",
+          style: ({ theme }) => ({
+            color: theme.palette.text.primary,
             backgroundColor: "#EAEDF3",
             ":hover": {
               backgroundColor: "#E0E4EA",
@@ -107,17 +114,17 @@ const theme = createTheme({
             ":disabled": {
               backgroundColor: "#EAEDF3",
               opacity: 0.4,
-              color: "#36445F",
+              color: theme.palette.text.primary,
             },
-          },
+          }),
         },
         {
           props: { variant: "outlined", color: "primary" },
-          style: {
+          style: ({ theme }) => ({
             ":hover": {
-              backgroundColor: "#F5F7FA",
+              backgroundColor: theme.palette.background.default,
             },
-          },
+          }),
         },
       ],
     },
@@ -131,6 +138,7 @@ const theme = createTheme({
     MuiDialogTitle: {
       styleOverrides: {
         root: {
+          fontSize: 24,
           fontWeight: 800,
         },
       },
@@ -171,9 +179,6 @@ const theme = createTheme({
     MuiOutlinedInput: {
       styleOverrides: {
         root: ({ theme, ownerState }) => ({
-          ...(ownerState.readOnly && {
-            backgroundColor: "#E0E4EA",
-          }),
           borderRadius: "8px",
           backgroundColor: theme.palette.background.default,
           padding: "8px 12px",
@@ -202,6 +207,7 @@ const theme = createTheme({
           fontWeight: 500,
           marginLeft: 0,
           lineHeight: "16px",
+          color: "#545D7580",
         },
       },
     },
@@ -288,6 +294,37 @@ const theme = createTheme({
         root: ({ theme }) => ({
           borderColor: theme.palette.divider,
         }),
+      },
+    },
+
+    // Menu
+    MuiMenu: {
+      defaultProps: {
+        elevation: 0,
+      },
+      styleOverrides: {
+        paper: ({ theme }) => ({
+          borderRadius: 16,
+          padding: 8,
+          border: `1px solid ${theme.palette.divider}`,
+        }),
+        list: {
+          padding: 0,
+        },
+      },
+    },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+          height: 44,
+          ":hover": {
+            backgroundColor: "#E0E4EA33",
+          },
+          [`&.${listItemButtonClasses.selected}`]: {
+            backgroundColor: "#F0F7FF !important",
+          },
+        },
       },
     },
     //
@@ -389,11 +426,64 @@ const theme = createTheme({
         },
       },
     },
-
     MuiAlert: {
+      variants: [
+        {
+          props: { variant: "standard" },
+          style: ({ theme }) => ({
+            border: `1px solid ${theme.palette.divider}`,
+          }),
+        },
+        {
+          props: { severity: "success" },
+          style: ({ theme }) => ({
+            color: theme.palette.success.main,
+            [`& .${alertTitleClasses.root}`]: {
+              color: theme.palette.success.main,
+            },
+          }),
+        },
+        {
+          props: { severity: "info" },
+          style: ({ theme }) => ({
+            color: theme.palette.info.main,
+            [`& .${alertTitleClasses.root}`]: {
+              color: theme.palette.info.main,
+            },
+          }),
+        },
+        {
+          props: { severity: "warning" },
+          style: ({ theme }) => ({
+            color: theme.palette.warning.main,
+            [`& .${alertTitleClasses.root}`]: {
+              color: theme.palette.warning.main,
+            },
+          }),
+        },
+        {
+          props: { severity: "error" },
+          style: ({ theme }) => ({
+            color: theme.palette.error.main,
+            [`& .${alertTitleClasses.root}`]: {
+              color: theme.palette.error.main,
+            },
+          }),
+        },
+      ],
       styleOverrides: {
         root: {
           borderRadius: 8,
+          alignItems: "center",
+        },
+      },
+    },
+
+    MuiAlertTitle: {
+      styleOverrides: {
+        root: {
+          fontSize: 14,
+          fontWeight: 700,
         },
       },
     },
@@ -402,6 +492,9 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           width: "fit-content",
+        },
+        label: {
+          fontSize: 14,
         },
       },
     },
@@ -448,6 +541,15 @@ const theme = createTheme({
     MuiCardActionArea: {
       defaultProps: {
         disableRipple: true,
+      },
+    },
+
+    MuiRadio: {
+      defaultProps: {
+        disableRipple: true,
+        size: "small",
+        icon: RadioIcon,
+        checkedIcon: RadioCheckedIcon,
       },
     },
   },

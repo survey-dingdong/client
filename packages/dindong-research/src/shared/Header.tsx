@@ -108,8 +108,7 @@ const Header: NextPage = () => {
             }}
             onClick={() => {
               handleMenuClose();
-              token.remove(TOKEN_KEY);
-              token.remove(REFRESH_TOKEN_KEY);
+              token.clear();
             }}
           >
             로그아웃

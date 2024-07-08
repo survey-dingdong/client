@@ -18,6 +18,10 @@ export { default as PublicTag } from "./PublicTag";
 export { default as ExcludedDatePicker } from "./ExcludedDatePicker";
 export { default as OpenSwitch } from "./OpenSwitch";
 export { default as GoogleLoginButton } from "./GoogleLoginButton";
+export { default as ContentContainer } from "./ContentContainer";
+export { default as PrivacyPolicy } from "./PrivacyPolicy";
+export { default as AccountDeleteDialog } from "./AccountDeleteDialog";
+export { default as WorkspaceDeleteDialog } from "./WorkspaceDeleteDialog";
 
 export * from "./notice";
 export * from "./ProjectBottomNav";
