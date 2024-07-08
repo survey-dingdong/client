@@ -1,5 +1,5 @@
 "use client";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import React from "react";
 import { token } from "src/utils/token";
 
@@ -13,6 +13,8 @@ const NO_TOKEN_PATHNAME_LIST = [
   "/signup/form",
   "/password",
   "/terms",
+  "/google-callback",
+  "/login/provider-error",
 ];
 
 export const AppGuard: React.FC<AppGuardProps> = ({ children }) => {

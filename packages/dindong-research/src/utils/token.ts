@@ -25,10 +25,11 @@ const remove = (name: string) => {
 };
 
 const clear = () => {
-  if (!localStorage) {
+  if (!localStorage || !sessionStorage) {
     return;
   }
 
+  sessionStorage.clear();
   localStorage.clear();
 };
 

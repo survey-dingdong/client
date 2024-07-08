@@ -17,7 +17,7 @@ export const ThumbnailLayout = ({
   description,
 }: {
   children: React.ReactNode;
-  title: string;
+  title?: string;
   description?: string;
 }) => {
   const [gridTemplateColumns, setGridTemplateColumns] =
@@ -47,21 +47,24 @@ export const ThumbnailLayout = ({
     >
       <Stack p="80px 44px 44px 44px" gap={3}>
         <Image src={logo.src} width={114} height={20} alt="logo" />
-
-        <Stack gap={0.5}>
-          <Typography variant="h4" whiteSpace="pre-wrap">
-            {title}
-          </Typography>
-          {description ? (
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              whiteSpace="pre-wrap"
-            >
-              {description}
-            </Typography>
-          ) : null}
-        </Stack>
+        {title && description ? (
+          <Stack gap={0.5}>
+            {title ? (
+              <Typography variant="h4" whiteSpace="pre-wrap">
+                {title}
+              </Typography>
+            ) : null}
+            {description ? (
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                whiteSpace="pre-wrap"
+              >
+                {description}
+              </Typography>
+            ) : null}
+          </Stack>
+        ) : null}
 
         {children}
       </Stack>

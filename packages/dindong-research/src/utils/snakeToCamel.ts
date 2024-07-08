@@ -1,5 +1,3 @@
-"use client";
-
 import mapValues from "lodash/mapValues";
 import isArray from "lodash/isArray";
 import mapKeys from "lodash/mapKeys";

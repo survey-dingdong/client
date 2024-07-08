@@ -12,6 +12,8 @@ import type {
   SendVerificationEmailAuthEmailVerificationsPostResponse,
   ValidateVerificationEmailAuthEmailVerificationsValidationPostData,
   ValidateVerificationEmailAuthEmailVerificationsValidationPostResponse,
+  ResetPasswordAuthResetPasswordPostData,
+  ResetPasswordAuthResetPasswordPostResponse,
   GetUserListUsersGetData,
   GetUserListUsersGetResponse,
   CreateUserUsersPostData,
@@ -22,6 +24,8 @@ import type {
   DeleteUserUsersMeDeleteResponse,
   LoginUsersLoginPostData,
   LoginUsersLoginPostResponse,
+  LoginOauthUsersLoginOauthPostData,
+  LoginOauthUsersLoginOauthPostResponse,
   ChangePasswordUsersPasswordPatchData,
   ChangePasswordUsersPasswordPatchResponse,
   GetWorkspaceListWorkspacesGetResponse,
@@ -131,6 +135,27 @@ export const validateVerificationEmailAuthEmailVerificationsValidationPost = (
     query: {
       verificationType: data.verificationType,
     },
+    body: data.requestBody,
+    mediaType: "application/json",
+    errors: {
+      422: "Validation Error",
+    },
+  });
+};
+
+/**
+ * Reset Password
+ * @param data The data for the request.
+ * @param data.requestBody
+ * @returns unknown Successful Response
+ * @throws ApiError
+ */
+export const resetPasswordAuthResetPasswordPost = (
+  data: ResetPasswordAuthResetPasswordPostData
+): CancelablePromise<ResetPasswordAuthResetPasswordPostResponse> => {
+  return _Request(OpenAPI, {
+    method: "POST",
+    url: "/auth/reset-password",
     body: data.requestBody,
     mediaType: "application/json",
     errors: {
@@ -253,6 +278,31 @@ export const loginUsersLoginPost = (
 };
 
 /**
+ * Login Oauth
+ * @param data The data for the request.
+ * @param data.provider
+ * @param data.requestBody
+ * @returns LoginResponse Successful Response
+ * @throws ApiError
+ */
+export const loginOauthUsersLoginOauthPost = (
+  data: LoginOauthUsersLoginOauthPostData
+): CancelablePromise<LoginOauthUsersLoginOauthPostResponse> => {
+  return _Request(OpenAPI, {
+    method: "POST",
+    url: "/users/login/oauth",
+    query: {
+      provider: data.provider,
+    },
+    body: data.requestBody,
+    mediaType: "application/json",
+    errors: {
+      422: "Validation Error",
+    },
+  });
+};
+
+/**
  * Change Password
  * @param data The data for the request.
  * @param data.requestBody
@@ -361,6 +411,7 @@ export const deleteWorkspaceWorkspacesWorkspaceIdDelete = (
  * @param data.projectType
  * @param data.page
  * @param data.size
+ * @param data.filterTitle
  * @returns GetProjectListResponse Successful Response
  * @throws ApiError
  */
@@ -377,6 +428,7 @@ export const getProjectListWorkspacesWorkspaceIdProjectsGet = (
       projectType: data.projectType,
       page: data.page,
       size: data.size,
+      filterTitle: data.filterTitle,
     },
     errors: {
       422: "Validation Error",

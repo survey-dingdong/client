@@ -12,20 +12,25 @@ import {
 import Link from "next/link";
 import React from "react";
 import { TextField, PasswordTextField, PASSWORD_HELPER_TEXT } from "src/shared";
-import googleImage from "public/icons/google.png";
 import { useState } from "react";
-import Image from "next/image";
 import { useSnackbar } from "notistack";
 import { useMutation } from "@tanstack/react-query";
 import { REFRESH_TOKEN_KEY, TOKEN_KEY } from "src/constants/token";
 import { token } from "src/utils/token";
 import { loginUsersLoginPost } from "src/client";
+import GoogleLoginButton from "../GoogleLoginButton";
+import { useRouter, useSearchParams } from "next/navigation";
 
 //
 //
 //
 
 const LoginForm = () => {
+  const router = useRouter();
+
+  // Get query params
+  const searchParams = useSearchParams();
+
   const { enqueueSnackbar } = useSnackbar();
 
   const [error, setError] = useState(false);
@@ -49,10 +54,30 @@ const LoginForm = () => {
 
       enqueueSnackbar("로그인 되었습니다.", { variant: "success" });
     },
-    onError: () => {
+    onError: (err: any) => {
+      if (err.body.errorCode === "USER__OAUTH_LOGIN_WITH_PASSWORD_ATTEMPT") {
+        router.push("/login/provider-error?provider=dingdong&email=" + email);
+        return;
+      }
       setError(true);
     },
   });
+
+  React.useEffect(() => {
+    if (!searchParams) {
+      return;
+    }
+
+    const params: Record<string, string> = {};
+
+    searchParams.forEach((value, key) => {
+      params[key] = value;
+    });
+
+    if (params.email) {
+      setEmail(params.email);
+    }
+  }, [searchParams]);
 
   //
   //
@@ -122,16 +147,7 @@ const LoginForm = () => {
             "로그인"
           )}
         </Button>
-        <Button variant="outlined" sx={{ textTransform: "none" }}>
-          <Image
-            src={googleImage.src}
-            alt=""
-            width={18}
-            height={18}
-            style={{ marginRight: 8 }}
-          />
-          Google 계정으로 로그인
-        </Button>
+        <GoogleLoginButton />
       </Stack>
     </Stack>
   );
