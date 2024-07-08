@@ -16,8 +16,10 @@ export const getProjectsQueryKey = ["/projects"];
 
 export function useProjects({
   workspaceId,
+  filterTitle,
 }: {
   workspaceId: number;
+  filterTitle?: string;
 }): UseProjectReturn {
   const router = useRouter();
 
@@ -26,11 +28,12 @@ export function useProjects({
     isLoading,
     error,
   } = useQuery({
-    queryKey: [...getProjectsQueryKey, workspaceId],
+    queryKey: [...getProjectsQueryKey, workspaceId, filterTitle],
     queryFn: () =>
       getProjectListWorkspacesWorkspaceIdProjectsGet({
         workspaceId,
         projectType: "experiment",
+        filterTitle,
       }).catch(() => {
         router.replace("/workspaces");
       }),

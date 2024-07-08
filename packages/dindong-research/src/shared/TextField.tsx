@@ -47,6 +47,7 @@ export const TextField: React.FC<_TextFieldProps> = ({
                 `0 0 0 100px ${theme.palette.background.default} inset`,
             },
           },
+          ...props.sx,
         }}
       />
       {helperText ? (

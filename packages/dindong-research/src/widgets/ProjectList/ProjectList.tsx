@@ -1,18 +1,44 @@
-import { Box, InputAdornment, Stack } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  InputAdornment,
+  outlinedInputClasses,
+  Stack,
+} from "@mui/material";
 import React from "react";
-import { ProjectCard, TextField } from "src/shared";
+import { Empty, ProjectCard, TextField } from "src/shared";
 import SearchIcon from "@mui/icons-material/Search";
 
 import { CreateProjectAction } from "../CreateProjectAction";
-import { GetProjectListResponse } from "src/client";
 import { SurveyListEmpty } from "../SurveyListEmpty";
+import { useParams } from "next/navigation";
+import { useProjects } from "src/hooks/useProjects";
+import { debounce } from "lodash";
+import { useDebounce } from "react-use";
 
-interface ProjectListProps {
-  projects?: GetProjectListResponse[];
-  workspaceId: number;
-}
+const ProjectList = () => {
+  const params = useParams<{ workspaceId: string }>();
+  const _workspaceId = Number(params?.workspaceId);
 
-const ProjectList: React.FC<ProjectListProps> = ({ projects, workspaceId }) => {
+  const [search, setSearch] = React.useState("");
+  const [debouncedSearch, setDebouncedSearch] = React.useState("");
+  console.log(debouncedSearch);
+
+  useDebounce(
+    () => {
+      setDebouncedSearch(search);
+    },
+    500,
+    [search]
+  );
+
+  const { projects, isLoading } = useProjects({
+    workspaceId: _workspaceId,
+    filterTitle: debouncedSearch,
+  });
+
+  const noProjects = projects?.length === 0;
+
   /**
    *
    */
@@ -22,14 +48,19 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects, workspaceId }) => {
         <TextField
           placeholder="프로젝트 명으로 검색"
           size="small"
-          sx={{ backgroundColor: (theme) => theme.palette.background.paper }}
+          sx={{
+            backgroundColor: (theme) => theme.palette.background.paper,
+          }}
           endAdornment={
             <InputAdornment position="end">
               <SearchIcon />
             </InputAdornment>
           }
+          onChange={(e) => {
+            setSearch(e.target.value);
+          }}
         />
-        <CreateProjectAction workspaceId={workspaceId} />
+        <CreateProjectAction workspaceId={_workspaceId} />
       </Box>
     );
   };
@@ -39,6 +70,10 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects, workspaceId }) => {
    * @returns
    */
   const renderProjects = () => {
+    if (noProjects && debouncedSearch.length > 0) {
+      return <Empty title="검색 결과가 없습니다." />;
+    }
+
     return (
       <Box
         display="grid"
@@ -56,12 +91,26 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects, workspaceId }) => {
   //
   //
 
-  if (projects?.length === 0) {
-    return <SurveyListEmpty workspaceId={workspaceId} />;
+  if (isLoading) {
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        height="100%"
+        width="100%"
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (noProjects && !debouncedSearch) {
+    return <SurveyListEmpty workspaceId={_workspaceId} />;
   }
 
   return (
-    <Stack sx={{ mt: 3 }} gap={3}>
+    <Stack sx={{ mt: 3, height: "100%" }} gap={3}>
       {renderListHeader()}
       {renderProjects()}
     </Stack>
