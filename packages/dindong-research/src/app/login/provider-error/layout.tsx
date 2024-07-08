@@ -1,13 +1,19 @@
 "use client";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { ThumbnailLayout } from "src/shared";
-import { Box, Typography, Link as MuiLink } from "@mui/material";
-import Link from "next/link";
+import ErrorSection from "src/widgets/ErrorSection";
 
 export default function WorkspaceLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <ThumbnailLayout>{children}</ThumbnailLayout>;
+  const router = useRouter();
+
+  return (
+    <React.Suspense fallback={<ErrorSection reset={() => router.refresh()} />}>
+      <ThumbnailLayout>{children}</ThumbnailLayout>
+    </React.Suspense>
+  );
 }

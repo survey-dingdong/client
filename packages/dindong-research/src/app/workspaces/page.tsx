@@ -1,5 +1,4 @@
 "use client";
-import { ErrorBoundary } from "next/dist/client/components/error-boundary";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect } from "react";
 import { TOKEN_KEY } from "src/constants/token";

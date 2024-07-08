@@ -1,20 +1,20 @@
 import React from "react";
 import Tag from "../Tag";
-import { ExperimentAttendanceStatus } from "src/client";
+import { ExperimentAttendanceStatusTypeEnum } from "src/client";
 
 //
 //
 //
 
 interface ParticipantStatusChipProps {
-  status: ExperimentAttendanceStatus;
+  status: ExperimentAttendanceStatusTypeEnum;
 }
 
 //
 //
 //
 
-const TAG_PROPS_MAP: Record<ExperimentAttendanceStatus, any> = {
+const TAG_PROPS_MAP: Record<ExperimentAttendanceStatusTypeEnum, any> = {
   attended: {
     label: "참여",
     size: "small",

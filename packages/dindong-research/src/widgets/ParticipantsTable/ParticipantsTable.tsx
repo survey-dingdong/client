@@ -32,7 +32,7 @@ import Link from "next/link";
 import { usePath } from "src/hooks/usePath";
 import {
   GetExperimentParticipantResponse,
-  ExperimentAttendanceStatus,
+  ExperimentAttendanceStatusTypeEnum,
 } from "src/client";
 
 //
@@ -41,7 +41,10 @@ import {
 
 const heads = ["닉네임", "예약 일시", "참여 여부", ""];
 
-const ATTENDANCE_STATUS_LABEL: Record<ExperimentAttendanceStatus, string> = {
+const ATTENDANCE_STATUS_LABEL: Record<
+  ExperimentAttendanceStatusTypeEnum,
+  string
+> = {
   attended: "참여",
   notAttended: "미참여",
   scheduled: "예정",

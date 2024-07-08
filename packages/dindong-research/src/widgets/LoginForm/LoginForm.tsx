@@ -153,4 +153,12 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+const WrapperLoginForm = () => {
+  return (
+    <React.Suspense fallback={<></>}>
+      <LoginForm />
+    </React.Suspense>
+  );
+};
+
+export default WrapperLoginForm;
