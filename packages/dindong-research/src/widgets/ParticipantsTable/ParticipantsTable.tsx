@@ -34,6 +34,7 @@ import {
   GetExperimentParticipantResponse,
   ExperimentAttendanceStatusTypeEnum,
 } from "src/client";
+import dayjs from "dayjs";
 
 //
 //
@@ -42,13 +43,46 @@ import {
 const heads = ["닉네임", "예약 일시", "참여 여부", ""];
 
 const ATTENDANCE_STATUS_LABEL: Record<
-  ExperimentAttendanceStatusTypeEnum,
+  any,
+  // ExperimentAttendanceStatusTypeEnum,
   string
 > = {
   attended: "참여",
-  notAttended: "미참여",
+  not_attended: "미참여",
   scheduled: "예정",
 };
+
+//
+//
+//
+
+interface formatExperimentDateTimeParams {
+  experimentDate: string;
+  startTime: string;
+  endTime: string;
+}
+
+function formatExperimentDateTime({
+  experimentDate,
+  startTime,
+  endTime,
+}: formatExperimentDateTimeParams) {
+  const startDateTime = dayjs(
+    `${experimentDate} ${startTime}`,
+    "YYYY-MM-DD HH:mm:ss"
+  );
+  const endDateTime = dayjs(
+    `${experimentDate} ${endTime}`,
+    "YYYY-MM-DD HH:mm:ss"
+  );
+
+  // 원하는 포맷으로 변환
+  const formattedDate = startDateTime.format("YYYY. MM. DD.");
+  const formattedStartTime = startDateTime.format("h:mmA");
+  const formattedEndTime = endDateTime.format("h:mmA");
+
+  return `${formattedDate} ${formattedStartTime} ~ ${formattedEndTime}`;
+}
 
 //
 //
@@ -57,6 +91,10 @@ const ATTENDANCE_STATUS_LABEL: Record<
 interface ParticipantsTableProps {
   participants: GetExperimentParticipantResponse[];
 }
+
+//
+//
+//
 
 const ParticipantsTable: React.FC<ParticipantsTableProps> = ({
   participants,
@@ -128,6 +166,14 @@ const ParticipantsTable: React.FC<ParticipantsTableProps> = ({
     );
   };
 
+  const handleAttendanceStatusChange = (newStatus: string) => {
+    //  TODO: 참여 여부 변경
+  };
+
+  //
+  //
+  //
+
   return (
     <>
       <TableContainer
@@ -151,7 +197,13 @@ const ParticipantsTable: React.FC<ParticipantsTableProps> = ({
             {participants.map((participant) => (
               <TableRow key={participant.id}>
                 <TableCell>{participant.username}</TableCell>
-                <TableCell>{participant.reservedDate}</TableCell>
+                <TableCell>
+                  {formatExperimentDateTime({
+                    experimentDate: participant.experimentDate,
+                    startTime: participant.startTime,
+                    endTime: participant.endTime,
+                  })}
+                </TableCell>
                 <TableCell>
                   <Select
                     value={participant.attendanceStatus}
@@ -165,6 +217,9 @@ const ParticipantsTable: React.FC<ParticipantsTableProps> = ({
                       [`&.${inputBaseClasses.root}`]: {
                         backgroundColor: "inherit",
                       },
+                    }}
+                    onChange={(e) => {
+                      handleAttendanceStatusChange(e.target.value);
                     }}
                   >
                     {Object.entries(ATTENDANCE_STATUS_LABEL).map(

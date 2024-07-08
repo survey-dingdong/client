@@ -6,7 +6,7 @@ import { useParams } from "next/navigation";
 import React from "react";
 import { getProjectParticipantListProjectsProjectIdParticipantsGet } from "src/client";
 import { Empty, PageHeader } from "src/shared";
-import { ContentContainer } from "src/widgets";
+import { ContentContainer, Spinner } from "src/widgets";
 import { ParticipantsTable } from "src/widgets/ParticipantsTable";
 
 //
@@ -26,7 +26,7 @@ export default function Page() {
   const params = useParams<Params>();
   const _projectId = Number(params?.projectId);
 
-  const { data: participantsData = [] } = useQuery({
+  const { data: participantsData = [], isLoading } = useQuery({
     queryKey: ["participants"],
     queryFn: async () =>
       getProjectParticipantListProjectsProjectIdParticipantsGet({
@@ -43,20 +43,25 @@ export default function Page() {
 
   return (
     <ContentContainer>
-      <Stack gap={4} height="100%">
+      <Stack gap={4} sx={{ height: "100%" }}>
         <PageHeader
           title="참여자 목록"
           actions={
             noParticipants ? null : (
-              <Button color="secondary" startIcon={<DownloadRoundedIcon />}>
+              <Button
+                disabled={isLoading || noParticipants}
+                color="secondary"
+                startIcon={<DownloadRoundedIcon />}
+              >
                 리포트 다운로드
               </Button>
             )
           }
         />
 
-        {/*  */}
-        {noParticipants ? (
+        {isLoading ? (
+          <Spinner />
+        ) : noParticipants ? (
           <Empty
             title="실험 프로젝트에 대한 참여자가 없습니다"
             description={`실험 프로젝트 참여를 예정하거나 완료한 참여자가 있는 경우\n참여자 목록이 여기에 나타납니다.`}

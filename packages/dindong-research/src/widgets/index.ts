@@ -22,6 +22,7 @@ export { default as ContentContainer } from "./ContentContainer";
 export { default as PrivacyPolicy } from "./PrivacyPolicy";
 export { default as AccountDeleteDialog } from "./AccountDeleteDialog";
 export { default as WorkspaceDeleteDialog } from "./WorkspaceDeleteDialog";
+export { default as Spinner } from "./Spinner";
 
 export * from "./notice";
 export * from "./ProjectBottomNav";

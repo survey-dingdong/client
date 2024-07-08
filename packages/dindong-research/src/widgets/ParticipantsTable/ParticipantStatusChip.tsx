@@ -6,21 +6,24 @@ import { ExperimentAttendanceStatusTypeEnum } from "src/client";
 //
 //
 
+// TODO: enum response typing
 interface ParticipantStatusChipProps {
-  status: ExperimentAttendanceStatusTypeEnum;
+  status: any;
+  // status: ExperimentAttendanceStatusTypeEnum;
 }
 
 //
 //
 //
 
-const TAG_PROPS_MAP: Record<ExperimentAttendanceStatusTypeEnum, any> = {
+const TAG_PROPS_MAP: Record<any, any> = {
+  // const TAG_PROPS_MAP: Record<ExperimentAttendanceStatusTypeEnum, any> = {
   attended: {
     label: "참여",
     size: "small",
     color: "success",
   },
-  notAttended: {
+  not_attended: {
     label: "미참여",
     size: "small",
     color: "warning",
