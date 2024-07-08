@@ -46,9 +46,8 @@ export default function Page() {
     switch (query?.provider) {
       case "dingdong":
         return {
-          title: "이메일/패스워드로 로그인 해주세요.",
-          description:
-            "이메일/패스워드로 가입된 계정 정보를 입력하셨습니다. 아래 버튼을 클릭해 이메일/패스워드로 로그인 해주세요.",
+          title: "이미 가입된 계정 정보입니다",
+          description: "아래 버튼을 클릭해 이메일/패스워드로 로그인 해주세요.",
         };
 
       default:
