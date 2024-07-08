@@ -1,5 +1,7 @@
 "use client";
 import { Button, Stack } from "@mui/material";
+import { useRouter } from "next/navigation";
+import { useSnackbar } from "notistack";
 import React from "react";
 import {
   Controller,
@@ -8,6 +10,7 @@ import {
   useFormContext,
   useWatch,
 } from "react-hook-form";
+import { resetPasswordAuthResetPasswordPost } from "src/client";
 import {
   PasswordTextField,
   ThumbnailLayout,
@@ -17,6 +20,9 @@ import {
 import EmailVerifiedForm from "src/widgets/EmailVerifiedForm";
 
 export default function Page() {
+  const router = useRouter();
+  const { enqueueSnackbar } = useSnackbar();
+
   const formMethods = useForm({
     mode: "onChange",
     defaultValues: {
@@ -42,6 +48,27 @@ export default function Page() {
     name: "emailVerified",
   });
 
+  const handleSubmitButtonClick = formMethods.handleSubmit(async (data) => {
+    try {
+      await resetPasswordAuthResetPasswordPost({
+        requestBody: {
+          email: data.email,
+          password: data.password,
+        },
+      });
+
+      enqueueSnackbar("비밀번호가 성공적으로 변경되었습니다.", {
+        variant: "success",
+      });
+
+      router.replace("/");
+    } catch (_) {
+      enqueueSnackbar("비밀번호 변경에 실패했습니다.", {
+        variant: "error",
+      });
+    }
+  });
+
   //
   //
   //
@@ -64,6 +91,7 @@ export default function Page() {
             !watchedEmailVerified ||
             !formMethods.formState.isValid
           }
+          onClick={handleSubmitButtonClick}
         >
           비밀번호 재설정
         </Button>
