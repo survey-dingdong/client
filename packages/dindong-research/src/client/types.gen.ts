@@ -125,9 +125,17 @@ export type GetExperimentParticipantResponse = {
    */
   username: string;
   /**
-   * Reserved Date
+   * Experiment Date
    */
-  reservedDate: string;
+  experimentDate: string;
+  /**
+   * Experiment start time
+   */
+  startTime: string;
+  /**
+   * Experiment end time
+   */
+  endTime: string;
   /**
    * Attendance Status
    */
