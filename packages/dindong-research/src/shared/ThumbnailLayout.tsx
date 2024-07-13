@@ -47,7 +47,7 @@ export const ThumbnailLayout = ({
     >
       <Stack p="80px 44px 44px 44px" gap={3}>
         <Image src={logo.src} width={114} height={20} alt="logo" />
-        {title && description ? (
+        {title || description ? (
           <Stack gap={0.5}>
             {title ? (
               <Typography variant="h4" whiteSpace="pre-wrap">
