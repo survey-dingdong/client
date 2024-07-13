@@ -30,10 +30,7 @@ import React from "react";
 import ParticipantStatusChip from "./ParticipantStatusChip";
 import Link from "next/link";
 import { usePath } from "src/hooks/usePath";
-import {
-  GetExperimentParticipantResponse,
-  ExperimentAttendanceStatusTypeEnum,
-} from "src/client";
+import { GetExperimentParticipantResponse } from "src/client";
 import dayjs from "dayjs";
 
 //

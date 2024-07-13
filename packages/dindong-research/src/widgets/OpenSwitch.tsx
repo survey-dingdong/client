@@ -24,7 +24,6 @@ const OpenSwitch: React.FC<OpenSwitchProps> = ({
   onToggle,
 }) => {
   const { control } = useFormContext();
-  const [checked, setChecked] = React.useState(originValue);
 
   //
   //
@@ -45,6 +44,7 @@ const OpenSwitch: React.FC<OpenSwitchProps> = ({
             control={control}
             render={({ field }) => (
               <FormControlLabel
+                {...field}
                 labelPlacement="start"
                 disabled={disabled}
                 label="서베이 플랫폼에 공개하기"
