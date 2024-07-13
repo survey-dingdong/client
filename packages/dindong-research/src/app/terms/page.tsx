@@ -10,7 +10,7 @@ import { ContentContainer, PrivacyPolicy } from "src/widgets";
 
 export default function Page() {
   return (
-    <ContentContainer>
+    <ContentContainer maxWidth="lg">
       <Paper
         sx={{ padding: 5, borderRadius: 3, gap: 3 }}
         component={Stack}
