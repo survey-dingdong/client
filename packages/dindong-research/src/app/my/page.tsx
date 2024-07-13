@@ -10,6 +10,7 @@ import {
   DialogContent,
   DialogActions,
   Button,
+  Tooltip,
 } from "@mui/material";
 import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlineRounded";
 import React from "react";
@@ -84,6 +85,9 @@ export default function Page() {
           <Controller
             control={formMethods.control}
             name="username"
+            rules={{
+              required: true,
+            }}
             render={({ field }) => (
               <TextField
                 {...field}
@@ -99,7 +103,23 @@ export default function Page() {
           <Button color="inherit" onClick={handleDialogClose}>
             취소
           </Button>
-          <Button onClick={handleSubmit}>저장</Button>
+          <Tooltip
+            title={
+              !formMethods.formState.isValid ? "필수 항목을 입력해 주세요." : ""
+            }
+          >
+            <span>
+              <Button
+                disabled={
+                  !formMethods.formState.isDirty ||
+                  !formMethods.formState.isValid
+                }
+                onClick={handleSubmit}
+              >
+                저장
+              </Button>
+            </span>
+          </Tooltip>
         </DialogActions>
       </Dialog>
     );
@@ -119,7 +139,13 @@ export default function Page() {
           <CardSection
             title="기본 정보"
             headerAction={
-              <EditButton onClick={() => setEditType("nickname")} />
+              <EditButton
+                onClick={() => {
+                  // reset form
+                  formMethods.reset(user);
+                  setEditType("nickname");
+                }}
+              />
             }
           >
             <TextField readOnly label="닉네임" value={user?.username} />
