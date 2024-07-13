@@ -554,6 +554,7 @@ export default function Page() {
                       }}
                       render={({ field, fieldState }) => (
                         <TextField
+                          {...field}
                           required
                           type="number"
                           endAdornment={
@@ -569,7 +570,6 @@ export default function Page() {
                               </span>
                             ) as unknown as string)
                           }
-                          {...field}
                         />
                       )}
                     />

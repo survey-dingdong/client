@@ -34,7 +34,7 @@ export const OpenProjectDialog: React.FC<OpenProjectDialogProps> = ({
         <DialogContentText>
           공개 즉시 본 프로젝트에 대한 정보가 서베이 플랫폼에 게시됩니다. 예비
           참여자들은 프로젝트 정보를 확인할 수 있으며, 연구자가 지정한 실험 참여
-          시간 내 참여 예약을할 수 있습니다. 계속하시겠습니까?
+          시간 내 참여 예약을 할 수 있습니다. 계속하시겠습니까?
         </DialogContentText>
       </DialogContent>
 

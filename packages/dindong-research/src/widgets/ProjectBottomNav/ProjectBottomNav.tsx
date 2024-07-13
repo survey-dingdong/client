@@ -23,10 +23,19 @@ const ProjectBottomNav = () => {
       <Toolbar>
         <ContentContainer sx={{ textAlign: "end", py: 0 }}>
           <Tooltip
-            title={!formState.isValid ? "필수 항목을 입력해 주세요." : ""}
+            title={
+              !formState.isValid
+                ? "필수 항목을 입력해 주세요."
+                : !formState.isDirty
+                ? "변경 사항이 없습니다."
+                : ""
+            }
           >
             <span>
-              <Button type="submit" disabled={!formState.isValid}>
+              <Button
+                type="submit"
+                disabled={!formState.isValid || !formState.isDirty}
+              >
                 저장
               </Button>
             </span>
