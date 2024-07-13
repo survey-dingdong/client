@@ -8,7 +8,9 @@ export default function WorkspaceLayout({
 }) {
   return (
     <Layout NavComponent={<MyNav />}>
-      <ContentContainer sx={{ py: 7 }}>{children}</ContentContainer>
+      <ContentContainer sx={{ py: 7, overflowY: "auto" }}>
+        {children}
+      </ContentContainer>
     </Layout>
   );
 }

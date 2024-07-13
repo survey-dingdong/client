@@ -110,66 +110,70 @@ export default function Page() {
   //
 
   return (
-    <Stack height="100%" gap={4.5}>
-      <Typography variant="h4">내 계정</Typography>
+    <>
+      <Stack gap={4.5}>
+        <Typography variant="h4">내 계정</Typography>
 
-      <PaperCard>
-        {/*  */}
-        <CardSection
-          title="기본 정보"
-          headerAction={<EditButton onClick={() => setEditType("nickname")} />}
-        >
-          <TextField readOnly label="닉네임" value={user?.username} />
-        </CardSection>
-
-        {/*  */}
-        <CardSection
-          title="연락처"
-          headerAction={
-            <Typography variant="body2" color="text.secondary">
-              <MuiLink>본인인증</MuiLink>을 통해 휴대폰 번호를 변경할 수
-              있습니다.
-            </Typography>
-          }
-        >
-          <TextField readOnly label="휴대폰 번호" value="010-0000-0000" />
-        </CardSection>
-
-        {/*  */}
-        <CardSection
-          title="계정 정보"
-          verified
-          headerAction={
-            <EditButton
-              label="비밀번호 변경"
-              onClick={() => setEditType("account")}
-            />
-          }
-        >
-          <Box display="flex" gap={2}>
-            <TextField fullWidth readOnly label="계정" value={user?.email} />
-            <TextField fullWidth readOnly label="비밀번호" type="password" />
-          </Box>
-        </CardSection>
-      </PaperCard>
-
-      <PaperCard>
-        <Box
-          display="flex"
-          gap={1}
-          alignItems="center"
-          justifyContent="space-between"
-        >
-          <Typography variant="subtitle1">계정 삭제</Typography>
-          <Button
-            variant="outlined"
-            color="error"
-            onClick={() => setIsAccountDeleteDialogOpen(true)}
+        <PaperCard>
+          {/*  */}
+          <CardSection
+            title="기본 정보"
+            headerAction={
+              <EditButton onClick={() => setEditType("nickname")} />
+            }
           >
-            탈퇴하기
-          </Button>
-        </Box>
-      </PaperCard>
+            <TextField readOnly label="닉네임" value={user?.username} />
+          </CardSection>
+
+          {/*  */}
+          <CardSection
+            title="연락처"
+            headerAction={
+              <Typography variant="body2" color="text.secondary">
+                <MuiLink>본인인증</MuiLink>을 통해 휴대폰 번호를 변경할 수
+                있습니다.
+              </Typography>
+            }
+          >
+            <TextField readOnly label="휴대폰 번호" value="010-0000-0000" />
+          </CardSection>
+
+          {/*  */}
+          <CardSection
+            title="계정 정보"
+            verified
+            headerAction={
+              <EditButton
+                label="비밀번호 변경"
+                onClick={() => setEditType("account")}
+              />
+            }
+          >
+            <Box display="flex" gap={2}>
+              <TextField fullWidth readOnly label="계정" value={user?.email} />
+              <TextField fullWidth readOnly label="비밀번호" type="password" />
+            </Box>
+          </CardSection>
+        </PaperCard>
+
+        <PaperCard>
+          <Box
+            display="flex"
+            gap={1}
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <Typography variant="subtitle1">계정 삭제</Typography>
+            <Button
+              variant="outlined"
+              color="error"
+              onClick={() => setIsAccountDeleteDialogOpen(true)}
+            >
+              탈퇴하기
+            </Button>
+          </Box>
+        </PaperCard>
+      </Stack>
 
       {/* Dialogs */}
       <FormProvider {...formMethods}>
@@ -183,7 +187,7 @@ export default function Page() {
         open={isAccountDeleteDialogOpen}
         onClose={() => setIsAccountDeleteDialogOpen(false)}
       />
-    </Stack>
+    </>
   );
 }
 
@@ -193,7 +197,7 @@ const PaperCard = ({ children }: { children: React.ReactNode }) => {
     <Paper
       component={Stack}
       elevation={0}
-      sx={{ p: 3, gap: 5, borderRadius: 5 }}
+      sx={{ p: 3, gap: 5, borderRadius: 5, height: "100%" }}
     >
       {children}
     </Paper>
