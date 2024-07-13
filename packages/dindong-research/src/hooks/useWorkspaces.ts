@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getWorkspaceListWorkspacesGet } from "src/client";
 
-type WorkspaceType = {
+export type WorkspaceType = {
   id: number;
   title: string;
 };

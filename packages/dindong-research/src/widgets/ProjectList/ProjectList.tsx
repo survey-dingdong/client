@@ -22,7 +22,6 @@ const ProjectList = () => {
 
   const [search, setSearch] = React.useState("");
   const [debouncedSearch, setDebouncedSearch] = React.useState("");
-  console.log(debouncedSearch);
 
   useDebounce(
     () => {

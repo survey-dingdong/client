@@ -1,31 +1,33 @@
 "use client";
 
-import {
-  Box,
-  Button,
-  IconButton,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  ListSubheader,
-  Stack,
-  Tooltip,
-} from "@mui/material";
-import Link from "next/link";
+import { Box, Button, List, ListSubheader, Stack } from "@mui/material";
 import React from "react";
 import { Nav } from "src/shared";
 import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
-import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
-import editIcon from "public/icons/edit.png";
-import deleteIcon from "public/icons/trash.png";
-import Image from "next/image";
 import WorkspaceDeleteDialog from "./WorkspaceDeleteDialog";
 import { useWorkspaceCreate } from "src/hooks/useWorkspaceCreate";
-import { useParams } from "next/navigation";
-import WorkspaceRenameInput from "./WorkspaceRenameInput";
-import { useWorkspaces } from "src/hooks/useWorkspaces";
+import { useWorkspaces, WORKSPACES_QUERY_KEY } from "src/hooks/useWorkspaces";
+import {
+  DndContext,
+  DragEndEvent,
+  DragOverEvent,
+  DragStartEvent,
+  KeyboardSensor,
+  MouseSensor,
+  TouchSensor,
+  UniqueIdentifier,
+  useDroppable,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import {
+  SortableContext,
+  sortableKeyboardCoordinates,
+} from "@dnd-kit/sortable";
+import WorkspaceListItem from "./DndList/WorkspaceListItem";
+import { updateWorkspaceWorkspacesWorkspaceIdPatch } from "src/client";
+import { useQueryClient } from "@tanstack/react-query";
+import { useSnackbar } from "notistack";
 
 //
 //
@@ -46,14 +48,13 @@ type WorkspaceType = {
 //
 
 const WorkspaceNav = () => {
-  const params = useParams<{ workspaceId: string }>();
-  const _workspaceId = Number(params?.workspaceId);
+  // [HOOKS]
+  const queryClient = useQueryClient();
+  const { enqueueSnackbar } = useSnackbar();
 
   // [STATE]
   const [editMode, setEditMode] = React.useState(false);
   const [dialog, setDialog] = React.useState<DialogType>(null);
-  const [editingWorkspace, setEditingWorkspace] =
-    React.useState<WorkspaceType | null>(null);
 
   // [QUERY]
   const { workspaces = [] } = useWorkspaces();
@@ -68,6 +69,51 @@ const WorkspaceNav = () => {
     setDialog(null);
   };
 
+  // [DND]
+  const [activeId, setActiveId] = React.useState<null | UniqueIdentifier>();
+  const { setNodeRef } = useDroppable({ id: "1" });
+
+  const sensors = useSensors(
+    useSensor(MouseSensor),
+    useSensor(TouchSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
+  const handleDragStart = ({ active }: DragStartEvent) => {
+    const activeId = active.id;
+    setActiveId(activeId);
+  };
+
+  const handleDragCancel = () => setActiveId(null);
+
+  const handleDragEnd = ({ active, over }: DragEndEvent) => {
+    try {
+      if (!over) {
+        setActiveId(null);
+        return;
+      }
+
+      if (active.id === over.id) {
+        return null;
+      }
+
+      updateWorkspaceWorkspacesWorkspaceIdPatch({
+        workspaceId: active.id as number,
+        requestBody: {
+          orderNo: over.data.current?.sortable.index,
+        },
+      }).then(() => {
+        queryClient.invalidateQueries({ queryKey: [WORKSPACES_QUERY_KEY] });
+      });
+
+      setActiveId(null);
+    } catch (error) {
+      enqueueSnackbar("에러가 발생했습니다.", { variant: "error" });
+    }
+  };
+
   //
   //
   //
@@ -75,129 +121,71 @@ const WorkspaceNav = () => {
   return (
     <Nav>
       <Stack gap={2}>
-        <List
-          disablePadding
-          subheader={
-            <ListSubheader
-              disableGutters
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              나의 워크스페이스
-              <Box
-                display="flex"
-                alignItems="center"
-                gap={0.5}
-                sx={{
-                  color: (theme) => theme.palette.primary.main,
-                  cursor: "pointer",
-                  pr: 1,
-                  fontWeight: 500,
-                }}
-                onClick={() => setEditMode(!editMode)}
-              >
-                {editMode ? (
-                  <>
-                    <i className="fa-regular fa-circle-check" />
-                    완료
-                  </>
-                ) : (
-                  <>
-                    <i className="fa-regular fa-pen-to-square" />
-                    관리
-                  </>
-                )}
-              </Box>
-            </ListSubheader>
-          }
+        <DndContext
+          sensors={sensors}
+          onDragStart={handleDragStart}
+          onDragCancel={handleDragCancel}
+          onDragEnd={handleDragEnd}
         >
-          {workspaces?.map((workspace) => {
-            const isEditing = editingWorkspace?.id === workspace.id;
-
-            return (
-              <ListItem
-                key={workspace.id}
-                disablePadding
-                sx={{ height: 40 }}
-                secondaryAction={
-                  editMode && !isEditing ? (
-                    <>
-                      <Tooltip title="이름 변경">
-                        <IconButton
-                          size="small"
-                          onClick={() => setEditingWorkspace(workspace)}
-                        >
-                          <Image
-                            src={editIcon.src}
-                            width={16}
-                            height={16}
-                            alt="edit"
-                          />
-                        </IconButton>
-                      </Tooltip>
-                      {onlyOneWorkspace ? null : (
-                        <Tooltip title="삭제">
-                          <IconButton
-                            size="small"
-                            disabled={onlyOneWorkspace}
-                            onClick={() =>
-                              setDialog({
-                                type: "delete",
-                                selected: workspace,
-                              })
-                            }
-                          >
-                            <Image
-                              src={deleteIcon.src}
-                              width={16}
-                              height={16}
-                              alt="delete"
-                            />
-                          </IconButton>
-                        </Tooltip>
-                      )}
-                    </>
-                  ) : null
-                }
-              >
-                {editMode ? (
-                  <>
-                    <ListItemIcon>
-                      <MenuRoundedIcon fontSize="small" />
-                    </ListItemIcon>
-                    {isEditing ? (
-                      <WorkspaceRenameInput
-                        value={workspace.title}
-                        workspaceId={workspace.id}
-                        onStopEditing={() => setEditingWorkspace(null)}
-                      />
-                    ) : (
-                      <ListItemText
-                        primaryTypographyProps={{ noWrap: true, pr: 8 }}
-                      >
-                        {workspace.title}
-                      </ListItemText>
-                    )}
-                  </>
-                ) : (
-                  <ListItemButton
-                    LinkComponent={Link}
-                    href={`/workspaces/${workspace.id}`}
-                    selected={workspace.id === _workspaceId}
-                    sx={{ height: "100%" }}
+          <SortableContext items={workspaces} disabled={!editMode}>
+            <List
+              disablePadding
+              subheader={
+                <ListSubheader
+                  disableGutters
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  나의 워크스페이스
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    gap={0.5}
+                    sx={{
+                      color: (theme) => theme.palette.primary.main,
+                      cursor: "pointer",
+                      pr: 1,
+                      fontWeight: 500,
+                    }}
+                    onClick={() => setEditMode(!editMode)}
                   >
-                    <ListItemText primaryTypographyProps={{ noWrap: true }}>
-                      {workspace.title}
-                    </ListItemText>
-                  </ListItemButton>
-                )}
-              </ListItem>
-            );
-          })}
-        </List>
+                    {editMode ? (
+                      <>
+                        <i className="fa-regular fa-circle-check" />
+                        완료
+                      </>
+                    ) : (
+                      <>
+                        <i className="fa-regular fa-pen-to-square" />
+                        관리
+                      </>
+                    )}
+                  </Box>
+                </ListSubheader>
+              }
+            >
+              {workspaces?.map((workspace) => {
+                return (
+                  <WorkspaceListItem
+                    key={workspace.id}
+                    editMode={editMode}
+                    workspace={workspace}
+                    hideDeleteIcon={onlyOneWorkspace}
+                    onDeleteIconClick={() =>
+                      setDialog({
+                        type: "delete",
+                        selected: workspace,
+                      })
+                    }
+                  />
+                );
+              })}
+            </List>
+          </SortableContext>
+        </DndContext>
 
         {editMode || fullWorkspaces ? null : (
           <Button
