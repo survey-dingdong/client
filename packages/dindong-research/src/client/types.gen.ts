@@ -602,6 +602,17 @@ export type GetProjectParticipantListProjectsProjectIdParticipantsGetData = {
 export type GetProjectParticipantListProjectsProjectIdParticipantsGetResponse =
   Array<GetExperimentParticipantResponse>;
 
+export type UpdateProjectParticipantStatusProjectsProjectIdParticipantsParticipantIdPatchData =
+  {
+    attendanceStatus: ExperimentAttendanceStatusTypeEnum;
+    participantId: number;
+    projectId: number;
+    projectType: ProjectTypeEnum;
+  };
+
+export type UpdateProjectParticipantStatusProjectsProjectIdParticipantsParticipantIdPatchResponse =
+  unknown;
+
 export type DeleteProjectParticipantProjectsProjectIdParticipantsParticipantIdDeleteData =
   {
     participantId: number;
@@ -928,6 +939,19 @@ export type $OpenApiTs = {
     };
   };
   "/projects/{projectId}/participants/{participantId}": {
+    patch: {
+      req: UpdateProjectParticipantStatusProjectsProjectIdParticipantsParticipantIdPatchData;
+      res: {
+        /**
+         * Successful Response
+         */
+        200: unknown;
+        /**
+         * Validation Error
+         */
+        422: HTTPValidationError;
+      };
+    };
     delete: {
       req: DeleteProjectParticipantProjectsProjectIdParticipantsParticipantIdDeleteData;
       res: {

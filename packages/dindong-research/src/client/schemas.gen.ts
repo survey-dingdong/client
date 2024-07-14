@@ -26,7 +26,7 @@ export const $CreateProjectRequest = {
   properties: {
     title: {
       type: "string",
-      maxLength: 20,
+      maxLength: 30,
       minLength: 1,
       title: "Title",
       description: "Title",
@@ -812,6 +812,7 @@ export const $UpdateWorkspaceRequest = {
       anyOf: [
         {
           type: "integer",
+          minimum: 1,
         },
         {
           type: "null",

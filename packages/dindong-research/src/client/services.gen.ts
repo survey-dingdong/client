@@ -47,6 +47,8 @@ import type {
   DeleteProjectProjectsProjectIdDeleteResponse,
   GetProjectParticipantListProjectsProjectIdParticipantsGetData,
   GetProjectParticipantListProjectsProjectIdParticipantsGetResponse,
+  UpdateProjectParticipantStatusProjectsProjectIdParticipantsParticipantIdPatchData,
+  UpdateProjectParticipantStatusProjectsProjectIdParticipantsParticipantIdPatchResponse,
   DeleteProjectParticipantProjectsProjectIdParticipantsParticipantIdDeleteData,
   DeleteProjectParticipantProjectsProjectIdParticipantsParticipantIdDeleteResponse,
 } from "./types.gen";
@@ -575,6 +577,37 @@ export const getProjectParticipantListProjectsProjectIdParticipantsGet = (
     },
   });
 };
+
+/**
+ * Update Project Participant Status
+ * @param data The data for the request.
+ * @param data.projectId
+ * @param data.participantId
+ * @param data.projectType
+ * @param data.attendanceStatus
+ * @returns unknown Successful Response
+ * @throws ApiError
+ */
+export const updateProjectParticipantStatusProjectsProjectIdParticipantsParticipantIdPatch =
+  (
+    data: UpdateProjectParticipantStatusProjectsProjectIdParticipantsParticipantIdPatchData
+  ): CancelablePromise<UpdateProjectParticipantStatusProjectsProjectIdParticipantsParticipantIdPatchResponse> => {
+    return _Request(OpenAPI, {
+      method: "PATCH",
+      url: "/projects/{projectId}/participants/{participantId}",
+      path: {
+        projectId: data.projectId,
+        participantId: data.participantId,
+      },
+      query: {
+        projectType: data.projectType,
+        attendanceStatus: data.attendanceStatus,
+      },
+      errors: {
+        422: "Validation Error",
+      },
+    });
+  };
 
 /**
  * Delete Project Participant
