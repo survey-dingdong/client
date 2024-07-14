@@ -19,7 +19,7 @@ function oauthSignIn() {
   var params = {
     client_id:
       "278730470360-eu2q7p5hq12d5bakri2hgvcaaldaeupg.apps.googleusercontent.com",
-    redirect_uri: "http://localhost:3000/google-callback",
+    redirect_uri: "https://client-dun-nu.vercel.app/google-callback",
     response_type: "token",
     scope: "email profile",
     include_granted_scopes: "true",
