@@ -177,7 +177,13 @@ export default function Page() {
           >
             <Box display="flex" gap={2}>
               <TextField fullWidth readOnly label="계정" value={user?.email} />
-              <TextField fullWidth readOnly label="비밀번호" type="password" />
+              <TextField
+                fullWidth
+                readOnly
+                label="비밀번호"
+                type="password"
+                value="********"
+              />
             </Box>
           </CardSection>
         </PaperCard>
