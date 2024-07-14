@@ -17,9 +17,8 @@ function oauthSignIn() {
 
   // Parameters to pass to OAuth 2.0 endpoint.
   var params = {
-    client_id:
-      "278730470360-eu2q7p5hq12d5bakri2hgvcaaldaeupg.apps.googleusercontent.com",
-    redirect_uri: "https://client-dun-nu.vercel.app/google-callback",
+    client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+    redirect_uri: process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URI,
     response_type: "token",
     scope: "email profile",
     include_granted_scopes: "true",
