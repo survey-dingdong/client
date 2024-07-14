@@ -23,7 +23,8 @@ import { enqueueSnackbar } from "notistack";
 import { fetchUserQueryKey, useUser } from "src/hooks/useUser";
 import { updateUserUsersPatch } from "src/client";
 import EditPasswordDialog from "src/shared/EditPasswordDialog";
-
+import editPrimary from "public/icons/edit-primary.png";
+import Image from "next/image";
 type DialogType = "nickname" | "account";
 
 //
@@ -290,17 +291,12 @@ interface EditButtonProps {
 
 const EditButton: React.FC<EditButtonProps> = ({ label, onClick }) => {
   return (
-    <Typography
-      color="primary.main"
-      variant="body2"
-      display="inline-flex"
-      alignItems="center"
-      gap={0.5}
-      sx={{ cursor: "pointer" }}
+    <Button
+      variant="text"
+      startIcon={<Image src={editPrimary} alt="edit" width={16} height={16} />}
       onClick={onClick}
     >
-      <i className="fa-regular fa-pen-to-square" />
       {label ?? "수정하기"}
-    </Typography>
+    </Button>
   );
 };

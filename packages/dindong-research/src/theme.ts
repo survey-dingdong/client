@@ -68,7 +68,6 @@ const theme = createTheme({
         disableElevation: true,
         style: {
           borderRadius: 10,
-          padding: "8px 22px",
         },
       },
       styleOverrides: {
@@ -79,16 +78,18 @@ const theme = createTheme({
           },
         }),
         root: ({ theme, ownerState }) => ({
-          ...(ownerState.color === "primary" && {
-            ":hover": {
-              backgroundColor: "#2D44E7",
-            },
-            [`&.${buttonClasses.disabled}`]: {
-              backgroundColor: theme.palette.primary.main,
-              opacity: 0.4,
-              color: "#fff",
-            },
-          }),
+          padding: "8px 22px",
+          ...(ownerState.color === "primary" &&
+            ownerState.variant === "contained" && {
+              ":hover": {
+                backgroundColor: "#2D44E7",
+              },
+              [`&.${buttonClasses.disabled}`]: {
+                backgroundColor: theme.palette.primary.main,
+                opacity: 0.4,
+                color: theme.palette.common.white,
+              },
+            }),
           ...(ownerState.color === "secondary" && {
             ":hover": {
               backgroundColor: "#38414E",
@@ -122,6 +123,31 @@ const theme = createTheme({
           style: ({ theme }) => ({
             ":hover": {
               backgroundColor: theme.palette.background.default,
+            },
+          }),
+        },
+        {
+          props: {
+            variant: "text",
+          },
+          style: {
+            borderRadius: "10px",
+            [`& .${buttonClasses.startIcon}`]: {
+              marginLeft: 0,
+            },
+          },
+        },
+        {
+          props: { variant: "text", color: "primary" },
+          style: ({ theme }) => ({
+            padding: "6px 8px",
+            fontWeight: 500,
+            ":hover": {
+              backgroundColor: "#F0F7FF",
+            },
+            ":disabled": {
+              opacity: 0.4,
+              color: theme.palette.primary.main,
             },
           }),
         },
