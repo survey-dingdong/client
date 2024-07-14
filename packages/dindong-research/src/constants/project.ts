@@ -1,0 +1,5 @@
+export const PROJECT_SERVER_DATE_FORMAT = "YYYY-MM-DD";
+export const PROJECT_SERVER_TIME_FORMAT = "HH:mm:ss";
+
+export const PROJECT_TITLE_MAX = 64;
+export const PROJECT_DESCRIPTION_MAX = 1000;

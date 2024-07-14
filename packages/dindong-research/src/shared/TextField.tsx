@@ -3,6 +3,7 @@ import React from "react";
 import {
   FormControl,
   FormHelperText,
+  FormHelperTextProps,
   FormLabel,
   InputProps,
   OutlinedInput,
@@ -13,6 +14,7 @@ export interface _TextFieldProps extends InputProps {
   required?: boolean;
   label?: string;
   helperText?: string;
+  helperTextProps?: FormHelperTextProps;
 }
 
 export const TextField: React.FC<_TextFieldProps> = ({
@@ -20,6 +22,7 @@ export const TextField: React.FC<_TextFieldProps> = ({
   label,
   helperText,
   error,
+  helperTextProps,
   ...props
 }) => {
   return (
@@ -39,7 +42,6 @@ export const TextField: React.FC<_TextFieldProps> = ({
       ) : null}
       <OutlinedInput
         {...props}
-        autoComplete="new-password"
         sx={{
           input: {
             "&:-webkit-autofill": {
@@ -51,7 +53,12 @@ export const TextField: React.FC<_TextFieldProps> = ({
         }}
       />
       {helperText ? (
-        <FormHelperText error={error}>{helperText}</FormHelperText>
+        <FormHelperText
+          {...helperTextProps}
+          error={helperTextProps?.error ?? error}
+        >
+          {helperText}
+        </FormHelperText>
       ) : null}
     </FormControl>
   );

@@ -14,6 +14,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { getProjectsQueryKey } from "src/hooks/useProjects";
 import { useSnackbar } from "notistack";
 import { createProjectWorkspacesWorkspaceIdProjectsPost } from "src/client";
+import { PROJECT_TITLE_MAX } from "src/constants/project";
 
 //
 //
@@ -59,6 +60,8 @@ const CreateProjectDialog: React.FC<CreateProjectDialogProps> = ({
           onChange={(e) => setValue(e.target.value)}
           sx={{ backgroundClip: "#F5F7FA" }}
           size="medium"
+          helperText={`${value.length}/${PROJECT_TITLE_MAX}`}
+          error={value.length > PROJECT_TITLE_MAX}
         />
       </DialogContent>
       <DialogActions>

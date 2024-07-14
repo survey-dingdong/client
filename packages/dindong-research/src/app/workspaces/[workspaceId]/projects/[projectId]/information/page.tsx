@@ -54,6 +54,12 @@ import {
 import { GET_PROJECT_QUERY_KEY, useProject } from "src/hooks/useProject";
 import { isProjectFulfilled } from "src/utils/project";
 import ProjectOpenStatusAlert from "src/widgets/ProjectOpenStatusAlert";
+import {
+  PROJECT_DESCRIPTION_MAX,
+  PROJECT_SERVER_DATE_FORMAT,
+  PROJECT_SERVER_TIME_FORMAT,
+  PROJECT_TITLE_MAX,
+} from "src/constants/project";
 dayjs.extend(isBetween);
 
 //
@@ -85,9 +91,6 @@ type Params = {
 //
 //
 
-const SERVER_DATE_FORMAT = "YYYY-MM-DD";
-const SERVER_TIME_FORMAT = "HH:mm:ss";
-
 const TODAY = dayjs();
 
 //
@@ -114,6 +117,7 @@ export default function Page() {
 
   const formMethods = useForm<ProjectFormType>({
     defaultValues: project as unknown as ProjectFormType,
+    mode: "onChange",
   });
 
   const [usingExcludeDates, setUsingExcludeDates] = React.useState(
@@ -196,18 +200,22 @@ export default function Page() {
         projectType: "experiment",
         requestBody: {
           ...data,
-          startDate: dayjs(data.startDate).format(SERVER_DATE_FORMAT) as any,
-          endDate: dayjs(data.endDate).format(SERVER_DATE_FORMAT) as any,
+          startDate: dayjs(data.startDate).format(
+            PROJECT_SERVER_DATE_FORMAT
+          ) as any,
+          endDate: dayjs(data.endDate).format(
+            PROJECT_SERVER_DATE_FORMAT
+          ) as any,
           experimentTimeslots: data.experimentTimeslots.map(
             (timeslot: TimeSlotType) => ({
               ...timeslot,
-              startTime: timeslot.startTime?.format(SERVER_TIME_FORMAT),
-              endTime: timeslot.endTime?.format(SERVER_TIME_FORMAT),
+              startTime: timeslot.startTime?.format(PROJECT_SERVER_TIME_FORMAT),
+              endTime: timeslot.endTime?.format(PROJECT_SERVER_TIME_FORMAT),
             })
           ) as any,
           excludedDates: usingExcludeDates
             ? (data.excludedDates?.map((date) =>
-                dayjs(date).format(SERVER_DATE_FORMAT)
+                dayjs(date).format(PROJECT_SERVER_DATE_FORMAT)
               ) as any)
             : [],
         },
@@ -344,12 +352,20 @@ export default function Page() {
                   control={formMethods.control}
                   rules={{
                     required: { value: true, message: "필수 입력 항목입니다." },
+                    maxLength: PROJECT_TITLE_MAX,
                   }}
                   render={({ field, fieldState }) => (
                     <TextField
                       label="프로젝트 명"
                       error={fieldState.invalid}
-                      helperText={fieldState.error?.message}
+                      helperText={`${
+                        field.value?.length || 0
+                      }/${PROJECT_TITLE_MAX}`}
+                      helperTextProps={{
+                        sx: {
+                          textAlign: "right",
+                        },
+                      }}
                       required
                       fullWidth
                       {...field}
@@ -359,13 +375,23 @@ export default function Page() {
                 <Controller
                   name="description"
                   control={formMethods.control}
+                  rules={{
+                    maxLength: PROJECT_DESCRIPTION_MAX,
+                  }}
                   render={({ field, fieldState }) => (
                     <TextField
                       label="프로젝트 설명"
                       placeholder="프로젝트 설명을 입력해주세요."
                       rows={3}
                       error={fieldState.invalid}
-                      helperText={fieldState.error?.message}
+                      helperText={`${
+                        field.value?.length || 0
+                      }/${PROJECT_DESCRIPTION_MAX}`}
+                      helperTextProps={{
+                        sx: {
+                          textAlign: "right",
+                        },
+                      }}
                       multiline
                       fullWidth
                       {...field}
