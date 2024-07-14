@@ -29,7 +29,7 @@ export const OpenProjectDialog: React.FC<OpenProjectDialogProps> = ({
 }) => {
   return (
     <Dialog fullWidth maxWidth="xs" open={open} onClose={onClose}>
-      <DialogTitle>프로젝트 열기</DialogTitle>
+      <DialogTitle>프로젝트 공개하기</DialogTitle>
       <DialogContent>
         <DialogContentText>
           공개 즉시 본 프로젝트에 대한 정보가 서베이 플랫폼에 게시됩니다. 예비
