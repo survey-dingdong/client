@@ -15,7 +15,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   return (
     <Stack
       gap={1}
-      flexDirection={{ xs: "column", md: "row" }}
+      flexDirection="row"
       width="100%"
       alignItems="center"
       justifyContent="space-between"

@@ -1,5 +1,11 @@
 "use client";
-import { Button, Paper, Toolbar, Tooltip } from "@mui/material";
+import {
+  Button,
+  CircularProgress,
+  Paper,
+  Toolbar,
+  Tooltip,
+} from "@mui/material";
 import React from "react";
 import { useFormContext } from "react-hook-form";
 import { drawerWidth } from "src/shared";
@@ -34,7 +40,11 @@ const ProjectBottomNav = () => {
             <span>
               <Button
                 type="submit"
-                disabled={!formState.isValid || !formState.isDirty}
+                disabled={
+                  !formState.isValid ||
+                  !formState.isDirty ||
+                  formState.isSubmitting
+                }
               >
                 저장
               </Button>

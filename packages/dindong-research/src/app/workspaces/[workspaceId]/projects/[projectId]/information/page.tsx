@@ -7,7 +7,6 @@ import {
   CardContent,
   Checkbox,
   Collapse,
-  Container,
   FormControlLabel,
   FormHelperText,
   FormLabel,
@@ -45,6 +44,7 @@ import {
   OpenSwitch,
   ProjectBottomNav,
   PublicTag,
+  Spinner,
 } from "src/widgets";
 import {
   ExperimentTimeslotRequest,
@@ -103,10 +103,12 @@ export default function Page() {
   const _workspaceId = Number(params?.workspaceId);
   const _projectId = Number(params?.projectId);
 
-  const { project } = useProject({
+  const { project, isLoading } = useProject({
     workspaceId: _workspaceId,
     projectId: _projectId,
   });
+
+  console.log({ project });
 
   const projectFulfilled = isProjectFulfilled(project);
 
@@ -161,7 +163,7 @@ export default function Page() {
     sumOfSessionParticipants;
 
   //
-  //
+  // update project form
   //
   React.useEffect(() => {
     if (project) {
@@ -174,25 +176,17 @@ export default function Page() {
               endTime: convertTimeToDayjs(timeslot.endTime),
             }))
           : [DEFAULT_TIMESLOT],
-        startDate: dayjs(project.startDate),
-        endDate: dayjs(project.endDate),
+        //
+        startDate: project.startDate ? dayjs(project.startDate) : TODAY,
+        endDate: project.endDate
+          ? dayjs(project.endDate)
+          : TODAY.add(1, "month"),
       } as unknown as ProjectFormType);
-
-      if (!project?.experimentTimeslots?.length) {
-        formMethods.setValue("experimentTimeslots", [DEFAULT_TIMESLOT]);
-      }
-
-      if (!project?.endDate) {
-        formMethods.setValue("endDate", TODAY.add(1, "month"));
-      }
-
-      if (!project?.startDate) {
-        formMethods.setValue("startDate", TODAY);
-      }
 
       setUsingExcludeDates(!!project.excludedDates?.length);
     }
-  }, [formMethods, project]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [project]);
 
   /**
    *
@@ -221,7 +215,9 @@ export default function Page() {
         },
       });
 
-      queryClient.invalidateQueries({ queryKey: [GET_PROJECT_QUERY_KEY] });
+      await queryClient.invalidateQueries({
+        queryKey: [GET_PROJECT_QUERY_KEY],
+      });
 
       enqueueSnackbar("프로젝트 정보가 성공적으로 저장되었습니다.", {
         variant: "success",
@@ -300,6 +296,10 @@ export default function Page() {
   //
   //
   //
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <FormProvider {...formMethods}>
@@ -406,6 +406,8 @@ export default function Page() {
                         }}
                         render={({ field, fieldState }) => (
                           <DatePicker
+                            {...field}
+                            value={dayjs(field.value)}
                             slots={{
                               openPickerIcon: DatePickerOpenIcon,
                             }}
@@ -416,8 +418,6 @@ export default function Page() {
                                 helperText: fieldState.error?.message,
                               },
                             }}
-                            {...field}
-                            value={dayjs(field.value)}
                           />
                         )}
                       />
@@ -430,23 +430,30 @@ export default function Page() {
                             message: "필수 입력 항목입니다.",
                           },
                         }}
-                        render={({ field, fieldState }) => (
-                          <DatePicker
-                            slots={{
-                              openPickerIcon: DatePickerOpenIcon,
-                            }}
-                            slotProps={{
-                              textField: {
-                                fullWidth: true,
-                                error: fieldState.invalid,
-                                helperText: fieldState.error?.message,
-                              },
-                            }}
-                            {...field}
-                            value={dayjs(field.value)}
-                            minDate={watchedStartDate}
-                          />
-                        )}
+                        render={({ field, fieldState }) => {
+                          console.log(watchedStartDate);
+                          return (
+                            <DatePicker
+                              {...field}
+                              value={dayjs(field.value)}
+                              slots={{
+                                openPickerIcon: DatePickerOpenIcon,
+                              }}
+                              slotProps={{
+                                textField: {
+                                  fullWidth: true,
+                                  error: Boolean(fieldState.error),
+                                  helperText: fieldState.error?.message,
+                                },
+                              }}
+                              minDate={
+                                dayjs.isDayjs(watchedStartDate)
+                                  ? watchedStartDate
+                                  : dayjs(watchedStartDate)
+                              }
+                            />
+                          );
+                        }}
                       />
                     </Stack>
 
