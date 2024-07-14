@@ -1,10 +1,15 @@
 "use client";
 import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
 import { Button, Stack } from "@mui/material";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
+import { useSnackbar } from "notistack";
 import React from "react";
-import { getProjectParticipantListProjectsProjectIdParticipantsGet } from "src/client";
+import {
+  ExperimentAttendanceStatusTypeEnum,
+  getProjectParticipantListProjectsProjectIdParticipantsGet,
+  updateProjectParticipantStatusProjectsProjectIdParticipantsParticipantIdPatch,
+} from "src/client";
 import { Empty, PageHeader } from "src/shared";
 import { ContentContainer, Spinner } from "src/widgets";
 import { ParticipantsTable } from "src/widgets/ParticipantsTable";
@@ -18,6 +23,9 @@ type Params = {
   projectId: string;
 };
 
+const GET_PARTICIPANTS_QUERY_KEY =
+  "getProjectParticipantListProjectsProjectIdParticipantsGet";
+
 //
 //
 //
@@ -25,9 +33,11 @@ type Params = {
 export default function Page() {
   const params = useParams<Params>();
   const _projectId = Number(params?.projectId);
+  const { enqueueSnackbar } = useSnackbar();
+  const queryClient = useQueryClient();
 
   const { data: participantsData = [], isLoading } = useQuery({
-    queryKey: ["participants"],
+    queryKey: [GET_PARTICIPANTS_QUERY_KEY, _projectId],
     queryFn: async () =>
       getProjectParticipantListProjectsProjectIdParticipantsGet({
         projectId: _projectId,
@@ -36,6 +46,38 @@ export default function Page() {
   });
 
   const noParticipants = participantsData.length === 0;
+
+  /**
+   *
+   */
+  const handleStatusChange = async ({
+    newStatus,
+    participantId,
+  }: {
+    newStatus: ExperimentAttendanceStatusTypeEnum;
+    participantId: number;
+  }) => {
+    try {
+      await updateProjectParticipantStatusProjectsProjectIdParticipantsParticipantIdPatch(
+        {
+          attendanceStatus: newStatus,
+          participantId,
+          projectId: _projectId,
+          projectType: "experiment",
+        }
+      );
+
+      await queryClient.invalidateQueries({
+        queryKey: [GET_PARTICIPANTS_QUERY_KEY],
+      });
+
+      await enqueueSnackbar("참여 여부가 변경되었습니다.", {
+        variant: "success",
+      });
+    } catch (err) {
+      enqueueSnackbar("참여 여부 변경에 실패했습니다.", { variant: "error" });
+    }
+  };
 
   //
   //
@@ -67,7 +109,10 @@ export default function Page() {
             description={`실험 프로젝트 참여를 예정하거나 완료한 참여자가 있는 경우\n참여자 목록이 여기에 나타납니다.`}
           />
         ) : (
-          <ParticipantsTable participants={participantsData} />
+          <ParticipantsTable
+            participants={participantsData}
+            onStatusChange={handleStatusChange}
+          />
         )}
       </Stack>
     </ContentContainer>

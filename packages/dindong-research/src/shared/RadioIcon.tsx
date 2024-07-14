@@ -1,4 +1,4 @@
-import { Box, colors } from "@mui/material";
+import { Box } from "@mui/material";
 
 const commonStyle = {
   width: 16,

@@ -30,7 +30,10 @@ import React from "react";
 import ParticipantStatusChip from "./ParticipantStatusChip";
 import Link from "next/link";
 import { usePath } from "src/hooks/usePath";
-import { GetExperimentParticipantResponse } from "src/client";
+import {
+  ExperimentAttendanceStatusTypeEnum,
+  GetExperimentParticipantResponse,
+} from "src/client";
 import dayjs from "dayjs";
 
 //
@@ -87,6 +90,10 @@ function formatExperimentDateTime({
 
 interface ParticipantsTableProps {
   participants: GetExperimentParticipantResponse[];
+  onStatusChange: (params: {
+    newStatus: ExperimentAttendanceStatusTypeEnum;
+    participantId: number;
+  }) => void;
 }
 
 //
@@ -95,6 +102,7 @@ interface ParticipantsTableProps {
 
 const ParticipantsTable: React.FC<ParticipantsTableProps> = ({
   participants,
+  onStatusChange,
 }) => {
   const [dialogType, setDialogType] = React.useState<"delete" | "info" | null>(
     null
@@ -163,10 +171,6 @@ const ParticipantsTable: React.FC<ParticipantsTableProps> = ({
     );
   };
 
-  const handleAttendanceStatusChange = (newStatus: string) => {
-    //  TODO: 참여 여부 변경
-  };
-
   //
   //
   //
@@ -215,23 +219,30 @@ const ParticipantsTable: React.FC<ParticipantsTableProps> = ({
                         backgroundColor: "inherit",
                       },
                     }}
-                    onChange={(e) => {
-                      handleAttendanceStatusChange(e.target.value);
-                    }}
+                    onChange={(e) =>
+                      onStatusChange({
+                        newStatus: e.target
+                          .value as ExperimentAttendanceStatusTypeEnum,
+                        participantId: participant.id,
+                      })
+                    }
                   >
                     {Object.entries(ATTENDANCE_STATUS_LABEL).map(
                       ([status, label]) => (
-                        <MenuItem key={status} value={status}>
-                          <FormControlLabel
-                            label={label}
-                            control={
-                              <Radio
-                                checked={
-                                  participant.attendanceStatus === status
-                                }
-                              />
-                            }
+                        <MenuItem
+                          key={status}
+                          value={status}
+                          sx={{
+                            padding: "12px 8px",
+                            fontSize: 14,
+                            fontWeight: 500,
+                          }}
+                        >
+                          <Radio
+                            checked={participant.attendanceStatus === status}
+                            sx={{ marginRight: "6px" }}
                           />
+                          {label}
                         </MenuItem>
                       )
                     )}

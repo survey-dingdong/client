@@ -580,6 +580,11 @@ const theme = createTheme({
         icon: RadioIcon,
         checkedIcon: RadioCheckedIcon,
       },
+      styleOverrides: {
+        root: {
+          padding: "3px",
+        },
+      },
     },
   },
 });
