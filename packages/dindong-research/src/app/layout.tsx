@@ -7,6 +7,41 @@ import theme from "../theme";
 import Script from "next/script";
 import { Provider } from "./Provider";
 import { GlobalStyles } from "@mui/material";
+import localFont from "next/font/local";
+
+//
+//
+//
+
+const myFont = localFont({
+  src: [
+    {
+      path: "../static/font/Pretendard-Medium.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../static/font/Pretendard-Regular.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../static/font/Pretendard-SemiBold.woff2",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../static/font/Pretendard-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../static/font/Pretendard-ExtraBold.woff2",
+      weight: "800",
+      style: "normal",
+    },
+  ],
+});
 
 //
 //
@@ -17,15 +52,8 @@ export default async function RootLayout(props: any) {
 
   return (
     <>
-      <html lang="en">
+      <html lang="en" className={myFont.className}>
         <head>
-          <link
-            rel="stylesheet"
-            as="style"
-            crossOrigin="anonymous"
-            property="stylesheet"
-            href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
-          />
           <link rel="icon" type="image/png" href="/favicon.ico" />
           <link
             rel="icon"

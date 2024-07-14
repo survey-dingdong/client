@@ -46,7 +46,6 @@ const theme = createTheme({
     MuiTypography: {
       defaultProps: {
         color: "text.primary",
-        fontFamily: "Pretendard Variable",
       },
       variants: [
         {
@@ -203,7 +202,6 @@ const theme = createTheme({
     MuiFormHelperText: {
       styleOverrides: {
         root: {
-          fontFamily: "Pretendard Variable",
           fontWeight: 500,
           marginLeft: 0,
           lineHeight: "16px",
@@ -333,7 +331,6 @@ const theme = createTheme({
     MuiListItem: {
       styleOverrides: {
         root: ({ theme }) => ({
-          fontFamily: "Pretendard Variable",
           borderRadius: 8,
           fontSize: 14,
           ":active": {
