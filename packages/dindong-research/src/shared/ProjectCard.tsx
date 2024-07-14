@@ -56,8 +56,9 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         <CardContent sx={{ padding: "16px 24px 24px 24px" }}>
           <Stack gap={2}>
             <Typography
+              variant="body2"
               sx={{
-                height: 46,
+                height: 40,
                 overflow: "hidden",
                 textOverflow: "ellipsis",
                 display: "-webkit-box",
