@@ -65,7 +65,6 @@ const WorkspaceListItem: React.FC<WorkspaceListItemProps> = ({
       key={workspace.id}
       // dnd
       {...attributes}
-      {...listeners}
       ref={setNodeRef}
       style={style}
       //
@@ -77,7 +76,14 @@ const WorkspaceListItem: React.FC<WorkspaceListItemProps> = ({
             <Tooltip title="이름 변경">
               <IconButton
                 size="small"
-                onClick={() => setEditingWorkspace(workspace)}
+                onClick={(e) => {
+                  console.log("hi");
+                  e.preventDefault();
+                  e.stopPropagation();
+
+                  setEditingWorkspace(workspace);
+                }}
+                sx={{ zIndex: 1 }}
               >
                 <Image src={editIcon.src} width={16} height={16} alt="edit" />
               </IconButton>
@@ -104,7 +110,7 @@ const WorkspaceListItem: React.FC<WorkspaceListItemProps> = ({
     >
       {editMode ? (
         <>
-          <ListItemIcon>
+          <ListItemIcon {...listeners}>
             <MenuRoundedIcon fontSize="small" />
           </ListItemIcon>
           {isItemEditing ? (
@@ -114,7 +120,10 @@ const WorkspaceListItem: React.FC<WorkspaceListItemProps> = ({
               onStopEditing={() => setEditingWorkspace(null)}
             />
           ) : (
-            <ListItemText primaryTypographyProps={{ noWrap: true, pr: 8 }}>
+            <ListItemText
+              {...listeners}
+              primaryTypographyProps={{ noWrap: true, pr: 8 }}
+            >
               {workspace.title}
             </ListItemText>
           )}
