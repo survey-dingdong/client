@@ -10,17 +10,16 @@ import { useWorkspaces, WORKSPACES_QUERY_KEY } from "src/hooks/useWorkspaces";
 import {
   DndContext,
   DragEndEvent,
-  DragOverEvent,
   DragStartEvent,
   KeyboardSensor,
   MouseSensor,
   TouchSensor,
   UniqueIdentifier,
-  useDroppable,
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
 import {
+  arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
@@ -55,6 +54,9 @@ const WorkspaceNav = () => {
   // [STATE]
   const [editMode, setEditMode] = React.useState(false);
   const [dialog, setDialog] = React.useState<DialogType>(null);
+  const [clientWorkspaces, setClientWorkspaces] = React.useState<
+    WorkspaceType[]
+  >([]);
 
   // [QUERY]
   const { workspaces = [] } = useWorkspaces();
@@ -71,7 +73,6 @@ const WorkspaceNav = () => {
 
   // [DND]
   const [activeId, setActiveId] = React.useState<null | UniqueIdentifier>();
-  const { setNodeRef } = useDroppable({ id: "1" });
 
   const sensors = useSensors(
     useSensor(MouseSensor),
@@ -98,11 +99,15 @@ const WorkspaceNav = () => {
       if (active.id === over.id) {
         return null;
       }
+      const activeIndex = active.data.current?.sortable.index;
+      const overIndex = over.data.current?.sortable.index;
+
+      setClientWorkspaces(arrayMove(clientWorkspaces, activeIndex, overIndex));
 
       updateWorkspaceWorkspacesWorkspaceIdPatch({
         workspaceId: active.id as number,
         requestBody: {
-          orderNo: over.data.current?.sortable.index,
+          orderNo: overIndex + 1, // order starts from 1
         },
       }).then(() => {
         queryClient.invalidateQueries({ queryKey: [WORKSPACES_QUERY_KEY] });
@@ -113,6 +118,13 @@ const WorkspaceNav = () => {
       enqueueSnackbar("에러가 발생했습니다.", { variant: "error" });
     }
   };
+
+  //
+  //
+  //
+  React.useEffect(() => {
+    setClientWorkspaces(workspaces);
+  }, [workspaces]);
 
   //
   //
@@ -167,7 +179,7 @@ const WorkspaceNav = () => {
                 </ListSubheader>
               }
             >
-              {workspaces?.map((workspace) => {
+              {clientWorkspaces?.map((workspace) => {
                 return (
                   <WorkspaceListItem
                     key={workspace.id}

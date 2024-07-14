@@ -18,13 +18,12 @@ import Image from "next/image";
 import { WorkspaceType } from "src/hooks/useWorkspaces";
 import WorkspaceRenameInput from "../WorkspaceRenameInput";
 import { useParams } from "next/navigation";
-import { useDraggable } from "@dnd-kit/core";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
 interface WorkspaceListItemProps {
   workspace: WorkspaceType;
-  editMode: boolean;
+  editMode?: boolean;
   hideDeleteIcon?: boolean;
   onDeleteIconClick?: () => void;
 }
@@ -54,7 +53,6 @@ const WorkspaceListItem: React.FC<WorkspaceListItemProps> = ({
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-    opacity: isDragging ? 0.5 : 1,
     cursor: isDragging ? "grabbing" : "grab",
   };
 

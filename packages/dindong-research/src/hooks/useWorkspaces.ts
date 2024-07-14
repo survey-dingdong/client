@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { getWorkspaceListWorkspacesGet } from "src/client";
 
 export type WorkspaceType = {
@@ -18,6 +18,7 @@ export function useWorkspaces(): UseProjectReturn {
   const { data, isError, isLoading } = useQuery<WorkspaceType[]>({
     queryKey: [WORKSPACES_QUERY_KEY],
     queryFn: () => getWorkspaceListWorkspacesGet(),
+    placeholderData: keepPreviousData,
   });
 
   return {

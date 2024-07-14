@@ -332,11 +332,17 @@ const theme = createTheme({
     //
     MuiListItem: {
       styleOverrides: {
-        root: {
+        root: ({ theme }) => ({
           fontFamily: "Pretendard Variable",
-          borderRadius: 16,
+          borderRadius: 8,
           fontSize: 14,
-        },
+          ":active": {
+            backgroundColor: "#F0F7FF",
+            [`& .${listItemTextClasses.primary}, svg`]: {
+              color: theme.palette.primary.main,
+            },
+          },
+        }),
       },
     },
     MuiListItemText: {
