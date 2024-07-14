@@ -76,13 +76,7 @@ const WorkspaceListItem: React.FC<WorkspaceListItemProps> = ({
             <Tooltip title="이름 변경">
               <IconButton
                 size="small"
-                onClick={(e) => {
-                  console.log("hi");
-                  e.preventDefault();
-                  e.stopPropagation();
-
-                  setEditingWorkspace(workspace);
-                }}
+                onClick={() => setEditingWorkspace(workspace)}
                 sx={{ zIndex: 1 }}
               >
                 <Image src={editIcon.src} width={16} height={16} alt="edit" />

@@ -1,6 +1,5 @@
 import {
   Card,
-  CardHeader,
   CardContent,
   Typography,
   Stack,
@@ -8,7 +7,6 @@ import {
   Box,
   LinearProgressProps,
   CardActionArea,
-  cardHeaderClasses,
 } from "@mui/material";
 import Link from "next/link";
 import React from "react";
@@ -43,27 +41,19 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
       key={project.id}
       sx={{ borderRadius: 4, textDecoration: "none" }}
     >
-      <CardActionArea sx={{ p: 1 }}>
-        <CardHeader
-          title={
-            <>
-              <PublicTag
-                size="small"
-                isPublic={project?.isPublic}
-                sx={{ mr: 1 }}
-              />
-              {project.title}
-            </>
-          }
-          titleTypographyProps={{
-            fontWeight: 800,
-            noWrap: true,
-            display: "inline-flex",
-            alignItems: "center",
-          }}
-          sx={{ [`& .${cardHeaderClasses.content}`]: { width: "100%" }, pb: 0 }}
-        />
-        <CardContent>
+      <CardActionArea>
+        <Box
+          display="flex"
+          gap={1}
+          padding="24px 24px 0 24px"
+          alignItems="center"
+        >
+          <PublicTag size="small" isPublic={project?.isPublic} />
+          <Typography variant="h6" noWrap>
+            {project.title}
+          </Typography>
+        </Box>
+        <CardContent sx={{ padding: "16px 24px 24px 24px" }}>
           <Stack gap={2}>
             <Typography
               sx={{
