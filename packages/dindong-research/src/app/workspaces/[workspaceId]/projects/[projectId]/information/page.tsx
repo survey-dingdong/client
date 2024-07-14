@@ -108,8 +108,6 @@ export default function Page() {
     projectId: _projectId,
   });
 
-  console.log({ project });
-
   const projectFulfilled = isProjectFulfilled(project);
 
   const [publicDialogOpen, setPublicDialogOpen] = React.useState(false);
@@ -430,7 +428,6 @@ export default function Page() {
                           },
                         }}
                         render={({ field, fieldState }) => {
-                          console.log(watchedStartDate);
                           return (
                             <DatePicker
                               {...field}
