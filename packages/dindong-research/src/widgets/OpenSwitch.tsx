@@ -2,6 +2,7 @@
 import { FormControlLabel, Switch, Tooltip } from "@mui/material";
 import React from "react";
 import { Controller, useFormContext } from "react-hook-form";
+import CustomSwitch from "./CustomSwitch";
 
 //
 //
@@ -10,7 +11,6 @@ import { Controller, useFormContext } from "react-hook-form";
 interface OpenSwitchProps {
   disabled?: boolean;
   isPublic?: boolean;
-  originValue?: boolean;
   onToggle: () => void;
 }
 
@@ -18,11 +18,7 @@ interface OpenSwitchProps {
 //
 //
 
-const OpenSwitch: React.FC<OpenSwitchProps> = ({
-  disabled,
-  originValue = false,
-  onToggle,
-}) => {
+const OpenSwitch: React.FC<OpenSwitchProps> = ({ disabled, onToggle }) => {
   const { control } = useFormContext();
 
   //
@@ -53,7 +49,9 @@ const OpenSwitch: React.FC<OpenSwitchProps> = ({
                     variant: "body1",
                   },
                 }}
-                control={<Switch checked={field.value} onChange={onToggle} />}
+                control={
+                  <CustomSwitch checked={field.value} onChange={onToggle} />
+                }
               />
             )}
           />

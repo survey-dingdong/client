@@ -12,6 +12,7 @@ import dayjs, { Dayjs } from "dayjs";
 import React from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 import { DatePickerOpenIcon, TextField } from "src/shared";
+import CustomSwitch from "./CustomSwitch";
 
 export const EXCLUDED_DATE_FORMAT = "YYYY. MM. DD.";
 
@@ -180,7 +181,7 @@ const ExcludedDatePicker = ({ value, onChange }: ExcludedDatePickerProps) => {
           <FormControlLabel
             label="주말 제외"
             control={
-              <Switch
+              <CustomSwitch
                 checked={usingExceptWeekend}
                 value={usingExceptWeekend}
                 onChange={(e) => {

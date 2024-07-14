@@ -325,7 +325,6 @@ export default function Page() {
                 }
                 actions={
                   <OpenSwitch
-                    originValue={watchedIsPublic}
                     disabled={!projectFulfilled}
                     isPublic={project?.isPublic}
                     onToggle={handlePublicClick}
