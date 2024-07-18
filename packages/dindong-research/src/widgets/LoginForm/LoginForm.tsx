@@ -56,7 +56,7 @@ const LoginForm = () => {
     },
     onError: (err: any) => {
       if (err.body.errorCode === "USER__OAUTH_LOGIN_WITH_PASSWORD_ATTEMPT") {
-        router.push("/login/provider-error?provider=dingdong&email=" + email);
+        router.push("/login/provider-error?provider=google&email=" + email);
         return;
       }
       setError(true);
