@@ -365,6 +365,9 @@ const theme = createTheme({
               color: theme.palette.primary.main,
             },
           },
+          "&.Mui-selected": {
+            backgroundColor: "#F0F7FF",
+          },
         }),
       },
     },
@@ -386,20 +389,23 @@ const theme = createTheme({
               color: theme.palette.primary.main,
               fontWeight: 500,
             },
-            [`&.${listItemButtonClasses.selected}`]: {
-              backgroundColor: "#F0F7FF",
-            },
             i: {
               color: theme.palette.primary.main,
             },
+            backgroundColor: "#F0F7FF",
           }),
+          ":active": {
+            [`& .${listItemTextClasses.primary}, svg`]: {
+              color: theme.palette.primary.main,
+            },
+          },
           borderRadius: 8,
           ...(!ownerState.selected && {
             "&:hover": {
               [`& .${listItemTextClasses.primary}`]: {
                 color: theme.palette.primary.main,
               },
-              i: {
+              ["i, svg"]: {
                 color: theme.palette.primary.main,
               },
               backgroundColor: "inherit",

@@ -7,6 +7,7 @@ import {
   Box,
   LinearProgressProps,
   CardActionArea,
+  Tooltip,
 } from "@mui/material";
 import Link from "next/link";
 import React from "react";
@@ -29,6 +30,17 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
     projectId: project.id,
   });
 
+  const [isOverflowed, setIsOverflowed] = React.useState(false);
+  const titleRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    if (titleRef.current) {
+      setIsOverflowed(
+        titleRef.current.scrollWidth > titleRef.current.clientWidth
+      );
+    }
+  }, []);
+
   //
   //
   //
@@ -49,9 +61,11 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           alignItems="center"
         >
           <PublicTag size="small" isPublic={project?.isPublic} />
-          <Typography variant="h6" noWrap>
-            {project.title}
-          </Typography>
+          <Tooltip title={isOverflowed ? project.title : ""}>
+            <Typography ref={titleRef} variant="h6" noWrap>
+              {project.title}
+            </Typography>
+          </Tooltip>
         </Box>
         <CardContent sx={{ padding: "16px 24px 24px 24px" }}>
           <Stack gap={2}>

@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Button, List, ListSubheader, Stack } from "@mui/material";
+import { Button, List, ListSubheader, Stack } from "@mui/material";
 import React from "react";
 import { Nav } from "src/shared";
 import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
@@ -27,6 +27,9 @@ import WorkspaceListItem from "./DndList/WorkspaceListItem";
 import { updateWorkspaceWorkspacesWorkspaceIdPatch } from "src/client";
 import { useQueryClient } from "@tanstack/react-query";
 import { useSnackbar } from "notistack";
+import editIcon from "public/icons/edit_with_square_primary.png";
+import Image from "next/image";
+import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlineRounded";
 
 //
 //
@@ -152,30 +155,27 @@ const WorkspaceNav = () => {
                   }}
                 >
                   나의 워크스페이스
-                  <Box
-                    display="flex"
-                    alignItems="center"
-                    gap={0.5}
-                    sx={{
-                      color: (theme) => theme.palette.primary.main,
-                      cursor: "pointer",
-                      pr: 1,
-                      fontWeight: 500,
-                    }}
+                  <Button
+                    variant="text"
+                    size="small"
                     onClick={() => setEditMode(!editMode)}
+                    startIcon={
+                      editMode ? (
+                        <CheckCircleOutlineRoundedIcon
+                          sx={{ width: 14, height: 14 }}
+                        />
+                      ) : (
+                        <Image
+                          src={editIcon.src}
+                          width={12}
+                          height={12}
+                          alt=""
+                        />
+                      )
+                    }
                   >
-                    {editMode ? (
-                      <>
-                        <i className="fa-regular fa-circle-check" />
-                        완료
-                      </>
-                    ) : (
-                      <>
-                        <i className="fa-regular fa-pen-to-square" />
-                        관리
-                      </>
-                    )}
-                  </Box>
+                    {editMode ? "완료" : "관리"}
+                  </Button>
                 </ListSubheader>
               }
             >

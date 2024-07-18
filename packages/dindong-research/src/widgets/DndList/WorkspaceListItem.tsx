@@ -2,7 +2,6 @@
 
 import {
   IconButton,
-  ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
@@ -56,22 +55,47 @@ const WorkspaceListItem: React.FC<WorkspaceListItemProps> = ({
     cursor: isDragging ? "grabbing" : "grab",
   };
 
+  const [isOverflowed, setIsOverflowed] = React.useState(false);
+  const titleRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    if (titleRef.current) {
+      setIsOverflowed(
+        titleRef.current.scrollWidth > titleRef.current.clientWidth
+      );
+    }
+  }, []);
+
   //
   //
   //
 
-  return (
-    <ListItem
+  return editMode ? (
+    <ListItemButton
       key={workspace.id}
       // dnd
       {...attributes}
       ref={setNodeRef}
       style={style}
-      //
-      disablePadding
       sx={{ height: 40 }}
-      secondaryAction={
-        editMode && !isItemEditing ? (
+    >
+      <ListItemIcon {...listeners}>
+        <MenuRoundedIcon fontSize="small" />
+      </ListItemIcon>
+      {isItemEditing ? (
+        <WorkspaceRenameInput
+          value={workspace.title}
+          workspaceId={workspace.id}
+          onStopEditing={() => setEditingWorkspace(null)}
+        />
+      ) : (
+        <>
+          <ListItemText
+            {...listeners}
+            primaryTypographyProps={{ noWrap: true }}
+          >
+            {workspace.title}
+          </ListItemText>
           <>
             <Tooltip title="이름 변경">
               <IconButton
@@ -99,42 +123,22 @@ const WorkspaceListItem: React.FC<WorkspaceListItemProps> = ({
               </Tooltip>
             )}
           </>
-        ) : null
-      }
-    >
-      {editMode ? (
-        <>
-          <ListItemIcon {...listeners}>
-            <MenuRoundedIcon fontSize="small" />
-          </ListItemIcon>
-          {isItemEditing ? (
-            <WorkspaceRenameInput
-              value={workspace.title}
-              workspaceId={workspace.id}
-              onStopEditing={() => setEditingWorkspace(null)}
-            />
-          ) : (
-            <ListItemText
-              {...listeners}
-              primaryTypographyProps={{ noWrap: true, pr: 8 }}
-            >
-              {workspace.title}
-            </ListItemText>
-          )}
         </>
-      ) : (
-        <ListItemButton
-          LinkComponent={Link}
-          href={`/workspaces/${workspace.id}`}
-          selected={workspace.id === currentWorkspaceId}
-          sx={{ height: "100%" }}
-        >
-          <ListItemText primaryTypographyProps={{ noWrap: true }}>
-            {workspace.title}
-          </ListItemText>
-        </ListItemButton>
       )}
-    </ListItem>
+    </ListItemButton>
+  ) : (
+    <ListItemButton
+      LinkComponent={Link}
+      href={`/workspaces/${workspace.id}`}
+      selected={workspace.id === currentWorkspaceId}
+      sx={{ height: 40 }}
+    >
+      <Tooltip title={isOverflowed ? workspace.title : ""}>
+        <ListItemText primaryTypographyProps={{ noWrap: true, ref: titleRef }}>
+          {workspace.title}
+        </ListItemText>
+      </Tooltip>
+    </ListItemButton>
   );
 };
 
