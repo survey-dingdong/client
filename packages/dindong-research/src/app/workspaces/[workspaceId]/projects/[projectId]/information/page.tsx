@@ -395,6 +395,13 @@ export default function Page() {
                       multiline
                       fullWidth
                       {...field}
+                      onChange={(e) => {
+                        if (e.target.value.length > PROJECT_DESCRIPTION_MAX) {
+                          return;
+                        }
+
+                        field.onChange(e.target.value);
+                      }}
                     />
                   )}
                 />

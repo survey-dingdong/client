@@ -34,6 +34,7 @@ const CreateProjectDialog: React.FC<CreateProjectDialogProps> = ({
   const { enqueueSnackbar } = useSnackbar();
   const queryClient = useQueryClient();
   const [value, setValue] = React.useState("");
+  const error = value.length > PROJECT_TITLE_MAX || !value;
 
   const noValue = !value.length;
 
@@ -57,11 +58,16 @@ const CreateProjectDialog: React.FC<CreateProjectDialogProps> = ({
           value={value}
           label="프로젝트 명"
           placeholder="프로젝트 명을 입력해주세요"
-          onChange={(e) => setValue(e.target.value)}
           sx={{ backgroundClip: "#F5F7FA" }}
           size="medium"
           helperText={`${value.length}/${PROJECT_TITLE_MAX}`}
-          error={value.length > PROJECT_TITLE_MAX}
+          helperTextProps={{
+            sx: {
+              textAlign: "right",
+            },
+          }}
+          error={error}
+          onChange={(e) => setValue(e.target.value)}
         />
       </DialogContent>
       <DialogActions>
@@ -71,7 +77,7 @@ const CreateProjectDialog: React.FC<CreateProjectDialogProps> = ({
         <Tooltip title={noValue ? "필수 항목을 입력해 주세요." : ""}>
           <span>
             <Button
-              disabled={noValue}
+              disabled={error}
               onClick={() =>
                 createProjectWorkspacesWorkspaceIdProjectsPost({
                   workspaceId,

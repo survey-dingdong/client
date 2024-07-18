@@ -11,6 +11,8 @@ import {
 } from "@mui/material";
 import { TextField } from "src/shared";
 
+const MAX_NOTICE_LENGTH = 1000;
+
 const WriteNoticeAction = () => {
   const [open, setOpen] = React.useState(false);
   const [inputValue, setInputValue] = React.useState("");
@@ -34,6 +36,12 @@ const WriteNoticeAction = () => {
             value={inputValue}
             label="내용"
             placeholder="공지사항을 작성해 주세요."
+            helperText={`${inputValue.length}/${MAX_NOTICE_LENGTH}`}
+            helperTextProps={{
+              sx: {
+                textAlign: "right",
+              },
+            }}
             onChange={(e) => setInputValue(e.target.value)}
           />
         </DialogContent>
