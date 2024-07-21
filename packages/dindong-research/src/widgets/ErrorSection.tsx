@@ -3,6 +3,8 @@ import { Button, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import errorImage from "src/assets/error.png";
+import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
+import RefreshRoundedIcon from "@mui/icons-material/RefreshRounded";
 
 //
 //
@@ -37,10 +39,20 @@ const ErrorSection: React.FC<ErrorSectionProps> = ({ reset }) => {
 
       {/* Actions */}
       <Stack width="100%" flexDirection="row" gap={1} mt={4}>
-        <Button fullWidth color="inherit" onClick={() => router.back()}>
+        <Button
+          fullWidth
+          color="inherit"
+          startIcon={<ArrowBackRoundedIcon />}
+          onClick={() => router.back()}
+        >
           뒤로가기
         </Button>
-        <Button fullWidth color="inherit" onClick={() => reset()}>
+        <Button
+          fullWidth
+          color="inherit"
+          startIcon={<RefreshRoundedIcon />}
+          onClick={() => reset()}
+        >
           새로고침
         </Button>
       </Stack>
