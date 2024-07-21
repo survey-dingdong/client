@@ -47,6 +47,7 @@ const OpenSwitch: React.FC<OpenSwitchProps> = ({ disabled, onToggle }) => {
                 slotProps={{
                   typography: {
                     variant: "body1",
+                    whiteSpace: "nowrap",
                   },
                 }}
                 control={

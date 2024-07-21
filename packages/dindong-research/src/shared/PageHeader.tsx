@@ -15,9 +15,9 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   return (
     <Stack
       gap={1}
-      flexDirection="row"
+      flexDirection={{ xs: "column", md: "row" }}
       width="100%"
-      alignItems="center"
+      alignItems={{ xs: "flex-end", md: "center" }}
       justifyContent="space-between"
     >
       {/* title and description */}
