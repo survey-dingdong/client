@@ -195,7 +195,11 @@ const InterviewSessionList = () => {
                       error: !!fieldState.error,
                     },
                   }}
-                  minTime={timeSlots[index]?.startTime ?? undefined}
+                  minTime={
+                    dayjs.isDayjs(timeSlots?.[index]?.startTime)
+                      ? timeSlots?.[index]?.startTime
+                      : dayjs(timeSlots?.[index]?.startTime)
+                  }
                 />
               )}
             />

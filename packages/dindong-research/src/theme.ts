@@ -346,7 +346,7 @@ const theme = createTheme({
             backgroundColor: "#E0E4EA33",
           },
           [`&.${listItemButtonClasses.selected}`]: {
-            backgroundColor: "#F0F7FF !important",
+            // backgroundColor: "#F0F7FF !important",
           },
         },
       },
