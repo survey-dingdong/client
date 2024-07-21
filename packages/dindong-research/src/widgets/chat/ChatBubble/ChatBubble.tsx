@@ -5,12 +5,14 @@ interface ChatBubbleProps {
   type: string;
   message: string;
   userName?: string;
+  profileColor?: string;
   time?: string;
 }
 
 const ChatBubble: React.FC<ChatBubbleProps> = ({
   type,
   userName,
+  profileColor,
   message,
   time,
 }) => {
@@ -22,7 +24,9 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
       gap={1}
       justifyContent={isOpponent ? "flex-start" : "flex-end"}
     >
-      {userName ? <Avatar sx={{ width: 32, height: 32 }} /> : null}
+      {userName ? (
+        <Avatar sx={{ width: 32, height: 32, bgcolor: profileColor }} />
+      ) : null}
       {time && !isOpponent ? (
         <Typography variant="caption" mt="auto">
           {time}

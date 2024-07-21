@@ -46,6 +46,8 @@ const mockChatDetail = [
         type: "opponent",
         userName: "김은성",
         message: "안녕하세요!",
+        // TODO: change to api spec
+        profileColor: "#FFC107",
         time: "10:00",
       },
       {

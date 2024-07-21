@@ -143,7 +143,10 @@ const Header: NextPage = () => {
           sx={{ p: 0 }}
           onClick={(e) => setMenuAnchorEl(e.currentTarget)}
         >
-          <Avatar alt="avatar" sx={{ width: 32, height: 32 }}>
+          <Avatar
+            alt="avatar"
+            sx={{ width: 32, height: 32, bgcolor: user?.profileColor }}
+          >
             {user?.username}
           </Avatar>
         </IconButton>

@@ -7,7 +7,7 @@ const ProfileCard = () => {
 
   return (
     <Box display="flex" gap={1} alignItems="center">
-      <Avatar sx={{ width: 32, height: 32 }} />
+      <Avatar sx={{ width: 32, height: 32, bgcolor: user?.profileColor }} />
       <Stack>
         {/* info */}
         <Typography fontWeight={600}>{user?.username}</Typography>
