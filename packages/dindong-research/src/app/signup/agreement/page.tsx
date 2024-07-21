@@ -70,7 +70,8 @@ export default function Page() {
       </Stack>
 
       <Button disabled={!allChecked} LinkComponent={Link} href="/signup/form">
-        본인 인증
+        {/* TODO: 본인 인증으로 변경 */}
+        다음
       </Button>
     </>
   );
