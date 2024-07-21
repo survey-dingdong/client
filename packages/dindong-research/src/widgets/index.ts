@@ -24,6 +24,7 @@ export { default as AccountDeleteDialog } from "./AccountDeleteDialog";
 export { default as WorkspaceDeleteDialog } from "./WorkspaceDeleteDialog";
 export { default as Spinner } from "./Spinner";
 export { default as CustomSwitch } from "./CustomSwitch";
+export { default as UserProfileAvatar } from "./UserProfileAvatar";
 
 export * from "./notice";
 export * from "./ProjectBottomNav";

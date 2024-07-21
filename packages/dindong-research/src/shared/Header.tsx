@@ -2,7 +2,6 @@
 
 import {
   AppBar,
-  Avatar,
   Box,
   Button,
   buttonClasses,
@@ -17,10 +16,9 @@ import Link from "next/link";
 import React from "react";
 import { useUser } from "src/hooks/useUser";
 import { useWorkspaces } from "src/hooks/useWorkspaces";
-import { ProfileCard } from "src/widgets";
+import { ProfileCard, UserProfileAvatar } from "src/widgets";
 import logo from "public/logo.png";
 import { token } from "src/utils/token";
-import { REFRESH_TOKEN_KEY, TOKEN_KEY } from "src/constants/token";
 import logoutIcon from "public/icons/logout.svg";
 import mypageIcon from "public/icons/user-search.svg";
 
@@ -143,12 +141,7 @@ const Header: NextPage = () => {
           sx={{ p: 0 }}
           onClick={(e) => setMenuAnchorEl(e.currentTarget)}
         >
-          <Avatar
-            alt="avatar"
-            sx={{ width: 32, height: 32, bgcolor: user?.profileColor }}
-          >
-            {user?.username}
-          </Avatar>
+          <UserProfileAvatar />
         </IconButton>
       </Toolbar>
       {renderMenu()}
