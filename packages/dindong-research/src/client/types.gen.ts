@@ -125,6 +125,10 @@ export type GetExperimentParticipantResponse = {
    */
   username: string;
   /**
+   * Profile color
+   */
+  profileColor: string;
+  /**
    * Experiment Date
    */
   experimentDate: string;
@@ -248,6 +252,10 @@ export type GetUserListResponse = {
    * username
    */
   username: string;
+  /**
+   * profile color
+   */
+  profileColor: string;
   /**
    * oauth accounts
    */

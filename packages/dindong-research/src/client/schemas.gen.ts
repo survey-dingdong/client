@@ -26,7 +26,7 @@ export const $CreateProjectRequest = {
   properties: {
     title: {
       type: "string",
-      maxLength: 30,
+      maxLength: 64,
       minLength: 1,
       title: "Title",
       description: "Title",
@@ -93,6 +93,8 @@ export const $CreateWorkspaceRequest = {
   properties: {
     title: {
       type: "string",
+      maxLength: 20,
+      minLength: 1,
       title: "Title",
       description: "Title",
     },
@@ -226,6 +228,11 @@ export const $GetExperimentParticipantResponse = {
       title: "Username",
       description: "Username",
     },
+    profileColor: {
+      type: "string",
+      title: "Profile Color",
+      description: "Profile color",
+    },
     experimentDate: {
       type: "string",
       format: "date",
@@ -269,6 +276,7 @@ export const $GetExperimentParticipantResponse = {
   required: [
     "id",
     "username",
+    "profileColor",
     "experimentDate",
     "startTime",
     "endTime",
@@ -488,6 +496,11 @@ export const $GetUserListResponse = {
       title: "Username",
       description: "username",
     },
+    profileColor: {
+      type: "string",
+      title: "Profile Color",
+      description: "profile color",
+    },
     oauthAccounts: {
       items: {
         $ref: "#/components/schemas/UserOauthResponse",
@@ -498,7 +511,7 @@ export const $GetUserListResponse = {
     },
   },
   type: "object",
-  required: ["id", "email", "username", "oauthAccounts"],
+  required: ["id", "email", "username", "profileColor", "oauthAccounts"],
   title: "GetUserListResponse",
 } as const;
 
@@ -625,7 +638,7 @@ export const $PutProjectRequest = {
   properties: {
     title: {
       type: "string",
-      maxLength: 20,
+      maxLength: 64,
       minLength: 1,
       title: "Title",
       description: "Title",
@@ -634,7 +647,7 @@ export const $PutProjectRequest = {
       anyOf: [
         {
           type: "string",
-          maxLength: 512,
+          maxLength: 1000,
         },
         {
           type: "null",
@@ -800,6 +813,8 @@ export const $UpdateWorkspaceRequest = {
       anyOf: [
         {
           type: "string",
+          maxLength: 20,
+          minLength: 1,
         },
         {
           type: "null",
