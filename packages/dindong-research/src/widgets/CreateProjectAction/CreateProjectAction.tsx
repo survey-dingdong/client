@@ -34,7 +34,7 @@ const CreateProjectDialog: React.FC<CreateProjectDialogProps> = ({
   const { enqueueSnackbar } = useSnackbar();
   const queryClient = useQueryClient();
   const [value, setValue] = React.useState("");
-  const error = value.length > PROJECT_TITLE_MAX || !value;
+  const error = value.length > PROJECT_TITLE_MAX;
 
   const noValue = !value.length;
 
@@ -77,7 +77,7 @@ const CreateProjectDialog: React.FC<CreateProjectDialogProps> = ({
         <Tooltip title={noValue ? "필수 항목을 입력해 주세요." : ""}>
           <span>
             <Button
-              disabled={error}
+              disabled={error || noValue}
               onClick={() =>
                 createProjectWorkspacesWorkspaceIdProjectsPost({
                   workspaceId,
