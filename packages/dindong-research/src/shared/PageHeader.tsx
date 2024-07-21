@@ -25,7 +25,11 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
         <Typography
           variant="h4"
           fontWeight={800}
-          sx={{ display: "inline-flex", alignItems: "center" }}
+          sx={{
+            display: "inline-flex",
+            alignItems: "center",
+            wordBreak: "break-all",
+          }}
         >
           {title}
         </Typography>

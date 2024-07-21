@@ -1,5 +1,5 @@
 "use client";
-import { FormControlLabel, Switch, Tooltip } from "@mui/material";
+import { Box, Tooltip, Typography } from "@mui/material";
 import React from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import CustomSwitch from "./CustomSwitch";
@@ -39,21 +39,12 @@ const OpenSwitch: React.FC<OpenSwitchProps> = ({ disabled, onToggle }) => {
             name="isPublic"
             control={control}
             render={({ field }) => (
-              <FormControlLabel
-                {...field}
-                labelPlacement="start"
-                disabled={disabled}
-                label="서베이 플랫폼에 공개하기"
-                slotProps={{
-                  typography: {
-                    variant: "body1",
-                    whiteSpace: "nowrap",
-                  },
-                }}
-                control={
-                  <CustomSwitch checked={field.value} onChange={onToggle} />
-                }
-              />
+              <Box display="fex" alignItems="center">
+                <Typography whiteSpace="nowrap" fontWeight={500}>
+                  서베이 플랫폼에 공개하기
+                </Typography>
+                <CustomSwitch checked={field.value} onChange={onToggle} />
+              </Box>
             )}
           />
         </span>
