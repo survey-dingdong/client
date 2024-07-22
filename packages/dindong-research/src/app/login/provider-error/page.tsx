@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 
 import { OauthProviderTypeEnum } from "src/client";
-import { GoogleLoginButton } from "src/widgets";
+import { GoogleLoginButton, Spinner } from "src/widgets";
 
 //
 //
@@ -42,6 +42,9 @@ export default function Page() {
     }
   }, [searchParams]);
 
+  /**
+   *
+   */
   const getTitleAndDescription = () => {
     switch (query?.provider) {
       case "dingdong":
@@ -50,12 +53,15 @@ export default function Page() {
           description: "아래 버튼을 클릭해 이메일/패스워드로 로그인 해주세요.",
         };
 
-      default:
+      case "google":
         return {
           title: "소셜 계정으로 로그인 해주세요",
           description:
             "소셜 로그인 기록이 있는 계정 정보를 입력하셨습니다. 아래 버튼을 클릭해 소셜 계정을 통해 로그인 해주세요.",
         };
+
+      default:
+        null;
     }
   };
 
@@ -88,11 +94,15 @@ export default function Page() {
   //
   //
 
+  if (!content) {
+    return <Spinner />;
+  }
+
   return (
     <Stack gap={3}>
       <Stack gap={0.5}>
-        <Typography variant="h4">{content.title}</Typography>
-        <Typography variant="body2">{content.description}</Typography>
+        <Typography variant="h4">{content?.title}</Typography>
+        <Typography variant="body2">{content?.description}</Typography>
       </Stack>
 
       <Box
