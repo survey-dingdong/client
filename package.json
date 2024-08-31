@@ -18,8 +18,7 @@
     "eject": "react-scripts eject"
   },
   "workspaces": [
-    "packages/*/*",
-    "packages/packages/*"
+    "packages/*"
   ],
   "browserslist": {
     "production": [
