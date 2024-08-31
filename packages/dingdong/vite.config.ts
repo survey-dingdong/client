@@ -14,9 +14,9 @@ export default defineConfig({
         "apple-touch-icon.png",
       ],
       manifest: {
-        name: "My Vite PWA App",
-        short_name: "VitePWA",
-        description: "My Awesome Vite PWA App!",
+        name: "Dingdong",
+        short_name: "dingdong",
+        description: "for research and survey",
         theme_color: "#ffffff",
         icons: [
           {
