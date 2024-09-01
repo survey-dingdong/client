@@ -8,7 +8,6 @@ const meta = {
   parameters: {
     layout: "centered",
   },
-
   tags: ["autodocs"],
 } satisfies Meta<typeof Icon>;
 
@@ -19,5 +18,6 @@ export const UserSearchIconStory: Story = {
   args: {
     icon: "userSearch",
     color: "primary",
+    size: "medium",
   },
 };
