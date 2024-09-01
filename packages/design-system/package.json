@@ -12,6 +12,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@mui/material": "^6.0.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "vite-plugin-svgr": "^4.2.0"
