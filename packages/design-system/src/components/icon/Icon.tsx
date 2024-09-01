@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ICONS } from "../assets/icons";
+import { ICON_SIZE, ICONS } from "./_constant";
 
 //
 //
@@ -17,12 +17,6 @@ export interface IconProps {
 //
 //
 //
-
-const ICON_SIZE = {
-  small: 24,
-  medium: 32,
-  large: 48,
-};
 
 const Icon: React.FC<IconProps> = ({
   color = "primary",
