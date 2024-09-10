@@ -1,1 +1,1 @@
-export { Icon as IconComponent } from "./components/icon";
+export { Icon as IconComponent } from "./components";
