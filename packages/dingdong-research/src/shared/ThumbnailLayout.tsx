@@ -5,7 +5,7 @@ import logo from "public/logo.png";
 import Image from "next/image";
 
 import thumbnail from "public/thumbnail.png";
-import textLogo from "public/dindong_font.png";
+import textLogo from "public/dingdong_font.png";
 
 //
 //
