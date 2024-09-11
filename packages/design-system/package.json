@@ -1,11 +1,14 @@
 {
   "name": "@dingdong/design-system",
   "version": "1.0.0",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/design-system.umd.js",
+  "module": "dist/design-system.es.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
-    "build": "tsc --outDir dist && vite build",
+    "build": "tsc --outDir dist && vite build && tsc --project tsconfig.json",
     "lint": "eslint .",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
