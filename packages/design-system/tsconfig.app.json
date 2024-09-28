@@ -26,6 +26,6 @@
     "emitDeclarationOnly": true,
     "outDir": "dist"
   },
-  "include": ["src"],
+  "include": ["src/components", "src/constants"],
   "exclude": ["node_modules", "dist"]
 }
