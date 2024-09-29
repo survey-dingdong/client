@@ -65,9 +65,12 @@ const EmailVerifiedForm: React.FC<EmailVerifiedFormProps> = ({
     setTimeLeft(LIMIT_MINUTES * 60);
 
     // 새로운 타이머 설정
-    timerRef.current = setTimeout(() => {
-      setTimeLeft(0);
-    }, LIMIT_MINUTES * 60 * 1000);
+    timerRef.current = setTimeout(
+      () => {
+        setTimeLeft(0);
+      },
+      LIMIT_MINUTES * 60 * 1000
+    );
   };
 
   React.useEffect(() => {
@@ -219,7 +222,6 @@ const EmailVerifiedForm: React.FC<EmailVerifiedFormProps> = ({
       />
 
       {/* 인증번호 입력 */}
-
       <Stack>
         <Collapse
           in={
@@ -272,8 +274,8 @@ const EmailVerifiedForm: React.FC<EmailVerifiedFormProps> = ({
           {verificationStatus === "error"
             ? "인증번호가 일치하지 않습니다."
             : verificationStatus === "success"
-            ? "인증이 완료되었습니다."
-            : ""}
+              ? "인증이 완료되었습니다."
+              : ""}
         </FormHelperText>
 
         {verificationStatus === "verifying" ? (

@@ -96,6 +96,7 @@ const LoginForm = () => {
         ) : null}
         <TextField
           placeholder="계정을 입력해주세요."
+          inputProps={{ "data-cy": "email-input" }}
           value={email}
           error={error}
           onChange={(e) => setEmail(e.target.value)}
@@ -108,6 +109,7 @@ const LoginForm = () => {
         <Stack gap="6px">
           <PasswordTextField
             value={password}
+            inputProps={{ "data-cy": "password-input" }}
             placeholder="비밀번호를 입력해주세요."
             error={error}
             onChange={(e) => setPassword(e.target.value)}
@@ -140,7 +142,11 @@ const LoginForm = () => {
           </Divider>
         }
       >
-        <Button disabled={!isFormValid} onClick={() => login()}>
+        <Button
+          disabled={!isFormValid}
+          data-cy="login-button"
+          onClick={() => login()}
+        >
           {isLoginLoading ? (
             <CircularProgress size={24} color="inherit" />
           ) : (
