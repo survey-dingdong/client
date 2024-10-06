@@ -1,8 +1,6 @@
 {
   "name": "@dingdong/design-system",
   "version": "1.0.0",
-  "main": "dist/design-system.umd.js",
-  "module": "dist/design-system.es.js",
   "files": [
     "dist"
   ],
