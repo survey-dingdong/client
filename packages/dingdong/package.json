@@ -10,8 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mui/icons-material": "^5.15.10",
+    "@mui/material": "^5.15.15",
+    "@mui/material-nextjs": "^5.15.11",
+    "@mui/system": "^6.0.2",
+    "@mui/x-date-pickers": "^7.3.1",
     "@stackflow/core": "^1.1.0",
     "@stackflow/plugin-basic-ui": "^1.10.0",
+    "@stackflow/plugin-history-sync": "^1.7.0",
     "@stackflow/plugin-renderer-basic": "^1.1.13",
     "@stackflow/react": "^1.4.0",
     "react": "^18.3.1",
