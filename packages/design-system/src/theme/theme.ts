@@ -1,3 +1,4 @@
+"use client";
 import {
   alertTitleClasses,
   buttonClasses,
@@ -5,6 +6,8 @@ import {
   linearProgressClasses,
   listItemButtonClasses,
   listItemTextClasses,
+  PaletteColor,
+  SimplePaletteColorOptions,
   Theme,
   toggleButtonGroupClasses,
 } from "@mui/material";

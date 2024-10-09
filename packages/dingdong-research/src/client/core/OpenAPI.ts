@@ -83,7 +83,7 @@ const responseInterceptor = () => {
         return response;
       }
 
-      refreshTokenAuthRefreshPost({
+      const newToken = await refreshTokenAuthRefreshPost({
         requestBody: {
           token: accessToken,
           refreshToken,
@@ -93,7 +93,12 @@ const responseInterceptor = () => {
         window.location.href = `/`;
       });
 
-      response.request();
+      if (!newToken) {
+        return response;
+      }
+
+      token.set(TOKEN_KEY, newToken.token);
+      token.set(REFRESH_TOKEN_KEY, newToken.refreshToken);
 
       return response;
     }

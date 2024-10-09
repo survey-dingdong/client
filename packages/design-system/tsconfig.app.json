@@ -27,6 +27,11 @@
     "emitDeclarationOnly": true,
     "outDir": "dist"
   },
-  "include": ["src/components", "src/constants", "src/@types/svg.d.ts"],
+  "include": [
+    "src/components",
+    "src/constants",
+    "src/@types/svg.d.ts",
+    "src/theme/themeType.ts"
+  ],
   "exclude": ["node_modules", "dist"]
 }
