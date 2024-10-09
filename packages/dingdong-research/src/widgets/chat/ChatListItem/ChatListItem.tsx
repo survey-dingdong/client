@@ -16,6 +16,7 @@ interface ChatListItemProps {
   userName: string;
   message: string;
   time: string;
+  selected?: boolean;
   newChatCount?: number;
 }
 
@@ -23,10 +24,9 @@ const ChatListItem: React.FC<ChatListItemProps> = ({
   userName,
   message,
   time,
+  selected,
   newChatCount,
 }) => {
-  const [selected, setSelected] = React.useState(true);
-
   return (
     <ListItem disablePadding>
       <ListItemButton

@@ -17,12 +17,14 @@ import ChatInput from "src/widgets/chat/ChatInput/ChatInput";
 
 const mockChat = [
   {
+    id: 1,
     userName: "윤종필",
     message: "안녕하세요. 시급 얼마인가요?",
     time: "10:00",
     profileUrl: "https://avatars.githubusercontent.com/u/77464058?v=4",
   },
   {
+    id: 2,
     userName: "김은성",
     message: "안녕하세요. 인터뷰 하고싶습니다. 일본인도 인터뷰 가능한가요?",
     time: "10:00",
@@ -30,6 +32,7 @@ const mockChat = [
     newChatCount: 3,
   },
   {
+    id: 3,
     userName: "양다은",
     message: "도대체 어디로 가야되는 건가요?",
     time: "10:00",
@@ -46,7 +49,6 @@ const mockChatDetail = [
         type: "opponent",
         userName: "김은성",
         message: "안녕하세요!",
-        // TODO: change to api spec
         profileColor: "#FFC107",
         time: "10:00",
       },
@@ -61,6 +63,7 @@ const mockChatDetail = [
 
 export default function Page() {
   const [expandNotice, setExpandNotice] = React.useState<boolean>(false);
+  const [selectedChat, setSelectedChat] = React.useState(mockChat[0]["id"]);
 
   const renderChatList = () => {
     return (
@@ -83,7 +86,11 @@ export default function Page() {
         {/* chat list */}
         <List component={Stack} disablePadding sx={{ gap: 1.5 }}>
           {mockChat.map((chat) => (
-            <ChatListItem key={chat.userName} {...chat} />
+            <ChatListItem
+              key={chat.userName}
+              {...chat}
+              selected={selectedChat === chat.id}
+            />
           ))}
         </List>
       </Stack>
