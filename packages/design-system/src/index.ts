@@ -1,2 +1,2 @@
-export { Icon as IconComponent } from "./components";
-export { theme } from "./constants/theme";
+export * from "./components";
+export * from "./constants";

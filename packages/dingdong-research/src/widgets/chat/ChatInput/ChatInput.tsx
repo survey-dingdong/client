@@ -1,4 +1,5 @@
 "use client";
+import { Icon } from "@dingdong/design-system/src/components";
 import Send from "@mui/icons-material/Send";
 import {
   Box,
@@ -30,6 +31,10 @@ const ChatInput = () => {
   const handleBlur = () => {
     setIsFocused(false);
   };
+
+  //
+  //
+  //
 
   return (
     <Stack
@@ -63,7 +68,7 @@ const ChatInput = () => {
 
       <Stack flexDirection="row" alignItems="center" gap={1} padding={padding}>
         <IconButton size="small">
-          <i className="fa-solid fa-file-arrow-up" />
+          <Icon icon="upload" />
         </IconButton>
         <Box flexGrow={1} />
         <Typography variant="caption">

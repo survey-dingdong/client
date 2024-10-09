@@ -1,13 +1,15 @@
-import UserSearchSvgComponent from "./assets/user-search.svg?react";
-import LogoutSvgComponent from "./assets/logout.svg?react";
-import NoteTextSvgComponent from "./assets/note-text.svg?react";
-import EditSvgComponent from "./assets/edit.svg?react";
+import { EditIcon } from "./assets/EditIcon";
+import { LogoutIcon } from "./assets/LogoutIcon";
+import { NoteTextIcon } from "./assets/NoteTextIcon";
+import { UploadIcon } from "./assets/UploadIcon";
+import { UserSearchIcon } from "./assets/UserSearchIcon";
 
 export const ICONS = {
-  userSearch: UserSearchSvgComponent,
-  logout: LogoutSvgComponent,
-  noteText: NoteTextSvgComponent,
-  edit: EditSvgComponent,
+  userSearch: UserSearchIcon,
+  logout: LogoutIcon,
+  noteText: NoteTextIcon,
+  edit: EditIcon,
+  upload: UploadIcon,
 };
 
 export const ICON_SIZE = {

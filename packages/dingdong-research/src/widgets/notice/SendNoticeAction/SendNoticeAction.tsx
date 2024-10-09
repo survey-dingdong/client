@@ -1,4 +1,5 @@
 "use client";
+import { Icon } from "@dingdong/design-system/src/components";
 import { CheckBoxOutlineBlank, ExpandMoreRounded } from "@mui/icons-material";
 import {
   Alert,
@@ -206,7 +207,11 @@ const SendNoticeDialog = () => {
       </Dialog>
 
       {/* button */}
-      <Button color="inherit" onClick={() => setOpen(true)}>
+      <Button
+        color="inherit"
+        startIcon={<Icon icon="upload" size="small" />}
+        onClick={() => setOpen(true)}
+      >
         공지 전송
       </Button>
     </Box>

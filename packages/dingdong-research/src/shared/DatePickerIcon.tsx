@@ -1,15 +1,6 @@
-import Image from "next/image";
-import noteTextIcon from "public/icons/note-text.png";
+import { Icon } from "@dingdong/design-system/src";
+import React from "react";
 
 export function DatePickerOpenIcon() {
-  return (
-    <>
-      <Image
-        src={noteTextIcon.src}
-        alt="Date picker opening icon"
-        width={16}
-        height={16}
-      />
-    </>
-  );
+  return <Icon icon="noteText" />;
 }
