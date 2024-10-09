@@ -1,7 +1,7 @@
 import React from "react";
 
 import { ICON_SIZE, ICONS } from "./_constant";
-import { useTheme } from "@mui/material";
+import { SvgIcon, useTheme } from "@mui/material";
 
 //
 //
@@ -28,11 +28,12 @@ const Icon: React.FC<IconProps> = ({
   const SVGIcon = ICONS[icon];
 
   return (
-    <SVGIcon
-      style={{
-        color: theme.palette[color].main,
+    <SvgIcon
+      component={SVGIcon}
+      sx={{
         width: ICON_SIZE[size],
         height: ICON_SIZE[size],
+        color: theme.palette[color].main,
       }}
     />
   );

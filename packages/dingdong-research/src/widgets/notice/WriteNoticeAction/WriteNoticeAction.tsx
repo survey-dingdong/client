@@ -10,6 +10,7 @@ import {
   Tooltip,
 } from "@mui/material";
 import { TextField } from "src/shared";
+import Icon from "@dingdong/design-system/src/components/icon/Icon";
 
 const MAX_NOTICE_LENGTH = 1000;
 
@@ -23,7 +24,9 @@ const WriteNoticeAction = () => {
 
   return (
     <>
-      <Button onClick={() => setOpen(true)}>공지 작성/관리</Button>
+      <Button onClick={() => setOpen(true)} startIcon={<Icon icon="edit" />}>
+        공지 작성/관리
+      </Button>
 
       <Dialog fullWidth open={open} maxWidth="sm" onClose={handleClose}>
         <DialogTitle>공지사항 작성/관리</DialogTitle>
