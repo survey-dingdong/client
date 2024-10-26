@@ -16,9 +16,8 @@ export default defineConfig({
   build: {
     outDir: "dist",
     lib: {
-      entry: path.resolve(__dirname, "src/index.ts"),
       name: "DesignSystem",
-      fileName: (format) => `design-system.${format}.js`,
+      entry: path.resolve(__dirname, "src/index.ts"),
     },
     rollupOptions: {
       external: ["react"],
