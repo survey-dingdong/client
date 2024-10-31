@@ -3542,15 +3542,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dingdong-ds@npm:^0.0.1":
-  version: 0.0.1
-  resolution: "dingdong-ds@npm:0.0.1"
+"dingdong-ds@npm:0.0.1-exporttest.2":
+  version: 0.0.1-exporttest.2
+  resolution: "dingdong-ds@npm:0.0.1-exporttest.2"
   dependencies:
     "@mui/material": "npm:^6.0.1"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
     vite-plugin-svgr: "npm:^4.2.0"
-  checksum: 10c0/2701c452d213147b7d6d80b64d4c65ccd8e048d7e4aca30e8c5963e4789bca7daeb677019a0c95055ec06ce5e1a656609be4532f125d316fd331f490455e0960
+  checksum: 10c0/90b3c8e67c9d2efd481c456473c60051ef44abb2b2e8aee7a4f38fab2d3553985c2669363a7718a59a37dcebb3b9b798ab4300a6dcbcec9ac9e2cba34649ac5c
   languageName: node
   linkType: hard
 
@@ -3580,7 +3580,7 @@ __metadata:
     axios: "npm:^1.6.7"
     cypress: "npm:^13.15.0"
     dayjs: "npm:^1.11.10"
-    dingdong-ds: "npm:^0.0.1"
+    dingdong-ds: "npm:0.0.1-exporttest.2"
     eslint: "npm:^8"
     eslint-config-next: "npm:14.1.0"
     eslint-import-resolver-typescript: "npm:^3.6.1"

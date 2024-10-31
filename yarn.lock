@@ -1896,42 +1896,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@dingdong/design-system@workspace:packages/design-system":
-  version: 0.0.0-use.local
-  resolution: "@dingdong/design-system@workspace:packages/design-system"
-  dependencies:
-    "@chromatic-com/storybook": "npm:^1.8.0"
-    "@eslint/js": "npm:^9.9.0"
-    "@mui/material": "npm:^6.0.1"
-    "@storybook/addon-essentials": "npm:^8.2.9"
-    "@storybook/addon-interactions": "npm:^8.2.9"
-    "@storybook/addon-links": "npm:^8.2.9"
-    "@storybook/addon-onboarding": "npm:^8.2.9"
-    "@storybook/blocks": "npm:^8.2.9"
-    "@storybook/react": "npm:^8.2.9"
-    "@storybook/react-vite": "npm:^8.2.9"
-    "@storybook/test": "npm:^8.2.9"
-    "@types/node": "npm:^22.5.5"
-    "@types/react": "npm:^18.3.3"
-    "@types/react-dom": "npm:^18.3.0"
-    "@vitejs/plugin-react-swc": "npm:^3.5.0"
-    eslint: "npm:^9.9.0"
-    eslint-plugin-react-hooks: "npm:^5.1.0-rc.0"
-    eslint-plugin-react-refresh: "npm:^0.4.9"
-    eslint-plugin-storybook: "npm:^0.8.0"
-    globals: "npm:^15.9.0"
-    path: "npm:^0.12.7"
-    react: "npm:^18.3.1"
-    react-dom: "npm:^18.3.1"
-    storybook: "npm:^8.2.9"
-    typescript: "npm:^5.5.3"
-    typescript-eslint: "npm:^8.0.1"
-    vite: "npm:^5.4.1"
-    vite-plugin-dts: "npm:^4.2.1"
-    vite-plugin-svgr: "npm:^4.2.0"
-  languageName: unknown
-  linkType: soft
-
 "@dnd-kit/accessibility@npm:^3.1.0":
   version: 3.1.0
   resolution: "@dnd-kit/accessibility@npm:3.1.0"
@@ -9228,6 +9192,54 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"dingdong-ds@npm:0.0.1-exporttest.0":
+  version: 0.0.1-exporttest.0
+  resolution: "dingdong-ds@npm:0.0.1-exporttest.0"
+  dependencies:
+    "@mui/material": "npm:^6.0.1"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
+    vite-plugin-svgr: "npm:^4.2.0"
+  checksum: 10c0/b3db96aaa87938dad75e53bf3cd49e42137e71b3e7844b74f528c6c63972c8588675c2b9ed7a53d023ef8c453a63d58808b16b058d61e6d3bedd119dab6a4867
+  languageName: node
+  linkType: hard
+
+"dingdong-ds@workspace:packages/dingdong-ds":
+  version: 0.0.0-use.local
+  resolution: "dingdong-ds@workspace:packages/dingdong-ds"
+  dependencies:
+    "@chromatic-com/storybook": "npm:^1.8.0"
+    "@eslint/js": "npm:^9.9.0"
+    "@mui/material": "npm:^6.0.1"
+    "@storybook/addon-essentials": "npm:^8.2.9"
+    "@storybook/addon-interactions": "npm:^8.2.9"
+    "@storybook/addon-links": "npm:^8.2.9"
+    "@storybook/addon-onboarding": "npm:^8.2.9"
+    "@storybook/blocks": "npm:^8.2.9"
+    "@storybook/react": "npm:^8.2.9"
+    "@storybook/react-vite": "npm:^8.2.9"
+    "@storybook/test": "npm:^8.2.9"
+    "@types/node": "npm:^22.5.5"
+    "@types/react": "npm:^18.3.3"
+    "@types/react-dom": "npm:^18.3.0"
+    "@vitejs/plugin-react-swc": "npm:^3.5.0"
+    eslint: "npm:^9.9.0"
+    eslint-plugin-react-hooks: "npm:^5.1.0-rc.0"
+    eslint-plugin-react-refresh: "npm:^0.4.9"
+    eslint-plugin-storybook: "npm:^0.8.0"
+    globals: "npm:^15.9.0"
+    path: "npm:^0.12.7"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
+    storybook: "npm:^8.2.9"
+    typescript: "npm:^5.4.3"
+    typescript-eslint: "npm:^8.0.1"
+    vite: "npm:^5.4.1"
+    vite-plugin-dts: "npm:^4.2.1"
+    vite-plugin-svgr: "npm:^4.2.0"
+  languageName: unknown
+  linkType: soft
+
 "dingdong-research@workspace:packages/dingdong-research":
   version: 0.0.0-use.local
   resolution: "dingdong-research@workspace:packages/dingdong-research"
@@ -9254,6 +9266,7 @@ __metadata:
     axios: "npm:^1.6.7"
     cypress: "npm:^13.15.0"
     dayjs: "npm:^1.11.10"
+    dingdong-ds: "npm:0.0.1-exporttest.0"
     eslint: "npm:^8"
     eslint-config-next: "npm:14.1.0"
     eslint-import-resolver-typescript: "npm:^3.6.1"
@@ -19160,7 +19173,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5, typescript@npm:^5.5.3, typescript@npm:^5.5.4":
+"typescript@npm:^5, typescript@npm:^5.4.3, typescript@npm:^5.5.3, typescript@npm:^5.5.4":
   version: 5.6.3
   resolution: "typescript@npm:5.6.3"
   bin:
@@ -19180,7 +19193,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^5#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.5.3#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.5.4#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A^5#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.4.3#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.5.3#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.5.4#optional!builtin<compat/typescript>":
   version: 5.6.3
   resolution: "typescript@patch:typescript@npm%3A5.6.3#optional!builtin<compat/typescript>::version=5.6.3&hash=8c6c40"
   bin:

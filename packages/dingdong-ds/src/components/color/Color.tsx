@@ -24,7 +24,7 @@ const Color: React.FC = () => {
 
           {paletteKey.map((key) => {
             const colorKeys = Object.keys(theme.palette[key]) as Array<
-              keyof (typeof theme.palette)[key]
+              keyof (typeof theme.palette)[keyof typeof theme.palette]
             >;
 
             if (!colorKeys.length) {
@@ -42,7 +42,7 @@ const Color: React.FC = () => {
                       return null;
                     }
 
-                    const lowerCaseColor = color?.toLowerCase();
+                    const lowerCaseColor = (color as string).toLowerCase();
 
                     return (
                       <Stack key={colorKey} gap="0.5rem">

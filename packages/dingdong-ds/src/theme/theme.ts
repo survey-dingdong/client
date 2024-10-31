@@ -6,14 +6,14 @@ import {
   linearProgressClasses,
   listItemButtonClasses,
   listItemTextClasses,
-  PaletteColor,
-  SimplePaletteColorOptions,
   Theme,
   toggleButtonGroupClasses,
 } from "@mui/material";
 import { RadioCheckedIcon, RadioIcon } from "../components/shared";
 
-export const theme: Theme = createTheme({
+import "./themeType";
+
+export const dingdongTheme: Theme = createTheme({
   palette: {
     primary: {
       main: "#3F57FD",

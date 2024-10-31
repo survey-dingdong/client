@@ -1,4 +1,6 @@
-import { PaletteColor, SimplePaletteColorOptions } from "@mui/material";
+import { SimplePaletteColorOptions } from "@mui/material";
+import "@mui/material/styles";
+import "@mui/system";
 
 interface LabelType {
   normal: string;
@@ -12,9 +14,15 @@ interface LabelType {
 }
 
 declare module "@mui/material/styles" {
-  interface Palette extends Omit<PaletteColor, "background"> {
+  interface TypeText {
+    tertiary: string;
+    assistive: string;
+  }
+
+  interface PaletteOptions {
     tertiary: SimplePaletteColorOptions;
     label: LabelType;
+    text?: Partial<TypeText>;
   }
 
   interface TypeBackground {
@@ -27,18 +35,5 @@ declare module "@mui/material/styles" {
     error: string;
     inherit: string;
     snackbar: string;
-    action: {
-      disabled: {};
-    };
-  }
-
-  interface PaletteOptions {
-    tertiary: SimplePaletteColorOptions;
-    label: LabelType;
-  }
-
-  interface TypeText {
-    tertiary: string;
-    assistive: string;
   }
 }

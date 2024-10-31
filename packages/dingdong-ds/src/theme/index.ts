@@ -1,2 +1,1 @@
-export * from "./theme";
-export * from "./themeType";
+export { dingdongTheme } from "./theme";

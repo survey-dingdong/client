@@ -1,27 +1,31 @@
 {
   "name": "dingdong-ds",
-  "version": "0.0.1",
+  "version": "0.0.1-exporttest.2",
   "description": "Design system for DingDong",
-  "main": "dist/cjs/index.js",
-  "module": "dist/mjs/index.js",
+  "main": "dist/dingdong-ds.js",
+  "module": "dist/dingdong-ds.js",
   "type": "module",
   "types": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "exports": {
     ".": {
-      "import": "./dist/mjs/index.js",
-      "require": "./dist/cjs/index.js"
+      "import": "./dist/dingdong-ds.umd.cjs",
+      "require": "./dist/dingdong-ds.js"
     }
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc --outDir dist && vite build && tsc --project tsconfig.json",
+    "build": "vite build && tsc --build tsconfig.json",
     "lint": "eslint .",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "prepare": "rm -rf dist && tsc && vite build",
+    "clean:package": "yarn remove react-carousel-image-optimized && yarn cache clean && rm -rf ./react-carousel-image-optimized-v0.0.1.tgz",
+    "add:package": "yarn add ./dingdong-ds-test-v0.1.0.tgz"
   },
   "dependencies": {
     "@mui/material": "^6.0.1",
@@ -51,7 +55,7 @@
     "globals": "^15.9.0",
     "path": "^0.12.7",
     "storybook": "^8.2.9",
-    "typescript": "^5.5.3",
+    "typescript": "^5.4.3",
     "typescript-eslint": "^8.0.1",
     "vite": "^5.4.1",
     "vite-plugin-dts": "^4.2.1"
