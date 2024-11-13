@@ -620,5 +620,8 @@ export const dingdongTheme: Theme = createTheme({
         },
       },
     },
+
+    // Bottom Navigation
+    MuiBottomNavigationAction: {},
   },
 });
