@@ -1,12 +1,13 @@
 import { ThemeProvider } from "@mui/material";
 import "./App.css";
-import BottomNav from "./components/layout/BottomNav.tsx";
+
 import { dingdongTheme } from "dingdong-ds";
+import Layout from "./components/layout/Layout.tsx";
 
 function App() {
   return (
     <ThemeProvider theme={dingdongTheme}>
-      <BottomNav />
+      <Layout />
     </ThemeProvider>
   );
 }
