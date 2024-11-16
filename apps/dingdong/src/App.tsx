@@ -1,5 +1,4 @@
 import { ThemeProvider } from "@mui/material";
-import "./App.css";
 
 // import { dingdongTheme } from "dingdong-ds";
 import Layout from "./components/layout/Layout.tsx";
