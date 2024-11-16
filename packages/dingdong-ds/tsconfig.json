@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "module": "ESNext",
     "target": "ES2020",
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
@@ -10,7 +11,7 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "declaration": true,
-    "emitDeclarationOnly": true,
+    "emitDeclarationOnly": false,
     "moduleResolution": "Bundler"
   },
   "include": ["src/**/*"],

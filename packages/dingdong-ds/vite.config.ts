@@ -11,7 +11,9 @@ export default defineConfig({
     svgr({
       include: "**/*.svg?react",
     }),
-    dts(),
+    dts({
+      outDir: "dist/types",
+    }),
   ],
   build: {
     outDir: "dist",
@@ -21,14 +23,23 @@ export default defineConfig({
     },
     rollupOptions: {
       external: ["react"],
-      output: {
-        globals: {
-          react: "React",
+      output: [
+        {
+          globals: {
+            react: "React",
+          },
+          format: "umd",
+          name: "MyLibrary",
+          dir: "dist",
         },
-      },
+        {
+          format: "esm",
+          dir: "dist",
+        },
+      ],
     },
     commonjsOptions: {
-      esmExternals: ["react"],
+      esmExternals: ["react"], // React를 ESM 형식으로 외부 모듈 처리
     },
   },
 });
