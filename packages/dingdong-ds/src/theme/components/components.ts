@@ -1,4 +1,4 @@
-import { ThemeOptions } from "@mui/material";
+import { bottomNavigationActionClasses, ThemeOptions } from "@mui/material";
 import {
   alertTitleClasses,
   buttonClasses,
@@ -13,18 +13,25 @@ export const components: ThemeOptions["components"] = {
   MuiTypography: {
     defaultProps: {
       color: "text.primary",
+      variantMapping: {
+        heading1: "h1",
+        heading2: "h2",
+        title1: "h3",
+        title2: "h4",
+        title3: "h5",
+        headline1: "p",
+        headline2: "p",
+        display1: "p",
+        display2: "p",
+        body1: "p",
+        body2: "p",
+        label: "p",
+        label2: "p",
+        caption1: "p",
+        caption2: "p",
+      },
     },
     variants: [
-      {
-        props: { variant: "h4" },
-        style: { fontWeight: 800, fontSize: "32px" },
-      },
-      { props: { variant: "h5" }, style: { fontWeight: 800 } },
-      { props: { variant: "h6" }, style: { fontWeight: 800 } },
-      {
-        props: { variant: "subtitle1" },
-        style: { fontWeight: 800, fontSize: 20 },
-      },
       { props: { color: "text.tertiary" }, style: { color: "#8E97A8" } },
     ],
   },
@@ -557,6 +564,43 @@ export const components: ThemeOptions["components"] = {
       root: {
         padding: "3px",
       },
+    },
+  },
+
+  // Bottom Navigation
+  MuiBottomNavigation: {
+    styleOverrides: {
+      root: {
+        height: 50,
+      },
+    },
+  },
+  MuiBottomNavigationAction: {
+    styleOverrides: {
+      root: ({ theme }) => ({
+        gap: "3px",
+        padding: 0,
+        alignItems: "center",
+
+        // icon
+        svg: {
+          color: theme.palette.text.assistive,
+        },
+        [`&.${bottomNavigationActionClasses.selected}`]: {
+          svg: {
+            color: theme.palette.primary.main,
+          },
+        },
+      }),
+      label: ({ theme }) => ({
+        fontSize: 10,
+        color: theme.palette.text.assistive,
+        [`&.${bottomNavigationActionClasses.selected}`]: {
+          fontWeight: 600,
+          fontSize: 10,
+          color: theme.palette.primary.main,
+        },
+      }),
     },
   },
 };
