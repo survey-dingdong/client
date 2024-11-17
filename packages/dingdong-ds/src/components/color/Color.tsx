@@ -10,16 +10,16 @@ const Color: React.FC = () => {
 
   return (
     <Stack gap="2rem" padding="2rem">
-      <Typography variant="h4" fontWeight="bold">
+      <Typography variant="display1" fontWeight="bold">
         Semantic Colors
       </Typography>
 
       <Divider />
       <Stack display="grid" gridTemplateColumns="1fr 2fr">
-        <Typography variant="subtitle1">light theme</Typography>
+        <Typography variant="title1">light theme</Typography>
         <Stack>
           <Stack>
-            <Typography variant="subtitle1">Color</Typography>
+            <Typography variant="title2">Color</Typography>
           </Stack>
 
           {paletteKey.map((key) => {
@@ -33,7 +33,7 @@ const Color: React.FC = () => {
 
             return (
               <Stack key={key} gap="1rem">
-                <Typography variant="subtitle1">{key}</Typography>
+                <Typography variant="title1">{key}</Typography>
                 <Stack flexDirection="row" flexWrap="wrap" gap="1rem">
                   {colorKeys.map((colorKey) => {
                     const color = theme.palette[key][colorKey];
@@ -59,7 +59,7 @@ const Color: React.FC = () => {
                                 : undefined,
                           }}
                         />
-                        <Typography variant="subtitle2">{colorKey}</Typography>
+                        <Typography variant="title2">{colorKey}</Typography>
                       </Stack>
                     );
                   })}
