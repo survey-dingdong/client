@@ -1,5 +1,5 @@
 import { Meta } from "@storybook/react";
-import { TypographyPage } from "../components/typo";
+import { TypographyPage } from "../components/_internal/typo";
 
 export default {
   title: "Design System/Typography",

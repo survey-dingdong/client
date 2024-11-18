@@ -7,7 +7,7 @@ import {
   listItemTextClasses,
   toggleButtonGroupClasses,
 } from "@mui/material";
-import { RadioCheckedIcon, RadioIcon } from "../../components";
+import { RadioCheckedIcon, RadioIcon } from "../../components/_internal/shared";
 
 export const components: ThemeOptions["components"] = {
   MuiTypography: {

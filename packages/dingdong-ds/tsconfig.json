@@ -14,6 +14,6 @@
     "emitDeclarationOnly": false,
     "moduleResolution": "Bundler"
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "src/theme/themeType.d.ts"],
   "exclude": ["node_modules"]
 }

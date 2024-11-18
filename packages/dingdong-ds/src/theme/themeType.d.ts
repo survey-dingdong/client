@@ -13,6 +13,19 @@ interface LabelType {
   disabled: string;
 }
 
+interface TypeLine {
+  normal: string;
+  neutral: string;
+  alternative: string;
+}
+
+interface TypeStatic {
+  white: string;
+  tertiary: string;
+  black: string;
+}
+
+//
 declare module "@mui/material/styles" {
   interface TypeText {
     tertiary: string;
@@ -23,6 +36,8 @@ declare module "@mui/material/styles" {
     tertiary: SimplePaletteColorOptions;
     label: LabelType;
     text?: Partial<TypeText>;
+    line?: TypeLine;
+    static?: TypeStatic;
   }
 
   interface TypeBackground {

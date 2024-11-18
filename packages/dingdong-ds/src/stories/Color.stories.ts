@@ -1,6 +1,5 @@
 import type { StoryObj } from "@storybook/react";
-
-import Color from "../components/color/Color";
+import Color from "../components/_internal/color/Color";
 
 const meta = {
   title: "Example/Color",

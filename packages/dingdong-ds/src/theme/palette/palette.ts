@@ -54,4 +54,14 @@ export const palette: ThemeOptions["palette"] = {
     inherit: "#00000014",
     snackbar: "#3C3C47",
   },
+  static: {
+    white: "#FFFFFF",
+    tertiary: "#7988A9",
+    black: "#000000",
+  },
+  line: {
+    normal: "#E0E4EA",
+    neutral: "#E0E4EA80",
+    alternative: "#E0E4EA33",
+  },
 };
