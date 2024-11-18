@@ -19,7 +19,7 @@ const BottomNav: React.FC = () => {
           <BottomNavigationAction
             key={index}
             label={nav.label}
-            icon={<Icon icon="edit" />}
+            icon={<Icon icon={nav.icon} size="small" />}
           />
         ))}
       </BottomNavigation>

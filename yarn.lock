@@ -9234,7 +9234,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dingdong-ds@npm:0.0.1-typography.1, dingdong-ds@workspace:packages/dingdong-ds":
+"dingdong-ds@npm:0.0.1-icon.3, dingdong-ds@workspace:packages/dingdong-ds":
   version: 0.0.0-use.local
   resolution: "dingdong-ds@workspace:packages/dingdong-ds"
   dependencies:
@@ -9333,7 +9333,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:^7.8.0"
     "@vite-pwa/assets-generator": "npm:^0.2.4"
     "@vitejs/plugin-react": "npm:^4.2.1"
-    dingdong-ds: "npm:0.0.1-typography.1"
+    dingdong-ds: "npm:0.0.1-icon.3"
     eslint: "npm:^8.57.0"
     eslint-plugin-react-hooks: "npm:^4.6.2"
     eslint-plugin-react-refresh: "npm:^0.4.6"
