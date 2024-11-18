@@ -1,28 +1,29 @@
 import { SimplePaletteColorOptions } from "@mui/material";
 import "@mui/material/styles";
 import "@mui/system";
+declare global {
+  interface LabelType {
+    normal: string;
+    strong: string;
+    neutral: string;
+    alternative: string;
+    tertiary: string;
+    tertiaryDisabled: string;
+    assistive: string;
+    disabled: string;
+  }
 
-interface LabelType {
-  normal: string;
-  strong: string;
-  neutral: string;
-  alternative: string;
-  tertiary: string;
-  tertiaryDisabled: string;
-  assistive: string;
-  disabled: string;
-}
+  interface TypeLine {
+    normal: string;
+    neutral: string;
+    alternative: string;
+  }
 
-interface TypeLine {
-  normal: string;
-  neutral: string;
-  alternative: string;
-}
-
-interface TypeStatic {
-  white: string;
-  tertiary: string;
-  black: string;
+  interface TypeStatic {
+    white: string;
+    tertiary: string;
+    black: string;
+  }
 }
 
 //
