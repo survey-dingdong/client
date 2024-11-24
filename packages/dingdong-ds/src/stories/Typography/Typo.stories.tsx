@@ -1,8 +1,8 @@
 import { Meta } from "@storybook/react";
-import { TypographyPage } from "../components/_internal/typo";
+import TypographyPage from "./Typo";
 
 export default {
-  title: "Design System/Typography",
+  title: "Typography/Typography",
   component: TypographyPage,
 } as Meta;
 

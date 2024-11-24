@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Icon, ICONS } from "../components";
+import { Icon, ICONS } from "../../components";
 
 const meta = {
-  title: "Example/Icon",
+  title: "Icon/Icon",
   component: Icon,
   parameters: {
     layout: "centered",

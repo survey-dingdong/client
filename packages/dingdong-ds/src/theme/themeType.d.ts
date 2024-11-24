@@ -2,7 +2,7 @@ import { SimplePaletteColorOptions } from "@mui/material";
 import "@mui/material/styles";
 import "@mui/system";
 declare global {
-  interface LabelType {
+  export interface LabelType {
     normal: string;
     strong: string;
     neutral: string;
@@ -13,13 +13,13 @@ declare global {
     disabled: string;
   }
 
-  interface TypeLine {
+  export interface TypeLine {
     normal: string;
     neutral: string;
     alternative: string;
   }
 
-  interface TypeStatic {
+  export interface TypeStatic {
     white: string;
     tertiary: string;
     black: string;
@@ -28,12 +28,12 @@ declare global {
 
 //
 declare module "@mui/material/styles" {
-  interface TypeText {
+  export interface TypeText {
     tertiary: string;
     assistive: string;
   }
 
-  interface PaletteOptions {
+  export interface PaletteOptions {
     tertiary: SimplePaletteColorOptions;
     label: LabelType;
     text?: Partial<TypeText>;
@@ -41,7 +41,7 @@ declare module "@mui/material/styles" {
     static?: TypeStatic;
   }
 
-  interface TypeBackground {
+  export interface TypeBackground {
     normal: string;
     alternative: string;
     primary: string;
@@ -53,7 +53,24 @@ declare module "@mui/material/styles" {
     snackbar: string;
   }
 
-  interface TypographyVariants {
+  export interface ComponentNameToClassKey {
+    MuiTag: "root" | "value" | "unit";
+  }
+
+  export interface ComponentsPropsList {
+    MuiTag: Partial<StatProps>;
+  }
+
+  export interface Components {
+    MuiTag?: {
+      defaultProps?: ComponentsPropsList["MuiTag"];
+      styleOverrides?: ComponentsOverrides<Theme>["MuiTag"];
+      variants?: ComponentsVariants["MuiTag"];
+    };
+  }
+
+  // typography
+  export interface TypographyVariants {
     // display
     display1: React.CSSProperties;
     display2: React.CSSProperties;
@@ -77,7 +94,7 @@ declare module "@mui/material/styles" {
       reading: React.CSSProperties;
     };
     // label
-    label: {
+    label1: {
       normal: React.CSSProperties;
       reading: React.CSSProperties;
     };
@@ -88,7 +105,7 @@ declare module "@mui/material/styles" {
   }
 
   // allow configuration using `createTheme()`
-  interface TypographyVariantsOptions {
+  export interface TypographyVariantsOptions {
     // display
     display1: React.CSSProperties;
     display2: React.CSSProperties;
@@ -103,19 +120,13 @@ declare module "@mui/material/styles" {
     headline1: React.CSSProperties;
     headline2: React.CSSProperties;
     // body
-    body1: {
-      normal: React.CSSProperties;
-      reading: React.CSSProperties;
-    };
-    body2: {
-      normal: React.CSSProperties;
-      reading: React.CSSProperties;
-    };
+    body1Normal: React.CSSProperties;
+    body1Reading: React.CSSProperties;
+    body2Normal: React.CSSProperties;
+    body2Reading: React.CSSProperties;
     // label
-    label: {
-      normal: React.CSSProperties;
-      reading: React.CSSProperties;
-    };
+    label1Normal: React.CSSProperties;
+    label1Reading: React.CSSProperties;
     label2: React.CSSProperties;
     // caption
     caption1: React.CSSProperties;
@@ -125,7 +136,7 @@ declare module "@mui/material/styles" {
 
 // Update the Typography's variant prop options
 declare module "@mui/material/Typography" {
-  interface TypographyPropsVariantOverrides {
+  export interface TypographyPropsVariantOverrides {
     display1: true;
     display2: true;
     title1: true;
@@ -135,9 +146,12 @@ declare module "@mui/material/Typography" {
     heading2: true;
     headline1: true;
     headline2: true;
-    body1: true;
-    body2: true;
-    label: true;
+    body1Normal: true;
+    body1Reading: true;
+    body2Normal: true;
+    body2Reading: true;
+    label1Normal: true;
+    label1Reading: true;
     label2: true;
     caption1: true;
     caption2: true;
@@ -150,5 +164,18 @@ declare module "@mui/material/Typography" {
     h6: undefined;
     subtitle1: undefined;
     subtitle2: undefined;
+  }
+}
+
+declare module "@mui/material/Checkbox" {
+  export interface CheckboxProps {
+    variant?: "round" | "square" | "line";
+  }
+
+  export interface CheckboxPropsSizeOverrides {
+    small: true;
+    normal: true;
+    medium: false;
+    large: false;
   }
 }

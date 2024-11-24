@@ -14,7 +14,9 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["packages/*"],
+      "@mui/*": ["node_modules/@mui/*"],
+      "@dingdong-ds/*": ["packages/dingdong-ds/src/*"]
     }
   },
   "include": ["packages/*"],

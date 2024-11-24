@@ -1,8 +1,8 @@
 import type { StoryObj } from "@storybook/react";
-import Color from "../components/_internal/color/Color";
+import Color from "./Color";
 
 const meta = {
-  title: "Example/Color",
+  title: "Color/Color",
   component: Color,
   parameters: {
     layout: "left",
