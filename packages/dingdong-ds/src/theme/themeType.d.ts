@@ -85,19 +85,13 @@ declare module "@mui/material/styles" {
     headline1: React.CSSProperties;
     headline2: React.CSSProperties;
     // body
-    body1: {
-      normal: React.CSSProperties;
-      reading: React.CSSProperties;
-    };
-    body2: {
-      normal: React.CSSProperties;
-      reading: React.CSSProperties;
-    };
+    body1Normal: React.CSSProperties;
+    body1Reading: React.CSSProperties;
+    body2Normal: React.CSSProperties;
+    body2Reading: React.CSSProperties;
     // label
-    label1: {
-      normal: React.CSSProperties;
-      reading: React.CSSProperties;
-    };
+    label1Normal: React.CSSProperties;
+    label1Reading: React.CSSProperties;
     label2: React.CSSProperties;
     // caption
     caption1: React.CSSProperties;

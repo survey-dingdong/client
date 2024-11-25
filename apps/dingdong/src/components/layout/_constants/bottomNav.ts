@@ -9,7 +9,7 @@ type BottomNavType = {
 export const BOTTOM_NAVS: BottomNavType[] = [
   {
     label: "실험 공고",
-    icon: "calendar",
+    icon: "thumbnail",
     path: "/project",
   },
   {
@@ -33,3 +33,5 @@ export const BOTTOM_NAVS: BottomNavType[] = [
     path: "/my-page",
   },
 ];
+
+export const BOTTOM_NAV_HEIGHT = 50;

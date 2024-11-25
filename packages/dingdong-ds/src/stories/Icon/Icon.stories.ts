@@ -29,7 +29,7 @@ type Story = StoryObj<typeof meta>;
 export const UserSearchIconStory: Story = {
   args: {
     icon: "userSearch",
-    color: "warning",
+    color: "primary",
     size: "medium",
   },
 };

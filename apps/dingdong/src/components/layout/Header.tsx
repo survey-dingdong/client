@@ -17,20 +17,28 @@ const Header: React.FC = () => {
         padding: 2,
         // borderBottom: (theme) => `1px solid ${theme.palette.semantic.static}`,
         borderBottom: "1px solid",
-        borderColor: "semantic.static",
+        borderColor: "line.normal",
       }}
     >
       {/* title */}
-      <Typography variant="heading2">실험 공고</Typography>
+      <Typography variant="heading2" color="label.strong">
+        실험 공고
+      </Typography>
 
       {/* action */}
       <Box display="flex" gap={3}>
-        <IconButton size="small">
-          {/* TODO: add icon color */}
-          <Icon icon="search" sx={{ color: "labelNormal" }} />
+        <IconButton
+          size="small"
+          sx={{ color: (theme) => theme.palette.label.normal }}
+        >
+          {/* TODO: add icon color - label.normal */}
+          <Icon icon="search" size="small" />
         </IconButton>
-        <IconButton size="small">
-          <Icon icon="tune" />
+        <IconButton
+          size="small"
+          sx={{ color: (theme) => theme.palette.label.normal }}
+        >
+          <Icon icon="tune" size="small" />
         </IconButton>
       </Box>
     </Box>

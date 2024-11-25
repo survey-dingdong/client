@@ -3,6 +3,7 @@ import React from "react";
 import BottomNav from "./BottomNav";
 import Header from "./Header";
 import { Outlet } from "react-router";
+import { BOTTOM_NAV_HEIGHT } from "./_constants/bottomNav";
 
 const Layout: React.FC = () => {
   return (
@@ -13,6 +14,8 @@ const Layout: React.FC = () => {
         sx={{ bgcolor: (theme) => theme.palette.background.default }}
         flexGrow={1}
         padding={2}
+        paddingBottom={`${BOTTOM_NAV_HEIGHT + 16}px`}
+        overflow="auto"
       >
         <Outlet />
       </Stack>

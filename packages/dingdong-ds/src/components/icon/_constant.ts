@@ -9,7 +9,7 @@ import { SearchIcon } from "./assets/SearchIcon";
 import { TuneIcon } from "./assets/TuneIcon";
 import { UploadIcon } from "./assets/UploadIcon";
 import { UserSearchIcon } from "./assets/UserSearchIcon";
-
+import { ThumbnailIcon } from "./assets/ThumbnailIcon";
 export const ICONS = {
   userSearch: UserSearchIcon,
   logout: LogoutIcon,
@@ -22,9 +22,11 @@ export const ICONS = {
   calendar: CalendarIcon,
   bubble: BubbleIcon,
   bell: BellIcon,
+  thumbnail: ThumbnailIcon,
 };
 
 export const ICON_SIZE = {
+  xSmall: 12,
   small: 24,
   medium: 32,
   large: 48,

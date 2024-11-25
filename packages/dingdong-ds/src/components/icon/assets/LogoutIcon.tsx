@@ -1,12 +1,6 @@
 export const LogoutIcon = () => {
   return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M11.627 9.74634L13.3336 8.03967L11.627 6.33301"
         stroke="currentColor"

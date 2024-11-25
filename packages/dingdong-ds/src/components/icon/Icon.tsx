@@ -1,7 +1,7 @@
 import React from "react";
 
 import { ICON_SIZE, ICONS } from "./_constant";
-import { SvgIcon, useTheme } from "@mui/material";
+import { Box, SvgIcon, SvgIconProps } from "@mui/material";
 
 //
 //
@@ -9,10 +9,10 @@ import { SvgIcon, useTheme } from "@mui/material";
 
 export type IconType = keyof typeof ICONS;
 
-export interface IconProps {
+export interface IconProps extends SvgIconProps {
   icon: IconType;
-  color?: "primary" | "secondary" | "info" | "error" | "warning" | "success";
-  size?: "small" | "medium" | "large";
+  color?: SvgIconProps["color"];
+  size?: keyof typeof ICON_SIZE;
 }
 
 //
@@ -23,19 +23,27 @@ const Icon: React.FC<IconProps> = ({
   color = "primary",
   size = "medium",
   icon,
+  ...props
 }) => {
-  const theme = useTheme();
   const SVGIcon = ICONS[icon];
 
+  //
+  //
+  //
+
   return (
-    <SvgIcon
-      component={SVGIcon}
-      sx={{
-        width: ICON_SIZE[size],
-        height: ICON_SIZE[size],
-        color: theme.palette[color].main,
-      }}
-    />
+    <Box sx={{ width: ICON_SIZE[size], height: ICON_SIZE[size] }}>
+      <SvgIcon
+        {...props}
+        component={props.component || SVGIcon}
+        color={color}
+        sx={{
+          width: ICON_SIZE[size],
+          height: ICON_SIZE[size],
+          ...props.sx,
+        }}
+      />
+    </Box>
   );
 };
 

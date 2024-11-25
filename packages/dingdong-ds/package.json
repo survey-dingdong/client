@@ -1,6 +1,6 @@
 {
   "name": "dingdong-ds",
-  "version": "0.0.1-typography.2",
+  "version": "0.0.1-icon.2",
   "description": "Design system for DingDong",
   "main": "dist/dingdong-ds.umd.cjs",
   "module": "./dist/dingdong-ds.esm.js",

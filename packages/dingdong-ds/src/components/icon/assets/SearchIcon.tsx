@@ -2,36 +2,12 @@ import React from "react";
 
 export const SearchIcon = () => {
   return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
-        d="M6.21387 4.33338L7.92053 2.62671L9.6272 4.33338"
-        stroke="#36445F"
-        stroke-width="1.5"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-      <path
-        d="M7.91992 9.45334V2.67334"
-        stroke="#36445F"
-        stroke-width="1.5"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-      <path
-        d="M2.66699 8C2.66699 10.9467 4.66699 13.3333 8.00033 13.3333C11.3337 13.3333 13.3337 10.9467 13.3337 8"
-        stroke="#36445F"
-        stroke-width="1.5"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M9.99994 2.1001C5.63689 2.1001 2.09995 5.63705 2.09995 10.0001C2.09995 14.3631 5.63689 17.9001 9.99994 17.9001C11.8572 17.9001 13.5648 17.2592 14.9136 16.1864L19.8637 21.1365C20.2152 21.4879 20.785 21.4879 21.1365 21.1365C21.4879 20.785 21.4879 20.2151 21.1365 19.8637L16.1864 14.9136C17.2591 13.5648 17.8999 11.8573 17.8999 10.0001C17.8999 5.63705 14.363 2.1001 9.99994 2.1001ZM3.89994 10.0001C3.89994 6.63116 6.631 3.9001 9.99994 3.9001C13.3689 3.9001 16.0999 6.63116 16.0999 10.0001C16.0999 13.369 13.3689 16.1001 9.99994 16.1001C6.631 16.1001 3.89994 13.369 3.89994 10.0001Z"
+        fill="currentColor"
       />
     </svg>
   );
