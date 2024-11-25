@@ -27,7 +27,7 @@ const Header: React.FC = () => {
       <Box display="flex" gap={3}>
         <IconButton size="small">
           {/* TODO: add icon color */}
-          <Icon icon="search" sx={{ color: "label.normal" }} />
+          <Icon icon="search" sx={{ color: "labelNormal" }} />
         </IconButton>
         <IconButton size="small">
           <Icon icon="tune" />

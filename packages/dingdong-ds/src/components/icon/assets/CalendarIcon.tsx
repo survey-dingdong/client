@@ -7,7 +7,7 @@ export const CalendarIcon = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path d="M18 14H15V17H18V14Z" fill="#191F28" />
+      <path d="M18 14H15V17H18V14Z" fill="currentColor" />
       <path
         fill-rule="evenodd"
         clip-rule="evenodd"

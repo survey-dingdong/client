@@ -2,6 +2,7 @@ import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
 import { Icon } from "dingdong-ds";
 import React from "react";
 import { BOTTOM_NAVS } from "./_constants/bottomNav";
+import { NavLink } from "react-router";
 
 const BottomNav: React.FC = () => {
   const [selectedNav, setSelectedNav] = React.useState(0);
@@ -19,7 +20,10 @@ const BottomNav: React.FC = () => {
           <BottomNavigationAction
             key={index}
             label={nav.label}
+            component={NavLink}
             icon={<Icon icon={nav.icon} size="small" />}
+            to={nav.path}
+            value={index}
           />
         ))}
       </BottomNavigation>

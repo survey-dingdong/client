@@ -15,7 +15,9 @@
     "@mui/material": "^6.1.6",
     "dingdong-ds": "0.0.1-typography.2",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-router": "^7.0.1",
+    "react-router-dom": "^7.0.1"
   },
   "devDependencies": {
     "@types/react": "^18.3.1",

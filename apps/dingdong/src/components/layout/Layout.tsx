@@ -2,7 +2,7 @@ import { Stack } from "@mui/material";
 import React from "react";
 import BottomNav from "./BottomNav";
 import Header from "./Header";
-import { ProjectListItem } from "../projectListItem";
+import { Outlet } from "react-router";
 
 const Layout: React.FC = () => {
   return (
@@ -14,8 +14,7 @@ const Layout: React.FC = () => {
         flexGrow={1}
         padding={2}
       >
-        {/* children */}
-        <ProjectListItem />
+        <Outlet />
       </Stack>
       <BottomNav />
     </Stack>
