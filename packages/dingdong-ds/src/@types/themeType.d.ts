@@ -1,4 +1,3 @@
-import { SimplePaletteColorOptions } from "@mui/material";
 import "@mui/material/styles";
 import "@mui/system";
 declare global {
@@ -24,6 +23,11 @@ declare global {
     tertiary: string;
     black: string;
   }
+
+  export interface TertiaryType {
+    main: string;
+    light: string;
+  }
 }
 
 //
@@ -33,12 +37,22 @@ declare module "@mui/material/styles" {
     assistive: string;
   }
 
-  export interface PaletteOptions {
-    tertiary: SimplePaletteColorOptions;
+  export interface Palette {
+    tertiary: TertiaryType;
     label: LabelType;
     text?: Partial<TypeText>;
     line?: TypeLine;
     static?: TypeStatic;
+    status?: StatusType;
+  }
+
+  export interface PaletteOptions {
+    tertiary: TertiaryType;
+    label: LabelType;
+    text?: Partial<TypeText>;
+    line?: TypeLine;
+    static?: TypeStatic;
+    status?: StatusType;
   }
 
   export interface TypeBackground {
@@ -51,6 +65,15 @@ declare module "@mui/material/styles" {
     error: string;
     inherit: string;
     snackbar: string;
+  }
+
+  export interface StatusType {
+    primary: string;
+    info: string;
+    success: string;
+    warning: string;
+    error: string;
+    inherit: string;
   }
 
   export interface ComponentNameToClassKey {

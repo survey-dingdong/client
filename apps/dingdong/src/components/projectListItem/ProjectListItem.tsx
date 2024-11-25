@@ -29,7 +29,7 @@ const ProjectListItem: React.FC = () => {
         <Stack gap={2}>
           {/* title */}
           <Stack flexDirection="row" gap={1} alignItems="center">
-            <Tag label="대면" size="small" color="info" variant="muted" />
+            <Tag label="대면" size="small" />
             <Typography color="text.secondary" variant="headline1">
               프로젝트 명
             </Typography>
@@ -51,7 +51,7 @@ const ProjectListItem: React.FC = () => {
                 <LinearProgress value={50} variant="determinate" />
               </Box>
               <Typography variant="caption2" color="label.neutral">
-                50%
+                9/30
               </Typography>
             </Stack>
 

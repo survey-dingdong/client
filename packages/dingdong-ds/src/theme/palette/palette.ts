@@ -37,8 +37,8 @@ export const palette: ThemeOptions["palette"] = {
     main: "#DB5654",
   },
   text: {
-    primary: "#36445F",
-    secondary: "#545D75",
+    primary: "#1A2741",
+    secondary: "#36445F",
     tertiary: "#545D75",
     assistive: "#A6ADBD",
   },
@@ -63,5 +63,13 @@ export const palette: ThemeOptions["palette"] = {
     normal: "#E0E4EA",
     neutral: "#E0E4EA80",
     alternative: "#E0E4EA33",
+  },
+  status: {
+    primary: "#3F57FD1F",
+    success: "#18817A1F",
+    info: "#4577D81F",
+    warning: "#AC5F001F",
+    error: "#DB56541F",
+    inherit: "#00000014",
   },
 };

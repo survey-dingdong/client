@@ -19,6 +19,6 @@
       "@dingdong-ds/*": ["packages/dingdong-ds/src/*"]
     }
   },
-  "include": ["packages/*"],
+  "include": ["packages/*", "packages/dingdong-ds/src/@types/themeType.d.ts"],
   "exclude": ["node_modules"]
 }

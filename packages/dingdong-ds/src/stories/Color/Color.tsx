@@ -21,9 +21,8 @@ const Color: React.FC = () => {
           <Stack>
             <Typography variant="title2">Color</Typography>
           </Stack>
-
           {paletteKey.map((key) => {
-            const colorKeys = Object.keys(theme.palette[key]) as Array<
+            const colorKeys = Object.keys(theme.palette[key] || {}) as Array<
               keyof (typeof theme.palette)[keyof typeof theme.palette]
             >;
 
@@ -36,7 +35,7 @@ const Color: React.FC = () => {
                 <Typography variant="title1">{key}</Typography>
                 <Stack flexDirection="row" flexWrap="wrap" gap="1rem">
                   {colorKeys.map((colorKey) => {
-                    const color = theme.palette[key][colorKey];
+                    const color = theme?.palette[key]?.[colorKey];
 
                     if (!color || typeof color !== "string") {
                       return null;
