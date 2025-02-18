@@ -1912,7 +1912,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@dingdong/api-client@workspace:packages/dingdong-api-client":
+"@dingdong/api-client@workspace:*, @dingdong/api-client@workspace:packages/dingdong-api-client":
   version: 0.0.0-use.local
   resolution: "@dingdong/api-client@workspace:packages/dingdong-api-client"
   dependencies:
@@ -9570,6 +9570,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "dingdong-research@workspace:apps/dingdong-research"
   dependencies:
+    "@dingdong/api-client": "workspace:*"
     "@dnd-kit/core": "npm:^6.1.0"
     "@dnd-kit/sortable": "npm:^8.0.0"
     "@emotion/cache": "npm:^11.11.0"
@@ -9618,6 +9619,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "dingdong@workspace:apps/dingdong"
   dependencies:
+    "@dingdong/api-client": "workspace:*"
     "@emotion/react": "npm:^11.13.3"
     "@emotion/styled": "npm:^11.13.0"
     "@mui/material": "npm:^6.1.6"

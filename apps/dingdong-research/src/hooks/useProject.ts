@@ -1,16 +1,14 @@
+import { GetProjectResponseDTO } from "@dingdong/api-client";
 import { useQuery } from "@tanstack/react-query";
 
-import {
-  GetExperimentProjectResponse,
-  getProjectProjectsProjectIdGet,
-} from "src/client";
+import { projectApi } from "src/client";
 
 //
 // types
 //
 
 type UseProjectReturn = {
-  project: GetExperimentProjectResponse | undefined;
+  project: GetProjectResponseDTO | undefined;
   isLoading: boolean;
   isError: any;
 };
@@ -36,15 +34,11 @@ export function useProject({
 }: useProjectPrams): UseProjectReturn {
   const { data, isLoading, error } = useQuery({
     queryKey: [GET_PROJECT_QUERY_KEY, workspaceId, projectId],
-    queryFn: () =>
-      getProjectProjectsProjectIdGet({
-        projectId,
-        projectType: "experiment",
-      }),
+    queryFn: () => projectApi.getProjectProjectsProjectIdGet({ projectId }),
   });
 
   return {
-    project: data,
+    project: data?.data,
     isLoading,
     isError: error,
   };
