@@ -1,0 +1,11 @@
+generatorName: typescript-axios
+inputSpec: https://survey-dingdong.site/openapi.json
+outputDir: src
+apiPackage: api
+modelPackage: models
+additionalProperties:
+  withSeparateModelsAndApi: true
+  modelPropertyNaming: camelCase
+  enumPropertyNaming: original
+  useSingleRequestParameter: true
+  supportsES6: true

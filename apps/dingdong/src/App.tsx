@@ -16,6 +16,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<Layout />}>
+            <Route path="/" element={<Project />} index />
             <Route path="project" element={<Project />} />
             <Route path="my-project" element={<MyProject />} />
             <Route path="chat" element={<Chat />} />
