@@ -1,6 +1,6 @@
 "use client";
-import { Box, Button, Link as MuiLink, Stack, Typography } from "@mui/material";
-import Link from "next/link";
+import { Button, Stack } from "@mui/material";
+
 import { useRouter } from "next/navigation";
 import { useSnackbar } from "notistack";
 import React from "react";
@@ -14,7 +14,8 @@ import {
   passwordRegex,
   PasswordTextField,
 } from "src/shared";
-import { CreateUserRequest, createUserUsersPost } from "src/client";
+import { userApi } from "src/client";
+import { CreateUserRequest } from "dingdong-api-client";
 
 //
 //
@@ -51,8 +52,10 @@ export default function Page() {
 
   // [HANDLER]
   const mutation = useMutation({
-    mutationFn: (data: CreateUserRequest) =>
-      createUserUsersPost({ requestBody: data }),
+    mutationFn: (createUserRequest: CreateUserRequest) =>
+      userApi.createUserUsersPost({
+        createUserRequest,
+      }),
     onSuccess: () => {
       enqueueSnackbar("회원가입에 성공했습니다.", {
         variant: "success",

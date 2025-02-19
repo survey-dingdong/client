@@ -1,5 +1,5 @@
 "use client";
-import { Icon } from "@dingdong/design-system/src/components";
+import { Icon } from "dingdong-ds";
 import { CheckBoxOutlineBlank, ExpandMoreRounded } from "@mui/icons-material";
 import {
   Alert,

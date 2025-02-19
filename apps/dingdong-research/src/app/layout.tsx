@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { dingdongTheme } from "dingdong-ds";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
@@ -45,7 +46,7 @@ const myFont = localFont({
 //
 //
 
-export default async function RootLayout(props: any) {
+export default function RootLayout(props: any) {
   const { children } = props;
 
   return (
