@@ -21,6 +21,7 @@ import { token } from "src/utils/token";
 import GoogleLoginButton from "../GoogleLoginButton";
 import { useRouter, useSearchParams } from "next/navigation";
 import { userApi } from "src/client";
+import { LoginResponseDTO } from "dingdong-api-client";
 
 //
 //
@@ -41,7 +42,11 @@ const LoginForm = () => {
 
   const isFormValid = email && password;
 
-  const { mutate: login, isPending: isLoginLoading } = useMutation({
+  const {
+    mutate: login,
+    isPending: isLoginLoading,
+    data: loginData,
+  } = useMutation({
     mutationFn: () =>
       userApi.loginUsersLoginPost({
         loginRequest: {
@@ -49,18 +54,6 @@ const LoginForm = () => {
           password,
         },
       }),
-    onSuccess: async ({ refreshToken, token: userToken }: any) => {
-      setError(false);
-
-      token.set(TOKEN_KEY, userToken);
-      token.set(REFRESH_TOKEN_KEY, refreshToken);
-
-      if (window !== undefined) {
-        window.location.href = `${window.location.origin}/workspaces`;
-      }
-
-      enqueueSnackbar("로그인 되었습니다.", { variant: "success" });
-    },
     onError: (err: any) => {
       if (err.body.errorCode === "USER__OAUTH_LOGIN_WITH_PASSWORD_ATTEMPT") {
         router.push("/login/provider-error?provider=google&email=" + email);
@@ -69,6 +62,22 @@ const LoginForm = () => {
       setError(true);
     },
   });
+
+  React.useEffect(() => {
+    console.log(loginData?.data);
+    if (loginData) {
+      setError(false);
+
+      token.set(TOKEN_KEY, loginData.data.token);
+      token.set(REFRESH_TOKEN_KEY, loginData.data.refresh_token);
+
+      if (window !== undefined) {
+        window.location.href = `${window.location.origin}/workspaces`;
+      }
+
+      enqueueSnackbar("로그인 되었습니다.", { variant: "success" });
+    }
+  }, [enqueueSnackbar, loginData]);
 
   React.useEffect(() => {
     if (!searchParams) {

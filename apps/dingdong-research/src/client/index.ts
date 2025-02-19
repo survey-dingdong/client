@@ -10,7 +10,11 @@ import { token } from "src/utils/token";
 
 const config = new Configuration({
   basePath: "https://survey-dingdong.site",
-  accessToken: token.get(TOKEN_KEY) || "",
+  baseOptions: {
+    headers: {
+      Authorization: `Bearer ${token.get(TOKEN_KEY)}`,
+    },
+  },
 });
 
 export const projectApi = new ProjectApi(config);

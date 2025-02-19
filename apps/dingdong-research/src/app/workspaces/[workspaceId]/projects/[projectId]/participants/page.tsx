@@ -2,14 +2,12 @@
 import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
 import { Button, Stack } from "@mui/material";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { ExperimentAttendanceStatusTypeEnum } from "dingdong-api-client";
 import { useParams } from "next/navigation";
 import { useSnackbar } from "notistack";
 import React from "react";
-import {
-  ExperimentAttendanceStatusTypeEnum,
-  getProjectParticipantListProjectsProjectIdParticipantsGet,
-  updateProjectParticipantStatusProjectsProjectIdParticipantsParticipantIdPatch,
-} from "src/client";
+import { projectApi } from "src/client";
+
 import { Empty, PageHeader } from "src/shared";
 import { ContentContainer, Spinner } from "src/widgets";
 import { ParticipantsTable } from "src/widgets/ParticipantsTable";
@@ -36,16 +34,15 @@ export default function Page() {
   const { enqueueSnackbar } = useSnackbar();
   const queryClient = useQueryClient();
 
-  const { data: participantsData = [], isLoading } = useQuery({
+  const { data: participantsData, isLoading } = useQuery({
     queryKey: [GET_PARTICIPANTS_QUERY_KEY, _projectId],
-    queryFn: async () =>
-      getProjectParticipantListProjectsProjectIdParticipantsGet({
+    queryFn: () =>
+      projectApi.getProjectParticipantListProjectsProjectIdParticipantsGet({
         projectId: _projectId,
-        projectType: "experiment",
       }),
   });
 
-  const noParticipants = participantsData.length === 0;
+  const noParticipants = participantsData?.data.length === 0;
 
   /**
    *
@@ -58,12 +55,11 @@ export default function Page() {
     participantId: number;
   }) => {
     try {
-      await updateProjectParticipantStatusProjectsProjectIdParticipantsParticipantIdPatch(
+      await projectApi.updateProjectParticipantStatusProjectsProjectIdParticipantsParticipantIdPatch(
         {
+          projectId: _projectId,
           attendanceStatus: newStatus,
           participantId,
-          projectId: _projectId,
-          projectType: "experiment",
         }
       );
 
@@ -110,7 +106,7 @@ export default function Page() {
           />
         ) : (
           <ParticipantsTable
-            participants={participantsData}
+            participants={participantsData?.data}
             onStatusChange={handleStatusChange}
           />
         )}

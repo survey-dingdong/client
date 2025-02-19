@@ -1,13 +1,11 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { GetProjectListResponseDTO } from "dingdong-api-client";
 import { useRouter } from "next/navigation";
 
-import {
-  getProjectListWorkspacesWorkspaceIdProjectsGet,
-  GetProjectListWorkspacesWorkspaceIdProjectsGetResponse,
-} from "src/client";
+import { workspaceApi } from "src/client";
 
 type UseProjectReturn = {
-  projects: GetProjectListWorkspacesWorkspaceIdProjectsGetResponse | undefined;
+  projects: GetProjectListResponseDTO[] | undefined;
   isLoading: boolean;
   isError: any;
 };
@@ -23,25 +21,22 @@ export function useProjects({
 }): UseProjectReturn {
   const router = useRouter();
 
-  const {
-    data = [],
-    isLoading,
-    error,
-  } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: [...getProjectsQueryKey, workspaceId, filterTitle],
     queryFn: () =>
-      getProjectListWorkspacesWorkspaceIdProjectsGet({
-        workspaceId,
-        projectType: "experiment",
-        filterTitle,
-      }).catch(() => {
-        router.replace("/workspaces");
-      }),
+      workspaceApi
+        .getProjectListWorkspacesWorkspaceIdProjectsGet({
+          workspaceId,
+          filterTitle,
+        })
+        .catch(() => {
+          router.replace("/workspaces");
+        }),
     placeholderData: keepPreviousData,
   });
 
   return {
-    projects: data,
+    projects: data?.data ?? [],
     isLoading,
     isError: error,
   };

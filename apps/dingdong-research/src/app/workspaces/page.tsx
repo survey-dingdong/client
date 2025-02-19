@@ -12,7 +12,7 @@ const Redirect = () => {
   const tokenParam = params?.get(TOKEN_KEY);
 
   const { workspaces = [], isLoading } = useWorkspaces();
-  const mutation = useWorkspaceCreate({ hideSnackbar: true });
+  const { mutateAsync } = useWorkspaceCreate({ hideSnackbar: true });
 
   useEffect(() => {
     const handleRedirection = async () => {
@@ -30,11 +30,12 @@ const Redirect = () => {
         if (workspaces[0]?.id) {
           router.replace(`/workspaces/${workspaces[0].id}`);
         } else {
-          const res = await mutation.mutateAsync({ title: "내 워크스페이스" });
-          if (!res.id) {
+          const res = await mutateAsync({ title: "내 워크스페이스" });
+
+          if (!res.data) {
             throw new Error("Failed to create workspace");
           }
-          router.replace(`/workspaces/${res.id}`);
+          router.replace(`/workspaces/${res.data.id}`);
         }
       } catch (error) {
         console.error("Error during redirection:", error);
