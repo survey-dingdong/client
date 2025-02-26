@@ -15,8 +15,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["packages/*"],
-      "@mui/*": ["node_modules/@mui/*"],
-      "@dingdong-ds/*": ["packages/dingdong-ds/src/*"]
+      "@mui/*": ["node_modules/@mui/*"]
     }
   },
   "include": ["packages/*", "packages/dingdong-ds/src/@types/themeType.d.ts"],

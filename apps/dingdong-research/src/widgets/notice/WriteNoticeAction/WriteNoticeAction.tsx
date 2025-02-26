@@ -10,7 +10,7 @@ import {
   Tooltip,
 } from "@mui/material";
 import { TextField } from "src/shared";
-import Icon from "@dingdong/design-system/src/components/icon/Icon";
+import {Icon} from "dingdong-ds";
 
 const MAX_NOTICE_LENGTH = 1000;
 
