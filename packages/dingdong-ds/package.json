@@ -5,21 +5,22 @@
   "main": "dist/dingdong-ds.umd.cjs",
   "module": "./dist/dingdong-ds.esm.js",
   "type": "module",
-  "types": "dist/types/index.d.ts",
+  "types": "./dist/types/index.d.ts",
   "files": [
     "dist",
-    "README.md"
+    "src/@types"
   ],
   "exports": {
     ".": {
-      "import": "./dist/dingdong-ds.esm.js",
-      "require": "./dist/dingdong-ds.umd.cjs",
-      "types": "./dist/types/index.d.ts"
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/dingdong-ds.es.js",
+      "require": "./dist/dingdong-ds.umd.js"
     }
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build && tsc --build tsconfig.json",
+    "build": "tsc && vite build",
+    "build:types": "tsc --emitDeclarationOnly",
     "lint": "eslint .",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",

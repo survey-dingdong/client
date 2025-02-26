@@ -13,15 +13,6 @@ import React from "react";
 //
 //
 
-interface ProjectListItemProps {
-  title: string;
-  description: string;
-}
-
-//
-//
-//
-
 const ProjectListItem: React.FC = () => {
   return (
     <Card elevation={0} sx={{ borderRadius: 4 }}>

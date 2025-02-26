@@ -4,7 +4,6 @@ import svgr from "vite-plugin-svgr";
 import path from "path";
 import dts from "vite-plugin-dts";
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react(),
@@ -13,33 +12,29 @@ export default defineConfig({
     }),
     dts({
       outDir: "dist/types",
+      include: ["src"],
+      rollupTypes: true,
+      copyDtsFiles: true,
+      insertTypesEntry: true,
     }),
   ],
   build: {
     outDir: "dist",
     lib: {
-      name: "DesignSystem",
       entry: path.resolve(__dirname, "src/index.ts"),
+      name: "dingdong-ds",
+      formats: ["es", "umd"],
+      fileName: (format) => `dingdong-ds.${format}.js`,
     },
     rollupOptions: {
-      external: ["react"],
-      output: [
-        {
-          globals: {
-            react: "React",
-          },
-          format: "umd",
-          name: "MyLibrary",
-          dir: "dist",
+      external: ["react", "@mui/material", "@mui/system"],
+      output: {
+        globals: {
+          react: "React",
+          "@mui/material": "MaterialUI",
+          "@mui/system": "MuiSystem",
         },
-        {
-          format: "esm",
-          dir: "dist",
-        },
-      ],
-    },
-    commonjsOptions: {
-      esmExternals: ["react"], // React를 ESM 형식으로 외부 모듈 처리
+      },
     },
   },
 });

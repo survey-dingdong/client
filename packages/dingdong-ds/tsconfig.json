@@ -7,13 +7,16 @@
     "strict": true,
     "jsx": "react-jsx",
     "allowSyntheticDefaultImports": true,
-    "declarationDir": "dist/types",
     "outDir": "./dist",
     "rootDir": "./src",
     "declaration": true,
-    "emitDeclarationOnly": false,
-    "moduleResolution": "Bundler"
+    "declarationDir": "./dist/types",
+    "emitDeclarationOnly": true,
+    "moduleResolution": "node"
   },
-  "include": ["src/**/*", "src/@types/*.d.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src/**/*",
+    "src/@types/**/*.d.ts"
+  ],
+  "exclude": ["node_modules", "dist"]
 }
