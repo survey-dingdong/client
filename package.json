@@ -17,6 +17,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "build": "yarn workspace dingdong-api-client build && yarn build:research",
     "dingdong": "yarn workspace dingdong",
     "research": "yarn workspace dingdong-research",
     "ds": "yarn workspace dingdong-ds"

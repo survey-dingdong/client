@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "yarn workspace dingdong-api-client build && yarn build:research",
+    "build:research": "tsc && vite build",
     "start": "next start",
     "lint": "next lint",
     "generate": "openapi-ts --input https://survey-dingdong.site/openapi.json --output ./src/client --client axios && ts-node convertToCamelCase.ts",

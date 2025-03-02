@@ -1,29 +1,35 @@
-name: Deploy Storybook
+name: Deploy Storybook to GitHub Pages
 
 on:
   push:
     branches:
-      - main # main 브랜치에 push될 때 실행
-
-permissions:
-  contents: write # GitHub Pages 배포를 위해 필요
+      - main # main 브랜치에 푸시될 때 배포하도록 설정
+  workflow_dispatch: # 수동으로 트리거할 수 있게 설정
 
 jobs:
-  deploy-storybook:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout the repository
         uses: actions/checkout@v4
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "16"
+
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: |
+          npm install
 
       - name: Build Storybook
-        run: yarn ds build-storybook
+        run: |
+          npm run build-storybook
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Deploy Storybook to GitHub Pages
+        uses: jamesIves/github-pages-deploy-action@v4.1.2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: packages/dingdong-ds/storybook-static # 빌드된 스토리북 위치
+          branch: gh-pages # gh-pages 브랜치에 배포
+          folder: storybook-static # 빌드된 Storybook 파일들이 있는 폴더
+          token: ${{ secrets.GITHUB_TOKEN }} # 자동으로 토큰을 처리해줍니다.

@@ -1,13 +1,9 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { getWorkspaceListWorkspacesGet } from "src/client";
-
-export type WorkspaceType = {
-  id: number;
-  title: string;
-};
+import { GetWorkspaceRepsonseDTO } from "dingdong-api-client";
+import { workspaceApi } from "src/client";
 
 type UseProjectReturn = {
-  workspaces: WorkspaceType[] | undefined;
+  workspaces: GetWorkspaceRepsonseDTO[] | undefined;
   isLoading: boolean;
   isError: any;
 };
@@ -15,14 +11,14 @@ type UseProjectReturn = {
 export const WORKSPACES_QUERY_KEY = "/workspaces";
 
 export function useWorkspaces(): UseProjectReturn {
-  const { data, isError, isLoading } = useQuery<WorkspaceType[]>({
+  const { data, isError, isLoading } = useQuery({
     queryKey: [WORKSPACES_QUERY_KEY],
-    queryFn: () => getWorkspaceListWorkspacesGet(),
+    queryFn: () => workspaceApi.getWorkspaceListWorkspacesGet(),
     placeholderData: keepPreviousData,
   });
 
   return {
-    workspaces: data,
+    workspaces: data?.data,
     isLoading,
     isError,
   };

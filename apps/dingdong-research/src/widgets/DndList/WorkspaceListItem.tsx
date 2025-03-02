@@ -14,14 +14,14 @@ import editIcon from "public/icons/edit.png";
 import deleteIcon from "public/icons/trash.png";
 import Image from "next/image";
 
-import { WorkspaceType } from "src/hooks/useWorkspaces";
 import WorkspaceRenameInput from "../WorkspaceRenameInput";
 import { useParams } from "next/navigation";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { GetWorkspaceRepsonseDTO } from "dingdong-api-client";
 
 interface WorkspaceListItemProps {
-  workspace: WorkspaceType;
+  workspace: GetWorkspaceRepsonseDTO;
   editMode?: boolean;
   hideDeleteIcon?: boolean;
   onDeleteIconClick?: () => void;
@@ -37,7 +37,7 @@ const WorkspaceListItem: React.FC<WorkspaceListItemProps> = ({
   const currentWorkspaceId = Number(params?.workspaceId);
 
   const [editingWorkspace, setEditingWorkspace] =
-    React.useState<WorkspaceType | null>(null);
+    React.useState<GetWorkspaceRepsonseDTO | null>(null);
 
   const isItemEditing = editingWorkspace?.id === workspace.id;
   const {

@@ -10,7 +10,7 @@ import {
   useFormContext,
   useWatch,
 } from "react-hook-form";
-import { resetPasswordAuthResetPasswordPost } from "src/client";
+import { authApi } from "src/client";
 import {
   PasswordTextField,
   ThumbnailLayout,
@@ -50,8 +50,8 @@ export default function Page() {
 
   const handleSubmitButtonClick = formMethods.handleSubmit(async (data) => {
     try {
-      await resetPasswordAuthResetPasswordPost({
-        requestBody: {
+      await authApi.resetPasswordAuthResetPasswordPost({
+        resetPasswordRequest: {
           email: data.email,
           password: data.password,
         },

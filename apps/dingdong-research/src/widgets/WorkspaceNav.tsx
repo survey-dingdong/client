@@ -24,12 +24,14 @@ import {
   sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
 import WorkspaceListItem from "./DndList/WorkspaceListItem";
-import { updateWorkspaceWorkspacesWorkspaceIdPatch } from "src/client";
+
 import { useQueryClient } from "@tanstack/react-query";
 import { useSnackbar } from "notistack";
 import editIcon from "public/icons/edit_with_square_primary.png";
 import Image from "next/image";
 import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlineRounded";
+import { GetWorkspaceRepsonseDTO } from "dingdong-api-client";
+import { workspaceApi } from "src/client";
 
 //
 //
@@ -38,11 +40,6 @@ import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlin
 type DialogType = null | {
   type: "delete" | "rename";
   selected: { id: number; title: string };
-};
-
-type WorkspaceType = {
-  id: number;
-  title: string;
 };
 
 //
@@ -58,7 +55,7 @@ const WorkspaceNav = () => {
   const [editMode, setEditMode] = React.useState(false);
   const [dialog, setDialog] = React.useState<DialogType>(null);
   const [clientWorkspaces, setClientWorkspaces] = React.useState<
-    WorkspaceType[]
+    GetWorkspaceRepsonseDTO[]
   >([]);
 
   // [QUERY]
@@ -107,14 +104,16 @@ const WorkspaceNav = () => {
 
       setClientWorkspaces(arrayMove(clientWorkspaces, activeIndex, overIndex));
 
-      updateWorkspaceWorkspacesWorkspaceIdPatch({
-        workspaceId: active.id as number,
-        requestBody: {
-          orderNo: overIndex + 1, // order starts from 1
-        },
-      }).then(() => {
-        queryClient.invalidateQueries({ queryKey: [WORKSPACES_QUERY_KEY] });
-      });
+      workspaceApi
+        .updateWorkspaceWorkspacesWorkspaceIdPatch({
+          workspaceId: active.id as number,
+          updateWorkspaceRequest: {
+            order_no: overIndex + 1, // order starts from 1
+          },
+        })
+        .then(() => {
+          queryClient.invalidateQueries({ queryKey: [WORKSPACES_QUERY_KEY] });
+        });
 
       setActiveId(null);
     } catch (error) {

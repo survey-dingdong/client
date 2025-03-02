@@ -25,4 +25,4 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Build with Next.js
-        run: yarn build
+        run: yarn research build

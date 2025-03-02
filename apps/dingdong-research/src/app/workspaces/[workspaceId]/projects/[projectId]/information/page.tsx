@@ -46,11 +46,7 @@ import {
   PublicTag,
   Spinner,
 } from "src/widgets";
-import {
-  ExperimentTimeslotRequest,
-  PutProjectRequest,
-  updateProjectProjectsProjectIdPut,
-} from "src/client";
+
 import { GET_PROJECT_QUERY_KEY, useProject } from "src/hooks/useProject";
 import { isProjectFulfilled } from "src/utils/project";
 import ProjectOpenStatusAlert from "src/widgets/ProjectOpenStatusAlert";
@@ -60,6 +56,11 @@ import {
   PROJECT_SERVER_TIME_FORMAT,
   PROJECT_TITLE_MAX,
 } from "src/constants/project";
+import { projectApi } from "src/client";
+import {
+  ExperimentTimeslot,
+  UpdateProjectRequestDTO,
+} from "dingdong-api-client";
 dayjs.extend(isBetween);
 
 //
@@ -67,15 +68,15 @@ dayjs.extend(isBetween);
 //
 
 export interface TimeSlotType
-  extends Omit<ExperimentTimeslotRequest, "startTime" | "endTime"> {
-  startTime: null | Dayjs;
-  endTime: null | Dayjs;
+  extends Omit<ExperimentTimeslot, "start_time" | "end_time"> {
+  start_time: null | Dayjs;
+  end_time: null | Dayjs;
 }
 
 export interface ProjectFormType
   extends Omit<
-    PutProjectRequest,
-    "startDate" | "endDate" | "experimentTimeslots"
+    UpdateProjectRequestDTO,
+    "start_date" | "end_date" | "experiment_timeslots"
   > {
   startDate: Dayjs;
   endDate: Dayjs;
@@ -121,7 +122,7 @@ export default function Page() {
   });
 
   const [usingExcludeDates, setUsingExcludeDates] = React.useState(
-    !!project?.excludedDates.length
+    !!project?.excluded_dates.length
   );
 
   // watched form values
@@ -171,21 +172,21 @@ export default function Page() {
     if (project) {
       formMethods.reset({
         ...project,
-        experimentTimeslots: project.experimentTimeslots?.length
-          ? project.experimentTimeslots.map((timeslot) => ({
+        experimentTimeslots: project.experiment_timeslots?.length
+          ? project.experiment_timeslots.map((timeslot) => ({
               ...timeslot,
-              startTime: convertTimeToDayjs(timeslot.startTime),
-              endTime: convertTimeToDayjs(timeslot.endTime),
+              startTime: convertTimeToDayjs(timeslot.start_time),
+              endTime: convertTimeToDayjs(timeslot.end_time),
             }))
           : [DEFAULT_TIMESLOT],
         //
-        startDate: project.startDate ? dayjs(project.startDate) : TODAY,
-        endDate: project.endDate
-          ? dayjs(project.endDate)
+        startDate: project.start_date ? dayjs(project.start_date) : TODAY,
+        endDate: project.end_date
+          ? dayjs(project.end_date)
           : TODAY.add(1, "month"),
       } as unknown as ProjectFormType);
 
-      setUsingExcludeDates(!!project.excludedDates?.length);
+      setUsingExcludeDates(!!project.excluded_dates?.length);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [project]);
@@ -195,25 +196,26 @@ export default function Page() {
    */
   const handleSubmit = formMethods.handleSubmit(async (data) => {
     try {
-      await updateProjectProjectsProjectIdPut({
+      await projectApi.putProjectProjectsProjectIdPut({
         projectId: _projectId,
-        projectType: "experiment",
-        requestBody: {
+        updateProjectRequestDTO: {
           ...data,
-          startDate: dayjs(data.startDate).format(
+          start_date: dayjs(data.startDate).format(
             PROJECT_SERVER_DATE_FORMAT
           ) as any,
-          endDate: dayjs(data.endDate).format(
+          end_date: dayjs(data.endDate).format(
             PROJECT_SERVER_DATE_FORMAT
           ) as any,
-          experimentTimeslots: data.experimentTimeslots.map(
+          experiment_timeslots: data.experimentTimeslots.map(
             (timeslot: TimeSlotType) => ({
               ...timeslot,
-              startTime: timeslot.startTime?.format(PROJECT_SERVER_TIME_FORMAT),
-              endTime: timeslot.endTime?.format(PROJECT_SERVER_TIME_FORMAT),
+              start_time: timeslot.startTime?.format(
+                PROJECT_SERVER_TIME_FORMAT
+              ),
+              end_time: timeslot.endTime?.format(PROJECT_SERVER_TIME_FORMAT),
             })
           ) as any,
-          excludedDates: usingExcludeDates
+          excluded_dates: usingExcludeDates
             ? (data.excludedDates?.map((date) =>
                 dayjs(date).format(PROJECT_SERVER_DATE_FORMAT)
               ) as any)

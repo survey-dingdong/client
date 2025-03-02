@@ -21,10 +21,11 @@ import { TextField } from "src/shared";
 import { AccountDeleteDialog, Tag } from "src/widgets";
 import { enqueueSnackbar } from "notistack";
 import { fetchUserQueryKey, useUser } from "src/hooks/useUser";
-import { updateUserUsersPatch } from "src/client";
 import EditPasswordDialog from "src/shared/EditPasswordDialog";
 import editPrimary from "public/icons/edit-primary.png";
 import Image from "next/image";
+import { userApi } from "src/client";
+import { UpdateUserRequest } from "dingdong-api-client";
 
 //
 //
@@ -40,7 +41,7 @@ export default function Page() {
   const { user } = useUser();
   const queryClient = useQueryClient();
 
-  const formMethods = useForm({ defaultValues: user });
+  const formMethods = useForm<UpdateUserRequest>({ defaultValues: user });
 
   React.useEffect(() => {
     formMethods.reset(user);
@@ -58,8 +59,8 @@ export default function Page() {
 
   const handleSubmit = formMethods.handleSubmit(async (data) => {
     try {
-      await updateUserUsersPatch({
-        requestBody: data,
+      await userApi.updateUserUsersPatch({
+        updateUserRequest: data,
       });
 
       await queryClient.invalidateQueries({ queryKey: [fetchUserQueryKey] });
