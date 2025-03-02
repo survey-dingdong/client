@@ -1,0 +1,29 @@
+name: Deploy Storybook
+
+on:
+  push:
+    branches:
+      - main # main 브랜치에 push될 때 실행
+
+permissions:
+  contents: write # GitHub Pages 배포를 위해 필요
+
+jobs:
+  deploy-storybook:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build Storybook
+        run: yarn ds build-storybook
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: packages/dingdong-ds/storybook-static # 빌드된 스토리북 위치

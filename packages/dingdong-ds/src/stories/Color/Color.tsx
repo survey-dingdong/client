@@ -44,7 +44,7 @@ const Color: React.FC = () => {
                     const lowerCaseColor = (color as string).toLowerCase();
 
                     return (
-                      <Stack key={colorKey} gap="0.5rem">
+                      <Stack key={colorKey} gap="1rem">
                         <Box
                           sx={{
                             width: "50px",
@@ -58,7 +58,9 @@ const Color: React.FC = () => {
                                 : undefined,
                           }}
                         />
-                        <Typography variant="title2">{colorKey}</Typography>
+                        <Typography variant="title2" whiteSpace="pre-wrap">
+                          {colorKey}
+                        </Typography>
                       </Stack>
                     );
                   })}
