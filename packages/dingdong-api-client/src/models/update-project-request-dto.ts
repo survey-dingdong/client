@@ -43,43 +43,43 @@ export interface UpdateProjectRequestDTO {
      * @type {boolean}
      * @memberof UpdateProjectRequestDTO
      */
-    'is_public': boolean;
+    'isPublic': boolean;
     /**
      * 
      * @type {string}
      * @memberof UpdateProjectRequestDTO
      */
-    'start_date': string | null;
+    'startDate': string | null;
     /**
      * 
      * @type {string}
      * @memberof UpdateProjectRequestDTO
      */
-    'end_date': string | null;
+    'endDate': string | null;
     /**
      * Experimental exclusion days
      * @type {Array<string>}
      * @memberof UpdateProjectRequestDTO
      */
-    'excluded_dates': Array<string>;
+    'excludedDates': Array<string>;
     /**
      * Time information of experiment
      * @type {Array<ExperimentTimeslot>}
      * @memberof UpdateProjectRequestDTO
      */
-    'experiment_timeslots': Array<ExperimentTimeslot>;
+    'experimentTimeslots': Array<ExperimentTimeslot>;
     /**
      * Maximum number of experiment participants
      * @type {number}
      * @memberof UpdateProjectRequestDTO
      */
-    'max_participants': number;
+    'maxParticipants': number;
     /**
      * 
      * @type {ExperimentTypeEnum}
      * @memberof UpdateProjectRequestDTO
      */
-    'experiment_type': ExperimentTypeEnum;
+    'experimentType': ExperimentTypeEnum;
     /**
      * 
      * @type {string}

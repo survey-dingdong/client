@@ -31,6 +31,6 @@ export interface RefreshTokenRequest {
      * @type {string}
      * @memberof RefreshTokenRequest
      */
-    'refresh_token': string;
+    'refreshToken': string;
 }
 

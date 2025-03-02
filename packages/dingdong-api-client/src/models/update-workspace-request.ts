@@ -31,6 +31,6 @@ export interface UpdateWorkspaceRequest {
      * @type {number}
      * @memberof UpdateWorkspaceRequest
      */
-    'order_no'?: number | null;
+    'orderNo'?: number | null;
 }
 

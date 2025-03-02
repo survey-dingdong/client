@@ -22,7 +22,7 @@
 
 export const ExperimentAttendanceStatusTypeEnum = {
     scheduled: 'scheduled',
-    not_attended: 'not_attended',
+    notAttended: 'notAttended',
     attended: 'attended'
 } as const;
 

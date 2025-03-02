@@ -22,7 +22,7 @@
 
 export const EmailVerificationType = {
     signup: 'signup',
-    reset_password: 'reset_password'
+    resetPassword: 'resetPassword'
 } as const;
 
 export type EmailVerificationType = typeof EmailVerificationType[keyof typeof EmailVerificationType];

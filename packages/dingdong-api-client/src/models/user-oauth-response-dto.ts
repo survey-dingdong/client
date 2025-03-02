@@ -31,7 +31,7 @@ export interface UserOauthResponseDTO {
      * @type {string}
      * @memberof UserOauthResponseDTO
      */
-    'oauth_id': string;
+    'oauthId': string;
     /**
      * 
      * @type {string}

@@ -37,6 +37,6 @@ export interface OauthLoginRequest {
      * @type {string}
      * @memberof OauthLoginRequest
      */
-    'oauth_id': string;
+    'oauthId': string;
 }
 

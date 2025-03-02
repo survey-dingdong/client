@@ -25,12 +25,12 @@ export interface ChangePasswordRequest {
      * @type {string}
      * @memberof ChangePasswordRequest
      */
-    'old_password': string;
+    'oldPassword': string;
     /**
      * New Password
      * @type {string}
      * @memberof ChangePasswordRequest
      */
-    'new_password': string;
+    'newPassword': string;
 }
 

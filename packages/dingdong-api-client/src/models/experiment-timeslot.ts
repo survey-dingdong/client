@@ -31,18 +31,18 @@ export interface ExperimentTimeslot {
      * @type {string}
      * @memberof ExperimentTimeslot
      */
-    'start_time': string;
+    'startTime': string;
     /**
      * 
      * @type {string}
      * @memberof ExperimentTimeslot
      */
-    'end_time': string;
+    'endTime': string;
     /**
      * 
      * @type {number}
      * @memberof ExperimentTimeslot
      */
-    'max_participants': number;
+    'maxParticipants': number;
 }
 

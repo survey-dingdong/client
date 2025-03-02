@@ -31,6 +31,6 @@ export interface LoginResponseDTO {
      * @type {string}
      * @memberof LoginResponseDTO
      */
-    'refresh_token': string;
+    'refreshToken': string;
 }
 

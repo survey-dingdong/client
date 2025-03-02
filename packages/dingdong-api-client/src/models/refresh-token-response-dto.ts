@@ -31,6 +31,6 @@ export interface RefreshTokenResponseDTO {
      * @type {string}
      * @memberof RefreshTokenResponseDTO
      */
-    'refresh_token': string;
+    'refreshToken': string;
 }
 

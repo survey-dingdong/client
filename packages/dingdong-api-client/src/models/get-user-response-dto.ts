@@ -46,12 +46,12 @@ export interface GetUserResponseDTO {
      * @type {string}
      * @memberof GetUserResponseDTO
      */
-    'profile_color'?: string;
+    'profileColor'?: string;
     /**
      * 
      * @type {Array<UserOauthResponseDTO>}
      * @memberof GetUserResponseDTO
      */
-    'oauth_accounts': Array<UserOauthResponseDTO>;
+    'oauthAccounts': Array<UserOauthResponseDTO>;
 }
 

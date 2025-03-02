@@ -31,18 +31,18 @@ export interface ExperimentTimeslotDTO {
      * @type {string}
      * @memberof ExperimentTimeslotDTO
      */
-    'start_time': string;
+    'startTime': string;
     /**
      * 
      * @type {string}
      * @memberof ExperimentTimeslotDTO
      */
-    'end_time': string;
+    'endTime': string;
     /**
      * Maximum number of participants per session
      * @type {number}
      * @memberof ExperimentTimeslotDTO
      */
-    'max_participants': number;
+    'maxParticipants': number;
 }
 

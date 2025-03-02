@@ -31,7 +31,7 @@ export interface GetProjectListResponseDTO {
      * @type {number}
      * @memberof GetProjectListResponseDTO
      */
-    'workspace_id': number;
+    'workspaceId': number;
     /**
      * 
      * @type {string}
@@ -49,30 +49,30 @@ export interface GetProjectListResponseDTO {
      * @type {boolean}
      * @memberof GetProjectListResponseDTO
      */
-    'is_public': boolean;
+    'isPublic': boolean;
     /**
      * Number of experiment participants
      * @type {number}
      * @memberof GetProjectListResponseDTO
      */
-    'joined_participants': number;
+    'joinedParticipants': number;
     /**
      * Maximum number of experiment participants
      * @type {number}
      * @memberof GetProjectListResponseDTO
      */
-    'max_participants': number;
+    'maxParticipants': number;
     /**
      * 
      * @type {string}
      * @memberof GetProjectListResponseDTO
      */
-    'created_at': string;
+    'createdAt': string;
     /**
      * 
      * @type {string}
      * @memberof GetProjectListResponseDTO
      */
-    'updated_at': string | null;
+    'updatedAt': string | null;
 }
 

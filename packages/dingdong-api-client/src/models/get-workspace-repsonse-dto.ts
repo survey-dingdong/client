@@ -37,6 +37,6 @@ export interface GetWorkspaceRepsonseDTO {
      * @type {number}
      * @memberof GetWorkspaceRepsonseDTO
      */
-    'order_no': number;
+    'orderNo': number;
 }
 

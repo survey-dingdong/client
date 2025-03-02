@@ -40,43 +40,43 @@ export interface GetExperimentParticipantsResponseDTO {
      * @type {string}
      * @memberof GetExperimentParticipantsResponseDTO
      */
-    'profile_color'?: string;
+    'profileColor'?: string;
     /**
      * 
      * @type {string}
      * @memberof GetExperimentParticipantsResponseDTO
      */
-    'experiment_date': string;
+    'experimentDate': string;
     /**
      * 
      * @type {string}
      * @memberof GetExperimentParticipantsResponseDTO
      */
-    'start_time': string;
+    'startTime': string;
     /**
      * 
      * @type {string}
      * @memberof GetExperimentParticipantsResponseDTO
      */
-    'end_time': string;
+    'endTime': string;
     /**
      * 
      * @type {ExperimentAttendanceStatusTypeEnum}
      * @memberof GetExperimentParticipantsResponseDTO
      */
-    'attendance_status': ExperimentAttendanceStatusTypeEnum;
+    'attendanceStatus': ExperimentAttendanceStatusTypeEnum;
     /**
      * 
      * @type {string}
      * @memberof GetExperimentParticipantsResponseDTO
      */
-    'created_at': string;
+    'createdAt': string;
     /**
      * 
      * @type {string}
      * @memberof GetExperimentParticipantsResponseDTO
      */
-    'updated_at': string;
+    'updatedAt': string;
 }
 
 

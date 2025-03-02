@@ -46,18 +46,18 @@ export interface GetUserListResponseDTO {
      * @type {boolean}
      * @memberof GetUserListResponseDTO
      */
-    'is_admin': boolean;
+    'isAdmin': boolean;
     /**
      * 
      * @type {boolean}
      * @memberof GetUserListResponseDTO
      */
-    'is_deleted': boolean;
+    'isDeleted': boolean;
     /**
      * 
      * @type {Array<UserOauthResponseDTO>}
      * @memberof GetUserListResponseDTO
      */
-    'oauth_accounts': Array<UserOauthResponseDTO>;
+    'oauthAccounts': Array<UserOauthResponseDTO>;
 }
 

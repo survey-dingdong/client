@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "generate:api": "openapi-generator-cli generate -g typescript-axios -c openapi-config.yml -o src --template-dir ./my-templates && yarn run postprocess",
+    "generate:api": "openapi-generator-cli generate -g typescript-axios -c openapi-config.yml && yarn run postprocess",
     "postprocess": "bash ./postprocess.sh",
     "prepare": "yarn build"
   },

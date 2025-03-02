@@ -31,6 +31,6 @@ export interface UpdateUserRequest {
      * @type {string}
      * @memberof UpdateUserRequest
      */
-    'phone_num'?: string | null;
+    'phoneNum'?: string | null;
 }
 
