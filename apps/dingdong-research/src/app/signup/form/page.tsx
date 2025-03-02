@@ -14,7 +14,8 @@ import {
   passwordRegex,
   PasswordTextField,
 } from "src/shared";
-import { CreateUserRequest, createUserUsersPost } from "src/client";
+import { CreateUserRequest } from "dingdong-api-client";
+import { userApi } from "src/client";
 
 //
 //
@@ -52,7 +53,7 @@ export default function Page() {
   // [HANDLER]
   const mutation = useMutation({
     mutationFn: (data: CreateUserRequest) =>
-      createUserUsersPost({ requestBody: data }),
+      userApi.createUserUsersPost({ createUserRequest: data }),
     onSuccess: () => {
       enqueueSnackbar("회원가입에 성공했습니다.", {
         variant: "success",

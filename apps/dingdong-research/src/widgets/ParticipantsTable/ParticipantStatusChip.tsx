@@ -1,6 +1,5 @@
 import React from "react";
 import Tag from "../Tag";
-import { ExperimentAttendanceStatusTypeEnum } from "src/client";
 
 //
 //

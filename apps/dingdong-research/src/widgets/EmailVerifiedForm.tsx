@@ -8,17 +8,17 @@ import {
   Typography,
 } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
+import {
+  EmailVerificationRequest,
+  EmailVerificationType,
+  VerifyEmailRequest,
+} from "dingdong-api-client";
+
 import { useSnackbar } from "notistack";
 import React from "react";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
-import {
-  checkEmailAvailabilityAuthEmailAvailabilityPost,
-  EmailVerificationRequest,
-  EmailVerificationType,
-  sendVerificationEmailAuthEmailVerificationsPost,
-  validateVerificationEmailAuthEmailVerificationsValidationPost,
-  VerifyEmailRequest,
-} from "src/client";
+import { authApi } from "src/client";
+
 import { TextField } from "src/shared";
 
 //
@@ -98,11 +98,13 @@ const EmailVerifiedForm: React.FC<EmailVerifiedFormProps> = ({
 
   const checkDuplicate = useMutation({
     mutationFn: () =>
-      checkEmailAvailabilityAuthEmailAvailabilityPost({
-        requestBody: { email: watchedEmail },
+      authApi.checkEmailAvailabilityAuthEmailAvailabilityPost({
+        emailVerificationRequest: {
+          email: watchedEmail,
+        },
       }),
     onSuccess: (res) => {
-      if (!res.availability) {
+      if (!res.data.availability) {
         setError("email", {
           message: "이미 사용중인 이메일입니다.",
           type: "duplicate",
@@ -121,9 +123,9 @@ const EmailVerifiedForm: React.FC<EmailVerifiedFormProps> = ({
 
   const sendVerificationEmail = useMutation({
     mutationFn: (data: EmailVerificationRequest) =>
-      sendVerificationEmailAuthEmailVerificationsPost({
-        requestBody: data,
+      authApi.sendVerificationEmailAuthEmailVerificationsPost({
         verificationType: verificationType as EmailVerificationType,
+        emailVerificationRequest: data,
       }),
 
     onSuccess: () => {
@@ -150,9 +152,9 @@ const EmailVerifiedForm: React.FC<EmailVerifiedFormProps> = ({
 
   const verifyCode = useMutation({
     mutationFn: (data: VerifyEmailRequest) =>
-      validateVerificationEmailAuthEmailVerificationsValidationPost({
-        requestBody: data,
+      authApi.validateVerificationEmailAuthEmailVerificationsValidationPost({
         verificationType: verificationType as EmailVerificationType,
+        verifyEmailRequest: data,
       }),
     onSuccess: () => {
       setValue("emailVerified", true);

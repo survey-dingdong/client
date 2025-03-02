@@ -27,7 +27,8 @@ import { useSnackbar } from "notistack";
 import { useQueryClient } from "@tanstack/react-query";
 import { getProjectsQueryKey } from "src/hooks/useProjects";
 import { useProject } from "src/hooks/useProject";
-import { deleteProjectProjectsProjectIdDelete } from "src/client";
+import { projectApi } from "src/client";
+
 //
 //
 //
@@ -72,9 +73,8 @@ const ProjectNav = () => {
    */
   const handleDeleteProject = async () => {
     try {
-      await deleteProjectProjectsProjectIdDelete({
+      await projectApi.deleteProjectProjectsProjectIdDelete({
         projectId,
-        projectType: "experiment",
       });
 
       queryClient.invalidateQueries({ queryKey: getProjectsQueryKey });

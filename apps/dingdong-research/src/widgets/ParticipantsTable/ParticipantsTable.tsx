@@ -30,11 +30,12 @@ import React from "react";
 import ParticipantStatusChip from "./ParticipantStatusChip";
 import Link from "next/link";
 import { usePath } from "src/hooks/usePath";
+
+import dayjs from "dayjs";
 import {
   ExperimentAttendanceStatusTypeEnum,
-  GetExperimentParticipantResponse,
-} from "src/client";
-import dayjs from "dayjs";
+  GetExperimentParticipantsResponseDTO,
+} from "dingdong-api-client";
 
 //
 //
@@ -89,7 +90,7 @@ function formatExperimentDateTime({
 //
 
 interface ParticipantsTableProps {
-  participants: GetExperimentParticipantResponse[];
+  participants: GetExperimentParticipantsResponseDTO[];
   onStatusChange: (params: {
     newStatus: ExperimentAttendanceStatusTypeEnum;
     participantId: number;

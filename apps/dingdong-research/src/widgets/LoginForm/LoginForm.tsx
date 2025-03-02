@@ -17,9 +17,9 @@ import { useSnackbar } from "notistack";
 import { useMutation } from "@tanstack/react-query";
 import { REFRESH_TOKEN_KEY, TOKEN_KEY } from "src/constants/token";
 import { token } from "src/utils/token";
-import { loginUsersLoginPost } from "src/client";
 import GoogleLoginButton from "../GoogleLoginButton";
 import { useRouter, useSearchParams } from "next/navigation";
+import { authApi, userApi } from "src/client";
 
 //
 //
@@ -41,8 +41,14 @@ const LoginForm = () => {
   const isFormValid = email && password;
 
   const { mutate: login, isPending: isLoginLoading } = useMutation({
-    mutationFn: () => loginUsersLoginPost({ requestBody: { email, password } }),
-    onSuccess: async ({ refreshToken, token: userToken }) => {
+    mutationFn: () =>
+      userApi.loginUsersLoginPost({
+        loginRequest: {
+          email,
+          password,
+        },
+      }),
+    onSuccess: async ({ data: { refreshToken, token: userToken } }) => {
       setError(false);
 
       token.set(TOKEN_KEY, userToken);

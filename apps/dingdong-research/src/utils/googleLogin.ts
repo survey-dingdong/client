@@ -1,5 +1,6 @@
 "use client";
-import { loginOauthUsersLoginOauthPost } from "src/client";
+
+import { userApi } from "src/client";
 import { token } from "./token";
 import { REFRESH_TOKEN_KEY, TOKEN_KEY } from "src/constants/token";
 
@@ -14,17 +15,17 @@ export async function fetchUserProfile(accessToken: string) {
       `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${accessToken}`
     ).then((response) => response.json());
 
-    const res = await loginOauthUsersLoginOauthPost({
+    const res = await userApi.loginOauthUsersLoginOauthPost({
       provider: "google",
-      requestBody: {
+      oauthLoginRequest: {
         oauthId: userInfo.id,
         email: userInfo.email,
         username: userInfo.name,
       },
     });
 
-    token.set(TOKEN_KEY, res.token);
-    token.set(REFRESH_TOKEN_KEY, res.refreshToken);
+    token.set(TOKEN_KEY, res.data.token);
+    token.set(REFRESH_TOKEN_KEY, res.data.refreshToken);
 
     window.location.href = "/workspaces";
   } catch (error: any) {

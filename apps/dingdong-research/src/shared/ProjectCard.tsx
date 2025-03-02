@@ -9,9 +9,9 @@ import {
   CardActionArea,
   Tooltip,
 } from "@mui/material";
+import { GetProjectListResponseDTO } from "dingdong-api-client";
 import Link from "next/link";
 import React from "react";
-import { GetProjectListResponse } from "src/client";
 import { usePath } from "src/hooks/usePath";
 import PublicTag from "src/widgets/PublicTag";
 
@@ -20,7 +20,7 @@ import PublicTag from "src/widgets/PublicTag";
 //
 
 interface ProjectCardProps {
-  project: GetProjectListResponse;
+  project: GetProjectListResponseDTO;
 }
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
@@ -107,7 +107,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
 function LinearProgressWithLabel({
   project,
   ...props
-}: LinearProgressProps & { project: GetProjectListResponse }) {
+}: LinearProgressProps & { project: GetProjectListResponseDTO }) {
   return (
     <Box sx={{ display: "flex", alignItems: "center" }}>
       <Box sx={{ width: "100%", mr: 1 }}>

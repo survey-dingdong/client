@@ -108,7 +108,7 @@ const WorkspaceNav = () => {
         .updateWorkspaceWorkspacesWorkspaceIdPatch({
           workspaceId: active.id as number,
           updateWorkspaceRequest: {
-            order_no: overIndex + 1, // order starts from 1
+            orderNo: overIndex + 1, // order starts from 1
           },
         })
         .then(() => {

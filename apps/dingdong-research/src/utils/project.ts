@@ -1,4 +1,4 @@
-import { GetExperimentProjectResponse } from "src/client";
+import { GetProjectResponseDTO } from "dingdong-api-client";
 
 type RequiredKeys<T> = {
   [K in keyof T]-?: {} extends { [P in K]: T[K] } ? never : K;
@@ -6,7 +6,7 @@ type RequiredKeys<T> = {
 
 type RequiredFields<T> = RequiredKeys<T>[];
 
-const REQUIRED_FIELDS: RequiredFields<GetExperimentProjectResponse> = [
+const REQUIRED_FIELDS: RequiredFields<GetProjectResponseDTO> = [
   "id",
   "title",
   "startDate",
@@ -16,9 +16,7 @@ const REQUIRED_FIELDS: RequiredFields<GetExperimentProjectResponse> = [
   "experimentTimeslots",
 ];
 
-export function isProjectFulfilled(
-  project?: GetExperimentProjectResponse
-): boolean {
+export function isProjectFulfilled(project?: GetProjectResponseDTO): boolean {
   if (!project) {
     return false;
   }

@@ -13,7 +13,8 @@ import {
 import { useRouter } from "next/navigation";
 import { useSnackbar } from "notistack";
 import React from "react";
-import { deleteUserUsersMeDelete } from "src/client";
+import { userApi } from "src/client";
+
 import { token } from "src/utils/token";
 
 //
@@ -47,7 +48,7 @@ const AccountDeleteDialog: React.FC<AccountDeleteDialogProps> = ({
         throw new Error("체크박스를 체크해주세요.");
       }
 
-      await deleteUserUsersMeDelete();
+      await userApi.deleteUserUsersMeDelete();
       token.clear();
 
       onClose();

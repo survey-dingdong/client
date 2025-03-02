@@ -14,11 +14,10 @@ import {
   PasswordTextField,
 } from "./PasswordTextField";
 import { Controller, FormProvider, useForm, useWatch } from "react-hook-form";
-import {
-  ChangePasswordRequest,
-  changePasswordUsersPasswordPatch,
-} from "src/client";
+
 import { useSnackbar } from "notistack";
+import { userApi } from "src/client";
+import { ChangePasswordRequest } from "dingdong-api-client";
 
 //
 //
@@ -56,7 +55,12 @@ const EditPasswordDialogContent: React.FC<EditPasswordDialogContentProps> = ({
   const handleSubmit = formMethods.handleSubmit(
     async ({ reEnterPw, ...data }) => {
       try {
-        await changePasswordUsersPasswordPatch({ requestBody: data });
+        await userApi.changePasswordUsersPasswordPatch({
+          changePasswordRequest: {
+            oldPassword: data.oldPassword,
+            newPassword: data.newPassword,
+          },
+        });
         enqueueSnackbar("비밀번호가 변경되었습니다.", {
           variant: "success",
         });

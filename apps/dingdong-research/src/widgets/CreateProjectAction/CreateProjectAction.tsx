@@ -13,8 +13,9 @@ import { TextField } from "src/shared";
 import { useQueryClient } from "@tanstack/react-query";
 import { getProjectsQueryKey } from "src/hooks/useProjects";
 import { useSnackbar } from "notistack";
-import { createProjectWorkspacesWorkspaceIdProjectsPost } from "src/client";
+
 import { PROJECT_TITLE_MAX } from "src/constants/project";
+import { projectApi, workspaceApi } from "src/client";
 
 //
 //
@@ -79,13 +80,13 @@ const CreateProjectDialog: React.FC<CreateProjectDialogProps> = ({
             <Button
               disabled={error || noValue}
               onClick={() =>
-                createProjectWorkspacesWorkspaceIdProjectsPost({
-                  workspaceId,
-                  projectType: "experiment",
-                  requestBody: {
-                    title: value,
-                  },
-                })
+                workspaceApi
+                  .createProjectWorkspacesWorkspaceIdProjectsPost({
+                    workspaceId,
+                    createProjectRequest: {
+                      title: value,
+                    },
+                  })
                   .then(() => {
                     enqueueSnackbar("프로젝트가 만들어졌습니다.", {
                       variant: "success",

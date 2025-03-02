@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { dingdongTheme } from "dingdong-ds";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
