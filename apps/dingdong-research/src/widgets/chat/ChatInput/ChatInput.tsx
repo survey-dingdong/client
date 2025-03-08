@@ -1,5 +1,5 @@
 "use client";
-import { Icon } from "dingdong-ds";
+import { Icon } from "@dingdong/design-system";
 import Send from "@mui/icons-material/Send";
 import {
   Box,

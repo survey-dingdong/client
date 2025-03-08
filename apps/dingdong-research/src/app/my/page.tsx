@@ -25,7 +25,7 @@ import EditPasswordDialog from "src/shared/EditPasswordDialog";
 import editPrimary from "public/icons/edit-primary.png";
 import Image from "next/image";
 import { userApi } from "src/client";
-import { UpdateUserRequest } from "dingdong-api-client";
+import { UpdateUserRequest } from "@dingdong/api-client";
 
 //
 //

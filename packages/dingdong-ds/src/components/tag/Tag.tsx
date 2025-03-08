@@ -1,9 +1,9 @@
 import { Chip, ChipProps, StatusType } from "@mui/material";
 import React from "react";
-import { dingdongTheme } from "../../theme";
+import { dingdongTheme } from "../../theme/createDingdongTheme";
 
-interface TagProps extends Omit<ChipProps, "color"> {
-  color: keyof StatusType;
+export interface TagProps extends Omit<ChipProps, "color"> {
+  color?: keyof StatusType;
 }
 
 const Tag: React.FC<TagProps> = ({ color = "primary", ...props }) => {

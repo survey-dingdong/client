@@ -1,4 +1,4 @@
-import { Icon } from "dingdong-ds";
+import { Icon } from "@dingdong/design-system";
 import React from "react";
 
 export function DatePickerOpenIcon() {

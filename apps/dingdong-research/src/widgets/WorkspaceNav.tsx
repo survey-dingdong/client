@@ -30,7 +30,7 @@ import { useSnackbar } from "notistack";
 import editIcon from "public/icons/edit_with_square_primary.png";
 import Image from "next/image";
 import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlineRounded";
-import { GetWorkspaceRepsonseDTO } from "dingdong-api-client";
+import { GetWorkspaceRepsonseDTO } from "@dingdong/api-client";
 import { workspaceApi } from "src/client";
 
 //

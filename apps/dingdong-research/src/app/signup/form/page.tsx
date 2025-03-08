@@ -14,7 +14,7 @@ import {
   passwordRegex,
   PasswordTextField,
 } from "src/shared";
-import { CreateUserRequest } from "dingdong-api-client";
+import { CreateUserRequest } from "@dingdong/api-client";
 import { userApi } from "src/client";
 
 //

@@ -60,7 +60,7 @@ import { projectApi } from "src/client";
 import {
   ExperimentTimeslot,
   UpdateProjectRequestDTO,
-} from "dingdong-api-client";
+} from "@dingdong/api-client";
 dayjs.extend(isBetween);
 
 //

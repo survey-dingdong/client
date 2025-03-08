@@ -48,11 +48,11 @@ export const MuiTypography: Components["MuiTypography"] = {
   variants: [
     { props: { color: "text.tertiary" }, style: { color: "#8E97A8" } },
     {
-      props: { variant: "heading2", fontWeight: "bold" },
+      props: { variant: "headline1", fontWeight: "bold" },
       style: { fontWeight: 600 },
     },
     {
-      props: { variant: "headline1", fontWeight: "bold" },
+      props: { variant: "heading2", fontWeight: "bold" },
       style: { fontWeight: 600 },
     },
     {

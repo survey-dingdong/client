@@ -1,5 +1,5 @@
 import { Box, IconButton, Typography } from "@mui/material";
-import { Icon } from "dingdong-ds";
+import { Icon } from "@dingdong/design-system";
 import React from "react";
 
 const Header: React.FC = () => {

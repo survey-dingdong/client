@@ -2,14 +2,11 @@
   "name": "@dingdong/design-system",
   "version": "0.0.1",
   "description": "Design system for DingDong",
-  "main": "dist/dingdong-ds.umd.cjs",
-  "module": "./dist/dingdong-ds.esm.js",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "browser": "dist/index.umd.js",
+  "types": "dist/index.d.ts",
   "type": "module",
-  "types": "./dist/types/index.d.ts",
-  "files": [
-    "dist",
-    "src/@types"
-  ],
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
@@ -19,7 +16,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "rollup -c",
     "build:types": "tsc --emitDeclarationOnly",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -42,6 +39,9 @@
   "devDependencies": {
     "@chromatic-com/storybook": "^1.8.0",
     "@eslint/js": "^9.9.0",
+    "@rollup/plugin-commonjs": "^28.0.3",
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@rollup/plugin-typescript": "^12.1.2",
     "@storybook/addon-essentials": "8.4.2",
     "@storybook/addon-interactions": "8.4.2",
     "@storybook/addon-links": "8.4.2",
@@ -62,8 +62,11 @@
     "eslint-plugin-storybook": "^0.8.0",
     "globals": "^15.9.0",
     "path": "^0.12.7",
+    "rollup": "^4.34.9",
+    "rollup-plugin-dts": "^6.1.1",
+    "rollup-plugin-terser": "^7.0.2",
     "storybook": "8.4.2",
-    "typescript": "^5.4.3",
+    "typescript": "^5.8.2",
     "typescript-eslint": "^8.0.1",
     "vite": "^5.4.1"
   },

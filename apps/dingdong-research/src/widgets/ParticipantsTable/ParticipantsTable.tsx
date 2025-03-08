@@ -35,7 +35,7 @@ import dayjs from "dayjs";
 import {
   ExperimentAttendanceStatusTypeEnum,
   GetExperimentParticipantsResponseDTO,
-} from "dingdong-api-client";
+} from "@dingdong/api-client";
 
 //
 //

@@ -13,7 +13,6 @@ const Layout: React.FC = () => {
         // TODO: change to background.normal
         sx={{ bgcolor: (theme) => theme.palette.background.default }}
         flexGrow={1}
-        padding={2}
         paddingBottom={`${BOTTOM_NAV_HEIGHT + 16}px`}
         overflow="auto"
       >

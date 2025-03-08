@@ -1,4 +1,4 @@
-import { GetProjectResponseDTO } from "dingdong-api-client";
+import { GetProjectResponseDTO } from "@dingdong/api-client";
 import { useQuery } from "@tanstack/react-query";
 
 import { projectApi } from "src/client";

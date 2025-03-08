@@ -4,7 +4,7 @@ import {
   Configuration,
   WorkspaceApi,
   UserApi,
-} from "dingdong-api-client";
+} from "@dingdong/api-client";
 import camelCase from "lodash/camelCase";
 import { TOKEN_KEY } from "src/constants/token";
 import { token } from "src/utils/token";

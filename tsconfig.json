@@ -15,9 +15,15 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["packages/*"],
-      "@mui/*": ["node_modules/@mui/*"]
+      "@mui/material/*": ["packages/dingdong-ds/dist/@types/*"],
+      "@mui/material": ["packages/dingdong-ds/dist/@types"],
+      "@dingdong/design-system": ["packages/dingdong-ds/src"],
+      "@dingdong/design-system/*": ["packages/dingdong-ds/src/*"]
     }
   },
-  "include": ["packages/*", "packages/dingdong-ds/src/@types/themeType.d.ts"],
-  "exclude": ["node_modules"]
+  "include": ["apps/*", "packages/*"],
+  "exclude": ["node_modules"],
+  "references": [
+    { "path": "./packages/dingdong-ds" }
+  ]
 }

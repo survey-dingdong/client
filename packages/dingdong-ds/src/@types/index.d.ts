@@ -1,5 +1,43 @@
 import "@mui/material/styles";
+import { ComponentsVariants, Theme } from "@mui/material/styles";
+import { ComponentsOverrides } from "@mui/material/styles";
 import "@mui/system";
+import { TagProps } from "./components";
+
+declare module "@mui/material/styles" {
+  interface Theme extends MuiTheme {
+    components: {
+      MuiTypography: {
+        variants: ComponentsVariants["MuiTypography"];
+        styleOverrides: ComponentsOverrides<Theme>["MuiTypography"];
+      };
+      MuiCheckbox: {
+        variants: ComponentsVariants["MuiCheckbox"];
+        styleOverrides: ComponentsOverrides<Theme>["MuiCheckbox"];
+      };
+      MuiTag: {
+        defaultProps?: Partial<TagProps>;
+        styleOverrides?: ComponentsOverrides<Theme>["MuiTag"];
+      };
+    };
+  }
+  interface ThemeOptions extends MuiTheme {
+    components: {
+      MuiTypography: {
+        variants: ComponentsVariants["MuiTypography"];
+        styleOverrides: ComponentsOverrides<Theme>["MuiTypography"];
+      };
+    };
+  }
+}
+
+declare module "@mui/material/Typography" {
+  interface TypographyPropsColorOverrides {
+    color: true;
+    variant: true;
+  }
+}
+
 declare global {
   export interface LabelType {
     normal: string;
@@ -38,18 +76,18 @@ declare module "@mui/material/styles" {
   }
 
   export interface Palette {
-    tertiary: TertiaryType;
     label: LabelType;
-    text?: Partial<TypeText>;
+    text: TypeText;
+    tertiary: TertiaryType;
     line?: TypeLine;
     static?: TypeStatic;
     status?: StatusType;
   }
 
   export interface PaletteOptions {
-    tertiary: TertiaryType;
-    label: LabelType;
+    label?: LabelType;
     text?: Partial<TypeText>;
+    tertiary?: TertiaryType;
     line?: TypeLine;
     static?: TypeStatic;
     status?: StatusType;
@@ -81,7 +119,7 @@ declare module "@mui/material/styles" {
   }
 
   export interface ComponentsPropsList {
-    MuiTag: Partial<StatProps>;
+    MuiTag: Partial<TagProps>;
   }
 
   export interface Components {
@@ -93,6 +131,27 @@ declare module "@mui/material/styles" {
   }
 
   // typography
+  export interface Variant {
+    display1: true;
+    display2: true;
+    title1: true;
+    title2: true;
+    title3: true;
+    heading1: true;
+    heading2: true;
+    headline1: true;
+    headline2: true;
+    body1Normal: true;
+    body1Reading: true;
+    body2Normal: true;
+    body2Reading: true;
+    label1Normal: true;
+    label1Reading: true;
+    label2: true;
+    caption1: true;
+    caption2: true;
+  }
+
   export interface TypographyVariants {
     // display
     display1: React.CSSProperties;
@@ -123,6 +182,10 @@ declare module "@mui/material/styles" {
 
   // allow configuration using `createTheme()`
   export interface TypographyVariantsOptions {
+    headline1?: React.CSSProperties;
+    headline2?: React.CSSProperties;
+    caption2?: React.CSSProperties;
+    label2?: React.CSSProperties;
     // display
     display1: React.CSSProperties;
     display2: React.CSSProperties;
@@ -134,7 +197,6 @@ declare module "@mui/material/styles" {
     heading1: React.CSSProperties;
     heading2: React.CSSProperties;
     // headline
-    headline1: React.CSSProperties;
     headline2: React.CSSProperties;
     // body
     body1Normal: React.CSSProperties;
@@ -144,16 +206,30 @@ declare module "@mui/material/styles" {
     // label
     label1Normal: React.CSSProperties;
     label1Reading: React.CSSProperties;
-    label2: React.CSSProperties;
     // caption
     caption1: React.CSSProperties;
-    caption2: React.CSSProperties;
   }
 }
 
 // Update the Typography's variant prop options
 declare module "@mui/material/Typography" {
-  export interface TypographyPropsVariantOverrides {
+  interface TypographyPropsVariantOverrides {
+    // 기본 variants 비활성화
+    h1: false;
+    h2: false;
+    h3: false;
+    h4: false;
+    h5: false;
+    h6: false;
+    subtitle1: false;
+    subtitle2: false;
+    body1: false;
+    body2: false;
+    caption: false;
+    button: false;
+    overline: false;
+
+    // 커스텀 variants 활성화
     display1: true;
     display2: true;
     title1: true;
@@ -172,15 +248,6 @@ declare module "@mui/material/Typography" {
     label2: true;
     caption1: true;
     caption2: true;
-    //
-    h1: undefined;
-    h2: undefined;
-    h3: undefined;
-    h4: undefined;
-    h5: undefined;
-    h6: undefined;
-    subtitle1: undefined;
-    subtitle2: undefined;
   }
 }
 

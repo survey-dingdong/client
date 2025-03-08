@@ -12,7 +12,7 @@ import {
   EmailVerificationRequest,
   EmailVerificationType,
   VerifyEmailRequest,
-} from "dingdong-api-client";
+} from "@dingdong/api-client";
 
 import { useSnackbar } from "notistack";
 import React from "react";

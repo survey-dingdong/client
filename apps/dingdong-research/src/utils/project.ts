@@ -1,4 +1,4 @@
-import { GetProjectResponseDTO } from "dingdong-api-client";
+import { GetProjectResponseDTO } from "@dingdong/api-client";
 
 type RequiredKeys<T> = {
   [K in keyof T]-?: {} extends { [P in K]: T[K] } ? never : K;

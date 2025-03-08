@@ -9,7 +9,7 @@ import {
   CardActionArea,
   Tooltip,
 } from "@mui/material";
-import { GetProjectListResponseDTO } from "dingdong-api-client";
+import { GetProjectListResponseDTO } from "@dingdong/api-client";
 import Link from "next/link";
 import React from "react";
 import { usePath } from "src/hooks/usePath";

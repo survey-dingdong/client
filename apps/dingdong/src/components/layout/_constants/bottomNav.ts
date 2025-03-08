@@ -1,4 +1,4 @@
-import { IconType } from "dingdong-ds";
+import { IconType } from "@dingdong/design-system";
 
 type BottomNavType = {
   label: string;

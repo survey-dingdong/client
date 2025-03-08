@@ -2,7 +2,7 @@
 import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
 import { Button, Stack } from "@mui/material";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { ExperimentAttendanceStatusTypeEnum } from "dingdong-api-client";
+import { ExperimentAttendanceStatusTypeEnum } from "@dingdong/api-client";
 import { useParams } from "next/navigation";
 import { useSnackbar } from "notistack";
 import React from "react";

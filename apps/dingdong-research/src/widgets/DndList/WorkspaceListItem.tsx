@@ -18,7 +18,7 @@ import WorkspaceRenameInput from "../WorkspaceRenameInput";
 import { useParams } from "next/navigation";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { GetWorkspaceRepsonseDTO } from "dingdong-api-client";
+import { GetWorkspaceRepsonseDTO } from "@dingdong/api-client";
 
 interface WorkspaceListItemProps {
   workspace: GetWorkspaceRepsonseDTO;

@@ -1,7 +1,7 @@
 "use client";
 
 import { Box, Button, Stack, Typography } from "@mui/material";
-import { OauthProviderTypeEnum } from "dingdong-api-client";
+import { OauthProviderTypeEnum } from "@dingdong/api-client";
 import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 

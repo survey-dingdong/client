@@ -1,5 +1,5 @@
 import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
-import { Icon } from "dingdong-ds";
+import { Icon } from "@dingdong/design-system";
 import React from "react";
 import { BOTTOM_NAVS } from "./_constants/bottomNav";
 import { NavLink } from "react-router";

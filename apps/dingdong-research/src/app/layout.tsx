@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { dingdongTheme } from "dingdong-ds";
+import { dingdongTheme } from "@dingdong/design-system";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
 import Script from "next/script";
@@ -46,7 +46,7 @@ const myFont = localFont({
 //
 //
 
-export default async function RootLayout(props: any) {
+export default function RootLayout(props: any) {
   const { children } = props;
 
   return (

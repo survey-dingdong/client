@@ -1,5 +1,5 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { GetProjectListResponseDTO } from "dingdong-api-client";
+import { GetProjectListResponseDTO } from "@dingdong/api-client";
 import { useRouter } from "next/navigation";
 import { workspaceApi } from "src/client";
 

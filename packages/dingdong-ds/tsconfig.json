@@ -12,7 +12,10 @@
     "declaration": true,
     "declarationDir": "./dist/types",
     "emitDeclarationOnly": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "paths": {
+      "@dingdong/design-system/*": ["./src/*"]
+    }
   },
   "include": [
     "src/**/*",

@@ -17,7 +17,7 @@ import { Controller, FormProvider, useForm, useWatch } from "react-hook-form";
 
 import { useSnackbar } from "notistack";
 import { userApi } from "src/client";
-import { ChangePasswordRequest } from "dingdong-api-client";
+import { ChangePasswordRequest } from "@dingdong/api-client";
 
 //
 //

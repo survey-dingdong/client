@@ -22,7 +22,7 @@ export default defineConfig({
     outDir: "dist",
     lib: {
       entry: path.resolve(__dirname, "src/index.ts"),
-      name: "dingdong-ds",
+      name: "@dingdong/design-system",
       formats: ["es", "umd"],
       fileName: (format) => `dingdong-ds.${format}.js`,
     },

@@ -1,5 +1,5 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { GetWorkspaceRepsonseDTO } from "dingdong-api-client";
+import { GetWorkspaceRepsonseDTO } from "@dingdong/api-client";
 import { workspaceApi } from "src/client";
 
 type UseProjectReturn = {

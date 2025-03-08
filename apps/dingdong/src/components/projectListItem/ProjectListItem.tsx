@@ -6,7 +6,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { Icon, Tag } from "dingdong-ds";
+import { Icon, Tag } from "@dingdong/design-system";
 import React from "react";
 
 //
