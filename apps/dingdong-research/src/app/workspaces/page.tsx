@@ -31,10 +31,10 @@ const Redirect = () => {
           router.replace(`/workspaces/${workspaces[0].id}`);
         } else {
           const res = await mutation.mutateAsync({ title: "내 워크스페이스" });
-          if (!res.id) {
+          if (!res.data.id) {
             throw new Error("Failed to create workspace");
           }
-          router.replace(`/workspaces/${res.id}`);
+          router.replace(`/workspaces/${res.data.id}`);
         }
       } catch (error) {
         console.error("Error during redirection:", error);

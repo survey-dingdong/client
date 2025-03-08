@@ -9773,7 +9773,6 @@ __metadata:
     axios: "npm:^1.6.7"
     cypress: "npm:^13.15.0"
     dayjs: "npm:^1.11.10"
-    dingdong-api-client: "workspace:*"
     dingdong-ds: "npm:0.0.1-exporttest.2"
     eslint: "npm:^8"
     eslint-config-next: "npm:14.1.0"
