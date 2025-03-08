@@ -21,15 +21,15 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm install
+          yarn workspace dingdong install
 
       - name: Build DinDong
         run: |
-          npm run build
+          yarn workspace dingdong build
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: app/dindong/build
+          folder: apps/dingdong/build
           token: ${{ secrets.GITHUB_TOKEN }}

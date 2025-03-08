@@ -1,5 +1,5 @@
 {
-  "name": "dingdong-api-client",
+  "name": "@dingdong/api-client",
   "version": "0.1.0",
   "description": "Survey DingDong API Client",
   "main": "dist/index.js",

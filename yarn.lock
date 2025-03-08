@@ -1881,6 +1881,54 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@dingdong/api-client@npm:^0.1.0, @dingdong/api-client@workspace:packages/dingdong-api-client":
+  version: 0.0.0-use.local
+  resolution: "@dingdong/api-client@workspace:packages/dingdong-api-client"
+  dependencies:
+    "@openapitools/openapi-generator-cli": "npm:^2.6.0"
+    axios: "npm:^1.6.0"
+    typescript: "npm:^5.3.0"
+  languageName: unknown
+  linkType: soft
+
+"@dingdong/design-system@npm:0.0.1, @dingdong/design-system@workspace:packages/dingdong-ds":
+  version: 0.0.0-use.local
+  resolution: "@dingdong/design-system@workspace:packages/dingdong-ds"
+  dependencies:
+    "@chromatic-com/storybook": "npm:^1.8.0"
+    "@eslint/js": "npm:^9.9.0"
+    "@mui/material": "npm:^6.0.1"
+    "@storybook/addon-essentials": "npm:8.4.2"
+    "@storybook/addon-interactions": "npm:8.4.2"
+    "@storybook/addon-links": "npm:8.4.2"
+    "@storybook/addon-mdx-gfm": "npm:8.4.2"
+    "@storybook/addon-onboarding": "npm:8.4.2"
+    "@storybook/blocks": "npm:8.4.2"
+    "@storybook/react": "npm:8.4.2"
+    "@storybook/react-vite": "npm:8.4.2"
+    "@storybook/test": "npm:8.4.2"
+    "@types/node": "npm:^22.5.5"
+    "@types/react": "npm:^18.3.3"
+    "@types/react-dom": "npm:^18.3.0"
+    "@vitejs/plugin-react-swc": "npm:^3.5.0"
+    esbuild: "npm:0.21.5"
+    eslint: "npm:^9.9.0"
+    eslint-plugin-react-hooks: "npm:^5.1.0-rc.0"
+    eslint-plugin-react-refresh: "npm:^0.4.9"
+    eslint-plugin-storybook: "npm:^0.8.0"
+    globals: "npm:^15.9.0"
+    path: "npm:^0.12.7"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
+    storybook: "npm:8.4.2"
+    typescript: "npm:^5.4.3"
+    typescript-eslint: "npm:^8.0.1"
+    vite: "npm:^5.4.1"
+    vite-plugin-dts: "npm:^4.3.0"
+    vite-plugin-svgr: "npm:^4.2.0"
+  languageName: unknown
+  linkType: soft
+
 "@dnd-kit/accessibility@npm:^3.1.1":
   version: 3.1.1
   resolution: "@dnd-kit/accessibility@npm:3.1.1"
@@ -9658,16 +9706,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dingdong-api-client@workspace:*, dingdong-api-client@workspace:packages/dingdong-api-client":
-  version: 0.0.0-use.local
-  resolution: "dingdong-api-client@workspace:packages/dingdong-api-client"
-  dependencies:
-    "@openapitools/openapi-generator-cli": "npm:^2.6.0"
-    axios: "npm:^1.6.0"
-    typescript: "npm:^5.3.0"
-  languageName: unknown
-  linkType: soft
-
 "dingdong-client@workspace:.":
   version: 0.0.0-use.local
   resolution: "dingdong-client@workspace:."
@@ -9684,73 +9722,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"dingdong-ds@npm:0.0.1-exporttest.2":
-  version: 0.0.1-exporttest.2
-  resolution: "dingdong-ds@npm:0.0.1-exporttest.2"
-  dependencies:
-    "@mui/material": "npm:^6.0.1"
-    react: "npm:^18.3.1"
-    react-dom: "npm:^18.3.1"
-    vite-plugin-svgr: "npm:^4.2.0"
-  checksum: 10c0/90b3c8e67c9d2efd481c456473c60051ef44abb2b2e8aee7a4f38fab2d3553985c2669363a7718a59a37dcebb3b9b798ab4300a6dcbcec9ac9e2cba34649ac5c
-  languageName: node
-  linkType: hard
-
-"dingdong-ds@npm:0.0.1-typography.2":
-  version: 0.0.1-typography.2
-  resolution: "dingdong-ds@npm:0.0.1-typography.2"
-  dependencies:
-    "@mui/material": "npm:^6.0.1"
-    react: "npm:^18.3.1"
-    react-dom: "npm:^18.3.1"
-    vite-plugin-dts: "npm:^4.3.0"
-    vite-plugin-svgr: "npm:^4.2.0"
-  checksum: 10c0/e437a6d7c91011e491ce208b1ed039a1e5200e90f5b7354789eff234896571b749703e88552d5a04f9161b17679c444aadeaa6c7e8db30803f143c28ac76c7d7
-  languageName: node
-  linkType: hard
-
-"dingdong-ds@workspace:packages/dingdong-ds":
-  version: 0.0.0-use.local
-  resolution: "dingdong-ds@workspace:packages/dingdong-ds"
-  dependencies:
-    "@chromatic-com/storybook": "npm:^1.8.0"
-    "@eslint/js": "npm:^9.9.0"
-    "@mui/material": "npm:^6.0.1"
-    "@storybook/addon-essentials": "npm:8.4.2"
-    "@storybook/addon-interactions": "npm:8.4.2"
-    "@storybook/addon-links": "npm:8.4.2"
-    "@storybook/addon-mdx-gfm": "npm:8.4.2"
-    "@storybook/addon-onboarding": "npm:8.4.2"
-    "@storybook/blocks": "npm:8.4.2"
-    "@storybook/react": "npm:8.4.2"
-    "@storybook/react-vite": "npm:8.4.2"
-    "@storybook/test": "npm:8.4.2"
-    "@types/node": "npm:^22.5.5"
-    "@types/react": "npm:^18.3.3"
-    "@types/react-dom": "npm:^18.3.0"
-    "@vitejs/plugin-react-swc": "npm:^3.5.0"
-    esbuild: "npm:0.21.5"
-    eslint: "npm:^9.9.0"
-    eslint-plugin-react-hooks: "npm:^5.1.0-rc.0"
-    eslint-plugin-react-refresh: "npm:^0.4.9"
-    eslint-plugin-storybook: "npm:^0.8.0"
-    globals: "npm:^15.9.0"
-    path: "npm:^0.12.7"
-    react: "npm:^18.3.1"
-    react-dom: "npm:^18.3.1"
-    storybook: "npm:8.4.2"
-    typescript: "npm:^5.4.3"
-    typescript-eslint: "npm:^8.0.1"
-    vite: "npm:^5.4.1"
-    vite-plugin-dts: "npm:^4.3.0"
-    vite-plugin-svgr: "npm:^4.2.0"
-  languageName: unknown
-  linkType: soft
-
 "dingdong-research@workspace:apps/dingdong-research":
   version: 0.0.0-use.local
   resolution: "dingdong-research@workspace:apps/dingdong-research"
   dependencies:
+    "@dingdong/api-client": "npm:^0.1.0"
+    "@dingdong/design-system": "npm:0.0.1"
     "@dnd-kit/core": "npm:^6.1.0"
     "@dnd-kit/sortable": "npm:^8.0.0"
     "@emotion/cache": "npm:^11.11.0"
@@ -9773,7 +9750,6 @@ __metadata:
     axios: "npm:^1.6.7"
     cypress: "npm:^13.15.0"
     dayjs: "npm:^1.11.10"
-    dingdong-ds: "npm:0.0.1-exporttest.2"
     eslint: "npm:^8"
     eslint-config-next: "npm:14.1.0"
     eslint-import-resolver-typescript: "npm:^3.6.1"
@@ -9799,6 +9775,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "dingdong@workspace:apps/dingdong"
   dependencies:
+    "@dingdong/api-client": "npm:^0.1.0"
+    "@dingdong/design-system": "npm:0.0.1"
     "@emotion/react": "npm:^11.13.3"
     "@emotion/styled": "npm:^11.13.0"
     "@mui/material": "npm:^6.1.6"
@@ -9808,8 +9786,6 @@ __metadata:
     "@typescript-eslint/parser": "npm:^7.8.0"
     "@vite-pwa/assets-generator": "npm:^0.2.4"
     "@vitejs/plugin-react": "npm:^4.2.1"
-    dingdong-api-client: "workspace:*"
-    dingdong-ds: "npm:0.0.1-typography.2"
     eslint: "npm:^8.57.0"
     eslint-plugin-react-hooks: "npm:^4.6.2"
     eslint-plugin-react-refresh: "npm:^0.4.6"
