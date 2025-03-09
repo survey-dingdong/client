@@ -15,8 +15,6 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["packages/*"],
-      "@mui/material/*": ["packages/dingdong-ds/dist/@types/*"],
-      "@mui/material": ["packages/dingdong-ds/dist/@types"],
       "@dingdong/design-system": ["packages/dingdong-ds/src"],
       "@dingdong/design-system/*": ["packages/dingdong-ds/src/*"]
     }

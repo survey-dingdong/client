@@ -1,4 +1,4 @@
-import { Stack, Typography } from "@mui/material";
+import { Stack, Typography, Link as MuiLink } from "@mui/material";
 import React from "react";
 import { ProjectListItem } from "../components/projectListItem";
 import { Link } from "react-router";
@@ -21,9 +21,9 @@ const Project: React.FC = () => {
         개의 공고가 있어요!
       </Typography>
 
-      <Link to="/project/1">
+      <MuiLink component={Link} underline="none" to="/project/1">
         <ProjectListItem />
-      </Link>
+      </MuiLink>
       <ProjectListItem />
       <ProjectListItem />
     </Stack>

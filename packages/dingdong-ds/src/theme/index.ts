@@ -1,1 +1,1 @@
-export { createDingdongTheme } from "./createDingdongTheme";
+export * from "./createDingdongTheme";
