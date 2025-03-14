@@ -1,10 +1,4 @@
-import {
-  Box,
-  CircularProgress,
-  InputAdornment,
-  outlinedInputClasses,
-  Stack,
-} from "@mui/material";
+import { Box, CircularProgress, InputAdornment, Stack } from "@mui/material";
 import React from "react";
 import { Empty, ProjectCard, TextField } from "src/shared";
 import SearchIcon from "@mui/icons-material/Search";
@@ -13,7 +7,6 @@ import { CreateProjectAction } from "../CreateProjectAction";
 import { SurveyListEmpty } from "../SurveyListEmpty";
 import { useParams } from "next/navigation";
 import { useProjects } from "src/hooks/useProjects";
-import { debounce } from "lodash";
 import { useDebounce } from "react-use";
 
 const ProjectList = () => {

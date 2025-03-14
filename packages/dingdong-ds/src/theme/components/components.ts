@@ -343,9 +343,11 @@ export const components: ThemeOptions["components"] = {
       {
         props: { severity: "info" },
         style: ({ theme }) => ({
+          backgroundColor: theme.palette.status?.info,
           color: theme.palette.info.main,
           [`& .${alertTitleClasses.root}`]: {
             color: theme.palette.info.main,
+            backgroundColor: theme.palette.status?.info,
           },
         }),
       },
@@ -371,7 +373,6 @@ export const components: ThemeOptions["components"] = {
     styleOverrides: {
       root: {
         borderRadius: 8,
-        alignItems: "center",
       },
     },
   },
