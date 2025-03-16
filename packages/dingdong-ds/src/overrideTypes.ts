@@ -1,35 +1,11 @@
 import "@mui/material/styles";
-import { ComponentsVariants, Theme } from "@mui/material/styles";
-import { ComponentsOverrides } from "@mui/material/styles";
+import {
+  ComponentsVariants,
+  ComponentsOverrides,
+  Theme,
+} from "@mui/material/styles";
 import "@mui/system";
 import { TagProps } from "./components";
-
-declare module "@mui/material/styles" {
-  interface Theme extends MuiTheme {
-    components: {
-      MuiTypography: {
-        variants: ComponentsVariants["MuiTypography"];
-        styleOverrides: ComponentsOverrides<Theme>["MuiTypography"];
-      };
-      MuiCheckbox: {
-        variants: ComponentsVariants["MuiCheckbox"];
-        styleOverrides: ComponentsOverrides<Theme>["MuiCheckbox"];
-      };
-      MuiTag: {
-        defaultProps?: Partial<TagProps>;
-        styleOverrides?: ComponentsOverrides<Theme>["MuiTag"];
-      };
-    };
-  }
-  interface ThemeOptions extends MuiTheme {
-    components: {
-      MuiTypography: {
-        variants: ComponentsVariants["MuiTypography"];
-        styleOverrides: ComponentsOverrides<Theme>["MuiTypography"];
-      };
-    };
-  }
-}
 
 declare module "@mui/material/Typography" {
   interface TypographyPropsColorOverrides {
@@ -196,8 +172,6 @@ declare module "@mui/material/styles" {
     // heading
     heading1: React.CSSProperties;
     heading2: React.CSSProperties;
-    // headline
-    headline2: React.CSSProperties;
     // body
     body1Normal: React.CSSProperties;
     body1Reading: React.CSSProperties;
@@ -252,11 +226,11 @@ declare module "@mui/material/Typography" {
 }
 
 declare module "@mui/material/Checkbox" {
-  export interface CheckboxProps {
+  interface CheckboxProps {
     variant?: "round" | "square" | "line";
   }
 
-  export interface CheckboxPropsSizeOverrides {
+  interface CheckboxPropsSizeOverrides {
     small: true;
     normal: true;
     medium: false;

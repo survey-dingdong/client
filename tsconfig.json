@@ -15,8 +15,6 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["packages/*"],
-      "@dingdong/design-system": ["packages/dingdong-ds/src"],
-      "@dingdong/design-system/*": ["packages/dingdong-ds/src/*"]
     }
   },
   "include": ["apps/*", "packages/*"],

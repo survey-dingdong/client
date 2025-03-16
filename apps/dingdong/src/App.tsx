@@ -4,6 +4,7 @@ import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./components/layout/Layout.tsx";
 import { createDingdongTheme } from "@dingdong/design-system";
+
 import {
   ProjectDetail,
   Chat,
@@ -15,8 +16,9 @@ import {
 
 function App() {
   // TODO: 다크, 라이트 테마 적용 방식 변경
-  const dingdongTheme = createDingdongTheme();
 
+  const dingdongTheme = createDingdongTheme();
+  console.log(dingdongTheme.palette.static?.black);
   return (
     <ThemeProvider theme={dingdongTheme}>
       <BrowserRouter>

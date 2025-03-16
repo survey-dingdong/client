@@ -13,13 +13,8 @@
     "declarationDir": "./dist/types",
     "emitDeclarationOnly": true,
     "moduleResolution": "node",
-    "paths": {
-      "@dingdong/design-system/*": ["./src/*"]
-    }
+    "typeRoots": ["./node_modules/@types", "./src/@types"],
   },
-  "include": [
-    "src/**/*",
-    "src/@types/**/*.d.ts"
-  ],
+  "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
 }
