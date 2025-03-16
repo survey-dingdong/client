@@ -1,7 +1,5 @@
-import { Tag } from "@dingdong/design-system";
+import { Banner, Tag } from "@dingdong/design-system";
 import {
-  Alert,
-  AlertTitle,
   Box,
   Button,
   Stack,
@@ -152,15 +150,11 @@ const ProjectDetail = () => {
                   </Stack>
                 </Stack>
 
-                <Alert
+                <Banner
                   severity="info"
-                  action={<Button variant="text">초기화</Button>}
-                >
-                  <AlertTitle>참여 시간 선택</AlertTitle>
-                  24년 12월 5일 11:00 - 11:30
-                  <br />
-                  24년 12월 20일 09:00 - 09:30
-                </Alert>
+                  title="참여 시간 선택"
+                  description={`24년 12월 5일 11:00 - 11:30\n24년 12월 20일 09:00 - 09:30`}
+                />
               </Stack>
             </StyledProjectDetailCard>
           </Stack>

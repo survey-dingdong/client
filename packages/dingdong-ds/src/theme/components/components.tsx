@@ -1,6 +1,5 @@
 import { bottomNavigationActionClasses, ThemeOptions } from "@mui/material";
 import {
-  alertTitleClasses,
   linearProgressClasses,
   listItemButtonClasses,
   listItemTextClasses,
@@ -320,68 +319,6 @@ export const components: ThemeOptions["components"] = {
       },
       arrow: {
         color: "#212121",
-      },
-    },
-  },
-  MuiAlert: {
-    variants: [
-      {
-        props: { variant: "standard" },
-        style: ({ theme }) => ({
-          border: `1px solid ${theme.palette.divider}`,
-        }),
-      },
-      {
-        props: { severity: "success" },
-        style: ({ theme }) => ({
-          color: theme.palette.success.main,
-          [`& .${alertTitleClasses.root}`]: {
-            color: theme.palette.success.main,
-          },
-        }),
-      },
-      {
-        props: { severity: "info" },
-        style: ({ theme }) => ({
-          backgroundColor: theme.palette.status?.info,
-          color: theme.palette.info.main,
-          [`& .${alertTitleClasses.root}`]: {
-            color: theme.palette.info.main,
-            backgroundColor: theme.palette.status?.info,
-          },
-        }),
-      },
-      {
-        props: { severity: "warning" },
-        style: ({ theme }) => ({
-          color: theme.palette.warning.main,
-          [`& .${alertTitleClasses.root}`]: {
-            color: theme.palette.warning.main,
-          },
-        }),
-      },
-      {
-        props: { severity: "error" },
-        style: ({ theme }) => ({
-          color: theme.palette.error.main,
-          [`& .${alertTitleClasses.root}`]: {
-            color: theme.palette.error.main,
-          },
-        }),
-      },
-    ],
-    styleOverrides: {
-      root: {
-        borderRadius: 8,
-      },
-    },
-  },
-
-  MuiAlertTitle: {
-    styleOverrides: {
-      root: {
-        fontSize: 14,
-        fontWeight: 700,
       },
     },
   },
