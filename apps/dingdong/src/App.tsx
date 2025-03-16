@@ -1,7 +1,7 @@
 import { ThemeProvider } from "@mui/material";
 
 import "./App.css";
-import { BrowserRouter, Route, Routes } from "react-router";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./components/layout/Layout.tsx";
 import { createDingdongTheme } from "@dingdong/design-system";
 import {

@@ -20,8 +20,8 @@
     "build": "yarn workspace dingdong-api-client build && yarn build:research",
     "dingdong": "yarn workspace dingdong",
     "research": "yarn workspace dingdong-research",
-    "ds": "yarn workspace dingdong-ds",
-    "api-generate": "yarn workspace dingdong-api-client generate"
+    "ds": "yarn workspace @dingdong/design-system",
+    "api-generate": "yarn workspace @dingdong/api-client generate"
   },
   "browserslist": {
     "production": [

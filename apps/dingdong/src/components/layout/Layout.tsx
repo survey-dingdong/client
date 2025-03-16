@@ -2,7 +2,7 @@ import { Stack } from "@mui/material";
 import React from "react";
 import BottomNav from "./BottomNav";
 
-import { Outlet } from "react-router";
+import { Outlet } from "react-router-dom";
 
 interface LayoutProps {
   header?: React.ReactNode;

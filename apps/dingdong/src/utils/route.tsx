@@ -1,4 +1,4 @@
-import { RouteProps } from "react-router";
+import { RouteProps } from "react-router-dom";
 import Project from "../pages/Project";
 import { DefaultHeader } from "../components/layout";
 import ProjectDetail from "../pages/ProjectDetail";

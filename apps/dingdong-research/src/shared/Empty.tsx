@@ -43,7 +43,7 @@ export const Empty: React.FC<EmptyProps> = ({
 
       {/* title and description */}
       <Stack gap={0.5} alignItems="center">
-        <Typography variant="h5" fontWeight={800}>
+        <Typography variant="h5" fontWeight={600}>
           {title}
         </Typography>
         {description ? (

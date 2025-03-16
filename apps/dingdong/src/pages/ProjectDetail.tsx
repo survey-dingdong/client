@@ -27,7 +27,7 @@ const Puller = styled("div")(({ theme }) => ({
 }));
 
 const ProjectDetail = () => {
-  const [date, setDate] = useState<Dayjs[]>([]);
+  const [selectedDate, setSelectedDate] = useState<Dayjs>();
   const [showSuccessDrawer, setShowSuccessDrawer] = useState(false);
 
   const renderSuccessDrawer = () => {
@@ -127,14 +127,8 @@ const ProjectDetail = () => {
 
               {/* 캘린더 */}
               <DingdongDateCalendar
-                values={date}
-                onChange={(date) =>
-                  setDate((prev) =>
-                    prev.some((d) => d.isSame(date, "day"))
-                      ? prev.filter((d) => !d.isSame(date, "day"))
-                      : [...prev, date]
-                  )
-                }
+                value={selectedDate}
+                onChange={(date) => setSelectedDate(date)}
               />
 
               {/* 참여자 */}

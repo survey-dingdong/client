@@ -2,7 +2,7 @@ import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
 import { Icon } from "@dingdong/design-system";
 import React from "react";
 import { BOTTOM_NAVS } from "./_constants/bottomNav";
-import { NavLink } from "react-router";
+import { NavLink } from "react-router-dom";
 
 const BottomNav: React.FC = () => {
   const [selectedNav, setSelectedNav] = React.useState(0);

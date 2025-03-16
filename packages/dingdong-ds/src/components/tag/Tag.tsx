@@ -1,23 +1,24 @@
-import { Chip, ChipProps, StatusType } from "@mui/material";
+import { Chip, ChipProps, StatusType, useTheme } from "@mui/material";
 import React from "react";
-import { dingdongTheme } from "../../theme/createDingdongTheme";
 
 export interface TagProps extends Omit<ChipProps, "color"> {
   color?: keyof StatusType;
 }
 
 const Tag: React.FC<TagProps> = ({ color = "primary", ...props }) => {
+  const theme = useTheme();
+
   const getColor = () => {
     if (color === "inherit") {
       return {
-        bgcolor: dingdongTheme.palette.background.inherit,
-        color: dingdongTheme.palette.text.primary,
+        bgcolor: theme.palette.background.inherit,
+        color: theme.palette.text.primary,
       };
     }
 
     return {
-      bgcolor: dingdongTheme.palette.status?.[color],
-      color: dingdongTheme.palette[color].main,
+      bgcolor: theme.palette.status?.[color],
+      color: theme.palette[color].main,
     };
   };
 

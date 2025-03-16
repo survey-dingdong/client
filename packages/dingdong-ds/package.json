@@ -2,10 +2,10 @@
   "name": "@dingdong/design-system",
   "version": "0.0.1",
   "description": "Design system for DingDong",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.esm.js",
-  "browser": "dist/index.umd.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/dingdong-ds.umd.js",
+  "module": "dist/dingdong-ds.es.js",
+  "browser": "dist/dingdong-ds.umd.js",
+  "types": "dist/types/index.d.ts",
   "type": "module",
   "exports": {
     ".": {
@@ -29,10 +29,12 @@
   "resolutions": {
     "esbuild": "0.24.0"
   },
-  "dependencies": {
+  "peerDependencies": {
     "@mui/material": "^6.0.1",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "dependencies": {
     "vite-plugin-dts": "^4.3.0",
     "vite-plugin-svgr": "^4.2.0"
   },
@@ -42,6 +44,7 @@
     "@rollup/plugin-commonjs": "^28.0.3",
     "@rollup/plugin-node-resolve": "^16.0.0",
     "@rollup/plugin-typescript": "^12.1.2",
+    "@rollup/plugin-url": "^8.0.2",
     "@storybook/addon-essentials": "8.4.2",
     "@storybook/addon-interactions": "8.4.2",
     "@storybook/addon-links": "8.4.2",
