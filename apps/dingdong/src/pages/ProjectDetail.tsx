@@ -101,7 +101,7 @@ const ProjectDetail = () => {
                 sx={{ display: "inline-flex", gap: 2 }}
               >
                 <span>
-                  <Tag label="대면" size="small" />
+                  <Tag label="대면" />
                 </span>
                 프로젝트 이름
               </Typography>

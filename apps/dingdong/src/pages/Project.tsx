@@ -1,6 +1,6 @@
 import { Stack, Typography, Link as MuiLink } from "@mui/material";
 import React from "react";
-import { ProjectListItem } from "../components/projectListItem";
+import { ProjectListItem } from "../components/ProjectListItem";
 import { Link } from "react-router-dom";
 import { DefaultHeader } from "../components";
 import ContentLayout from "../components/layout/ContentLayout";

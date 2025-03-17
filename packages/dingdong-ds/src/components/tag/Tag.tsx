@@ -1,7 +1,13 @@
-import { Chip, ChipProps, StatusType, useTheme } from "@mui/material";
+import {
+  Chip,
+  chipClasses,
+  ChipProps,
+  StatusType,
+  useTheme,
+} from "@mui/material";
 import React from "react";
 
-export interface TagProps extends Omit<ChipProps, "color"> {
+export interface TagProps extends Omit<ChipProps, "color" | "size"> {
   color?: keyof StatusType;
 }
 
@@ -30,7 +36,14 @@ const Tag: React.FC<TagProps> = ({ color = "primary", ...props }) => {
     <Chip
       {...props}
       sx={{
+        fontSize: 10,
+        fontWeight: 600,
+        padding: "3px 8px",
         borderRadius: 1.5,
+        height: "auto",
+        [`& .${chipClasses.label}`]: {
+          padding: 0,
+        },
         ...getColor(),
         ...props.sx,
       }}

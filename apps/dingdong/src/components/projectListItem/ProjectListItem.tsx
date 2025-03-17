@@ -20,7 +20,7 @@ const ProjectListItem: React.FC = () => {
         <Stack gap={2}>
           {/* title */}
           <Stack flexDirection="row" gap={1} alignItems="center">
-            <Tag label="대면" size="small" />
+            <Tag label="대면" />
             <Typography color="text.secondary" variant="headline1">
               프로젝트 명
             </Typography>

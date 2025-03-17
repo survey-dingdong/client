@@ -1,7 +1,7 @@
 import type { Preview } from "@storybook/react";
 import React from "react";
 import { ThemeProvider } from "@mui/material";
-import { dingdongTheme } from "../src/theme/theme";
+import { dingdongTheme } from "../src/theme";
 
 const preview: Preview = {
   parameters: {
