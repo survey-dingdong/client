@@ -21,7 +21,15 @@ jobs:
 
       - name: Install dependencies
         run: |
-          yarn workspace dingdong install
+          yarn install
+
+      - name: Build @dingdong/design-system
+        run: |
+          yarn workspace @dingdong/design-system build
+
+      - name: Build @dingdong/api-client
+        run: |
+          yarn workspace @dingdong/api-client build
 
       - name: Build DinDong
         run: |
