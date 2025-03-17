@@ -132,7 +132,7 @@ const ProjectDetail = () => {
               {/* 참여자 */}
               <Stack pb={2.5} gap={2}>
                 <Stack gap={1.5}>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2Normal" color="text.secondary">
                     실험 참여 시간을 선택해 주세요.
                   </Typography>
                   <Stack

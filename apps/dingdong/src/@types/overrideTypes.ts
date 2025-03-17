@@ -5,7 +5,7 @@ import {
   Theme,
 } from "@mui/material/styles";
 import "@mui/system";
-import { TagProps } from "./components";
+import { TagProps } from "@dingdong/design-system";
 
 declare module "@mui/material/Typography" {
   interface TypographyPropsColorOverrides {
@@ -166,7 +166,6 @@ declare module "@mui/material/styles" {
     caption1: React.CSSProperties;
   }
 }
-
 // Update the Typography's variant prop options
 declare module "@mui/material/Typography" {
   interface TypographyPropsVariantOverrides {
