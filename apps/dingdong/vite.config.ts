@@ -21,7 +21,7 @@ export default defineConfig({
         name: "dingdong",
         short_name: "dingdong",
         description: "dingdong",
-        theme_color: "#ffffff",
+        theme_color: "#3F57FD",
       },
 
       workbox: {
