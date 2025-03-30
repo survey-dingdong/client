@@ -5,9 +5,6 @@ import path from "path";
 import dts from "vite-plugin-dts";
 
 export default defineConfig({
-  define: {
-    "process.env": process.env,
-  },
   plugins: [
     react(),
     svgr({

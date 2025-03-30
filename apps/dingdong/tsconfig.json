@@ -19,10 +19,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "typeRoots": ["./node_modules/@types", "./node_modules/@dingdong/design-system/src/@types"],
-    "paths": {
-      "@dingdong/design-system/*": ["./node_modules/@dingdong/design-system/src/*"]
-    }
+    "typeRoots": ["./node_modules/@types"],
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
