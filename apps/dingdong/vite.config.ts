@@ -7,6 +7,7 @@ export default defineConfig({
   define: {
     "process.platform": JSON.stringify(process.platform || "linux"),
   },
+  base: "/client/",
   plugins: [
     react(),
     VitePWA({

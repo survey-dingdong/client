@@ -20,7 +20,7 @@ function App() {
 
   return (
     <ThemeProvider theme={dingdongTheme}>
-      <BrowserRouter>
+      <BrowserRouter basename="/client">
         <Routes>
           <Route element={<Layout />}>
             <Route path="/" element={<Project />} index />
