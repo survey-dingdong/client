@@ -1,28 +1,28 @@
-name: Build Next.js (No Deployment)
+# name: Build Next.js (No Deployment)
 
-on:
-  push:
-    branches: ["main"]
-  workflow_dispatch:
+# on:
+#   push:
+#     branches: ["main"]
+#   workflow_dispatch:
 
-permissions:
-  contents: read
+# permissions:
+#   contents: read
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout Repository
+#         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: yarn
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: "20"
+#           cache: yarn
 
-      - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+#       - name: Install Dependencies
+#         run: yarn install --frozen-lockfile
 
-      - name: Build with Next.js
-        run: yarn research build
+#       - name: Build with Next.js
+#         run: yarn research build
